@@ -32,7 +32,7 @@
 
 - 目标仓库: repo-1
 - 目标模块: mall-bom/pom.xml
-- 预期变更: 新增 mall-bom（packaging=pom，父=backend）：dependencyManagement import spring-boot-dependencies 3.5.15、spring-cloud-dependencies 2025.0.3、spring-cloud-alibaba-dependencies 2025.0.0.0；直接管理 MyBatis-Plus BOM、MapStruct、Springdoc；Lombok 不声明（由 Boot BOM 托管）
+- 预期变更: 新增 mall-bom（packaging=pom，**无 parent**——避免与根 POM 的 import 形成模型循环，groupId/version 与根 POM 保持一致）：dependencyManagement import spring-boot-dependencies 3.5.15、spring-cloud-dependencies 2025.0.3、spring-cloud-alibaba-dependencies 2025.0.0.0；直接管理 MyBatis-Plus BOM、MapStruct、Springdoc；Lombok 不声明（由 Boot BOM 托管）
 - 验证方法: `mvn help:effective-pom -pl mall-bom` 核对三方 BOM 导入与首批依赖版本
 - 依赖: TASK-001
 - 预估变更: ~60 行
