@@ -1,0 +1,19 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.15)
+
+2026-08-28T22:45:59.832+08:00  INFO 46220 --- [mall-inventory] [           main] c.a.m.i.MallInventoryApplication         : Starting MallInventoryApplication using Java 21.0.12 with PID 46220 (D:\Desktop\ai-platform\implementation\ai-platform-backend\mall-services\mall-inventory\target\mall-inventory-1.0.0-SNAPSHOT.jar started by 2025 in D:\Desktop\ai-platform\implementation\ai-platform-backend)
+2026-08-28T22:45:59.838+08:00  INFO 46220 --- [mall-inventory] [           main] c.a.m.i.MallInventoryApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-08-28T22:46:00.587+08:00  INFO 46220 --- [mall-inventory] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8106 (http)
+2026-08-28T22:46:00.600+08:00  INFO 46220 --- [mall-inventory] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-28T22:46:00.601+08:00  INFO 46220 --- [mall-inventory] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-08-28T22:46:00.634+08:00  INFO 46220 --- [mall-inventory] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-08-28T22:46:00.636+08:00  INFO 46220 --- [mall-inventory] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 749 ms
+2026-08-28T22:46:00.909+08:00  INFO 46220 --- [mall-inventory] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8106 (http) with context path '/'
+2026-08-28T22:46:00.926+08:00  INFO 46220 --- [mall-inventory] [           main] c.a.m.i.MallInventoryApplication         : Started MallInventoryApplication in 1.498 seconds (process running for 1.819)

@@ -1,0 +1,19 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.15)
+
+2026-08-28T22:45:53.539+08:00  INFO 18924 --- [mall-product] [           main] c.a.mall.product.MallProductApplication  : Starting MallProductApplication using Java 21.0.12 with PID 18924 (D:\Desktop\ai-platform\implementation\ai-platform-backend\mall-services\mall-product\target\mall-product-1.0.0-SNAPSHOT.jar started by 2025 in D:\Desktop\ai-platform\implementation\ai-platform-backend)
+2026-08-28T22:45:53.637+08:00  INFO 18924 --- [mall-product] [           main] c.a.mall.product.MallProductApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-08-28T22:45:54.324+08:00  INFO 18924 --- [mall-product] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8103 (http)
+2026-08-28T22:45:54.340+08:00  INFO 18924 --- [mall-product] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-28T22:45:54.340+08:00  INFO 18924 --- [mall-product] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-08-28T22:45:54.381+08:00  INFO 18924 --- [mall-product] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-08-28T22:45:54.381+08:00  INFO 18924 --- [mall-product] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 710 ms
+2026-08-28T22:45:54.653+08:00  INFO 18924 --- [mall-product] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8103 (http) with context path '/'
+2026-08-28T22:45:54.668+08:00  INFO 18924 --- [mall-product] [           main] c.a.mall.product.MallProductApplication  : Started MallProductApplication in 1.525 seconds (process running for 1.827)
