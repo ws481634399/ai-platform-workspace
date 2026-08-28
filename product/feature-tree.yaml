@@ -1,0 +1,60 @@
+# OpenSpec Product Feature Tree
+#
+# 版本: v0.2
+# 类型: Product Knowledge Metadata
+#
+# 四级结构：Product → Module → Feature → Story
+# Story 为最小可实施单元，直接关联 CHG
+#
+# ID 规范：
+#   Module:  MOD-<DOMAIN>        如 MOD-USER
+#   Feature: FEAT-<MODULE>-<CAP> 如 FEAT-USER-AUTH
+#   Story:   STORY-<MODULE>-<ACT> 如 STORY-USER-REGISTER
+#
+# Story status: planned / in-progress / delivered
+
+product:
+  name: ""
+  description: ""
+
+# 产品能力树（modules → features → stories 三级）
+
+modules:
+  [
+    {
+        id: MOD-1,
+        name: 工程基础,
+        description: 工程结构、构建与版本治理等平台工程能力,
+        features:
+          [
+            {
+                id: FEAT-1,
+                name: Maven 工程与版本治理,
+                description: Maven 多模块结构、统一 Java 与 Spring 框架版本基线,
+                stories:
+                  [
+                    {
+                        id: STORY-1,
+                        name: 建立 Java Maven 多模块工程并统一版本基线,
+                        description: backend Maven 多模块 + mall-bom + Java 21 + Spring Boot/Cloud/Alibaba
+                          统一版本,
+                        status: planned
+                      }
+                  ]
+              }
+          ]
+      }
+  ]
+  # 示例：
+  # - id: MOD-USER
+  #   name: 用户中心
+  #   description: 用户注册、登录、个人中心
+  #   features:
+  #     - id: FEAT-USER-AUTH
+  #       name: 用户认证
+  #       description: 注册、登录、密码管理
+  #       stories:
+  #         - id: STORY-USER-REGISTER
+  #           name: 用户注册
+  #           description: 支持邮箱/手机号注册
+  #           status: planned

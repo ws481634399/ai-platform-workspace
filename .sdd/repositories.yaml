@@ -1,0 +1,30 @@
+# OpenSpec Repository Configuration
+#
+# 版本: v0.1
+# 类型: Repository Metadata
+#
+# 用于描述当前 Workspace 关联的代码仓库。
+
+# 仓库模式
+#
+# single:
+#   单仓库项目
+#
+# multi:
+#   多仓库项目
+
+mode: multi
+
+# 仓库列表
+#
+# single模式:
+#   通常只有一个repository
+#
+# multi模式:
+#   可以配置多个repository
+
+repositories:
+  - id: repo-1
+    path: . # ai-mall-platform Monorepo（backend 位于 backend/ 目录，见 CHG-0001 技术决策 3）
+  - id: repo-2
+    path: implementation/repo-2

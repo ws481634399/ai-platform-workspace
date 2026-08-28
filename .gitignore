@@ -1,0 +1,27 @@
+# 构建产物（Maven / 前端）
+target/
+dist/
+*.class
+
+# 依赖
+node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# 操作系统
+Thumbs.db
+.DS_Store
+
+# 日志
+*.log
+logs/
+
+# 本地环境配置（不入库）
+*.local
