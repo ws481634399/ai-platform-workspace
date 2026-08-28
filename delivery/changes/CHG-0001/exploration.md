@@ -3,7 +3,7 @@
 > Change: CHG-0001
 > 需求来源: ENG-BASE-001（M0，P0，工程基础需求）
 > Feature: STORY-1（Product → MOD-1 工程基础 → FEAT-1 Maven 工程与版本治理 → STORY-1 建立 Java Maven 多模块工程并统一版本基线）
-> 涉及仓库: repo-1（ai-mall-platform Monorepo，backend 位于 `backend/` 目录，见技术决策 3）
+> 涉及仓库: repo-1（后端 Monorepo `ai-platform-backend`，Maven 根=仓库根，见技术决策 3）
 > 匹配历史 Change: 无（首个 Change）
 > 复用决策: 新建 CHG-0001
 > is-new-candidate: 是（Feature Tree 原为空，经用户确认方案 A 后新建三级节点）
@@ -77,28 +77,30 @@
 - **现有功能影响：无**。`implementation/` 尚无代码，属绿地工程，本 Change 只新建 `backend/` 目录及 POM，不修改任何现有内容；
 - **数据迁移：无**；
 - **下游阻塞关系**：需求 §17 列出的统一响应、异常处理、TraceId、日志、OpenAPI、Flyway、Nacos 注册、MySQL/Redis 连接等 M0 后续需求均依赖本基线，本需求是 **M0 的阻塞型前置需求**；
-- **仓库归属**：repo-1 = ai-mall-platform Monorepo，`backend/` 位于仓库根（`.sdd/repositories.yaml` 已同步更新）。
+- **仓库归属**：repo-1 = 后端 Monorepo `ai-platform-backend`（独立 Git 仓库，Maven 根=仓库根），与 SDD 工作区（`ai-platform-workspace`）分离（`.sdd/repositories.yaml` 已同步更新）。
 
 ### 未知问题 → 技术决策（用户确认，2026-08-28）
 
 探索阶段提出的 6 个未知问题已全部由用户决策关闭：
 
-| #   | 决策项          | 决策                                                                                                                                                              | 关闭的未知问题 |
-| --- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| 1   | Java 基线       | Java 21                                                                                                                                                           | —              |
-| 2   | Spring 版本组合 | Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + Spring Cloud Alibaba 2025.0.0.0                                                                                      | 问题 1         |
-| 3   | 仓库策略        | 不拆独立 Git 仓库，ai-mall-platform 继续 Monorepo；SDD 使用 repo-1，backend 位于该仓库 `backend/` 目录                                                            | 问题 2         |
-| 4   | 微服务骨架      | mall-gateway 及 8 个业务服务均创建独立 Spring Boot Application 主类，能够独立打包和启动，M0 不实现业务功能                                                        | 问题 3         |
-| 5   | mall-common     | 一次建立全部 8 个规划子模块，M0 主要完成模块骨架和依赖边界，具体技术能力按后续 Requirement 逐步实现                                                               | 问题 4         |
-| 6   | mall-bom        | 导入 Spring Boot、Spring Cloud、Spring Cloud Alibaba BOM；第一批额外统一管理 MyBatis-Plus、MapStruct、Springdoc；Lombok 使用 Spring Boot BOM 管理版本，不重复声明 | 问题 5         |
-| 7   | Maven           | 使用 Maven 3.9+，不提交 Maven Wrapper                                                                                                                             | 问题 6         |
+| #   | 决策项          | 决策                                                                                                                                                                                                | 关闭的未知问题 |
+| --- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| 1   | Java 基线       | Java 21                                                                                                                                                                                             | —              |
+| 2   | Spring 版本组合 | Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + Spring Cloud Alibaba 2025.0.0.0                                                                                                                        | 问题 1         |
+| 3   | 仓库策略        | 【2026-08-28 修订】后端独立 Git 仓库 `ai-platform-backend`（Monorepo，Maven 根=仓库根）；SDD 工作区独立为 `ai-platform-workspace` 仓库；前端 M1 起另建仓库。原决策"不拆独立 Git 仓库"经用户复议作废 | 问题 2         |
+| 4   | 微服务骨架      | mall-gateway 及 8 个业务服务均创建独立 Spring Boot Application 主类，能够独立打包和启动，M0 不实现业务功能                                                                                          | 问题 3         |
+| 5   | mall-common     | 一次建立全部 8 个规划子模块，M0 主要完成模块骨架和依赖边界，具体技术能力按后续 Requirement 逐步实现                                                                                                 | 问题 4         |
+| 6   | mall-bom        | 导入 Spring Boot、Spring Cloud、Spring Cloud Alibaba BOM；第一批额外统一管理 MyBatis-Plus、MapStruct、Springdoc；Lombok 使用 Spring Boot BOM 管理版本，不重复声明                                   | 问题 5         |
+| 7   | Maven           | 使用 Maven 3.9+，不提交 Maven Wrapper                                                                                                                                                               | 问题 6         |
 
 ### 对后续阶段的输入
 
 - 设计阶段（sdd-specify/sdd-design）以决策 2 的版本组合为技术基线，`mall-bom` 按决策 6 组织 dependencyManagement；
 - 决策 4 意味着 AC-02（全量构建）与 AC-10（独立打包）在 M0 即可以 9 个可启动应用验证；
 - 决策 5 与需求 §17 一致：mall-common 子模块 M0 只建骨架与依赖边界，不提前实现技术能力；
-- 仓库配置已同步：`.sdd/repositories.yaml` 中 repo-1 指向 Monorepo 根。
+- 仓库配置已同步：`.sdd/repositories.yaml` 中 repo-1 指向 `../ai-platform-backend`（后端独立仓库）。
+
+> **修订记录（2026-08-28）**：原技术决策 3 为"后端不拆独立 Git 仓库，backend 位于 ai-mall-platform 的 backend/ 目录"。实施前用户复议仓库治理策略，确定"工作区与代码仓分离"：SDD 工作区独立为 `ai-platform-workspace` 仓库，后端独立为 `ai-platform-backend` 仓库（Maven 根=仓库根）。原 ai-mall-platform 目录为废弃版本，不作为实现参考。本修订同步更新 design.md 与 tasks.md。
 
 ---
 

@@ -17,21 +17,22 @@
 本 Change 为绿地工程：`implementation/` 下仅有说明文档，无任何现有代码，因此不存在需要兼容的既有架构；但目标架构已在知识库中定义（product/08-系统与微服务架构.md：DDD 分层 + Spring Cloud Alibaba 微服务 + Python AI 服务），本设计的职责是把该架构决策落实为 Maven 工程基线。
 
 - 当前架构模式: 绿地工程（无代码）；目标模式 = Spring Cloud Alibaba 微服务 + 模块内 DDD 分层
-- 相关仓库: repo-1（ai-mall-platform Monorepo，backend 位于 `backend/` 目录）
-- 相关模块: backend/（24 个 Maven 项目全部新建）
+- 相关仓库: repo-1（后端 Monorepo `ai-platform-backend`，独立 Git 仓库，Maven 根=仓库根，见 exploration 技术决策 3 修订）
+- 相关模块: 仓库根下 24 个 Maven 项目全部新建（mall-bom / mall-common / mall-contracts / mall-gateway / mall-services 及其子模块）
 
 **技术基线（用户已锁定）：** Java 21 / Maven 3.9+（不提交 Wrapper）/ Spring Boot 3.5.15 / Spring Cloud 2025.0.3 / Spring Cloud Alibaba 2025.0.0.0 / MyBatis-Plus（版本治理首批）。
 
 ## 2. 提议方案
 
-- 方案概要: 四层 POM 聚合体系——`backend/pom.xml` 根聚合（守门与编译治理）→ `mall-bom`（唯一版本权威，packaging=pom）→ `mall-common` / `mall-contracts`（技术层与契约层，packaging=pom）→ `mall-services`（8 个可独立打包启动的 Spring Boot 应用骨架）+ `mall-gateway`。M0 全部模块为"可构建骨架"：POM + 包结构 + 应用模块最小启动类，不实现业务与技术能力
+- 方案概要: 四层 POM 聚合体系——仓库根 `pom.xml` 根聚合（守门与编译治理）→ `mall-bom`（唯一版本权威，packaging=pom）→ `mall-common` / `mall-contracts`（技术层与契约层，packaging=pom）→ `mall-services`（8 个可独立打包启动的 Spring Boot 应用骨架）+ `mall-gateway`。M0 全部模块为"可构建骨架"：POM + 包结构 + 应用模块最小启动类，不实现业务与技术能力
 - 关键组件: 根 POM / mall-bom / mall-common(8) / mall-contracts(2) / mall-gateway / mall-services(8)
 - 接口契约: 本 Change 无业务 API；工程契约见 §2.6（构建命令、模块命名、依赖方向）
 
 ### 2.1 POM 层级与模块清单（24 个 Maven 项目）
 
 ```text
-backend/                                    # 根 POM（com.ai-mall:backend:1.0.0-SNAPSHOT, pom）
+ai-platform-backend/                        # 仓库根 = Maven 根（com.ai-mall:backend:1.0.0-SNAPSHOT, pom）
+├── .gitignore
 ├── pom.xml                                 # 聚合 + 编译/插件/enforcer 治理
 ├── mall-bom/pom.xml                        # 版本权威（pom）
 ├── mall-common/pom.xml                     # 聚合（pom，父=backend）
@@ -58,7 +59,7 @@ backend/                                    # 根 POM（com.ai-mall:backend:1.0.
     └── mall-system/
 ```
 
-### 2.2 根 POM（backend/pom.xml）设计
+### 2.2 根 POM（仓库根 pom.xml）设计
 
 | 关注点 | 设计 |
 |---|---|
@@ -122,16 +123,16 @@ M0 子模块 POM 只声明其**定位所需**的依赖（版本全部由 BOM 提
 repos-involved: repo-1
 
 - 受影响仓库数: 1
-- 主要修改点: 仅 repo-1（Monorepo）新增 `backend/` 目录，无任何现有文件修改
+- 主要修改点: 仅 repo-1（ai-platform-backend，独立仓库）从零初始化，Maven 根=仓库根，无任何现有文件修改
 
 | 仓库 | 模块 | 文件数（估算） | 变更类型 |
 |------|------|--------|---------|
-| repo-1 | backend/*.xml（24 个 POM） | 24 | 新增 |
-| repo-1 | backend/ 应用启动类（9 个 Application） | 9 | 新增 |
-| repo-1 | backend/ application.yml（9 个） | 9 | 新增 |
-| repo-1 | backend/ 包结构占位（.gitkeep 或 package-info） | ~13 | 新增 |
-| repo-1 | backend/README.md（构建说明 + JDK 21/Maven 3.9 要求） | 1 | 新增 |
-| repo-1 | 根 .gitignore（target/ 等） | 1 | 新增 |
+| repo-1 | *.xml（24 个 POM，根 POM 位于仓库根） | 24 | 新增 |
+| repo-1 | 应用启动类（9 个 Application） | 9 | 新增 |
+| repo-1 | application.yml（9 个） | 9 | 新增 |
+| repo-1 | 包结构占位（package-info） | ~13 | 新增 |
+| repo-1 | README.md（构建说明 + JDK 21/Maven 3.9 要求） | 1 | 新增 |
+| repo-1 | .gitignore（target/ 等） | 1 | 新增 |
 
 合计约 57 个新增文件，0 个修改/删除。
 
@@ -150,7 +151,7 @@ repos-involved: repo-1
 | 版本组合兼容性（Boot 3.5.15 + Cloud 2025.0.3 + SCA 2025.0.0.0） | 中 | 实现阶段以 `mvn dependency:tree` 与全量编译实测验证；发现冲突时按用户决策 2 为基线协调，必要时记录显式例外并回报 |
 | mall-common-mq 的 starter 选型（rocketmq 官方 starter vs spring-cloud-stream-rocketmq） | 低 | M0 仅骨架依赖，实现阶段按 08-架构 的集成方式定夺并保持 BOM 管版本 |
 | Lombok 依赖 Boot BOM 版本、注解处理器在 Java 21 下的生效性 | 低 | 编译验证（mapstruct/lombok annotation processor 顺序问题留待实际使用时处理，M0 无映射代码） |
-| enforcer 使 CI/新环境构建失败 | 中 | 失败信息即"明确构建失败"的需求语义（PRD 规则 3/4）；backend/README 标注 JDK 21 + Maven 3.9+ 环境要求 |
+| enforcer 使 CI/新环境构建失败 | 中 | 失败信息即"明确构建失败"的需求语义（PRD 规则 3/4）；README 标注 JDK 21 + Maven 3.9+ 环境要求 |
 | 9 个空应用启动的端口冲突 | 低 | §2.5 端口规划（8080 + 8101~8108），互不冲突 |
 | "多模块退化为单体"（repackage 缺失或误配） | 中 | pluginManagement 统一 + 每应用模块显式绑定 repackage；AC-10 验收时逐一验证独立 Jar 可启动 |
 

@@ -25,6 +25,6 @@ mode: multi
 
 repositories:
   - id: repo-1
-    path: . # ai-mall-platform Monorepo（backend 位于 backend/ 目录，见 CHG-0001 技术决策 3）
+    path: ../ai-platform-backend # 后端 Monorepo（Maven 根=仓库根），远程 github.com/ws481634399/ai-platform-backend.git，见 CHG-0001 技术决策 3（2026-08-28 修订）
   - id: repo-2
-    path: implementation/repo-2
+    path: ../ai-platform-frontend # 前端仓库预留（M1 建立时启用）

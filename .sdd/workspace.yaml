@@ -9,7 +9,7 @@ workspace:
 
   # Workspace名称
   # 初始化时由项目名称生成
-  name: "ai-platform"
+  name: "ai-platform-workspace"
 
   # Workspace类型
   #
