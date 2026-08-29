@@ -1,7 +1,8 @@
 # Product 知识索引
 
-> 最后更新: 2026-08-28T00:00:00Z
-> 关联 Change: 无（能力 B 独立归档：docs/项目文件 设计文档集）
+> 最后更新: 2026-08-29T16:30:00Z
+> 关联 Change: CHG-0001（STORY-1 delivered：系统与微服务架构 §5 双仓结构修订）
+> 能力 B 独立归档来源: docs/项目文件 设计文档集
 
 ## 导航
 
@@ -28,7 +29,7 @@
 
 ## 技术架构与契约
 
-- [系统与微服务架构](08-系统与微服务架构.md) — 系统分层、前端架构、Java 微服务拆分与 DDD 分层、Nacos/Redis/RocketMQ/ES/MinIO 职责与 Python AI 服务架构
+- [系统与微服务架构](08-系统与微服务架构.md) — **（CHG-0001 已同步 §5 双仓结构修订）** 系统分层、前端架构、Java 微服务拆分与 DDD 分层、Nacos/Redis/RocketMQ/ES/MinIO 职责与 Python AI 服务架构；含工作区仓 ai-platform-workspace + 后端独立仓 ai-platform-backend 的落地说明
 - [数据库设计](09-数据库设计.md) — 数据库划分、微服务数据归属、核心表结构、索引、约束、审计字段、消息表与数据迁移设计
 - [API 与事件契约](10-API与事件契约.md) — 统一 REST API 命名、接口边界、响应结构、错误码、幂等协议与 RocketMQ 事件契约
 

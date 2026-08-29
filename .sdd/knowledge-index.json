@@ -1,12 +1,12 @@
 {
   "$schema": "sdd-knowledge-index/v0.1",
-  "updated-at": "2026-08-28T00:00:00Z",
+  "updated-at": "2026-08-29T16:30:00Z",
   "standards": [
     {
       "title": "规则知识说明",
       "path": "standards/README.md",
-      "tags": [],
-      "summary": "Workspace 规则世界的目的、结构和使用指南",
+      "tags": ["standards", "overview", "workspace"],
+      "summary": "OpenSpec Workspace 中 Standards 世界的职责、内容范围和管理规则，用于保存工程规范",
       "related-changes": []
     },
     {
@@ -41,7 +41,196 @@
       "title": "安全指南",
       "path": "standards/security-guidelines.md",
       "tags": ["security", "owasp", "auth", "crypto", "input-validation"],
-      "summary": "输入校验、认证授权、密码存储、数据保护、OWASP Top 10",
+      "summary": "基于 OWASP Top 10，定义输入校验、认证授权、数据保护与加密存储的安全要求",
+      "related-changes": []
+    },
+    {
+      "title": "工程规范总入口",
+      "path": "standards/engineering/README.md",
+      "tags": ["engineering", "index", "backend", "frontend", "ai"],
+      "summary": "OpenSpec Workspace 工程规范的总入口，定义技术约束与工程实践，建立统一软件工程标准",
+      "related-changes": []
+    },
+    {
+      "title": "代码规范（工程）",
+      "path": "standards/engineering/coding-standard.md",
+      "tags": ["code", "engineering", "maintenance"],
+      "summary": "软件开发过程中的代码质量和代码维护规范，适用于全技术栈",
+      "related-changes": []
+    },
+    {
+      "title": "API 规范（工程）",
+      "path": "standards/engineering/api-standard.md",
+      "tags": ["api", "engineering", "design"],
+      "summary": "软件系统 API 设计和管理规范，覆盖接口命名、版本、错误、鉴权与文档",
+      "related-changes": []
+    },
+    {
+      "title": "数据库规范（工程）",
+      "path": "standards/engineering/database-standard.md",
+      "tags": ["database", "engineering", "migration"],
+      "summary": "软件项目中数据库设计、变更、迁移和维护规范，含核心表与消息表设计原则",
+      "related-changes": []
+    },
+    {
+      "title": "测试规范（工程）",
+      "path": "standards/engineering/testing-standard.md",
+      "tags": ["testing", "engineering", "qa"],
+      "summary": "软件开发过程中的测试要求、验证流程和测试证据管理规范",
+      "related-changes": []
+    },
+    {
+      "title": "后端工程规范入口",
+      "path": "standards/engineering/backend/README.md",
+      "tags": ["backend", "engineering", "index"],
+      "summary": "后端系统开发过程中的通用工程规范，指导架构/接口/DAL/服务/框架的一致性",
+      "related-changes": []
+    },
+    {
+      "title": "后端架构规范",
+      "path": "standards/engineering/backend/architecture-standard.md",
+      "tags": ["backend", "architecture", "microservices"],
+      "summary": "后端系统架构设计规范，覆盖分层、模块、通信、配置与扩展点",
+      "related-changes": []
+    },
+    {
+      "title": "后端框架使用规范",
+      "path": "standards/engineering/backend/framework-standard.md",
+      "tags": ["backend", "framework", "spring-boot", "spring-cloud", "maven", "version-governance"],
+      "summary": "后端技术框架、基础设施组件和工程配置使用规范；CHG-0001 晋升：Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线、四层 POM 体系、mall-bom 无 parent、enforcer 守门、BOM 版本权威与依赖单向边界",
+      "related-changes": ["CHG-0001"]
+    },
+    {
+      "title": "后端接口设计规范",
+      "path": "standards/engineering/backend/api-design-standard.md",
+      "tags": ["backend", "api", "rest", "design"],
+      "summary": "后端 API 接口实现规范，涵盖资源命名、幂等、错误码、版本与文档",
+      "related-changes": []
+    },
+    {
+      "title": "后端数据库访问规范",
+      "path": "standards/engineering/backend/database-access-standard.md",
+      "tags": ["backend", "database", "dal", "mybatis"],
+      "summary": "后端系统数据库访问层的设计和实现规范，含事务、缓存、分页与审计",
+      "related-changes": []
+    },
+    {
+      "title": "后端服务设计规范",
+      "path": "standards/engineering/backend/service-standard.md",
+      "tags": ["backend", "service", "ddd", "business-logic"],
+      "summary": "后端服务层设计规范，覆盖领域服务、应用服务、事务边界与异常处理",
+      "related-changes": []
+    },
+    {
+      "title": "前端工程规范入口",
+      "path": "standards/engineering/frontend/README.md",
+      "tags": ["frontend", "engineering", "index", "vue"],
+      "summary": "前端工程开发过程中的通用技术规范，覆盖代码、组件、路由、状态与性能",
+      "related-changes": []
+    },
+    {
+      "title": "前端代码规范",
+      "path": "standards/engineering/frontend/coding-standard.md",
+      "tags": ["frontend", "code", "vue"],
+      "summary": "前端项目代码开发规范，覆盖命名、格式化、Lint 与文件组织",
+      "related-changes": []
+    },
+    {
+      "title": "前端组件设计规范",
+      "path": "standards/engineering/frontend/component-standard.md",
+      "tags": ["frontend", "component", "design", "reuse"],
+      "summary": "前端组件设计、拆分、复用和维护规范，保证组件边界和可组合性",
+      "related-changes": []
+    },
+    {
+      "title": "前端路由规范",
+      "path": "standards/engineering/frontend/router-standard.md",
+      "tags": ["frontend", "router", "permission"],
+      "summary": "前端应用路由设计、组织、权限控制和维护规范，含路由守卫与菜单",
+      "related-changes": []
+    },
+    {
+      "title": "前端状态管理规范",
+      "path": "standards/engineering/frontend/state-management-standard.md",
+      "tags": ["frontend", "state", "pinia", "vuex"],
+      "summary": "前端应用中状态管理的设计原则、使用规范和维护要求",
+      "related-changes": []
+    },
+    {
+      "title": "前端性能规范",
+      "path": "standards/engineering/frontend/performance-standard.md",
+      "tags": ["frontend", "performance", "optimization"],
+      "summary": "前端性能设计、开发和优化规范，覆盖资源加载、渲染与缓存策略",
+      "related-changes": []
+    },
+    {
+      "title": "AI 应用工程规范入口",
+      "path": "standards/engineering/ai/README.md",
+      "tags": ["ai", "engineering", "index", "agent"],
+      "summary": "AI 应用开发过程中的工程规范，覆盖 Agent/Prompt/Tool/Knowledge/Evaluation",
+      "related-changes": []
+    },
+    {
+      "title": "AI Agent 设计规范",
+      "path": "standards/engineering/ai/agent-standard.md",
+      "tags": ["ai", "agent", "llm", "design"],
+      "summary": "AI Agent 的设计、实现和运行规范，覆盖工具、记忆、规划与评估闭环",
+      "related-changes": []
+    },
+    {
+      "title": "Prompt 工程规范",
+      "path": "standards/engineering/ai/prompt-standard.md",
+      "tags": ["ai", "prompt", "llm"],
+      "summary": "AI 应用中 Prompt 的设计、管理和维护规范，含模板化与版本治理",
+      "related-changes": []
+    },
+    {
+      "title": "Tool Calling 规范",
+      "path": "standards/engineering/ai/tool-calling-standard.md",
+      "tags": ["ai", "tool-calling", "function-calling"],
+      "summary": "AI Agent 调用外部工具（Tool Calling）的设计、实现和管理规范",
+      "related-changes": []
+    },
+    {
+      "title": "AI 知识管理规范",
+      "path": "standards/engineering/ai/knowledge-standard.md",
+      "tags": ["ai", "knowledge", "rag"],
+      "summary": "AI 应用中的知识管理规范，覆盖知识库构建、索引、检索与更新",
+      "related-changes": []
+    },
+    {
+      "title": "AI 评估规范",
+      "path": "standards/engineering/ai/evaluation-standard.md",
+      "tags": ["ai", "evaluation", "testing"],
+      "summary": "AI 应用能力的评估、测试和持续优化规范，含指标体系与回归基线",
+      "related-changes": []
+    },
+    {
+      "title": "SDD Standards 入口",
+      "path": "standards/sdd/README.md",
+      "tags": ["sdd", "workflow", "index"],
+      "summary": "OpenSpec 规范驱动开发（SDD）标准目录入口，定义 AI 辅助软件过程的通用规则",
+      "related-changes": []
+    },
+    {
+      "title": "Change Lifecycle Standard",
+      "path": "standards/sdd/change-lifecycle.md",
+      "tags": ["sdd", "lifecycle", "change-management"],
+      "summary": "Change 生命周期管理规则，从需求到归档的受控软件演进过程定义",
+      "related-changes": []
+    },
+    {
+      "title": "Knowledge Management Standard",
+      "path": "standards/sdd/knowledge-management.md",
+      "tags": ["sdd", "knowledge", "indexing"],
+      "summary": "项目知识的创建、管理、更新与治理规则，保证 AI Agent 理解上下文与知识演进",
+      "related-changes": []
+    },
+    {
+      "title": "Skill Execution Standard",
+      "path": "standards/sdd/skill-execution.md",
+      "tags": ["sdd", "skill", "agent-execution"],
+      "summary": "OpenSpec Skill 的执行规则与标准化，保证 AI Coding Agent 对软件工程活动的一致产出",
       "related-changes": []
     }
   ],
@@ -49,7 +238,7 @@
     {
       "title": "产品知识说明",
       "path": "product/README.md",
-      "tags": [],
+      "tags": ["product", "overview"],
       "summary": "Workspace 产品世界的目的、结构和使用指南",
       "related-changes": []
     },
@@ -112,9 +301,9 @@
     {
       "title": "系统与微服务架构",
       "path": "product/08-系统与微服务架构.md",
-      "tags": ["architecture", "microservices", "spring-cloud", "gateway"],
-      "summary": "系统分层、前端架构、Java 微服务拆分与 DDD 分层、Nacos/Redis/RocketMQ/ES/MinIO 职责与 Python AI 服务架构",
-      "related-changes": []
+      "tags": ["architecture", "microservices", "spring-cloud", "gateway", "repository-layout"],
+      "summary": "系统分层、前端架构、Java 微服务拆分与 DDD 分层、Nacos/Redis/RocketMQ/ES/MinIO 职责与 Python AI 服务架构；CHG-0001 同步 §5 双仓结构：工作区仓 ai-platform-workspace + 后端独立仓 ai-platform-backend（Maven 根=仓库根）",
+      "related-changes": ["CHG-0001"]
     },
     {
       "title": "数据库设计",

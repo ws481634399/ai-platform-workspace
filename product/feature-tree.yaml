@@ -38,7 +38,7 @@ modules:
                         name: 建立 Java Maven 多模块工程并统一版本基线,
                         description: backend Maven 多模块 + mall-bom + Java 21 + Spring Boot/Cloud/Alibaba
                           统一版本,
-                        status: planned
+                        status: delivered
                       }
                   ]
               }

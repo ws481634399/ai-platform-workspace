@@ -6,44 +6,219 @@
 # 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
 # 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
 # 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
-#
-# 条目结构（按 type 区分必填字段）：
-#
-# ---- type: code-change ----
-# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
-#   type: code-change
-#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
-#   commit: 23fdb62            # 必填，commit 短 sha（小写）
-#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
-#   reason: 实现注册服务        # 必填，为什么改
-#   files:                     # 必填（可为空数组），修改文件清单
-#     - path: src/services/auth/register.js
-#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
-#   recorded-at: ""            # ISO8601
-#
-# ---- type: test-run ----
-# - id: EV-002
-#   type: test-run
-#   command: npm test          # 必填，执行命令
-#   result: passed             # 必填，passed / failed / partial
-#   summary:                   # 必填（对象）
-#     total: 0
-#     passed: 0
-#     failed: 0
-#     skipped: 0
-#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
-#   covers: [AC-1, AC-2]       # 必填（可为空数组），覆盖的 PRD 验收标准
-#   recorded-at: ""
-#
-# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
-# - id: EV-003
-#   type: review-finding
-#   target: prd.md#AC-3        # 必填，指向被检查对象
-#   severity: major            # 必填，blocker / major / minor
-#   finding: 设计与实现不一致   # 必填
-#   resolution: ""             # 可选，处理结论
-#   recorded-at: ""
 
-version: 0.1 # schema 版本
-change-id: "CHG-0001" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+version: 0.1
+change-id: "CHG-0001"
+
+items:
+  # -------- sdd-dev 阶段 code-change（与 commits.md / changeset.md 1:1 对应） --------
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 14c6db0
+    task: TASK-001
+    reason: 创建后端 Maven 多模块工程的根聚合 POM，统一坐标、聚合入口、编译基线（Java 21）、enforcer 守门（JDK 21 / Maven 3.9+）与公共 plugin 版本
+    files:
+      - path: pom.xml
+      - path: .gitignore
+    recorded-at: "2026-08-28T20:36:00+08:00"
+
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    commit: 9babc0f
+    task: TASK-002
+    reason: 创建 mall-bom 作为唯一版本权威；有意不设 parent 以避免根 POM 的 import 形成 Maven 模型循环；导入 Spring Boot 3.5.15 / Cloud 2025.0.3 / SCA 2025.0.0.0，并首批管理 MyBatis-Plus / MapStruct / Springdoc
+    files:
+      - path: mall-bom/pom.xml
+    recorded-at: "2026-08-28T20:40:00+08:00"
+
+  - id: EV-003
+    type: code-change
+    repo: repo-1
+    commit: d0421c2
+    task: TASK-003
+    reason: 创建 mall-common 聚合与 8 个技术子模块骨架（core/web/security/redis/mq/openfeign/log/test），各模块按 design §2.4 声明定位依赖、不写 version；建立 com.ai.mall.common.* 包占位
+    files:
+      - path: mall-common/pom.xml
+      - path: mall-common/mall-common-core/pom.xml
+      - path: mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/package-info.java
+      - path: mall-common/mall-common-web/pom.xml
+      - path: mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/package-info.java
+      - path: mall-common/mall-common-security/pom.xml
+      - path: mall-common/mall-common-security/src/main/java/com/ai/mall/common/security/package-info.java
+      - path: mall-common/mall-common-redis/pom.xml
+      - path: mall-common/mall-common-redis/src/main/java/com/ai/mall/common/redis/package-info.java
+      - path: mall-common/mall-common-mq/pom.xml
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/package-info.java
+      - path: mall-common/mall-common-openfeign/pom.xml
+      - path: mall-common/mall-common-openfeign/src/main/java/com/ai/mall/common/openfeign/package-info.java
+      - path: mall-common/mall-common-log/pom.xml
+      - path: mall-common/mall-common-log/src/main/java/com/ai/mall/common/log/package-info.java
+      - path: mall-common/mall-common-test/pom.xml
+      - path: mall-common/mall-common-test/src/test/java/com/ai/mall/common/test/package-info.java
+    recorded-at: "2026-08-28T20:46:00+08:00"
+
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    commit: 94629ad
+    task: TASK-004
+    reason: 创建 mall-contracts 聚合与 mall-api-contracts、mall-event-contracts 两个契约子模块（零第三方依赖，纯 DTO/事件定位）
+    files:
+      - path: mall-contracts/pom.xml
+      - path: mall-contracts/mall-api-contracts/pom.xml
+      - path: mall-contracts/mall-api-contracts/src/main/java/com/ai/mall/api/package-info.java
+      - path: mall-contracts/mall-event-contracts/pom.xml
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/package-info.java
+    recorded-at: "2026-08-28T20:52:00+08:00"
+
+  - id: EV-005
+    type: code-change
+    repo: repo-1
+    commit: 84cd1f5
+    task: TASK-005
+    reason: 创建 mall-gateway 独立 Spring Boot 应用骨架（Spring Cloud Gateway、server.port=8080），绑定 repackage 以生成可执行 Fat Jar
+    files:
+      - path: mall-gateway/pom.xml
+      - path: mall-gateway/src/main/java/com/ai/mall/gateway/MallGatewayApplication.java
+      - path: mall-gateway/src/main/resources/application.yml
+    recorded-at: "2026-08-28T20:56:00+08:00"
+
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    commit: f49c30f
+    task: TASK-006
+    reason: 创建 mall-services 聚合与 8 个业务服务 POM（identity/member/product/cart/order/inventory/search/system），统一依赖 spring-boot-starter-web 并绑定 repackage
+    files:
+      - path: mall-services/pom.xml
+      - path: mall-services/mall-identity/pom.xml
+      - path: mall-services/mall-member/pom.xml
+      - path: mall-services/mall-product/pom.xml
+      - path: mall-services/mall-cart/pom.xml
+      - path: mall-services/mall-order/pom.xml
+      - path: mall-services/mall-inventory/pom.xml
+      - path: mall-services/mall-search/pom.xml
+      - path: mall-services/mall-system/pom.xml
+    recorded-at: "2026-08-28T21:00:00+08:00"
+
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    commit: dfed84f
+    task: TASK-007
+    reason: 补齐 8 个服务的独立 Application 启动类（@SpringBootApplication）与最小 application.yml（端口 8101~8108 顺序分配，spring.application.name 匹配 service 名）
+    files:
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/MallIdentityApplication.java
+      - path: mall-services/mall-identity/src/main/resources/application.yml
+      - path: mall-services/mall-member/src/main/java/com/ai/mall/member/MallMemberApplication.java
+      - path: mall-services/mall-member/src/main/resources/application.yml
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/MallProductApplication.java
+      - path: mall-services/mall-product/src/main/resources/application.yml
+      - path: mall-services/mall-cart/src/main/java/com/ai/mall/cart/MallCartApplication.java
+      - path: mall-services/mall-cart/src/main/resources/application.yml
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/MallOrderApplication.java
+      - path: mall-services/mall-order/src/main/resources/application.yml
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/MallInventoryApplication.java
+      - path: mall-services/mall-inventory/src/main/resources/application.yml
+      - path: mall-services/mall-search/src/main/java/com/ai/mall/search/MallSearchApplication.java
+      - path: mall-services/mall-search/src/main/resources/application.yml
+      - path: mall-services/mall-system/src/main/java/com/ai/mall/system/MallSystemApplication.java
+      - path: mall-services/mall-system/src/main/resources/application.yml
+    recorded-at: "2026-08-28T21:06:00+08:00"
+
+  - id: EV-008
+    type: code-change
+    repo: repo-1
+    commit: 1c054b1
+    task: TASK-008
+    reason: 构建修复：mall-common-mq 错误使用 com.alibaba.cloud:rocketmq-spring-boot-starter（SCA 2025.0.0.0 BOM 不管理该坐标），改为 design §2.4 首选的 com.alibaba.cloud:spring-cloud-starter-stream-rocketmq（SCA BOM 受管版本 2025.0.0.0）；同步 gitignore 增加沙箱临时本地仓库 .m2-repo/
+    files:
+      - path: mall-common/mall-common-mq/pom.xml
+      - path: .gitignore
+    recorded-at: "2026-08-28T21:30:00+08:00"
+
+  - id: EV-009
+    type: code-change
+    repo: repo-1
+    commit: 350304b
+    task: TASK-011
+    reason: 新增后端仓库根 README（技术基线、24 模块结构与端口、常用构建命令、版本治理约定与依赖边界）
+    files:
+      - path: README.md
+    recorded-at: "2026-08-29T00:10:00+08:00"
+
+  - id: EV-010
+    type: code-change
+    repo: workspace
+    commit: 9e7005c
+    task: TASK-011
+    reason: Workspace 侧证据归档：build-evidence.md（AC-1~11 实测）、changeset.md、commits.md、full-build.log、启动日志、依赖树等 19 文件；修正 .sdd/repositories.yaml repo-1 路径为 implementation/ai-platform-backend；.gitignore 增加 evidence/logs 入库例外
+    files:
+      - path: delivery/changes/CHG-0001/evidence/build-evidence.md
+      - path: delivery/changes/CHG-0001/evidence/changeset.md
+      - path: delivery/changes/CHG-0001/evidence/commits.md
+      - path: delivery/changes/CHG-0001/evidence/logs/full-build.log
+      - path: delivery/changes/CHG-0001/evidence/logs/maven-java-version.txt
+      - path: delivery/changes/CHG-0001/evidence/logs/apps-dependency-tree.txt
+      - path: delivery/changes/CHG-0001/evidence/logs/mq-dependency-tree.txt
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-gateway.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-identity.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-member.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-product.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-cart.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-order.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-inventory.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-search.out.log
+      - path: delivery/changes/CHG-0001/evidence/logs/startup/mall-system.out.log
+      - path: delivery/changes/CHG-0001/implementation.md
+      - path: .sdd/repositories.yaml
+      - path: .gitignore
+    recorded-at: "2026-08-29T00:25:00+08:00"
+
+  # -------- sdd-test 阶段 test-run（覆盖 AC-1~11） --------
+  - id: EV-100
+    type: test-run
+    command: mvn clean package -DskipTests -B "-Dmaven.repo.local=<repo>\.m2-repo"（沙箱禁写默认本地仓库 D:\maven-repository 时的等价位；结果与默认缓存相同）
+    result: passed
+    summary:
+      total: 24
+      passed: 24
+      failed: 0
+      skipped: 0
+    log: evidence/logs/full-build.log
+    covers: [AC-1, AC-2, AC-9]
+    recorded-at: "2026-08-29T00:05:00+08:00"
+
+  - id: EV-101
+    type: test-run
+    command: >-
+      1) mvn help:effective-pom → compiler.release=21 一致性核对；
+      2) enforcer 反例（收紧 requireJavaVersion 为 [21.1,)）→ mvn validate → 显式失败并输出中文提示，再恢复 [21,22) → mvn validate 通过；
+      3) mvn dependency:tree（9 应用 + mq 模块）→ 提取 Spring Boot/Cloud/SCA 版本，核对唯一
+      4) 源码/配置审计：grep 业务类关键字/依赖 version/敏感信息
+    result: passed
+    summary:
+      total: 9
+      passed: 9
+      failed: 0
+      skipped: 0
+    log: evidence/build-evidence.md（含留档路径 logs/apps-dependency-tree.txt、logs/mq-dependency-tree.txt、logs/enforcer-*.txt；反例日志在 evidence/logs/ 下）
+    covers: [AC-3, AC-4, AC-5, AC-6, AC-7, AC-8]
+    recorded-at: "2026-08-29T00:08:00+08:00"
+
+  - id: EV-102
+    type: test-run
+    command: >-
+      9 个 Fat Jar 逐一 java -jar 启动，检测日志 "Started XxxApplication" 后停止；
+      并核对 target/*.jar 大小（gateway≈36MB、services 各≈21MB），确认非单体产出
+    result: passed
+    summary:
+      total: 9
+      passed: 9
+      failed: 0
+      skipped: 0
+    log: evidence/logs/startup/
+    covers: [AC-10, AC-11]
+    recorded-at: "2026-08-29T00:12:00+08:00"

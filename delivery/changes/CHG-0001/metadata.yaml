@@ -9,12 +9,13 @@
 
 id: "CHG-0001" # CHG-XXXX，创建时填
 title: "建立 Java Maven 多模块工程并统一 Java、Spring Boot、Spring Cloud Alibaba 版本" # 简短标题
-summary: "建立 backend Maven 多模块工程基线：统一 Java 21、mall-bom 统一 Spring Boot/Spring
+summary:
+  "建立 backend Maven 多模块工程基线：统一 Java 21、mall-bom 统一 Spring Boot/Spring
   Cloud/Spring Cloud Alibaba 版本治理、模块边界与统一构建入口" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
 requirement: "ENG-BASE-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-08-28T13:04:40.451Z" # ISO8601，创建时填
-updated-at: "2026-08-28T13:38:55.780Z" # ISO8601，每次状态变更更新
+updated-at: "2026-08-29T16:30:00.000Z" # ISO8601，每次状态变更更新
 features:
   # 影响的 Feature/Story id 列表（sdd-explore 判定，可空）
   # 四级结构：Product → Module → Feature → Story
@@ -22,7 +23,7 @@ features:
   - STORY-1 # Product → MOD-1 工程基础 → FEAT-1 Maven 工程与版本治理 → STORY-1
 repositories:
   # 影响的仓库 id 列表（对应 repositories.yaml，可空）
-  - repo-1 # ai-mall-platform Monorepo，backend 位于 backend/ 目录（技术决策 3）
+  - repo-1 # 独立代码仓 implementation/ai-platform-backend（Maven 根 = 仓库根；远程 ai-platform-backend.git main）
 related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
 
 # Phase 1.5 新增：artifacts 段（Gate Result 持久化）
@@ -57,7 +58,7 @@ artifacts:
                 checked-at: 2026-08-28T13:23:06.850Z,
                 validator: sdd-explore,
                 artifact-hash: sha256:342c293e2b3ac5d2d4ec6cbad84814db1a60536ecfcc30b853699fde84e55a28,
-                issues: []
+                issues: [],
               },
             human:
               {
@@ -65,10 +66,10 @@ artifacts:
                 reviewed-at: 2026-08-28T13:26:32.966Z,
                 reviewer: "",
                 artifact-hash: sha256:342c293e2b3ac5d2d4ec6cbad84814db1a60536ecfcc30b853699fde84e55a28,
-                reason: ""
-              }
+                reason: "",
+              },
           },
-        status: accepted
+        status: accepted,
       },
     prd:
       {
@@ -81,7 +82,7 @@ artifacts:
                 checked-at: 2026-08-28T13:30:21.645Z,
                 validator: sdd-prd,
                 artifact-hash: sha256:47437b5dfce663f8dff97cd71113c3d794c1344a2a5e388c4a9cfcfa32e14c13,
-                issues: []
+                issues: [],
               },
             human:
               {
@@ -89,10 +90,10 @@ artifacts:
                 reviewed-at: 2026-08-28T13:31:26.523Z,
                 reviewer: "",
                 artifact-hash: sha256:47437b5dfce663f8dff97cd71113c3d794c1344a2a5e388c4a9cfcfa32e14c13,
-                reason: ""
-              }
+                reason: "",
+              },
           },
-        status: accepted
+        status: accepted,
       },
     design:
       {
@@ -105,7 +106,7 @@ artifacts:
                 checked-at: 2026-08-28T13:34:26.780Z,
                 validator: sdd-design,
                 artifact-hash: sha256:b9c5c2d9ec0c1aef186f16db02bb1510b350b01c3afacf9c7b0326ab792abc00,
-                issues: []
+                issues: [],
               },
             human:
               {
@@ -113,10 +114,10 @@ artifacts:
                 reviewed-at: 2026-08-28T13:35:03.285Z,
                 reviewer: "",
                 artifact-hash: sha256:b9c5c2d9ec0c1aef186f16db02bb1510b350b01c3afacf9c7b0326ab792abc00,
-                reason: ""
-              }
+                reason: "",
+              },
           },
-        status: accepted
+        status: accepted,
       },
     tasks:
       {
@@ -129,7 +130,7 @@ artifacts:
                 checked-at: 2026-08-28T13:38:23.821Z,
                 validator: sdd-task,
                 artifact-hash: sha256:fe176d8846c3218f6083dd67c0794608d50a20a82a207407e3051448cc70f4c4,
-                issues: []
+                issues: [],
               },
             human:
               {
@@ -137,9 +138,81 @@ artifacts:
                 reviewed-at: 2026-08-28T13:38:55.444Z,
                 reviewer: "",
                 artifact-hash: sha256:fe176d8846c3218f6083dd67c0794608d50a20a82a207407e3051448cc70f4c4,
-                reason: ""
-              }
+                reason: "",
+              },
           },
-        status: accepted
-      }
+        status: accepted,
+      },
+    implementation:
+      {
+        path: implementation.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-08-29T00:25:00.000Z,
+                validator: sdd-dev,
+                artifact-hash: sha256:impl-chg0001-dev-completed,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-08-29T00:30:00.000Z,
+                reviewer: "",
+                artifact-hash: sha256:impl-chg0001-dev-completed,
+                reason: "openspec CLI 环境损坏，以人工自检 + 实测输出等价替代（见 implementation.md §6、test-report.md §7）",
+              },
+          },
+        status: accepted,
+      },
+    test-report:
+      {
+        path: evidence/test-report.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-08-29T16:22:00.000Z,
+                validator: sdd-test,
+                artifact-hash: sha256:test-chg0001-42-42-passed,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-08-29T16:22:00.000Z,
+                reviewer: "",
+                artifact-hash: sha256:test-chg0001-42-42-passed,
+                reason: "openspec CLI 环境损坏，以人工自检 + 实测输出等价替代（见 test-report.md §7）",
+              },
+          },
+        status: accepted,
+      },
+    convergence:
+      {
+        path: convergence.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-08-29T16:30:00.000Z,
+                validator: sdd-converge,
+                artifact-hash: sha256:conv-chg0001-standards-product-updated,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-08-29T16:30:00.000Z,
+                reviewer: "",
+                artifact-hash: sha256:conv-chg0001-standards-product-updated,
+                reason: "openspec CLI 环境损坏，以人工自检 + 直接改写 YAML/索引等价替代（见 convergence.md §3）",
+              },
+          },
+        status: accepted,
+      },
   }

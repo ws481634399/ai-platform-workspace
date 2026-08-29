@@ -377,6 +377,66 @@ application-prod.yml
 
 ---
 
+## 7.3 Java 后端技术基线版本组合（CHG-0001 晋升）
+
+> 关联 Change：CHG-0001（ENG-BASE-001，M0 工程基线）。
+> 以下组合为 AI Mall 后端 Maven 多模块工程的唯一技术基线。任何升级必须走「改统一配置 → 全模块编译 → 测试 → 确认」流程，业务 POM 禁止私自覆盖。
+
+| 组件 | 版本 | 管理位置 | 备注 |
+|------|------|----------|------|
+| JDK | 21（编译 `release=21`，运行时要求区间 `[21,22)`） | 根 POM `maven.compiler.release` + enforcer `requireJavaVersion` | enforcer 不满足则构建显式失败，不允许静默降级 |
+| Maven | `[3.9,)` | 根 POM enforcer `requireMavenVersion` | 不提交 Maven Wrapper，本地/CI 保证 3.9+ |
+| Spring Boot | 3.5.15 | `mall-bom` import `spring-boot-dependencies:3.5.15` | |
+| Spring Cloud | 2025.0.3 | `mall-bom` import `spring-cloud-dependencies:2025.0.3` | |
+| Spring Cloud Alibaba | 2025.0.0.0 | `mall-bom` import `spring-cloud-alibaba-dependencies:2025.0.0.0` | |
+| MyBatis-Plus（BOM） | 3.5.12 | `mall-bom` 直接 `dependencyManagement` | |
+| MapStruct | 1.6.3 | `mall-bom` 直接 `dependencyManagement`（含 processor） | |
+| Springdoc | 2.8.9 | `mall-bom` 直接 `dependencyManagement` | |
+| Lombok | 由 Spring Boot BOM 托管 | 不在 mall-bom 重复声明 | 技术决策 6：避免版本锁定冲突 |
+| 编码 | UTF-8 | 根 POM `project.build.sourceEncoding` / `project.reporting.outputEncoding` | 全模块统一 |
+| 构建统一命令 | 根目录：`mvn clean package -DskipTests`；单模块：`mvn -pl <module> -am package -DskipTests` | 工程契约（CHG-0001 design §2.6） | |
+
+---
+
+## 7.4 Maven 多模块版本治理与依赖边界（CHG-0001 晋升）
+
+> 关联 Change：CHG-0001。以下规则由 enforcer + BOM import + 模块 POM 审计三层保证，违反视为验收失败。
+
+### 7.4.1 四层 POM 聚合体系（从根到叶）
+
+1. **仓库根 pom.xml**（packaging=pom，坐标 `com.ai-mall:backend:1.0.0-SNAPSHOT`）：统一坐标、聚合全部模块、Java 21 编译属性、`pluginManagement`（compiler/enforcer/spring-boot/surefire/resources）、`dependencyManagement` **仅 import** `com.ai-mall:mall-bom:${project.version}`；`maven-enforcer-plugin` 作为公共 plugins 对全模块生效（守门 JDK 21 / Maven 3.9+）。
+2. **mall-bom/pom.xml**（packaging=pom，**无 parent**——避免根 POM import 形成 Maven 模型循环）：groupId/version 与根 POM 人工同步；`dependencyManagement` import Spring Boot / Spring Cloud / Spring Cloud Alibaba 三方 BOM，并首批直接管理 MyBatis-Plus BOM / MapStruct / Springdoc。
+3. **聚合层**：`mall-common` / `mall-contracts` / `mall-services`（packaging=pom，父=backend 或 mall-services）；仅声明 modules，不新增业务依赖。
+4. **叶子模块**：8 个 common 子模块 / 2 个 contracts 子模块 / mall-gateway / 8 个业务服务（jar）；各自按定位声明依赖（**全部不写 `<version>`**）。
+
+### 7.4.2 版本治理唯一权威（违反 = PRD 规则 1 失败）
+
+- mall-bom 已通过 import / direct management 管理的依赖 → 业务/技术/契约模块 POM **不得声明 `<version>`**；`parent` 块内版本除外。
+- Spring Boot / Spring Cloud / Spring Cloud Alibaba 三者版本只能在 mall-bom 升级。解析依赖树出现同一组件两个版本即验收失败。
+- Lombok 由 Spring Boot BOM 托管，mall-bom 不重复声明。
+
+### 7.4.3 依赖方向单向规则（违反 = 循环/服务间依赖 AC-9 失败）
+
+```
+mall-services/*  →  mall-common/*   （按需，单向）
+mall-services/*  →  mall-contracts/*（按需，单向）
+mall-gateway     →  仅官方 starter（M0）
+mall-common / mall-contracts  →  无内部业务依赖，仅官方 starter/第三方库
+服务 ↔ 服务：禁止 Maven 依赖；跨服务协作 = API Contract / OpenFeign / 集成事件
+```
+
+### 7.4.4 公共模块边界（违反 = AC-7 / AC-8 失败）
+
+- **mall-common**：只存放公共技术能力（core/web/security/redis/mq/openfeign/log/test）。出现 Product/Order/Inventory/Member 等业务领域模型即违规。
+- **mall-contracts**：`mall-api-contracts`（内部 API DTO）与 `mall-event-contracts`（集成事件 DTO + 元数据）两个子模块；零第三方依赖。出现 Repository、领域聚合、MyBatis PO、业务 Service 即违规。
+
+### 7.4.5 服务独立打包（违反 = AC-10 失败）
+
+- mall-gateway 与 8 个服务各自 POM 绑定 `spring-boot-maven-plugin` 的 `repackage` goal（配置由根 POM `pluginManagement` 继承）。
+- `mvn package` 产出各自的独立可执行 Fat Jar；全量构建**不得**产出包含全部业务的单体 Jar。
+
+---
+
 # 8. 工程配置规范
 
 
