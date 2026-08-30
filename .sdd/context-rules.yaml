@@ -1,13 +1,21 @@
 # OpenSpec Context Rules Configuration
 #
-# 版本: v0.1
+# 版本: v0.3
 # 类型: AI Context Loading Rules
 #
 # 定义 AI Agent 在不同 SDD 阶段
 # 应该读取的 Workspace 上下文。
+#
+# v0.3 说明：
+# - 条目为结构化格式 { path, mode }，mode ∈ inline | outline | skip
+# - change-artifacts: 该阶段注入 Change Artifact 清单
+# - limits: 注入预算
+# - repos.<repoId>.read: 绑定 DU 时激活的 per-repo 规则段
 
 
 # 不同开发阶段上下文规则
+
+version: 0.3
 
 stages:
 
@@ -23,9 +31,11 @@ stages:
 
     read:
 
-      - standards/
+      - path: standards/
+        mode: inline
 
-      - product/
+      - path: product/
+        mode: inline
 
 
 
@@ -40,9 +50,11 @@ stages:
 
     read:
 
-      - product/
+      - path: product/
+        mode: inline
 
-      - delivery/
+      - path: delivery/
+        mode: inline
 
 
 
@@ -57,11 +69,14 @@ stages:
 
     read:
 
-      - standards/
+      - path: standards/
+        mode: inline
 
-      - product/
+      - path: product/
+        mode: inline
 
-      - implementation/
+      - path: implementation/
+        mode: inline
 
 
 
@@ -76,7 +91,8 @@ stages:
 
     read:
 
-      - delivery/
+      - path: delivery/
+        mode: inline
 
 
 
@@ -91,9 +107,11 @@ stages:
 
     read:
 
-      - delivery/
+      - path: delivery/
+        mode: inline
 
-      - implementation/
+      - path: implementation/
+        mode: inline
 
 
 
@@ -108,10 +126,35 @@ stages:
 
     read:
 
-      - delivery/
+      - path: delivery/
+        mode: inline
 
-      - implementation/
+      - path: implementation/
+        mode: inline
 
+
+
+  # 评审阶段
+  #
+  # 目标：
+  # - 跨仓一致性检查
+  # - Evidence 完整性
+  # - 汇聚准备
+
+  review:
+
+    read:
+
+      - path: standards/
+        mode: outline
+
+      - path: implementation/
+        mode: outline
+
+    change-artifacts:
+      - requirement.md
+      - prd.md
+      - design.md
 
 
   # 知识沉淀阶段
@@ -125,6 +168,8 @@ stages:
 
     read:
 
-      - delivery/
+      - path: delivery/
+        mode: inline
 
-      - implementation/
+      - path: implementation/
+        mode: inline

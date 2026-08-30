@@ -23,9 +23,15 @@ CHG-0001（ENG-BASE-001）建立了 AI Mall 后端 Java Maven 多模块工程基
    - 具体 POM 行号、提交哈希、临时 mq 坐标修复过程、沙箱临时本地仓 `.m2-repo/` 路径、evidence/logs 二进制 Jar 大小等实现细节。
    - openspec CLI 环境损坏（`git-submodule.js` 缺失），属外部工具问题，与知识无关。
 
-## 2. 知识项分类与变更内容
+## 2. 更新判断
 
-### 2.1 Standards 晋升
+本次 Change 知识更新判定：Standards 需更新（3 项晋升：S-01 技术基线版本组合、S-02 Maven 治理与依赖边界、S-03 enforcer 反例验证法）；Product 需更新（1 项：08-系统与微服务架构双仓修订）；feature-tree.yaml 需更新（STORY-1 → delivered）；Glossary 无需更新。判定明细与理由如下。
+
+### Standards
+
+- 是否需更新: yes
+- 更新内容: `standards/engineering/backend/framework-standard.md` 追加 §7.3「Java 后端技术基线版本组合」与 §7.4「Maven 多模块版本治理与依赖边界」（详见下方 S-01/S-02）
+- 理由: 本 Change 是平台首个后端基线落地，版本组合与治理规则经 AC-1~11 实测验证，具备跨 Change 复用价值；S-03 enforcer 反例验证法隐式包含于 §7.3/§7.4 的守门描述中
 
 **S-01：Java 后端技术基线版本组合表**
 - 文件：`standards/engineering/backend/framework-standard.md`
@@ -51,7 +57,11 @@ CHG-0001（ENG-BASE-001）建立了 AI Mall 后端 Java Maven 多模块工程基
 - 验证步骤（本次已实测）：临时收紧 `requireJavaVersion` 到 `[21.1,)` → `mvn validate` 输出中文错误并 FAIL → 恢复 `[21,22)` → `mvn validate` 通过。
 - 复用场景：每次 enforcer 规则新增/变更后，均需执行同构反例以保证失败路径存在。
 
-### 2.2 Product 更新
+### Product
+
+- 是否需更新: yes
+- 更新内容: `product/08-系统与微服务架构.md` §5 追加「仓库落地修订（CHG-0001，M0 工程基线）」双仓结构说明（详见下方 P-01）
+- 理由: 种子文档的单仓假定与 M0 工程最终决策不一致；不修正会导致后续 Change 设计阶段引用错误路径
 
 **P-01：系统与微服务架构——仓库落地修订（双仓结构）**
 - 文件：`product/08-系统与微服务架构.md`
@@ -63,6 +73,12 @@ CHG-0001（ENG-BASE-001）建立了 AI Mall 后端 Java Maven 多模块工程基
 - 理由：种子文档的单仓假定与 M0 工程最终决策不一致；若不修正将导致后续 Change 设计阶段引用错误的路径。
 - 关联 Feature：STORY-1 delivered。
 
+### feature-tree.yaml
+
+- 是否需更新: yes
+- 更新内容: `product/feature-tree.yaml` STORY-1 `status: planned → delivered`
+- 理由: sdd-test 42/42 通过、AC-1~11 100% 覆盖、Fat Jar 9/9 Started，达 delivered 门槛
+
 **P-02：Feature Tree STORY-1 状态 delivered**
 - 文件：`product/feature-tree.yaml`
 - 操作：更新（STORY-1 status 字段 `planned → delivered`）
@@ -70,7 +86,13 @@ CHG-0001（ENG-BASE-001）建立了 AI Mall 后端 Java Maven 多模块工程基
 - 理由：sdd-test 阶段 42/42 全部通过、AC-1~11 100% 覆盖、Fat Jar 9/9 Started，达到 delivered 门槛（参见 sdd-converge SKILL §6）。
 - 关联：CHG-0001 / ENG-BASE-001。
 
-### 2.3 No Update
+### Glossary
+
+- 是否需更新: no
+- 更新内容: 无
+- 理由: 本 Change 为工程基线变更，未引入新业务术语或领域能力；统一语言词汇表无需变更
+
+### 其他 No Update 项
 
 - 本 Change 具体 POM 行号、提交哈希（EV-001~EV-010）、mall-common-mq TASK-008 临时修复过程、沙箱专用 `.m2-repo/` 路径、Fat Jar 精确字节大小、evidence 日志文件内部行号等——理由：属本次特有实现细节，跨 Change 复用价值低。
 - 具体 YAML/POM 语法规则（如 `dependencyManagement` 下 import 的写法）——理由：已在 S-01/S-02 中抽象为规则，具体语法由 Maven 规范提供，不重复抄写。

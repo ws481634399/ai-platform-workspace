@@ -9,7 +9,7 @@
 # 用户可直接调用能力 B（独立添加知识）。
 
 id: sdd-knowledge
-version: 0.1.0
+version: 0.2.0
 stage: knowledge
 description: 知识管理——沉淀/添加/索引/检索，维护 standards/ 和 product/ 知识库
 input:
@@ -26,3 +26,8 @@ produces-state: null
 output-artifacts:
   - INDEX.md # 索引文件（人读）
   - knowledge-index.json # 索引文件（Agent 读）
+prompts: # Phase 2.3：引用 prompts/ 提示片段（相对 prompts/，不含 .md）
+  - common/persona-sdd
+  - common/constraints
+  - common/output-format
+  - review/persona-knowledge

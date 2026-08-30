@@ -4,7 +4,7 @@
 # 类型: Skill 元数据 + Artifact Contract
 
 id: sdd-dev
-version: 0.1.0
+version: 0.2.0
 stage: dev
 description: 开发阶段 Skill——执行 Task，修改实现代码，遵循工程规范
 input:
@@ -13,7 +13,13 @@ input:
   - implementation/
 output:
   - implementation.md
+  - evidence/evidence.yaml # Phase 2.1：结构化证据（code-change 条目）
 requires-state: tasked
 produces-state: developing
 output-artifacts:
   - implementation.md
+prompts: # Phase 2.3：引用 prompts/ 提示片段（相对 prompts/，不含 .md）
+  - common/persona-sdd
+  - common/constraints
+  - common/output-format
+  - coding/persona-dev

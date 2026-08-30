@@ -22,9 +22,11 @@ Thumbs.db
 # 日志
 *.log
 logs/
-# 例外：Change 证据留档日志需要入库
+# 例外：Change 证据留档日志需要入库（changes 与 archive 归档目录均覆盖）
 !delivery/changes/**/evidence/logs/
 !delivery/changes/**/evidence/logs/**
+!delivery/archive/**/evidence/logs/
+!delivery/archive/**/evidence/logs/**
 
 # 本地环境配置（不入库）
 *.local

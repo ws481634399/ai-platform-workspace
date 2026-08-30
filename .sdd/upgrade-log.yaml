@@ -1,0 +1,65 @@
+upgrades:
+  - at: 2026-08-30T15:28:45.787Z
+    from:
+      harness: 0.1.0
+      workspaceTemplate: 0.1.0
+      schema: 0.1.0
+    to:
+      harness: 0.2.0
+      workspaceTemplate: 0.2.0
+    touchedFiles:
+      - skills\sdd-converge
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-explore
+      - skills\sdd-feature-tree
+      - skills\sdd-knowledge
+      - skills\sdd-prd
+      - skills\sdd-reverse
+      - skills\sdd-review
+      - skills\sdd-task
+      - skills\sdd-test
+      - prompts\coding\persona-dev.md
+      - prompts\coding\persona-test.md
+      - prompts\common\constraints.md
+      - prompts\common\output-format.md
+      - prompts\common\persona-sdd.md
+      - prompts\design\persona-design.md
+      - prompts\design\persona-task.md
+      - prompts\explore\persona-explore.md
+      - prompts\explore\persona-prd.md
+      - prompts\explore\persona-reverse.md
+      - prompts\review\persona-converge.md
+      - prompts\review\persona-feature-tree.md
+      - prompts\review\persona-knowledge.md
+      - prompts\review\persona-review.md
+      - .sdd\version.yaml
+    gitRevertFiles:
+      - skills\sdd-converge
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-explore
+      - skills\sdd-feature-tree
+      - skills\sdd-knowledge
+      - skills\sdd-prd
+      - skills\sdd-reverse
+      - skills\sdd-task
+      - skills\sdd-test
+      - .sdd\version.yaml
+    gitNewFiles:
+      - skills\sdd-review
+      - prompts\coding\persona-dev.md
+      - prompts\coding\persona-test.md
+      - prompts\common\constraints.md
+      - prompts\common\output-format.md
+      - prompts\common\persona-sdd.md
+      - prompts\design\persona-design.md
+      - prompts\design\persona-task.md
+      - prompts\explore\persona-explore.md
+      - prompts\explore\persona-prd.md
+      - prompts\explore\persona-reverse.md
+      - prompts\review\persona-converge.md
+      - prompts\review\persona-feature-tree.md
+      - prompts\review\persona-knowledge.md
+      - prompts\review\persona-review.md
+    rolledBack: null

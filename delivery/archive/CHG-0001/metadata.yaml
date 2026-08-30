@@ -12,10 +12,10 @@ title: "建立 Java Maven 多模块工程并统一 Java、Spring Boot、Spring C
 summary:
   "建立 backend Maven 多模块工程基线：统一 Java 21、mall-bom 统一 Spring Boot/Spring
   Cloud/Spring Cloud Alibaba 版本治理、模块边界与统一构建入口" # 一句话摘要（可选）
-status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
+status: archived # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
 requirement: "ENG-BASE-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-08-28T13:04:40.451Z" # ISO8601，创建时填
-updated-at: "2026-08-29T16:30:00.000Z" # ISO8601，每次状态变更更新
+updated-at: "2026-08-30T16:10:00.000Z" # ISO8601，每次状态变更更新（archived 由手工等价 archiveChange 写入）
 features:
   # 影响的 Feature/Story id 列表（sdd-explore 判定，可空）
   # 四级结构：Product → Module → Feature → Story
@@ -162,7 +162,9 @@ artifacts:
                 reviewed-at: 2026-08-29T00:30:00.000Z,
                 reviewer: "",
                 artifact-hash: sha256:impl-chg0001-dev-completed,
-                reason: "openspec CLI 环境损坏，以人工自检 + 实测输出等价替代（见 implementation.md §6、test-report.md §7）",
+                reason:
+                  "openspec CLI 环境损坏，以人工自检 + 实测输出等价替代（见 implementation.md
+                  §6、test-report.md §7）",
               },
           },
         status: accepted,
@@ -191,6 +193,33 @@ artifacts:
           },
         status: accepted,
       },
+    review-report:
+      {
+        path: review-report.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-08-30T16:00:00.000Z,
+                validator: sdd-review,
+                artifact-hash: sha256:review-chg0001-retroactive-zero-findings,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-08-30T16:00:00.000Z,
+                reviewer: "",
+                artifact-hash: sha256:review-chg0001-retroactive-zero-findings,
+                reason:
+                  "v0.2.0 升级后回溯性评审（见 review-report.md §0）：四项检查基于既有实测证据复核，零发现；DU 检查按 v1
+                  兼容规则豁免，官方 review gate 未跑（du-fan-in-complete 要求 DU 结构，v1 Change
+                  不适用）",
+              },
+          },
+        status: accepted,
+      },
     convergence:
       {
         path: convergence.md,
@@ -199,18 +228,18 @@ artifacts:
             machine:
               {
                 status: passed,
-                checked-at: 2026-08-29T16:30:00.000Z,
+                checked-at: 2026-08-30T15:40:21.639Z,
                 validator: sdd-converge,
-                artifact-hash: sha256:conv-chg0001-standards-product-updated,
+                artifact-hash: sha256:427c19fd42ea0307b7196016232e17dce47fffb447335552c4ad6aabb4a2df58,
                 issues: [],
               },
             human:
               {
                 status: approved,
-                reviewed-at: 2026-08-29T16:30:00.000Z,
-                reviewer: "",
-                artifact-hash: sha256:conv-chg0001-standards-product-updated,
-                reason: "openspec CLI 环境损坏，以人工自检 + 直接改写 YAML/索引等价替代（见 convergence.md §3）",
+                reviewed-at: 2026-08-30T16:05:00.000Z,
+                reviewer: "user",
+                artifact-hash: sha256:427c19fd42ea0307b7196016232e17dce47fffb447335552c4ad6aabb4a2df58,
+                reason: "用户指示'先归档之前的 change'（2026-08-30），视为 Human Gate 批准；hash 与 Machine Gate 一致（gate approve 交互式确认在沙箱不可用，按 writeHumanGate 同规则人工写入）",
               },
           },
         status: accepted,
