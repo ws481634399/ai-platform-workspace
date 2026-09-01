@@ -1,0 +1,25 @@
+# DU-BE-001 实证留证 — R4: mall-api-contracts 契约纯度依赖树（AC-9 职责边界证据）
+#
+# 执行时间: 2026-08-31T23:03:05+08:00
+# 工作目录: implementation/ai-platform-backend
+# 命令: mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-contracts/mall-api-contracts dependency:tree
+
+(TraeAI-2) D:\Desktop\ai-platform\implementation\ai-platform-backend $ mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-contracts/mall-api-contracts dependency:tree
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------------< com.ai-mall:mall-api-contracts >-------------------
+[INFO] Building mall-api-contracts 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency:3.7.0:tree (default-cli) @ mall-api-contracts ---
+[INFO] com.ai-mall:mall-api-contracts:jar:1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] Total time:  3.070 s
+[INFO] Finished at: 2026-08-31T23:03:05+08:00
+[INFO] ------------------------------------------------------------------------
+
+# 审计结论（R4 - 契约层纯度）:
+# 依赖树仅含模块自身坐标一行，零第三方依赖、零 mall-common 依赖、零业务模块依赖
+# → API 契约"纯数据形状"定位成立（与 POM description"零第三方依赖，纯数据定义"一致）。

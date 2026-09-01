@@ -1,0 +1,25 @@
+# DU-BE-001 实证留证 — R4: mall-event-contracts 契约纯度依赖树（AC-9 职责边界证据）
+#
+# 执行时间: 2026-08-31T23:03:08+08:00
+# 工作目录: implementation/ai-platform-backend
+# 命令: mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-contracts/mall-event-contracts dependency:tree
+
+(TraeAI-2) D:\Desktop\ai-platform\implementation\ai-platform-backend $ mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-contracts/mall-event-contracts dependency:tree
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------< com.ai-mall:mall-event-contracts >------------------
+[INFO] Building mall-event-contracts 1.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- dependency:3.7.0:tree (default-cli) @ mall-event-contracts ---
+[INFO] com.ai-mall:mall-event-contracts:jar:1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] Total time:  1.471 s
+[INFO] Finished at: 2026-08-31T23:03:08+08:00
+[INFO] ------------------------------------------------------------------------
+
+# 审计结论（R4 - 契约层纯度）:
+# 依赖树仅含模块自身坐标一行，零第三方依赖、零 mall-common 依赖、零业务模块依赖
+# → 集成事件契约"纯数据形状"定位成立（与 POM description"零第三方依赖，纯数据定义"一致）。

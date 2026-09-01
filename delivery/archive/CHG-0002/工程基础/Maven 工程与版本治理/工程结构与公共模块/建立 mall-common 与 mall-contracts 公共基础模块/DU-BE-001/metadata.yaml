@@ -1,0 +1,59 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-BE-001
+repository: "repo-1" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0002" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1
+    name: Maven 工程与版本治理
+  level-3:
+    id: FEAT-1-01
+    name: 工程结构与公共模块
+  story:
+    id: STORY-2
+    name: 建立 mall-common 与 mall-contracts 公共基础模块
+scope:
+  - mall-common-pom-audit
+  - mall-contracts-pom-audit
+  - dependency-tree-verification
+  - mvn-validate-recheck
+  - ac-evidence-archive
+dependencies: [] # 无跨 DU 依赖（单 DU Change）
+acceptance:
+  # 验收标准条目（对应 PRD AC-1~AC-10）
+  - AC-1 mall-common 8 子模块清单完备
+  - AC-2 mall-contracts 2 子模块清单完备
+  - AC-3 10 公共模块全部在 Maven Reactor
+  - AC-4 构建复验通过（validate + 引用 CHG-0001 全量构建归档）
+  - AC-5 mall-common 无业务领域模型复验
+  - AC-6 mall-contracts 无领域与持久化实现复验
+  - AC-7 无服务间直接 Maven 实现依赖复验
+  - AC-8 无 Maven 循环依赖复验
+  - AC-9 mall-common-core 依赖方向审计通过（R1~R4）
+  - AC-10 证据归档 evidence/ 并有汇总索引
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-backend/delivery/CHG-0002/工程基础/Maven
+    工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/DU-BE-001" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State；du sync-status CLI 存在 meta 缺陷，按 writeHumanGate 同规则手工回填并留痕）
+evidence-ref: # repo 侧 evidence 引用（路径条目）
+  - implementation/ai-platform-backend/delivery/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/DU-BE-001/evidence/commits.md
+  - implementation/ai-platform-backend/delivery/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/DU-BE-001/evidence/changeset.md
+baseline:
+  commit: "350304b02dbccb617319a3b272fbc52c724ec211" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
+result:
+  commit: "350304b02dbccb617319a3b272fbc52c724ec211" # 核验型零代码变更，HEAD 与 baseline 相同（git rev-parse 实证）
+  paths: [] # 实现影响路径（可选，repo 相对路径；completed 时 Agent 回填，如 auth/service.go）
+  symbols: [] # 关键代码符号（可选，格式 <file>::<symbol>，如 auth/service.go::Login）

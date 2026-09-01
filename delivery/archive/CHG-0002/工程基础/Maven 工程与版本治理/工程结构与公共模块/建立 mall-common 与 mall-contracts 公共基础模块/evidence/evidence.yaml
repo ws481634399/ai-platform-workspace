@@ -1,0 +1,130 @@
+# OpenSpec Evidence Model（Phase 2.1）
+#
+# 版本: v0.1
+# 类型: Change 结构化证据索引
+#
+# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
+# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
+# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
+#
+# 条目结构（按 type 区分必填字段）：
+#
+# ---- type: code-change ----
+# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
+#   type: code-change
+#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
+#   commit: 23fdb62            # 必填，commit 短 sha（小写）
+#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
+#   reason: 实现注册服务        # 必填，为什么改
+#   files:                     # 必填（可为空数组），修改文件清单
+#     - path: src/services/auth/register.js
+#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
+#   recorded-at: ""            # ISO8601
+#
+# ---- type: test-run ----
+# - id: EV-002
+#   type: test-run
+#   command: npm test          # 必填，执行命令
+#   result: passed             # 必填，passed / failed / partial
+#   summary:                   # 必填（对象）
+#     total: 0
+#     passed: 0
+#     failed: 0
+#     skipped: 0
+#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
+#   covers: [AC-1, AC-2]       # 必填（可为空数组），覆盖的 PRD 验收标准
+#   recorded-at: ""
+#
+# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
+# - id: EV-003
+#   type: review-finding
+#   target: prd.md#AC-3        # 必填，指向被检查对象
+#   severity: major            # 必填，blocker / major / minor
+#   finding: 设计与实现不一致   # 必填
+#   resolution: ""             # 可选，处理结论
+#   recorded-at: ""
+#
+# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
+# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
+# - id: EV-004
+#   type: evidence-ref
+#   repository: backend        # 可选，仓库 id
+#   delivery-unit: DU-BE-001   # 可选，DU 绑定
+#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
+#                              # 必填，repo 侧证据文件（workspace 相对路径）
+#   summary: backend 单测 12 通过  # 可选，一句话摘要
+#   recorded-at: ""
+
+version: 0.1 # schema 版本
+change-id: "CHG-0002" # CHG-XXXX，创建时填充
+items:
+  # -------- sdd-dev 阶段（DU-BE-001 验收核验型：无 code-change，验证命令记 test-run） --------
+  - id: EV-001
+    type: test-run
+    command: mvn -B validate（backend 根目录，全 24 项目 Reactor，enforcer Maven/Java 版本守门）
+    result: passed
+    summary:
+      total: 24
+      passed: 24
+      failed: 0
+      skipped: 0
+    log: 工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/evidence/logs/mvn-validate.txt
+    covers: [AC-3, AC-4, AC-8]
+    recorded-at: "2026-08-31T22:49:17+08:00"
+
+  - id: EV-002
+    type: test-run
+    command: mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-common/mall-common-core dependency:tree
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: 工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/evidence/logs/dependency-tree-core.txt
+    covers: [AC-9]
+    recorded-at: "2026-08-31T23:02:41+08:00"
+
+  - id: EV-003
+    type: test-run
+    command: mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-contracts/mall-api-contracts dependency:tree
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: 工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/evidence/logs/dependency-tree-api-contracts.txt
+    covers: [AC-9]
+    recorded-at: "2026-08-31T23:03:05+08:00"
+
+  - id: EV-004
+    type: test-run
+    command: mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-contracts/mall-event-contracts dependency:tree
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: 工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/evidence/logs/dependency-tree-event-contracts.txt
+    covers: [AC-9]
+    recorded-at: "2026-08-31T23:03:08+08:00"
+
+  - id: EV-005
+    type: test-run
+    command: >-
+      静态审计（ripgrep）: 1) 目录枚举 + 聚合 POM <modules> 核对（AC-1/2）；
+      2) grep mall-common 源码业务领域关键字 class|interface (Product|Order|Inventory|Member|Role|Menu) → 零命中（AC-5）；
+      3) grep mall-contracts 源码 Repository|Mapper|ApplicationService|DomainService|@Entity → 零命中（AC-6）；
+      4) grep mall-services 全部 POM <artifactId>mall- → 仅 parent/自身坐标，无跨服务实现依赖（AC-7）；
+      5) grep mall-common 全部 POM mall-common-(core|web|...) → 仅 module 声明与自身坐标，无 <dependency> 横向互依（R2/R3）
+    result: passed
+    summary:
+      total: 5
+      passed: 5
+      failed: 0
+      skipped: 0
+    log: 工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/evidence/ac-verification.md（§1 规则执行记录、§2 AC 复验表、§3 审计明细）
+    covers: [AC-1, AC-2, AC-5, AC-6, AC-7, AC-9, AC-10]
+    recorded-at: "2026-08-31T23:10:00+08:00"

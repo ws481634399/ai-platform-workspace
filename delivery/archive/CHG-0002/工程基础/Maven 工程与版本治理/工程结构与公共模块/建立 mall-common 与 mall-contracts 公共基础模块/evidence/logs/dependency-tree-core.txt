@@ -1,0 +1,27 @@
+# DU-BE-001 实证留证 — R1: mall-common-core 依赖树（AC-9 核心证据）
+#
+# 执行时间: 2026-08-31T23:02:41+08:00
+# 工作目录: implementation/ai-platform-backend
+# 命令: mvn -B "-Dmaven.repo.local=D:/Desktop/ai-platform/.m2-sandbox" -pl mall-common/mall-common-core dependency:tree
+# 注: Trae 沙箱禁止写工作区外目录（D:\maven-repository），故以 -Dmaven.repo.local 将本地仓库
+#     临时指向工作区内 .m2-sandbox（参数必须加引号，否则经 PowerShell/沙箱链路解析会被截断）；
+#     仅影响本次实证命令，不改变任何工程配置。
+#     （此前 22:56 一次执行因沙箱拦截失败，失败日志已被本成功日志覆盖）
+
+[INFO] Scanning for projects...
+（maven-dependency-plugin 3.7.0 及其依赖自 aliyunmaven 下载日志略，共 ~29 s）
+[INFO] --- dependency:3.7.0:tree (default-cli) @ mall-common-core ---
+[INFO] com.ai-mall:mall-common-core:jar:1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] Total time:  29.794 s
+[INFO] Finished at: 2026-08-31T23:02:41+08:00
+[INFO] ------------------------------------------------------------------------
+
+# 审计结论（R1 - core 零反向依赖）:
+# 1. 依赖树仅含模块自身坐标一行，无任何依赖节点（含传递依赖）——与静态审计结论
+#    "core POM 无 <dependencies> 段"完全一致，无传递依赖绕过路径。
+# 2. 树中不存在 mall-common-web / mall-common-security / mall-common-redis /
+#    mall-common-mq / mall-common-openfeign / mall-common-log / mall-common-test
+#    任一节点 → AC-9 的"core 依赖方向审计"通过。
+# 3. 树中不存在任何第三方依赖节点 → "纯 Java，零第三方依赖"定位成立。

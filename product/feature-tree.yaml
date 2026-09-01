@@ -1,15 +1,13 @@
 # OpenSpec Product Feature Tree
 #
-# 版本: v0.2
+# 版本: v0.2 (schema 2)
 # 类型: Product Knowledge Metadata
 #
-# 四级结构：Product → Module → Feature → Story
-# Story 为最小可实施单元，直接关联 CHG
+# v2 四级结构（Phase 2.4）：L1 业务域 → L2 功能组 → L3 子功能(可选) → Story
+# 顶层键 features:（normalizeTree v2 分支）
 #
-# ID 规范：
-#   Module:  MOD-<DOMAIN>        如 MOD-USER
-#   Feature: FEAT-<MODULE>-<CAP> 如 FEAT-USER-AUTH
-#   Story:   STORY-<MODULE>-<ACT> 如 STORY-USER-REGISTER
+# ID 说明：MOD-1 / FEAT-1 / STORY-1 为 v1 时代遗留 ID，保留以维持 CHG-0001
+# 归档 metadata 的 feature-path 引用一致性；新增层级按 v0.2 嵌套编码 FEAT-1-01。
 #
 # Story status: planned / in-progress / delivered
 
@@ -17,44 +15,46 @@ product:
   name: ""
   description: ""
 
-# 产品能力树（modules → features → stories 三级）
+# 产品能力树（features → children → children → stories 四级）
 
-modules:
+features:
   [
     {
         id: MOD-1,
         name: 工程基础,
         description: 工程结构、构建与版本治理等平台工程能力,
-        features:
+        children:
           [
             {
                 id: FEAT-1,
                 name: Maven 工程与版本治理,
                 description: Maven 多模块结构、统一 Java 与 Spring 框架版本基线,
-                stories:
+                children:
                   [
                     {
-                        id: STORY-1,
-                        name: 建立 Java Maven 多模块工程并统一版本基线,
-                        description: backend Maven 多模块 + mall-bom + Java 21 + Spring Boot/Cloud/Alibaba
-                          统一版本,
-                        status: delivered
+                        id: FEAT-1-01,
+                        name: 工程结构与公共模块,
+                        description: 多模块骨架、公共技术模块与跨服务契约模块的职责边界,
+                        stories:
+                          [
+                            {
+                                id: STORY-1,
+                                name: 建立 Java Maven 多模块工程并统一版本基线,
+                                description: backend Maven 多模块 + mall-bom + Java 21 + Spring
+                                  Boot/Cloud/Alibaba 统一版本,
+                                status: delivered
+                              },
+                            {
+                                id: STORY-2,
+                                name: 建立 mall-common 与 mall-contracts 公共基础模块,
+                                description: mall-common 8 技术子模块 + mall-contracts 2 契约子模块的职责边界与依赖方向治理
+                                  (ENG-BASE-002),
+                                status: delivered
+                              }
+                          ]
                       }
                   ]
               }
           ]
       }
   ]
-  # 示例：
-  # - id: MOD-USER
-  #   name: 用户中心
-  #   description: 用户注册、登录、个人中心
-  #   features:
-  #     - id: FEAT-USER-AUTH
-  #       name: 用户认证
-  #       description: 注册、登录、密码管理
-  #       stories:
-  #         - id: STORY-USER-REGISTER
-  #           name: 用户注册
-  #           description: 支持邮箱/手机号注册
-  #           status: planned
