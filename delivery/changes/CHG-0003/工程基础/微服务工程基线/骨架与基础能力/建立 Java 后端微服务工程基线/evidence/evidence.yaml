@@ -1,0 +1,220 @@
+# OpenSpec Evidence Model（Phase 2.1）
+#
+# 版本: v0.1
+# 类型: Change 结构化证据索引
+#
+# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
+# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
+# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
+#
+# 条目结构（按 type 区分必填字段）：
+#
+# ---- type: code-change ----
+# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
+#   type: code-change
+#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
+#   commit: 23fdb62            # 必填，commit 短 sha（小写）
+#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
+#   reason: 实现注册服务        # 必填，为什么改
+#   files:                     # 必填（可为空数组），修改文件清单
+#     - path: src/services/auth/register.js
+#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
+#   recorded-at: ""            # ISO8601
+#
+# ---- type: test-run ----
+# - id: EV-002
+#   type: test-run
+#   command: npm test          # 必填，执行命令
+#   result: passed             # 必填，passed / failed / partial
+#   summary:                   # 必填（对象）
+#     total: 0
+#     passed: 0
+#     failed: 0
+#     skipped: 0
+#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
+#   covers: [AC-1, AC-2]       # 必填（可为空数组），覆盖的 PRD 验收标准
+#   recorded-at: ""
+#
+# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
+# - id: EV-003
+#   type: review-finding
+#   target: prd.md#AC-3        # 必填，指向被检查对象
+#   severity: major            # 必填，blocker / major / minor
+#   finding: 设计与实现不一致   # 必填
+#   resolution: ""             # 可选，处理结论
+#   recorded-at: ""
+#
+# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
+# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
+# - id: EV-004
+#   type: evidence-ref
+#   repository: backend        # 可选，仓库 id
+#   delivery-unit: DU-BE-001   # 可选，DU 绑定
+#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
+#                              # 必填，repo 侧证据文件（workspace 相对路径）
+#   summary: backend 单测 12 通过  # 可选，一句话摘要
+#   recorded-at: ""
+
+version: 0.1 # schema 版本
+change-id: "CHG-0003" # CHG-XXXX，创建时填充
+items:
+  # -------- sdd-dev 阶段（实施正文归 repo 侧，workspace 登记 evidence-ref） --------
+  - id: EV-001
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-002
+    path:
+      implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立
+      Java 后端微服务工程基线/DU-BE-002/evidence/logs/full-build.log
+    summary: mvn clean package -DskipTests 全量 24/24 项目 BUILD SUCCESS（01:53 min），覆盖 AC-01/AC-02/AC-03/AC-05/AC-08
+    recorded-at: "2026-09-01T22:10:40+08:00"
+
+  - id: EV-002
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-002
+    path:
+      implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立
+      Java 后端微服务工程基线/DU-BE-002/evidence/logs/full-test.log
+    summary: mvn test 全量 24/24 项目 BUILD SUCCESS（48.6s）——core 17 + web 11 + 9 上下文冒烟 + test 聚合器占位全绿，H2/Flyway/MyBatis-Plus 配置验证通过，覆盖 AC-09/AC-11
+    recorded-at: "2026-09-01T22:20:52+08:00"
+
+  - id: EV-003
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-002
+    path:
+      implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立
+      Java 后端微服务工程基线/DU-BE-002/evidence/logs/single-module-build.log
+    summary: mvn clean package -pl mall-services/mall-order -am -DskipTests 8/8 BUILD SUCCESS（10.9s），覆盖 AC-04
+    recorded-at: "2026-09-01T22:21:19+08:00"
+
+  - id: EV-004
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-001
+    path:
+      implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立
+      Java 后端微服务工程基线/DU-BE-001/evidence/logs/test-output.log
+    summary: mvn test -pl mall-common/mall-common-web -am（含 core）BUILD SUCCESS——core 17 tests + web 11 tests 全绿，覆盖 AC-06/AC-10/AC-12
+    recorded-at: "2026-09-01T22:21:24+08:00"
+
+  # -------- code-change（用户确认后本地提交，du sync-status 回填 result） --------
+  - id: EV-005
+    type: code-change
+    repo: repo-1
+    commit: 5cdef92
+    task: DU-BE-001
+    reason: 实现 mall-common core/web/log/test 四模块基础能力（统一响应/错误码分段/TraceId/异常处理/日志资产/测试聚合器）
+    files:
+      - path: mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/result/UnifyResult.java
+        symbols: [UnifyResult]
+      - path: mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/result/ErrorCode.java
+        symbols: [ErrorCode]
+      - path: mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/result/CommonErrorCode.java
+        symbols: [CommonErrorCode]
+      - path: mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/trace/TraceContext.java
+        symbols: [TraceContext]
+      - path: mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/trace/TraceConstants.java
+        symbols: [TraceConstants]
+      - path: mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/trace/TraceIdFilter.java
+        symbols: [TraceIdFilter]
+      - path: mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/exception/BusinessException.java
+        symbols: [BusinessException]
+      - path: mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/advice/GlobalExceptionHandler.java
+        symbols: [GlobalExceptionHandler]
+      - path: mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/config/WebFoundationAutoConfiguration.java
+        symbols: [WebFoundationAutoConfiguration]
+      - path: mall-common/mall-common-log/src/main/resources/logback/mall-logback-base.xml
+      - path: mall-common/mall-common-test/src/test/java/com/ai/mall/common/test/CommonTestAggregatorTest.java
+    recorded-at: "2026-09-01T22:36:00+08:00"
+
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    commit: 00fe24a
+    task: DU-BE-002
+    reason: 8 服务与网关接入工程基础能力并补全骨架（POM 依赖/application.yml 统一/db/migration 目录/冒烟测试）
+    files:
+      - path: mall-services/mall-identity/pom.xml
+      - path: mall-services/mall-identity/src/main/resources/application.yml
+      - path: mall-services/mall-identity/src/main/resources/db/migration/.gitkeep
+      - path: mall-services/mall-identity/src/test/java/com/ai/mall/identity/MallIdentityApplicationSmokeTest.java
+      - path: mall-services/mall-identity/src/test/resources/application-test.yml
+      - path: mall-services/mall-member/src/main/resources/application.yml
+      - path: mall-services/mall-product/src/main/resources/application.yml
+      - path: mall-services/mall-cart/src/main/resources/application.yml
+      - path: mall-services/mall-order/src/main/resources/application.yml
+      - path: mall-services/mall-inventory/src/main/resources/application.yml
+      - path: mall-services/mall-search/src/main/resources/application.yml
+      - path: mall-services/mall-system/src/main/resources/application.yml
+      - path: mall-gateway/pom.xml
+      - path: mall-gateway/src/main/resources/application.yml
+      - path: mall-gateway/src/test/java/com/ai/mall/gateway/MallGatewayApplicationSmokeTest.java
+    recorded-at: "2026-09-01T22:36:00+08:00"
+
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    commit: 4727945
+    task: DU-BE-001, DU-BE-002
+    reason: 归档 repo 侧 DU task.md/implementation.md 与 evidence/logs 交付文档
+    files:
+      - path: delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-001/implementation.md
+      - path: delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-001/task.md
+      - path: delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-002/implementation.md
+      - path: delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-002/task.md
+    recorded-at: "2026-09-01T22:36:00+08:00"
+
+  # -------- test-run（sdd-test 阶段，Workspace 聚合 test-run 条目） --------
+  - id: EV-008
+    type: test-run
+    command: mvn clean package -DskipTests（全量构建，MAVEN_OPTS=-Dmaven.repo.local=.m2-sandbox）
+    result: passed
+    summary:
+      total: 24
+      passed: 24
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-002/evidence/logs/full-build.log
+    covers: [AC-01, AC-02, AC-03, AC-05, AC-07, AC-08]
+    recorded-at: "2026-09-01T22:50:00+08:00"
+
+  - id: EV-009
+    type: test-run
+    command: mvn test（全量测试，MAVEN_OPTS=-Dmaven.repo.local=.m2-sandbox）
+    result: passed
+    summary:
+      total: 38
+      passed: 38
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-002/evidence/logs/full-test.log
+    covers: [AC-06, AC-08, AC-09, AC-10, AC-11, AC-12]
+    recorded-at: "2026-09-01T22:52:00+08:00"
+
+  - id: EV-010
+    type: test-run
+    command: mvn test -pl mall-common/mall-common-web,mall-common/mall-common-core -am（core+web 切片测试）
+    result: passed
+    summary:
+      total: 28
+      passed: 28
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-001/evidence/logs/test-output.log
+    covers: [AC-06, AC-10, AC-12]
+    recorded-at: "2026-09-01T22:53:00+08:00"
+
+  - id: EV-011
+    type: test-run
+    command: mvn clean package -pl mall-services/mall-order -am -DskipTests（单模块构建）
+    result: passed
+    summary:
+      total: 8
+      passed: 8
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/DU-BE-002/evidence/logs/single-module-build.log
+    covers: [AC-04]
+    recorded-at: "2026-09-01T22:54:00+08:00"

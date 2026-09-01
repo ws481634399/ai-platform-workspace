@@ -40,8 +40,8 @@ features:
                             {
                                 id: STORY-1,
                                 name: 建立 Java Maven 多模块工程并统一版本基线,
-                                description: backend Maven 多模块 + mall-bom + Java 21 + Spring
-                                  Boot/Cloud/Alibaba 统一版本,
+                                description: backend Maven 多模块 + mall-bom + Java 21 + Spring Boot/Cloud/Alibaba
+                                  统一版本,
                                 status: delivered
                               },
                             {
@@ -49,6 +49,28 @@ features:
                                 name: 建立 mall-common 与 mall-contracts 公共基础模块,
                                 description: mall-common 8 技术子模块 + mall-contracts 2 契约子模块的职责边界与依赖方向治理
                                   (ENG-BASE-002),
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ]
+              },
+            {
+                id: FEAT-2,
+                name: 微服务工程基线,
+                description: 服务骨架、数据访问基础、Web/Trace/日志/OpenAPI 与测试基础等工程基线能力,
+                children:
+                  [
+                    {
+                        id: FEAT-2-01,
+                        name: 骨架与基础能力,
+                        description: Gateway 与业务服务骨架补全、公共模块基础能力实现、持久化与测试基线,
+                        stories:
+                          [
+                            {
+                                id: STORY-3,
+                                name: 建立 Java 后端微服务工程基线,
+                                description: 基于 CHG-0001/0002 已交付结构，补全数据访问、Web 基础、测试基线并全量验证 (ENG-M0-001),
                                 status: delivered
                               }
                           ]

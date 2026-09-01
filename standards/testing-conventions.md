@@ -194,3 +194,27 @@ test('邮箱已存在', async () => {
 - 禁止 mock 被测对象本身
 - 禁止 `setTimeout` 等待异步（用 async/await）
 - 禁止跳过失败的测试（用 `todo` 标注并说明原因）
+
+
+## @WebMvcTest 切片测试配置约定（CHG-0003 晋升）
+
+Spring Boot 3 下 `@WebMvcTest` 无法自动发现位于 `testsupport` 子包的 `@SpringBootConfiguration`，需显式声明配置类：
+
+```java
+@WebMvcTest(controllers = MyController.class)
+@ContextConfiguration(classes = {TestApplication.class, MyController.class})
+@Import(MyAutoConfiguration.class)
+class MyControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+    // ...
+}
+```
+
+要点：
+- `@ContextConfiguration` 显式声明 TestApplication + 目标 Controller
+- `@Import` 显式导入需要生效的 AutoConfiguration
+- TestApplication 不启用组件扫描，通过 AutoConfiguration.imports 注册 Bean
+- 适用于 common-web Filter/Advice 切片测试和业务服务 Controller 切片测试
+
+来源：CHG-0003 implementation.md（GlobalExceptionHandlerTest / TraceIdFilterTest 实践）

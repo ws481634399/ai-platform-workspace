@@ -1,0 +1,72 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-BE-001
+repository: "repo-1" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0003" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-2
+    name: 微服务工程基线
+  level-3:
+    id: FEAT-2-01
+    name: 骨架与基础能力
+  story:
+    id: STORY-3
+    name: 建立 Java 后端微服务工程基线
+scope:
+  - unify-result
+  - errorcode-segments
+  - trace-context
+  - traceid-filter
+  - global-exception-handler
+  - business-exception
+  - logback-config
+  - common-test-aggregator
+dependencies: [] # 依赖的 DU id
+acceptance:
+  - AC-06 common 无业务污染复验
+  - AC-10 最小验证以 @WebMvcTest 切片测试通过
+  - AC-12 mall-common-core 依赖树零反向依赖
+implementation-guidance:
+  sketch: true
+  pseudocode: true
+  complexity-trigger:
+    - orchestration
+repository-delivery:
+  path: "implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能\
+    力/建立 Java 后端微服务工程基线/DU-BE-001" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+evidence-ref: [] # repo 侧 evidence 引用（路径条目）
+baseline:
+  commit: "83f055804442bbf642da85ff644dded0ac7f1e57" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
+result:
+  commit: "892eecbfc9d0de0fe15c8dbec8897009296b3888" # completed 时的仓库 HEAD（可选，本地实施完成未提交，待用户确认提交后 du sync-status 刷新）
+  paths:
+    - mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/result/ErrorCode.java
+    - mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/result/CommonErrorCode.java
+    - mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/result/UnifyResult.java
+    - mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/trace/TraceContext.java
+    - mall-common/mall-common-core/src/main/java/com/ai/mall/common/core/trace/TraceConstants.java
+    - mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/trace/TraceIdFilter.java
+    - mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/exception/BusinessException.java
+    - mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/advice/GlobalExceptionHandler.java
+    - mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/config/WebFoundationAutoConfiguration.java
+    - mall-common/mall-common-web/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+    - mall-common/mall-common-log/src/main/resources/logback/mall-logback-base.xml
+    - mall-common/mall-common-test/pom.xml
+  symbols:
+    - result/UnifyResult.java::UnifyResult
+    - result/CommonErrorCode.java::CommonErrorCode
+    - trace/TraceContext.java::TraceContext
+    - web/trace/TraceIdFilter.java::TraceIdFilter
+    - web/advice/GlobalExceptionHandler.java::GlobalExceptionHandler
+    - web/exception/BusinessException.java::BusinessException
+    - web/config/WebFoundationAutoConfiguration.java::WebFoundationAutoConfiguration

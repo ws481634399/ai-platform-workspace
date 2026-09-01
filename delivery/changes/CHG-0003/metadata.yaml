@@ -1,0 +1,274 @@
+# OpenSpec Change Metadata
+#
+# 版本: v2（Phase 2.4 Multi-Repository Delivery）
+# 类型: Change Metadata（SDD 生命周期载体元信息）
+#
+# 由 ChangeModel.runChangeCreate 生成（sdd-explore 内部调用）。
+# v2 增量：schema-version / feature-path / repository-baseline / repository-result
+# 兼容规则：schema-version 缺失视为 v1（features 扁平表 → feature-path 未绑定）；
+#          旧 Change 仅在被显式操作（bind-feature-path / du materialize）时升级为 v2。
+# 后续 status/archive 由 Document API 改写（保留注释）。
+
+schema-version: 2 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
+
+id: "CHG-0003" # CHG-XXXX，创建时填
+title: "建立 Java 后端微服务工程基线" # 简短标题
+summary: "" # 一句话摘要（可选）
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
+requirement: "ENG-M0-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
+created-at: "2026-09-01T12:56:25.204Z" # ISO8601，创建时填
+updated-at: "2026-09-01T15:08:44.953Z" # ISO8601，每次状态变更更新
+features:
+  - MOD-1
+  - FEAT-2
+  - FEAT-2-01
+  - STORY-3
+repositories:
+  # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
+  # - backend
+related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
+
+# Phase 2.4 新增：feature-path（完整四级链，权威字段；STORY 目录物化是其投影）
+# 约束：CHG ↔ Story = 1:1；树唯一权威源是 product/feature-tree.yaml，此处为"引用不是副本"
+# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-2
+    name: 微服务工程基线
+  level-3:
+    id: FEAT-2-01
+    name: 骨架与基础能力
+  story:
+    id: STORY-3
+    name: 建立 Java 后端微服务工程基线
+  candidate: false
+
+# Phase 2.4 新增：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
+# repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
+# repository-result：DU completed 时记录各仓结果 commit
+# 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
+repository-baseline:
+  repo-1:
+    commit: 83f055804442bbf642da85ff644dded0ac7f1e57
+repository-result:
+  repo-1:
+    commit: 892eecbfc9d0de0fe15c8dbec8897009296b3888
+
+# Phase 1.5 保留：artifacts 段（Gate Result 持久化）
+# GateRepository 用 setIn 按需创建 artifacts.<name>.gates.{machine,human} 节点（不预填 7 个，避免模板臃肿）
+# 每个 artifact 节点结构示例（实际由 GateRepository 写入时填充）：
+#   <artifact-name>:
+#     path: <artifact-path>
+#     status: draft          # draft / accepted
+#     gates:
+#       machine:
+#         status: pending    # pending / passed / failed
+#         checked-at: ""     # ISO8601
+#         validator: ""      # skill id（如 sdd-prd）
+#         artifact-hash: ""  # sha256:...
+#         issues: []         # failed 时的未通过项
+#       human:
+#         status: pending    # pending / approved / rejected / bypassed
+#         reviewed-at: ""
+#         reviewer: ""
+#         artifact-hash: ""
+#         reason: ""         # bypassed 时的理由
+artifacts:
+  {
+    exploration:
+      {
+        path: exploration.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-09-01T13:01:14.818Z,
+                validator: sdd-explore,
+                artifact-hash: sha256:cb34ce49b1f9892b5151bc24ca5111e97f77203fc09592cb43f92ca588cf9a5a,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T13:14:15.075Z,
+                reviewer: user,
+                artifact-hash: sha256:cb34ce49b1f9892b5151bc24ca5111e97f77203fc09592cb43f92ca588cf9a5a,
+                reason:
+                  用户审阅探索产物全文后明确选择批准进入PRD（STORY-3归属/Gap定位/6项未知问题倾向方案均确认）；gate
+                  approve交互确认在沙箱不可用，按writeHumanGate同规则写入,
+              },
+          },
+        status: accepted,
+      },
+    prd:
+      {
+        path: prd.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-09-01T13:16:20.235Z,
+                validator: sdd-prd,
+                artifact-hash: sha256:b9bb43294f9e90b837bfcb1a65e42bf9d363c3817624a55d3a76077bc5a80a75,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T13:18:50.916Z,
+                reviewer: user,
+                artifact-hash: sha256:b9bb43294f9e90b837bfcb1a65e42bf9d363c3817624a55d3a76077bc5a80a75,
+                reason: 用户明确选择批准进入设计（Scope In 10项/Scope Out/6项定向决策/AC-01~12映射均确认）,
+              },
+          },
+        status: accepted,
+      },
+    design:
+      {
+        path: design.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-09-01T13:22:50.576Z,
+                validator: sdd-design,
+                artifact-hash: sha256:a094a345e3236966126b93bdf9d296b466c946fa1d2a36d1556185c168108ced,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T13:24:47.114Z,
+                reviewer: user,
+                artifact-hash: sha256:a094a345e3236966126b93bdf9d296b466c946fa1d2a36d1556185c168108ced,
+                reason: 用户明确选择批准进入任务拆解（四能力面/栈隔离/BOM零变更/Pending策略均确认）,
+              },
+          },
+        status: accepted,
+      },
+    tasks:
+      {
+        path: tasks.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-09-01T13:40:14.117Z,
+                validator: sdd-task,
+                artifact-hash: sha256:5f58b2b87ead6c81b1fe403f63db7c10a2fd6584761746d391774c789993193c,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T13:40:14.132Z,
+                reviewer: "",
+                artifact-hash: sha256:5f58b2b87ead6c81b1fe403f63db7c10a2fd6584761746d391774c789993193c,
+                reason: 用户于 sdd-task 审批中确认批准（DU 拆分/依赖/AC 映射经审阅）,
+              },
+          },
+        status: accepted,
+      },
+    implementation:
+      {
+        path: implementation.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-09-01T14:44:15.607Z,
+                validator: sdd-dev,
+                artifact-hash: sha256:30fb0cc50a7f4c73d48cc409f54759ddc873791bd1322351a717bee843545667,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T14:44:15.017Z,
+                reviewer: user,
+                artifact-hash: sha256:30fb0cc50a7f4c73d48cc409f54759ddc873791bd1322351a717bee843545667,
+                reason: 用户确认提交并推进 dev 门禁（AskUserQuestion
+                  选择「批准提交并推进」，2026-09-01T22:35+08:00）；gate approve 交互确认在沙箱不可用，按
+                  writeHumanGate 同规则写入,
+              },
+          },
+        status: accepted,
+      },
+    test-report:
+      {
+        path: evidence/test-report.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-09-01T14:58:47.248Z,
+                validator: sdd-test,
+                artifact-hash: sha256:f31cb8ab5baf624e3c68814f99ba643f8ed0ad2daa7e10b285a0f214368b6487,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T14:58:46.649Z,
+                reviewer: user,
+                artifact-hash: sha256:f31cb8ab5baf624e3c68814f99ba643f8ed0ad2daa7e10b285a0f214368b6487,
+                reason:
+                  用户确认进入 test 阶段（38/38 全绿，AC-01~12 全覆盖）；gate approve 交互在沙箱不可用，按
+                  writeHumanGate 同规则写入,
+              },
+          },
+        status: accepted,
+      },
+    review-report:
+      {
+        path: review-report.md,
+        gates:
+          {
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T15:03:34.002Z,
+                reviewer: user,
+                artifact-hash: sha256:7d9725895f5749d57a67e1aaac2faa3c1f7cbae59029ce4e325313edf60c2674,
+                reason:
+                  用户确认进入 review 阶段；四项检查全通过，零 finding，AC-07 covers 缺口已修复；gate approve
+                  交互在沙箱不可用，按 writeHumanGate 同规则写入,
+              },
+          },
+      },
+    convergence:
+      {
+        path: convergence.md,
+        gates:
+          {
+            machine:
+              {
+                status: passed,
+                checked-at: 2026-09-01T15:08:44.000Z,
+                validator: sdd-converge,
+                artifact-hash: sha256:59d50c6dc4701ac484579170f30d409c30554077ae5522cd9d08c33ef53cf6e2,
+                issues: [],
+              },
+            human:
+              {
+                status: approved,
+                reviewed-at: 2026-09-01T15:08:44.953Z,
+                reviewer: user,
+                artifact-hash: sha256:59d50c6dc4701ac484579170f30d409c30554077ae5522cd9d08c33ef53cf6e2,
+                reason:
+                  用户确认进入 converge 阶段；3 项 standards 晋升 + STORY-3 delivered +
+                  索引更新；gate approve 交互在沙箱不可用，按 writeHumanGate 同规则写入,
+              },
+          },
+        status: accepted,
+      },
+  }

@@ -632,3 +632,54 @@ AI开发行为
 - 稳定；
 - 可维护；
 - 易演进。
+
+
+# 13. 统一响应与错误码分段约定（CHG-0003 晋升）
+
+
+## 13.1 统一响应结构
+
+所有 WebMVC 业务服务的 HTTP 响应体必须使用 `UnifyResult<T>` 结构：
+
+- 字段冻结为五项：`success`（boolean）、`code`（string）、`message`（string）、`data`（T）、`traceId`（string）
+- 静态工厂统一出口：`UnifyResult.ok(data)` / `UnifyResult.fail(errorCode, message)`
+- 禁止业务代码手工 new UnifyResult
+
+来源：CHG-0003 design.md §2.3 接口契约
+
+
+## 13.2 错误码分段
+
+错误码分段约定（`ErrorCode` 接口 + `CommonErrorCode` 常量）：
+
+| 段 | 前缀 | 含义 | 示例 |
+|----|------|------|------|
+| 0  | 0    | 成功 | 0 |
+| A  | A    | 参数类 | A0001（参数校验失败） |
+| B  | B    | 业务类 | B0001~（业务异常携带） |
+| S  | S    | 系统类 | S0001（系统繁忙，请稍后重试） |
+
+来源：CHG-0003 design.md §2.3 错误码分段
+
+
+## 13.3 TraceId 约定
+
+- Header 名：`X-Trace-Id`
+- MDC key：`traceId`
+- 格式：32 位十六进制小写（UUID 去横线）
+- 生成：请求无合法 TraceId 时由 TraceContext.generate() 生成
+- 透传：有合法 TraceId 时透传不重生成
+- 清理：请求结束后 finally 块清理 ThreadLocal + MDC（防线程池污染）
+
+来源：CHG-0003 design.md §2.3 TraceId 基础
+
+
+## 13.4 全局异常处理
+
+`@RestControllerAdvice` 统一异常处理，响应体一律 UnifyResult：
+
+- 参数校验异常 → HTTP 400 + A 段码
+- BusinessException → 业务码 + 对应 HTTP 语义（400/404/409 等）
+- 未预期异常 → HTTP 500 + S 段通用文案（禁止泄露 StackTrace/SQL/凭据）
+
+来源：CHG-0003 design.md §2.3 GlobalExceptionHandler

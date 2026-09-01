@@ -1,0 +1,84 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-BE-002
+repository: "repo-1" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0003" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-2
+    name: 微服务工程基线
+  level-3:
+    id: FEAT-2-01
+    name: 骨架与基础能力
+  story:
+    id: STORY-3
+    name: 建立 Java 后端微服务工程基线
+scope:
+  - services-persistence-wiring
+  - application-yml-unify
+  - db-migration-dirs
+  - gateway-nacos-reserve
+  - context-smoke-tests
+  - full-build-verification
+dependencies:
+  - DU-BE-001
+acceptance:
+  - AC-01 环境核验留证
+  - AC-02 Reactor 清单复验
+  - AC-03 全量构建 BUILD SUCCESS
+  - AC-04 单模块构建 BUILD SUCCESS
+  - AC-05 版本核验无覆盖声明
+  - AC-07 contracts 复验无污染
+  - AC-08 服务骨架独立核验
+  - AC-09 持久化配置核验
+  - AC-11 mvn test 全绿含最小测试集
+  - AC-12 全仓依赖方向复验
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-backend/delivery/CHG-0003/工程基础/微服务工程基线/骨架与基础能\
+    力/建立 Java 后端微服务工程基线/DU-BE-002" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+evidence-ref: [] # repo 侧 evidence 引用（路径条目）
+baseline:
+  commit: "83f055804442bbf642da85ff644dded0ac7f1e57" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
+result:
+  commit: "892eecbfc9d0de0fe15c8dbec8897009296b3888" # completed 时的仓库 HEAD（可选，本地实施完成未提交，待用户确认提交后 du sync-status 刷新）
+  paths:
+    - mall-services/mall-identity/pom.xml
+    - mall-services/mall-identity/src/main/resources/application.yml
+    - mall-services/mall-identity/src/test/resources/application-test.yml
+    - mall-services/mall-member/pom.xml
+    - mall-services/mall-member/src/main/resources/application.yml
+    - mall-services/mall-member/src/test/resources/application-test.yml
+    - mall-services/mall-product/pom.xml
+    - mall-services/mall-product/src/main/resources/application.yml
+    - mall-services/mall-product/src/test/resources/application-test.yml
+    - mall-services/mall-cart/pom.xml
+    - mall-services/mall-cart/src/main/resources/application.yml
+    - mall-services/mall-cart/src/test/resources/application-test.yml
+    - mall-services/mall-order/pom.xml
+    - mall-services/mall-order/src/main/resources/application.yml
+    - mall-services/mall-order/src/test/resources/application-test.yml
+    - mall-services/mall-inventory/pom.xml
+    - mall-services/mall-inventory/src/main/resources/application.yml
+    - mall-services/mall-inventory/src/test/resources/application-test.yml
+    - mall-services/mall-search/pom.xml
+    - mall-services/mall-search/src/main/resources/application.yml
+    - mall-services/mall-search/src/test/resources/application-test.yml
+    - mall-services/mall-system/pom.xml
+    - mall-services/mall-system/src/main/resources/application.yml
+    - mall-services/mall-system/src/test/resources/application-test.yml
+    - mall-gateway/pom.xml
+    - mall-gateway/src/main/resources/application.yml
+  symbols: [] # 配置型 DU，无新增生产代码符号（9 个冒烟测试见 8 服务 src/test 与 gateway src/test）

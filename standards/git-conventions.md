@@ -177,6 +177,22 @@ coverage/
 .nyc_output/
 ```
 
+### Evidence 日志保留例外（CHG-0003 晋升）
+
+`.gitignore` 中 `*.log` 和 `logs/` 规则会吞掉 `delivery/` 下的构建/测试日志。必须添加例外规则保留 evidence 留证：
+
+```gitignore
+# 日志
+*.log
+logs/
+# 保留 delivery 下的 evidence/logs/（构建/测试日志留证）
+!delivery/**/evidence/logs/
+!delivery/**/evidence/logs/**
+!delivery/**/evidence/logs/**/*.log
+```
+
+来源：CHG-0003 implementation.md（.gitignore 例外规则实践）
+
 ## 禁止事项
 
 - 禁止 `git push --force` 到 main 分支
