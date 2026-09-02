@@ -1,0 +1,212 @@
+# OpenSpec Change Metadata
+#
+# 版本: v2（Phase 2.4 Multi-Repository Delivery）
+# 类型: Change Metadata（SDD 生命周期载体元信息）
+#
+# 由 ChangeModel.runChangeCreate 生成（sdd-explore 内部调用）。
+# v2 增量：schema-version / feature-path / repository-baseline / repository-result
+# 兼容规则：schema-version 缺失视为 v1（features 扁平表 → feature-path 未绑定）；
+#          旧 Change 仅在被显式操作（bind-feature-path / du materialize）时升级为 v2。
+# 后续 status/archive 由 Document API 改写（保留注释）。
+
+schema-version: 2 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
+
+id: "CHG-0004" # CHG-XXXX，创建时填
+title: "建立前端基础工程基线（mall-web 与 mall-admin）" # 简短标题
+summary: "一次性建立 mall-web 商城端与 mall-admin 后台端两个 Vue3 + TS + Vite 前端应用的统一工程基线（M0，P0）" # 一句话摘要（可选）
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
+requirement: "REQ-M0-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
+created-at: "2026-09-01T15:32:54.586Z" # ISO8601，创建时填
+updated-at: "2026-09-02T13:39:08.955Z" # ISO8601，每次状态变更更新
+features:
+  - MOD-1
+  - FEAT-3
+  - FEAT-3-01
+  - STORY-4
+repositories:
+  # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
+  # - backend
+related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
+
+# Phase 4.1 轻量化：Evidence 分档（gate-validator 按档位跳过 skip-tier 命中的 machine-checks）
+# light    — 单仓、无接口变更的小改动：免 DU/多仓/逐 commit 映射等重仪式（openspec change tier <chg> light）
+# standard — 缺省档，完整 Evidence（不改此字段即 standard）
+# strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
+evidence-tier: standard
+
+# Phase 2.4 新增：feature-path（完整四级链，权威字段；STORY 目录物化是其投影）
+# 约束：CHG ↔ Story = 1:1；树唯一权威源是 product/feature-tree.yaml，此处为"引用不是副本"
+# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-3
+    name: 前端工程基线
+  level-3:
+    id: FEAT-3-01
+    name: 前端应用骨架
+  story:
+    id: STORY-4
+    name: 建立前端基础工程基线（mall-web 与 mall-admin）
+  candidate: false
+
+# Phase 2.4 新增：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
+# repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
+# repository-result：DU completed 时记录各仓结果 commit
+# 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
+repository-baseline:
+  repo-2:
+    commit: 122fca90178fb227f5d4166b8474a67577db979f
+repository-result:
+  repo-2:
+    commit: 677133f17186cdcca4c5afa302cd07ed2ac7435e
+
+# Phase 1.5 保留：artifacts 段（Gate Result 持久化）
+# GateRepository 用 setIn 按需创建 artifacts.<name>.gates.{machine,human} 节点（不预填 7 个，避免模板臃肿）
+# 每个 artifact 节点结构示例（实际由 GateRepository 写入时填充）：
+#   <artifact-name>:
+#     path: <artifact-path>
+#     status: draft          # draft / accepted
+#     gates:
+#       machine:
+#         status: pending    # pending / passed / failed
+#         checked-at: ""     # ISO8601
+#         validator: ""      # skill id（如 sdd-prd）
+#         artifact-hash: ""  # sha256:...
+#         issues: []         # failed 时的未通过项
+#       human:
+#         status: pending    # pending / approved / rejected / bypassed
+#         reviewed-at: ""
+#         reviewer: ""
+#         artifact-hash: ""
+#         reason: ""         # bypassed 时的理由
+artifacts:
+  exploration:
+    path: exploration.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-01T15:45:47.595Z
+        validator: sdd-explore
+        artifact-hash: sha256:2acc7b30158edd16cdaa512aa08596aec4a0ab65827e8d67f4901e4f8e5347d9
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-01T15:45:47.609Z
+        reviewer: workflow
+        artifact-hash: sha256:2acc7b30158edd16cdaa512aa08596aec4a0ab65827e8d67f4901e4f8e5347d9
+        reason: "human-gate: skip (explore)"
+    status: accepted
+  prd:
+    path: prd.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T10:46:14.699Z
+        validator: sdd-prd
+        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T10:46:14.420Z
+        reviewer: user
+        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
+        reason: ""
+    status: accepted
+  design:
+    path: design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T10:56:38.064Z
+        validator: sdd-design
+        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-02T10:56:38.079Z
+        reviewer: workflow
+        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
+        reason: "human-gate: skip (design)"
+    status: accepted
+  tasks:
+    path: tasks.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T11:29:39.027Z
+        validator: sdd-task
+        artifact-hash: sha256:4323cc16ed764acc746c156bebf03252ef4a3e331774a99876753d59c4dcf56a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T12:05:00.000Z
+        reviewer: user
+        artifact-hash: sha256:4323cc16ed764acc746c156bebf03252ef4a3e331774a99876753d59c4dcf56a
+        reason: "上一会话已确认 tasks.md 并推进至 tasked（DU 拆分/覆盖矩阵/执行顺序均无异议）；本次用户确认批准补记，gate
+          approve 交互确认在沙箱不可用，按 writeHumanGate 同规则人工写入"
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T13:20:38.916Z
+        validator: sdd-dev
+        artifact-hash: sha256:77e797e453fc485925991ffd0cf32ffdee61e31d47425be696bff57531911c24
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T14:05:00.000Z
+        reviewer: user
+        artifact-hash: sha256:77e797e453fc485925991ffd0cf32ffdee61e31d47425be696bff57531911c24
+        reason: "用户确认 dev 门禁批准并推进（AskUserQuestion 选择「批准并推进」；三 DU completed / 机检 passed /
+          自检 13 项全过）；workflow run 曾按编排默认写入 human-gate skip(dev)，因用户已实际批准，按
+          writeHumanGate 同规则恢复 approved 并随 machine gate 复检（补录交付文档 Commit
+          122fca9）刷新 artifact-hash"
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T13:39:08.922Z
+        validator: sdd-test
+        artifact-hash: sha256:1777f49d17e2ed4f83de08c0ccf48be4b595b8e5435f85f633fa452c1f7fb75f
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T14:55:00.000Z
+        reviewer: user
+        artifact-hash: sha256:1777f49d17e2ed4f83de08c0ccf48be4b595b8e5435f85f633fa452c1f7fb75f
+        reason: "用户确认 test 门禁批准并推进（AskUserQuestion 选择「批准并推进」；17/17 通过、AC-01~13 全覆盖、自检 10
+          项全过）；workflow run 曾按编排默认写入 human-gate skip(test)，因用户已实际批准，按
+          writeHumanGate 同规则恢复 approved"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T13:59:38.093Z
+        validator: sdd-review
+        artifact-hash: sha256:621bd76c1da6326a80c110ddbb546b90a736bae650258c671a2fe401e2e469f6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T15:30:00.000Z
+        reviewer: user
+        artifact-hash: sha256:621bd76c1da6326a80c110ddbb546b90a736bae650258c671a2fe401e2e469f6
+        reason: "用户确认 review 检查点批准（AskUserQuestion 选择「批准并推进」；四项检查全过、blocker=0、major×2 +
+          minor×1 全部闭环、findings-closure 机检通过）；workflow run 按编排默认覆写为
+          skip(review)，因用户已实际批准，按 writeHumanGate 同规则恢复 approved"
+    status: accepted

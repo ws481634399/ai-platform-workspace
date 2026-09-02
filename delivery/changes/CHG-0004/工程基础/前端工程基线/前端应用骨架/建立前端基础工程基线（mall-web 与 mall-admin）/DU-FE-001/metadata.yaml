@@ -1,0 +1,76 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-FE-001
+repository: "repo-2" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0004" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-3
+    name: 前端工程基线
+  level-3:
+    id: FEAT-3-01
+    name: 前端应用骨架
+  story:
+    id: STORY-4
+    name: 建立前端基础工程基线（mall-web 与 mall-admin）
+scope:
+  - "根 README, .gitignore"
+  - "镜像源文件模板:
+    templates/base-files(eslint/tsconfig/prettierrc/npmrc/env.example/package-s\
+    cripts)"
+  - "templates/http.ts Axios Client 统一模板"
+  - "src-skeleton 十目录骨架"
+dependencies: [] # 首个 DU，无依赖
+acceptance:
+  # 验收标准条目
+  - "根 README.md/.gitignore 齐全"
+  - "templates/base-files 7 个镜像源文件齐全"
+  - "templates/http.ts 模板存在"
+  - "src-skeleton 十目录齐全"
+  - "eslint.config.js 为 flat config 形态，引入 eslint-plugin-vue+typescript-eslint"
+  - "package.json 模板含 engines node>=22 且 pnpm>=10 + scripts 6 项"
+  - ".npmrc 设置 npm 镜像源"
+  - "模板文件无业务代码残留"
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架\
+    /建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-001" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+evidence-ref: [] # repo 侧 evidence 引用（路径条目）
+baseline:
+  commit: "122fca90178fb227f5d4166b8474a67577db979f" # materialize 时记录的仓库 HEAD（repo-2 首提交 cc5b3a7 之前为空仓库，无 HEAD；du sync-status 会将其覆盖为当前 HEAD，属 harness v0.2.0 对"仓库由本 CHG 新建"场景的已知局限，人工修正回空值）
+result:
+  commit: "677133f17186cdcca4c5afa302cd07ed2ac7435e" # completed 时的仓库 HEAD（dev 完成后回填）
+  paths:
+    - README.md
+    - .gitignore
+    - templates/base-files/eslint.config.js
+    - templates/base-files/tsconfig.json
+    - templates/base-files/tsconfig.node.json
+    - templates/base-files/.prettierrc.json
+    - templates/base-files/.npmrc
+    - templates/base-files/.env.example
+    - templates/base-files/package-scripts.json
+    - templates/http.ts
+    - templates/src-skeleton/api/.gitkeep
+    - templates/src-skeleton/assets/.gitkeep
+    - templates/src-skeleton/components/.gitkeep
+    - templates/src-skeleton/composables/.gitkeep
+    - templates/src-skeleton/layouts/.gitkeep
+    - templates/src-skeleton/router/.gitkeep
+    - templates/src-skeleton/stores/.gitkeep
+    - templates/src-skeleton/types/.gitkeep
+    - templates/src-skeleton/utils/.gitkeep
+    - templates/src-skeleton/views/.gitkeep
+  symbols: [] # 规范底座为模板类交付，无代码符号

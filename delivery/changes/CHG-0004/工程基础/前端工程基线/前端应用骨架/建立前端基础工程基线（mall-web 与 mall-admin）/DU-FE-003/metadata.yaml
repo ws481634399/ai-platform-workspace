@@ -1,0 +1,84 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-FE-003
+repository: "repo-2" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0004" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-3
+    name: 前端工程基线
+  level-3:
+    id: FEAT-3-01
+    name: 前端应用骨架
+  story:
+    id: STORY-4
+    name: 建立前端基础工程基线（mall-web 与 mall-admin）
+scope:
+  - "mall-admin: 完整 Vue3+TS+Vite 工程; Element Plus 按需导入(unplugin); Router(6条);
+    Pinia(侧栏折叠); HTTP Client; AdminLayout(4菜单); LoginView+Workbench+4占位页;
+    env三件套; 质量基线"
+dependencies:
+  - DU-FE-001
+acceptance:
+  - AC-04 install 通过
+  - AC-05 dev启动+AdminLayout正常渲染+EP组件可见
+  - AC-06 build 通过
+  - AC-07 Router/login/重定向/4占位/404
+  - AC-08 Pinia 折叠同步
+  - AC-09 HTTP /__ping
+  - AC-10 EP组件(el-card/menu/button/input)
+  - AC-11 env
+  - AC-12 lint+type-check+Components.d.ts
+  - AC-13 零业务关键字命中=0
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架\
+    /建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+evidence-ref: [] # repo 侧 evidence 引用（路径条目）
+baseline:
+  commit: "cc5b3a7a7cce62621c0bfdfc085eba21a17fe87e" # materialize 时记录的仓库 HEAD（与 DU-FE-002 并行物化，物化时 HEAD 相同）
+result:
+  commit: "677133f17186cdcca4c5afa302cd07ed2ac7435e" # completed 时的仓库 HEAD（dev 完成后回填）
+  paths:
+    - mall-admin/package.json
+    - mall-admin/vite.config.ts
+    - mall-admin/index.html
+    - mall-admin/eslint.config.js
+    - mall-admin/tsconfig.json
+    - mall-admin/tsconfig.node.json
+    - mall-admin/.prettierrc.json
+    - mall-admin/.npmrc
+    - mall-admin/.env.example
+    - mall-admin/src/main.ts
+    - mall-admin/src/App.vue
+    - mall-admin/src/api/http.ts
+    - mall-admin/src/router/index.ts
+    - mall-admin/src/stores/index.ts
+    - mall-admin/src/stores/app.ts
+    - mall-admin/src/layouts/AdminLayout.vue
+    - mall-admin/src/layouts/MenuItems.ts
+    - mall-admin/src/views/LoginView.vue
+    - mall-admin/src/views/WorkbenchView.vue
+    - mall-admin/src/views/UsersPlaceholderView.vue
+    - mall-admin/src/views/ProductsPlaceholderView.vue
+    - mall-admin/src/views/SettingsPlaceholderView.vue
+    - mall-admin/src/views/NotFoundView.vue
+    - mall-admin/src/types/index.ts
+    - mall-admin/src/auto-imports.d.ts
+    - mall-admin/src/components.d.ts
+  symbols:
+    - mall-admin/src/layouts/AdminLayout.vue::AdminLayout
+    - mall-admin/src/stores/app.ts::useAppStore
+    - mall-admin/src/router/index.ts::router

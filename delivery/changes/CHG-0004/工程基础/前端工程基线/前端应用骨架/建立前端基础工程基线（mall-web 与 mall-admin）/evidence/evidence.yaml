@@ -1,0 +1,415 @@
+# OpenSpec Evidence Model（Phase 2.1）
+#
+# 版本: v0.1
+# 类型: Change 结构化证据索引
+#
+# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
+# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
+# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
+#
+# 条目结构（按 type 区分必填字段）：
+#
+# ---- type: code-change ----
+# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
+#   type: code-change
+#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
+#   commit: 23fdb62            # 必填，commit 短 sha（小写）
+#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
+#   reason: 实现注册服务        # 必填，为什么改
+#   files:                     # 必填（可为空数组），修改文件清单
+#     - path: src/services/auth/register.js
+#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
+#   recorded-at: ""            # ISO8601
+#
+# ---- type: test-run ----
+# - id: EV-002
+#   type: test-run
+#   command: npm test          # 必填，执行命令
+#   result: passed             # 必填，passed / failed / partial
+#   summary:                   # 必填（对象）
+#     total: 0
+#     passed: 0
+#     failed: 0
+#     skipped: 0
+#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
+#   covers: [AC-1, AC-2]       # 必填（可为空数组），覆盖的 PRD 验收标准
+#   recorded-at: ""
+#
+# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
+# - id: EV-003
+#   type: review-finding
+#   target: prd.md#AC-3        # 必填，指向被检查对象
+#   severity: major            # 必填，blocker / major / minor
+#   finding: 设计与实现不一致   # 必填
+#   resolution: ""             # 可选，处理结论
+#   recorded-at: ""
+#
+# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
+# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
+# - id: EV-004
+#   type: evidence-ref
+#   repository: backend        # 可选，仓库 id
+#   delivery-unit: DU-BE-001   # 可选，DU 绑定
+#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
+#                              # 必填，repo 侧证据文件（workspace 相对路径）
+#   summary: backend 单测 12 通过  # 可选，一句话摘要
+#   recorded-at: ""
+
+version: 0.1 # schema 版本
+change-id: "CHG-0004" # CHG-XXXX，创建时填充
+items:
+  # -------- sdd-dev 阶段（实施正文归 repo 侧，workspace 登记 evidence-ref） --------
+  - id: EV-001
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-002
+    path:
+      implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立
+      前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/mall-web-install.log
+    summary: pnpm install 退出码 0，无 WARN/unmet 依赖冲突（node v22.22.1 + pnpm 10.32.1），覆盖 AC-01
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-002
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-002
+    path:
+      implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立
+      前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/mall-web-build.log
+    summary: pnpm build 退出码 0，dist/ 9 文件，HomeView/MallLayout/NotFoundView 懒加载 chunk 可观测，覆盖 AC-03
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-003
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-002
+    path:
+      implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立
+      前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/mall-web-lint.log
+    summary: pnpm lint 0 error（19 warn 设计降级样式规则）+ type-check（双 tsconfig 串联）退出码 0，覆盖 AC-12
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-004
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-003
+    path:
+      implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立
+      前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/logs/mall-admin-build.log
+    summary: pnpm build 退出码 0，dist/ 23 文件，AdminLayout/LoginView/WorkbenchView 独立 chunk（1.71s），覆盖 AC-06
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-005
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-003
+    path:
+      implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立
+      前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/logs/mall-admin-lint.log
+    summary: pnpm lint 0 error（35 warn 设计降级样式规则），覆盖 AC-12（lint 部分）
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-006
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-003
+    path:
+      implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立
+      前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/logs/mall-admin-type-check.log
+    summary: pnpm type-check（vue-tsc × 双 tsconfig）退出码 0，含 unplugin 生成 dts，覆盖 AC-12（type-check 部分）
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  # -------- code-change（本地提交已完成，DU trailer 标注） --------
+  - id: EV-007
+    type: code-change
+    repo: repo-2
+    commit: cc5b3a7
+    task: DU-FE-001
+    reason: 初始化仓库根与前端规范底座（镜像源模板单一事实源，供两应用复制实例化）
+    files:
+      - path: README.md
+      - path: .gitignore
+      - path: templates/base-files/eslint.config.js
+      - path: templates/base-files/tsconfig.json
+      - path: templates/base-files/tsconfig.node.json
+      - path: templates/base-files/.prettierrc.json
+      - path: templates/base-files/.npmrc
+      - path: templates/base-files/.env.example
+      - path: templates/base-files/package-scripts.json
+      - path: templates/http.ts
+      - path: templates/src-skeleton/views/.gitkeep
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-008
+    type: code-change
+    repo: repo-2
+    commit: 06e6e5f
+    task: DU-FE-002
+    reason: 实例化 mall-web 商城前端完整工程（Vite+Vue3+TS+Pinia+Router，验证聚合页覆盖运行时 AC）
+    files:
+      - path: mall-web/package.json
+      - path: mall-web/vite.config.ts
+      - path: mall-web/index.html
+      - path: mall-web/eslint.config.js
+      - path: mall-web/src/main.ts
+      - path: mall-web/src/api/http.ts
+        symbols: [http]
+      - path: mall-web/src/router/index.ts
+        symbols: [router]
+      - path: mall-web/src/stores/app.ts
+        symbols: [useAppStore]
+      - path: mall-web/src/layouts/MallLayout.vue
+      - path: mall-web/src/views/HomeView.vue
+      - path: mall-web/src/views/NotFoundView.vue
+      - path: mall-web/src/types/index.ts
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-009
+    type: code-change
+    repo: repo-2
+    commit: ffeb7da
+    task: DU-FE-003
+    reason: 实例化 mall-admin 后台管理完整工程（Element Plus 按需自动导入 + AdminLayout + 折叠同步）
+    files:
+      - path: mall-admin/package.json
+      - path: mall-admin/vite.config.ts
+      - path: mall-admin/index.html
+      - path: mall-admin/eslint.config.js
+      - path: mall-admin/src/main.ts
+      - path: mall-admin/src/api/http.ts
+        symbols: [http]
+      - path: mall-admin/src/router/index.ts
+        symbols: [router]
+      - path: mall-admin/src/stores/app.ts
+        symbols: [useAppStore]
+      - path: mall-admin/src/layouts/AdminLayout.vue
+        symbols: [AdminLayout]
+      - path: mall-admin/src/layouts/MenuItems.ts
+      - path: mall-admin/src/views/LoginView.vue
+      - path: mall-admin/src/views/WorkbenchView.vue
+      - path: mall-admin/src/types/index.ts
+      - path: mall-admin/src/auto-imports.d.ts
+      - path: mall-admin/src/components.d.ts
+    recorded-at: "2026-09-02T13:55:00Z"
+
+  - id: EV-010
+    type: code-change
+    repo: repo-2
+    commit: 122fca9
+    task: DU-FE-001, DU-FE-002, DU-FE-003
+    reason: 归档 repo 侧 DU task.md/implementation.md/metadata.yaml 与 evidence 交付文档
+    files:
+      - path: delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-001/implementation.md
+      - path: delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/implementation.md
+      - path: delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/implementation.md
+      - path: delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/evidence.yaml
+    recorded-at: "2026-09-02T14:20:00Z"
+
+  # -------- sdd-test 阶段（DU 级测试结果聚合，正文归 repo 侧） --------
+  - id: EV-011
+    type: test-run
+    command: pnpm lint（mall-web test 阶段复验）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/test-lint.log
+    covers: [AC-12]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  - id: EV-012
+    type: test-run
+    command: pnpm type-check（mall-web，vue-tsc × 双 tsconfig 串联）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/test-type-check.log
+    covers: [AC-12]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  - id: EV-013
+    type: test-run
+    command: pnpm build（mall-web）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/test-build.log
+    covers: [AC-03]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  - id: EV-014
+    type: test-run
+    command: rg 业务关键字静态扫描（mall-web src，AC-13）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/test-ac13-scan.log
+    covers: [AC-13]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  - id: EV-015
+    type: test-run
+    command: pnpm lint（mall-admin test 阶段复验）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/logs/test-lint.log
+    covers: [AC-12]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  - id: EV-016
+    type: test-run
+    command: pnpm type-check（mall-admin，含 unplugin 生成 dts）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/logs/test-type-check.log
+    covers: [AC-12]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  - id: EV-017
+    type: test-run
+    command: pnpm build（mall-admin）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/logs/test-build.log
+    covers: [AC-06]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  - id: EV-018
+    type: test-run
+    command: rg 业务关键字静态扫描（mall-admin src，AC-13）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/evidence/logs/test-ac13-scan.log
+    covers: [AC-13]
+    recorded-at: "2026-09-02T14:45:00+08:00"
+
+  # -------- sdd-review 阶段：AC 覆盖缺口闭环（EV-025 finding）——补录同基线 dev 阶段实际执行的 E2E/install 证据 --------
+  - id: EV-019
+    type: test-run
+    command: pnpm install（mall-web，dev 阶段执行，同基线 ffeb7da 复验引用）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/evidence/logs/mall-web-install.log
+    covers: [AC-01]
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  - id: EV-020
+    type: test-run
+    command: pnpm dev + 浏览器验证（mall-web 启动与基础页面访问，dev 阶段执行）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/implementation.md
+    covers: [AC-02]
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  - id: EV-021
+    type: test-run
+    command: E2E 浏览器验证组（mall-web：Router / + 404、Pinia counter 跨组件同步、HTTP /__ping 错误路径、env 标题；dev 阶段执行）
+    result: passed
+    summary:
+      total: 4
+      passed: 4
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002/implementation.md
+    covers: [AC-07, AC-08, AC-09, AC-11]
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  - id: EV-022
+    type: test-run
+    command: pnpm install（mall-admin，dev 阶段执行；直接日志受 sandbox 限制未留存，以依赖树 + 构建链成功间接证明，AC-04 如实标注）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/implementation.md
+    covers: [AC-04]
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  - id: EV-023
+    type: test-run
+    command: pnpm dev + 浏览器验证（mall-admin 启动 + AdminLayout 渲染，dev 阶段执行）
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/implementation.md
+    covers: [AC-05]
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  - id: EV-024
+    type: test-run
+    command: E2E 浏览器验证组（mall-admin：Router /login + / 重定向 + 4 占位页 + 404、Pinia isCollapsed 折叠同步、HTTP /__ping 错误路径、EP 组件渲染、env 标题；dev 阶段执行）
+    result: passed
+    summary:
+      total: 5
+      passed: 5
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-003/implementation.md
+    covers: [AC-07, AC-08, AC-09, AC-10, AC-11]
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  # -------- sdd-review 阶段：评审发现（blocker=0；major EV-025/EV-026 已闭环，minor EV-027 已闭环） --------
+  - id: EV-025
+    type: review-finding
+    target: prd.md#AC-01,AC-02,AC-04,AC-05,AC-07,AC-08,AC-09,AC-10,AC-11
+    severity: major
+    finding: 9 条 AC 无 workspace 侧 test-run covers 条目（证据在 DU 侧 evidence-ref/runtime-verification 条目，跨侧不可追溯，不满足检查 1「每条 AC 至少一个 test-run covers」）
+    resolution: 已补录 EV-019~EV-024 六条 test-run（同基线 dev 阶段实际执行记录），AC-01~13 全部有 workspace 侧 covers 覆盖
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  - id: EV-026
+    type: review-finding
+    target: design.md#2.3
+    severity: major
+    finding: 版本选型偏差未在 DU Deviations 显式记录——design 声明 vue-router 4 / ESLint 9，实际安装 vue-router 5.3.x / eslint 10.9.1（仅 DEV-2 间接提及 ESLint 10）
+    resolution: 已在 DU-FE-002 DEV-4 与 DU-FE-003 DEV-5 补记（原因=锁定现行稳定 major，版本权威由 lockfile 承担；全链路验证通过无 API 破坏）
+    recorded-at: "2026-09-02T15:20:00+08:00"
+
+  - id: EV-027
+    type: review-finding
+    target: design.md#2.6
+    severity: minor
+    finding: mall-admin 最小示例 store 形态演进未记录——design 声明「应用名 + 计数器动作」，实际为 appName + isCollapsed + toggleSidebar（折叠开关）
+    resolution: 已在 DU-FE-003 DEV-6 补记；意图等价（ref 状态 + 动作函数，setup 语法）且更贴合 admin 场景（AC-08 折叠同步验证载体），minor 接受闭环
+    recorded-at: "2026-09-02T15:20:00+08:00"

@@ -26,9 +26,11 @@ mode: multi
 repositories:
   - id: repo-1
     path: implementation/ai-platform-backend # 后端 Monorepo（Maven 根=仓库根），远程 github.com/ws481634399/ai-platform-backend.git，见 CHG-0001 技术决策 3（2026-08-28 修订）
-  # 前端仓库预留（M1 建立时启用）：
-  # v0.2 架构要求仓库位于 implementation/ 下；启用时将仓库迁入
-  # implementation/ai-platform-frontend（git clone 或 submodule add）后取消注释：
-  # - id: repo-2
-  #   path: implementation/ai-platform-frontend
-  #   kind: git
+  # 前端仓库（CHG-0004 explore 阶段启用，2026-09-01）：
+  # 本地 implementation/ai-platform-frontend（git clone 自远程 github.com/ws481634399/ai-platform-frontend-web.git，
+  # 远程当前为空仓库，M0 工程基线将在 dev 阶段初始化并推送）；
+  # implementation/ 整体在工作区 .gitignore 中，仓库独立管理不入工作区版本库
+  - id: repo-2
+    path: implementation/ai-platform-frontend
+    kind: git
+    remote: https://github.com/ws481634399/ai-platform-frontend-web.git

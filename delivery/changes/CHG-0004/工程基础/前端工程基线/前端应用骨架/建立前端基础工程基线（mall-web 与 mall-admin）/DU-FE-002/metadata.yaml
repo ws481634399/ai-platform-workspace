@@ -1,0 +1,75 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-FE-002
+repository: "repo-2" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0004" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-3
+    name: 前端工程基线
+  level-3:
+    id: FEAT-3-01
+    name: 前端应用骨架
+  story:
+    id: STORY-4
+    name: 建立前端基础工程基线（mall-web 与 mall-admin）
+scope:
+  - "mall-web: 完整 Vue3+TS+Vite 工程; Router(2条); Pinia(AppStore 计数器); HTTP Client;
+    MallLayout; HomeView/NotFoundView; env三件套; 质量基线"
+dependencies:
+  - DU-FE-001
+acceptance:
+  - AC-01 install 通过
+  - AC-02 dev 启动+首页无错误
+  - AC-03 build 通过
+  - AC-07 Router/404 正常
+  - AC-08 Pinia 计数器
+  - AC-09 HTTP /__ping 双路径
+  - AC-11 env变量生效
+  - AC-12 lint+type-check
+  - AC-13 零业务关键字命中=0
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-frontend/delivery/CHG-0004/工程基础/前端工程基线/前端应用骨架\
+    /建立前端基础工程基线（mall-web 与 mall-admin）/DU-FE-002" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+evidence-ref: [] # repo 侧 evidence 引用（路径条目）
+baseline:
+  commit: "cc5b3a7a7cce62621c0bfdfc085eba21a17fe87e" # materialize 时记录的仓库 HEAD
+result:
+  commit: "677133f17186cdcca4c5afa302cd07ed2ac7435e" # completed 时的仓库 HEAD（dev 完成后回填）
+  paths:
+    - mall-web/package.json
+    - mall-web/vite.config.ts
+    - mall-web/index.html
+    - mall-web/eslint.config.js
+    - mall-web/tsconfig.json
+    - mall-web/tsconfig.node.json
+    - mall-web/.prettierrc.json
+    - mall-web/.npmrc
+    - mall-web/.env.example
+    - mall-web/src/main.ts
+    - mall-web/src/App.vue
+    - mall-web/src/api/http.ts
+    - mall-web/src/router/index.ts
+    - mall-web/src/stores/index.ts
+    - mall-web/src/stores/app.ts
+    - mall-web/src/layouts/MallLayout.vue
+    - mall-web/src/views/HomeView.vue
+    - mall-web/src/views/NotFoundView.vue
+    - mall-web/src/types/index.ts
+  symbols:
+    - mall-web/src/stores/app.ts::useAppStore
+    - mall-web/src/router/index.ts::router
+    - mall-web/src/api/http.ts::http
