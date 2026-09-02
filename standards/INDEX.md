@@ -1,7 +1,7 @@
 # Standards 知识索引
 
-> 最后更新: 2026-09-01T23:15:00Z
-> 关联 Change: CHG-0001, CHG-0003
+> 最后更新: 2026-09-02T16:05:00Z
+> 关联 Change: CHG-0001, CHG-0003, CHG-0004
 
 ## 导航
 - [规则知识说明](README.md) — Workspace 规则世界的目的、结构和使用指南
@@ -41,9 +41,9 @@
 
 ## 前端工程规范（engineering/frontend/）
 - [前端工程规范入口](engineering/frontend/README.md) — 前端工程开发过程中的通用技术规范
-- [前端代码规范](engineering/frontend/coding-standard.md) — 前端项目代码开发规范
-- [前端组件设计规范](engineering/frontend/component-standard.md) — 前端组件拆分、复用和维护规范
-- [前端路由规范](engineering/frontend/router-standard.md) — 前端路由设计、权限控制和维护规范
+- [前端代码规范](engineering/frontend/coding-standard.md) — **（CHG-0004 已晋升 §13/§14）** 前端项目代码开发规范；含 ESLint 10 flat config + @eslint/js 显式声明与已验证版本组合、TypeScript 5 固定（TS7 peer 冲突）、双 tsconfig 串联 type-check、多应用镜像文件对齐约定
+- [前端组件设计规范](engineering/frontend/component-standard.md) — **（CHG-0004 已晋升 §14）** 前端组件拆分、复用和维护规范；含 Element Plus 按需导入（unplugin + ElementPlusResolver）与生成 dts 入库约定
+- [前端路由规范](engineering/frontend/router-standard.md) — **（CHG-0004 已晋升 §15）** 前端路由设计、权限控制和维护规范；含 vue-router 5 返回值式守卫签名约定
 - [前端状态管理规范](engineering/frontend/state-management-standard.md) — 状态管理设计原则和维护要求
 - [前端性能规范](engineering/frontend/performance-standard.md) — 前端性能设计、开发和优化规范
 

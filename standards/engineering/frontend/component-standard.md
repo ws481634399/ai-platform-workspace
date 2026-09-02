@@ -744,3 +744,18 @@ AI生成代码
 - 易复用；
 - 易维护；
 - 易测试。
+
+---
+
+# 14. UI 库按需导入与生成类型入库约定（CHG-0004 晋升）
+
+
+Element Plus 等 UI 组件库统一采用按需自动导入，禁止 main.ts 全局注册：
+
+
+- 工具链：unplugin-auto-import + unplugin-vue-components + ElementPlusResolver（vite.config.ts 配置）；
+- 类型入库：auto-imports.d.ts / components.d.ts 生成文件随代码入库，保证新克隆环境 type-check 可直接通过；
+- 使用方式：模板中直接使用 el-* 组件与 ElMessage 等 API，无需 import 与 app.use 注册。
+
+
+来源：CHG-0004 review-report.md §1.5（mall-admin 已验证，dist 产出 EP 独立 chunk）

@@ -14,10 +14,10 @@ schema-version: 2 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
 id: "CHG-0004" # CHG-XXXX，创建时填
 title: "建立前端基础工程基线（mall-web 与 mall-admin）" # 简短标题
 summary: "一次性建立 mall-web 商城端与 mall-admin 后台端两个 Vue3 + TS + Vite 前端应用的统一工程基线（M0，P0）" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
 requirement: "REQ-M0-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-01T15:32:54.586Z" # ISO8601，创建时填
-updated-at: "2026-09-02T13:39:08.955Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-02T14:25:09.761Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-3
@@ -209,4 +209,23 @@ artifacts:
         reason: "用户确认 review 检查点批准（AskUserQuestion 选择「批准并推进」；四项检查全过、blocker=0、major×2 +
           minor×1 全部闭环、findings-closure 机检通过）；workflow run 按编排默认覆写为
           skip(review)，因用户已实际批准，按 writeHumanGate 同规则恢复 approved"
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T14:24:35.115Z
+        validator: sdd-converge
+        artifact-hash: sha256:bb355730f96cad59f1b588f7368ef5aa25da47f12578a8bc2f439999c3839715
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T16:30:00+08:00
+        reviewer: user
+        artifact-hash: sha256:bb355730f96cad59f1b588f7368ef5aa25da47f12578a8bc2f439999c3839715
+        reason: "用户确认知识沉淀结果并推进至 completed（AskUserQuestion 选择「确认，推进至 completed」；6 条候选→4
+          段晋升、Product/Glossary 无更新、STORY-4 delivered、索引重建完成）；gate approve
+          交互确认在沙箱不可用，按 writeHumanGate 同规则人工写入，hash 与 machine gate 一致"
     status: accepted

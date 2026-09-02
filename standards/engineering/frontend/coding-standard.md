@@ -629,3 +629,71 @@ AI 不应该：
 - 可扩展；
 
 的前端代码。
+
+---
+
+# 13. 前端工具链版本配套约定（CHG-0004 晋升）
+
+
+## 13.1 ESLint 10 flat config 配套
+
+
+ESLint 10 不再随附 @eslint/js，采用 flat config（eslint.config.js）的项目必须在 devDependencies 显式声明 @eslint/js。
+
+
+已验证版本组合（mall-web / mall-admin 实测通过，全链路 lint 0 error）：
+
+| 包 | 版本 |
+|----|------|
+| eslint | ^10.9.1 |
+| eslint-plugin-vue | ^10.10.0 |
+| typescript-eslint | ^8.69.0 |
+| @eslint/js | ^10.0.1 |
+
+
+来源：CHG-0004 review-report.md §1.5（DU-FE-002 DEV-4 / DU-FE-003 DEV-5）
+
+
+## 13.2 TypeScript 版本固定
+
+
+TypeScript 7 与 typescript-eslint 8 的 peerDependencies 范围冲突，需显式固定 `typescript@5`（当前锁定 5.9.x），禁止使用 latest 或 7.x。
+
+
+来源：CHG-0004 review-report.md §1.5（DU-FE-002/003 Deviations）
+
+
+## 13.3 双 tsconfig 串联 type-check
+
+
+app/node 双 tsconfig（无 references 组合）场景下，类型门禁命令必须串联两个 project：
+
+
+```bash
+vue-tsc --noEmit -p tsconfig.json && vue-tsc --noEmit -p tsconfig.node.json
+```
+
+
+package.json 的 type-check script 按此约定声明。
+
+
+来源：CHG-0004 review-report.md §1.5
+
+
+---
+
+# 14. 多应用镜像文件对齐约定（CHG-0004 晋升）
+
+
+同一 Workspace 内多个前端应用（如 mall-web 与 mall-admin）的工程配置文件应保持镜像一致：
+
+
+- 单一事实源：工程配置模板（http.ts、tsconfig×2、eslint.config.js、.prettierrc.json、.npmrc、.env.example 等）从模板目录复制实例化；
+- 镜像清单：维护镜像文件清单，清单内文件在应用间应逐行一致；
+- 复核方式：评审阶段对镜像清单执行 diff 复核，任何差异必须有 Deviations 记录说明。
+
+
+该策略替代 frontend-common 公共包方案，在保持各应用独立可构建（独立 main/package.json/lockfile）的同时获得配置统一性。
+
+
+来源：CHG-0004 review-report.md §1.5

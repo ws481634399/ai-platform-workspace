@@ -1,6 +1,6 @@
 {
   "$schema": "sdd-knowledge-index/v0.1",
-  "updated-at": "2026-08-29T16:30:00Z",
+  "updated-at": "2026-09-02T16:05:00Z",
   "standards": [
     {
       "title": "规则知识说明",
@@ -131,23 +131,23 @@
     {
       "title": "前端代码规范",
       "path": "standards/engineering/frontend/coding-standard.md",
-      "tags": ["frontend", "code", "vue"],
-      "summary": "前端项目代码开发规范，覆盖命名、格式化、Lint 与文件组织",
-      "related-changes": []
+      "tags": ["frontend", "code", "vue", "eslint", "typescript"],
+      "summary": "前端项目代码开发规范，覆盖命名、格式化、Lint 与文件组织；CHG-0004 晋升：ESLint 10 flat config + @eslint/js 显式声明与已验证版本组合、TypeScript 5 固定、双 tsconfig 串联 type-check、多应用镜像文件对齐约定",
+      "related-changes": ["CHG-0004"]
     },
     {
       "title": "前端组件设计规范",
       "path": "standards/engineering/frontend/component-standard.md",
-      "tags": ["frontend", "component", "design", "reuse"],
-      "summary": "前端组件设计、拆分、复用和维护规范，保证组件边界和可组合性",
-      "related-changes": []
+      "tags": ["frontend", "component", "design", "reuse", "element-plus"],
+      "summary": "前端组件设计、拆分、复用和维护规范，保证组件边界和可组合性；CHG-0004 晋升：Element Plus 按需导入（unplugin + ElementPlusResolver）与生成 dts 入库约定",
+      "related-changes": ["CHG-0004"]
     },
     {
       "title": "前端路由规范",
       "path": "standards/engineering/frontend/router-standard.md",
-      "tags": ["frontend", "router", "permission"],
-      "summary": "前端应用路由设计、组织、权限控制和维护规范，含路由守卫与菜单",
-      "related-changes": []
+      "tags": ["frontend", "router", "permission", "vue-router"],
+      "summary": "前端应用路由设计、组织、权限控制和维护规范，含路由守卫与菜单；CHG-0004 晋升：vue-router 5 返回值式守卫签名约定（弃用 next() 回调）",
+      "related-changes": ["CHG-0004"]
     },
     {
       "title": "前端状态管理规范",

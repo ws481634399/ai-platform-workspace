@@ -642,3 +642,17 @@ Evidence
 - 结构稳定；
 - 权限明确；
 - 易维护。
+
+---
+
+# 15. 路由守卫签名约定（CHG-0004 晋升）
+
+
+vue-router 5 已弃用守卫 next() 回调签名（运行时产生 R0025 deprecation 警告），全局守卫统一使用返回值式签名：
+
+
+- 占位守卫写法：`router.beforeEach(() => true)`；
+- 后续扩展（登录/权限守卫）在 guards/ 中实现，返回 `true`、路由地址或 `false`，不使用 next 参数。
+
+
+来源：CHG-0004 review-report.md §1.5（DU-FE-002/003 Deviations，运行时 R0025 验证）
