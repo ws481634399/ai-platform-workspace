@@ -24,8 +24,18 @@ mode: multi
 #   可以配置多个repository
 
 repositories:
+  # OpenSpec/SDD 工作区仓：管理 delivery/standards/product/skills 与跨仓共享 deploy/ 资产。
+  # implementation/ 整体受 .gitignore 隔离，不将下方三个独立仓纳入本仓跟踪。
+  - id: repo-workspace
+    alias: WS
+    path: .
+    kind: git
+    remote: https://github.com/ws481634399/ai-platform-workspace.git
+# 后端 Monorepo（Maven 根=仓库根），远程 github.com/ws481634399/ai-platform-backend.git
   - id: repo-1
-    path: implementation/ai-platform-backend # 后端 Monorepo（Maven 根=仓库根），远程 github.com/ws481634399/ai-platform-backend.git，见 CHG-0001 技术决策 3（2026-08-28 修订）
+    path: implementation/ai-platform-backend 
+    kind: git
+    remote: https://github.com/ws481634399/ai-platform-backend.git
   # 前端仓库（CHG-0004 explore 阶段启用，2026-09-01）：
   # 本地 implementation/ai-platform-frontend（git clone 自远程 github.com/ws481634399/ai-platform-frontend-web.git，
   # 远程当前为空仓库，M0 工程基线将在 dev 阶段初始化并推送）；
@@ -34,3 +44,11 @@ repositories:
     path: implementation/ai-platform-frontend
     kind: git
     remote: https://github.com/ws481634399/ai-platform-frontend-web.git
+  # AI Service 独立仓库（CHG-0005 explore 阶段启用，2026-09-04）：
+  # 本地 implementation/ai-platform-ai-service（git clone 自远程 github.com/ws481634399/ai-platform-AIService.git，
+  # 远程当前为空仓库，M0 工程基线将在 dev 阶段初始化并推送）；
+  # implementation/ 整体在工作区 .gitignore 中，仓库独立管理不入工作区版本库
+  - id: repo-3
+    path: implementation/ai-platform-ai-service
+    kind: git
+    remote: https://github.com/ws481634399/ai-platform-AIService.git

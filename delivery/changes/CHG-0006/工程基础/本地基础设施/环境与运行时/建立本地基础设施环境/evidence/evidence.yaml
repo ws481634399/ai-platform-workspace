@@ -1,0 +1,19 @@
+evidence:
+  - id: EV-001
+    type: code-change
+    delivery-unit: DU-WS-001
+    commit: 66638a10296d1bf96ceb9a18dd1cae1ec835c04e
+    evidence-ref: delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-001/evidence/evidence.yaml
+    recorded-at: "2026-09-08T20:10:00+08:00"
+  - id: EV-002
+    type: code-change
+    delivery-unit: DU-WS-002
+    commit: f99a2738f5827293bc65038bab9f7da8636138e7
+    evidence-ref: delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-002/evidence/evidence.yaml
+    recorded-at: "2026-09-08T20:10:00+08:00"
+  - id: EV-003
+    type: test-run
+    delivery-unit: DU-WS-003
+    result: PARTIAL
+    evidence-ref: delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-003/evidence/evidence.yaml
+    recorded-at: "2026-09-08T20:10:00+08:00"

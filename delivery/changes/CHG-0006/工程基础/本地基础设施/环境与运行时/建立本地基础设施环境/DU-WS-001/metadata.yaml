@@ -1,0 +1,51 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-WS-001
+repository: "repo-workspace" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0006" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-03
+    name: 本地基础设施
+  level-3:
+    id: FEAT-1-03-01
+    name: 环境与运行时
+  story:
+    id: STORY-1-03-01-01
+    name: 建立本地基础设施环境
+scope:
+  - deploy/docker-compose.infra.yml
+  - deploy/.env.example
+  - deploy/.gitignore
+  - deploy/.gitattributes
+  - deploy/mysql/init/001-init-databases.sh
+dependencies: []
+acceptance:
+  - AC-002 Compose 基线
+  - AC-004 MySQL 与八库
+  - AC-005 Redis 鉴权
+  - AC-008 统一网络
+  - AC-010 环境与 Secret
+  - AC-014 范围守卫
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-001" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: pending # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+evidence-ref: [] # repo 侧 evidence 引用（路径条目）
+baseline:
+  commit: "4a343a68e0c08e1b8d18fa9482ec1614f53f6166" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
+result:
+  commit: "" # completed 时的仓库 HEAD（可选）
+  paths: [] # 实现影响路径（可选，repo 相对路径；completed 时 Agent 回填，如 auth/service.go）
+  symbols: [] # 关键代码符号（可选，格式 <file>::<symbol>，如 auth/service.go::Login）
