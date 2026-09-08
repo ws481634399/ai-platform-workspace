@@ -32,6 +32,9 @@ logs/
 !delivery/changes/**/evidence/logs/**
 !delivery/archive/**/evidence/logs/
 !delivery/archive/**/evidence/logs/**
+# 保留物化到工作仓的 Repository Delivery Evidence 日志
+!delivery/CHG-*/**/evidence/logs/
+!delivery/CHG-*/**/evidence/logs/**
 
 # 本地环境配置（不入库）
 *.local
