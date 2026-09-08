@@ -16,10 +16,10 @@ schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0006" # CHG-XXXX，创建时填
 title: "建立本地基础设施环境（Docker Compose）" # 简短标题
 summary: "Docker Compose 统一管理 MySQL/Redis/Nacos/MinIO 本地开发基础设施" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M0-004" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-07T13:42:20.765Z" # ISO8601，创建时填
-updated-at: "2026-09-08T11:46:04.648Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-08T12:27:52.008Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-1-03
@@ -167,7 +167,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-08T12:21:42.503Z
+        checked-at: 2026-09-08T12:26:33.652Z
         validator: sdd-dev
         artifact-hash: sha256:294181394a191aa55579a9cb668b383bb0b137ce66898b92f7617d4ffbfdfde6
         rules-hash: sha256:aef4da65a115c3fa073c7cabeeebe81bb6c49c73b5f92bd2e6935c1ff6526296
@@ -175,3 +175,21 @@ artifacts:
         warnings:
           - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
             至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-08T12:27:31.049Z
+        reviewer: user
+        artifact-hash: sha256:294181394a191aa55579a9cb668b383bb0b137ce66898b92f7617d4ffbfdfde6
+        reason: ""
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-08T12:37:01.524Z
+        validator: sdd-test
+        artifact-hash: sha256:d9cf5940b79603d2711aeefd8716acb50a9a8f17e8db942d0eb665c49fe50f15
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []

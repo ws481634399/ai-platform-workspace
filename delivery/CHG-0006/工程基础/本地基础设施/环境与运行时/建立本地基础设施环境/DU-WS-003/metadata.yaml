@@ -35,7 +35,7 @@ implementation-guidance:
   pseudocode: true
   complexity-trigger:
     - orchestration
-status: developing # pending / developing / testing / completed
+status: testing # pending / developing / testing / completed
 baseline:
   commit: ""
 result:

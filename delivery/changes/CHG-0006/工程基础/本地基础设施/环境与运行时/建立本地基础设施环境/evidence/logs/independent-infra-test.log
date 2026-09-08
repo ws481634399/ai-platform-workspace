@@ -1,0 +1,24 @@
+CHG-0006 independent test run
+tested-at: 2026-09-08T20:33:16+08:00
+environment: Windows 11 / PowerShell / Docker Engine 29.4.0 / Compose v5.1.1
+
+PASS TC-001: docker info and docker compose version exited 0.
+PASS TC-002: Compose config parsed; service set=minio,mysql,nacos,redis; fixed image tags.
+PASS TC-003: all four services healthy.
+PASS TC-004: MySQL SELECT/database checks; eight mall_* databases; utf8mb4.
+PASS TC-005: Redis authenticated PING=PONG; wrong password rejected.
+PASS TC-006: Nacos Server and Console readiness data=ok; MODE=standalone.
+PASS TC-007: MinIO ready; local credentials accepted; bucket list empty after test cleanup.
+PASS TC-008: mysql:3306, redis:6379, nacos:8848, minio:9000 reachable on ai-platform-network.
+PASS TC-009: MySQL row, Redis key, MinIO object survived ordinary down/up; fixtures and test bucket removed.
+PASS TC-010: deploy/.env ignored and untracked; environment contract present.
+PASS TC-011: infra.ps1 status/health and argument error behavior exited as specified.
+PASS TC-012: independent second up cycle returned all four services healthy.
+PARTIAL TC-013: mall-identity MySQL and Nacos PASS; Redis PENDING because no client dependency/config entry exists.
+PASS TC-014: no scope-out service or business DDL/DML in Compose/init assets.
+
+Failures discovered and resolved during test:
+- TC-007 initially failed because the development fixture object was removed but its empty test bucket remained.
+- Removed only local/chg0006-persistence-probe; rerun passed with an empty bucket list.
+
+Final: 13 PASS, 0 FAIL, 1 permitted PENDING sub-capability.

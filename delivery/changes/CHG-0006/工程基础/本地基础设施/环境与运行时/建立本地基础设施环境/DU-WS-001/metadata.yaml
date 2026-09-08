@@ -41,7 +41,7 @@ implementation-guidance:
   complexity-trigger: []
 repository-delivery:
   path: "delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-001" # repo 侧交付目录（workspace 相对路径），materialize 后回填
-status: pending # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+status: testing # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
 evidence-ref: [] # repo 侧 evidence 引用（路径条目）
 baseline:
   commit: "4a343a68e0c08e1b8d18fa9482ec1614f53f6166" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
