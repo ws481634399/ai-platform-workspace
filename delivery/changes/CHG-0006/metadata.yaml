@@ -16,10 +16,10 @@ schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0006" # CHG-XXXX，创建时填
 title: "建立本地基础设施环境（Docker Compose）" # 简短标题
 summary: "Docker Compose 统一管理 MySQL/Redis/Nacos/MinIO 本地开发基础设施" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M0-004" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-07T13:42:20.765Z" # ISO8601，创建时填
-updated-at: "2026-09-08T12:43:18.024Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-08T14:01:55.025Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-1-03
@@ -229,3 +229,10 @@ artifacts:
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
         issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-08T14:01:35.633Z
+        reviewer: user
+        artifact-hash: sha256:5a3d4070d141fe7a76565187ceba5220b73a261ee536221a7d9b165a37f01a67
+        reason: ""
+    status: accepted

@@ -59,3 +59,6 @@
 - [Change Lifecycle](sdd/change-lifecycle.md) — Change 从需求到归档的生命周期管理规则
 - [Knowledge Management](sdd/knowledge-management.md) — 项目知识的创建、管理、更新与治理规则
 - [Skill Execution](sdd/skill-execution.md) — OpenSpec Skill 的执行规则与标准化
+
+## 项目专属规则（project/）
+- [本地基础设施运行规范](project/local-infrastructure-standard.md) — **（CHG-0006 已晋升）** 共享 Compose、真实 readiness、命名卷、环境凭据分层与 PowerShell 运维退出码约定

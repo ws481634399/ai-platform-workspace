@@ -1,6 +1,6 @@
 {
   "$schema": "sdd-knowledge-index/v0.1",
-  "updated-at": "2026-09-02T16:05:00Z",
+  "updated-at": "2026-09-08T13:55:00Z",
   "standards": [
     {
       "title": "规则知识说明",
@@ -232,6 +232,13 @@
       "tags": ["sdd", "skill", "agent-execution"],
       "summary": "OpenSpec Skill 的执行规则与标准化，保证 AI Coding Agent 对软件工程活动的一致产出",
       "related-changes": []
+    },
+    {
+      "title": "本地基础设施运行规范",
+      "path": "standards/project/local-infrastructure-standard.md",
+      "tags": ["infrastructure", "docker-compose", "local-development", "operations"],
+      "summary": "AI Platform 共享本地基础设施的单一 Compose、真实 readiness、环境凭据分层、命名卷和运维脚本约束",
+      "related-changes": ["CHG-0006"]
     }
   ],
   "product": [
