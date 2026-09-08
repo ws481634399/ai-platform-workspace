@@ -162,3 +162,16 @@ artifacts:
         artifact-hash: sha256:f76dd9a82f1c1bab939a6b479b153adf227c1f33c2b90255e5f686b8891ccb21
         reason: ""
     status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-08T12:21:42.503Z
+        validator: sdd-dev
+        artifact-hash: sha256:294181394a191aa55579a9cb668b383bb0b137ce66898b92f7617d4ffbfdfde6
+        rules-hash: sha256:aef4da65a115c3fa073c7cabeeebe81bb6c49c73b5f92bd2e6935c1ff6526296
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
