@@ -103,3 +103,39 @@ items:
     log: evidence/logs/independent-infra-test.log
     covers: [AC-001]
     recorded-at: "2026-09-08T20:33:16+08:00"
+  - id: EV-011
+    type: review-finding
+    target: design.md#2.4 Compose 服务设计
+    severity: major
+    finding: Nacos 容器 healthcheck 只验证 Server readiness，未同时验证 Design 声明的 Console readiness。
+    resolution: 已在 EV-013 补齐双 readiness 健康检查，并由 EV-014 回归通过。
+    recorded-at: "2026-09-08T20:52:53+08:00"
+  - id: EV-012
+    type: review-finding
+    target: tasks.md#DU-WS-002
+    severity: major
+    finding: infra.ps1 未拒绝不适用的 Service/Follow 参数，且参数错误实际退出码为 1、健康轮询未展示底层命令，与 DU 运行接口契约不一致。
+    resolution: 已在 EV-013 修复参数组合、stderr/退出码和命令透明度，并由 EV-014 回归通过。
+    recorded-at: "2026-09-08T20:52:53+08:00"
+  - id: EV-013
+    type: code-change
+    repo: repo-workspace
+    commit: 9ccb7ac0c60d44bdbe30e9454da48f92e3499b64
+    task: review-closure
+    reason: 闭环 Nacos readiness 与 PowerShell 运行接口的评审偏差
+    files:
+      - path: deploy/docker-compose.infra.yml
+      - path: deploy/scripts/infra.ps1
+    recorded-at: "2026-09-08T20:52:53+08:00"
+  - id: EV-014
+    type: test-run
+    command: PowerShell parser, Compose config, invalid-argument exit-code suite, Nacos recreate, and four-service health regression
+    result: passed
+    summary:
+      total: 8
+      passed: 8
+      failed: 0
+      skipped: 0
+    log: evidence/logs/review-fix-verification.log
+    covers: [AC-003, AC-006, AC-011]
+    recorded-at: "2026-09-08T20:52:53+08:00"

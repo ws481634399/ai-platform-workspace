@@ -41,11 +41,16 @@ implementation-guidance:
   complexity-trigger: []
 repository-delivery:
   path: "delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-001" # repo 侧交付目录（workspace 相对路径），materialize 后回填
-status: testing # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
 evidence-ref: [] # repo 侧 evidence 引用（路径条目）
 baseline:
   commit: "4a343a68e0c08e1b8d18fa9482ec1614f53f6166" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
 result:
-  commit: "" # completed 时的仓库 HEAD（可选）
-  paths: [] # 实现影响路径（可选，repo 相对路径；completed 时 Agent 回填，如 auth/service.go）
+  commit: "9ccb7ac0c60d44bdbe30e9454da48f92e3499b64" # completed 时的仓库 HEAD（可选）
+  paths:
+    - deploy/docker-compose.infra.yml
+    - deploy/.env.example
+    - deploy/.gitignore
+    - deploy/.gitattributes
+    - deploy/mysql/init/001-init-databases.sh
   symbols: [] # 关键代码符号（可选，格式 <file>::<symbol>，如 auth/service.go::Login）

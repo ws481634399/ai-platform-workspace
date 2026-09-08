@@ -16,10 +16,10 @@ schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0006" # CHG-XXXX，创建时填
 title: "建立本地基础设施环境（Docker Compose）" # 简短标题
 summary: "Docker Compose 统一管理 MySQL/Redis/Nacos/MinIO 本地开发基础设施" # 一句话摘要（可选）
-status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M0-004" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-07T13:42:20.765Z" # ISO8601，创建时填
-updated-at: "2026-09-08T12:27:52.008Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-08T12:43:18.024Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-1-03
@@ -78,8 +78,8 @@ repository-baseline:
   repo-workspace:
     commit: 4a343a68e0c08e1b8d18fa9482ec1614f53f6166
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-workspace:
+    commit: 9ccb7ac0c60d44bdbe30e9454da48f92e3499b64
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -187,9 +187,27 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-08T12:37:01.524Z
+        checked-at: 2026-09-08T12:42:29.377Z
         validator: sdd-test
         artifact-hash: sha256:d9cf5940b79603d2711aeefd8716acb50a9a8f17e8db942d0eb665c49fe50f15
         rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-08T12:43:02.702Z
+        reviewer: user
+        artifact-hash: sha256:d9cf5940b79603d2711aeefd8716acb50a9a8f17e8db942d0eb665c49fe50f15
+        reason: ""
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-08T12:55:44.401Z
+        validator: sdd-review
+        artifact-hash: sha256:16c77c26ac33142c491b3f61c9bee4c29ae17c989df13c34de7fcc641c44451e
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
         issues: []
         warnings: []

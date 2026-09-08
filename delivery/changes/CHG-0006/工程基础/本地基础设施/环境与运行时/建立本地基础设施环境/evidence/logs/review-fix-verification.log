@@ -1,0 +1,11 @@
+CHG-0006 review closure verification
+reviewed-at: 2026-09-08T20:52:53+08:00
+
+PASS PowerShell parser: deploy/scripts/infra.ps1 has no syntax errors
+PASS docker compose config --quiet: exit 0
+PASS invalid action: exit 2
+PASS invalid service: exit 2
+PASS stop with -Service: exit 2
+PASS status with -Follow: exit 2
+PASS Nacos recreated with Server + Console readiness healthcheck: healthy
+PASS infra.ps1 health: mysql, redis, nacos, minio healthy; exit 0; Docker commands displayed
