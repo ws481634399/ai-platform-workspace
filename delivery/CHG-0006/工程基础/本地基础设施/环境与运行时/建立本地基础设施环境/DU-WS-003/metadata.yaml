@@ -39,7 +39,7 @@ status: completed # pending / developing / testing / completed
 baseline:
   commit: "4a343a68e0c08e1b8d18fa9482ec1614f53f6166"
 result:
-  commit: "9ccb7ac0c60d44bdbe30e9454da48f92e3499b64"
+  commit: "ce6be39e3d51c8ab0ab38873757bf56f4b29e987"
   paths:
     - deploy/README.md
     - delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-003/evidence

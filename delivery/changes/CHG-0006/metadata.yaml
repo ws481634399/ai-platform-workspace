@@ -79,7 +79,7 @@ repository-baseline:
     commit: 4a343a68e0c08e1b8d18fa9482ec1614f53f6166
 repository-result:
   repo-workspace:
-    commit: 9ccb7ac0c60d44bdbe30e9454da48f92e3499b64
+    commit: ce6be39e3d51c8ab0ab38873757bf56f4b29e987
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -209,5 +209,23 @@ artifacts:
         validator: sdd-review
         artifact-hash: sha256:16c77c26ac33142c491b3f61c9bee4c29ae17c989df13c34de7fcc641c44451e
         rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-08T13:40:56.887Z
+        reviewer: user
+        artifact-hash: sha256:16c77c26ac33142c491b3f61c9bee4c29ae17c989df13c34de7fcc641c44451e
+        reason: ""
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-08T13:45:05.174Z
+        validator: sdd-converge
+        artifact-hash: sha256:5a3d4070d141fe7a76565187ceba5220b73a261ee536221a7d9b165a37f01a67
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
         issues: []
         warnings: []
