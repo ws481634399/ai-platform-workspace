@@ -36,6 +36,9 @@ logs/
 !delivery/CHG-*/**/evidence/logs/
 !delivery/CHG-*/**/evidence/logs/**
 
+# OpenSpec 每次 workflow run 生成的临时上下文
+delivery/changes/**/.instruction.md
+
 # 本地环境配置（不入库）
 *.local
 
