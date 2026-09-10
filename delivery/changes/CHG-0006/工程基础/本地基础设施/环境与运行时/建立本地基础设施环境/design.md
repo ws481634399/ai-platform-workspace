@@ -1,5 +1,5 @@
 ---
-affected-repositories: [repo-workspace]
+affected-repositories: [repo-4]
 ---
 
 # Design
@@ -15,19 +15,23 @@ affected-repositories: [repo-workspace]
 - Change ID: CHG-0006
 - Spec 来源: `delivery/changes/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/spec.md`
 - 状态流转: specified → designed
-- 影响的已登记仓: repo-workspace（别名 WS，路径 `.`）
-- 工作区影响: Git 工作区根新增 `deploy/`，远程为 `https://github.com/ws481634399/ai-platform-workspace.git`
+- 影响的已登记仓: repo-4（路径 `implementation/ai-platform-infrastructure`）
+- 基础设施仓远程: `https://github.com/ws481634399/ai-platform-infrastructure.git`
 - 受影响的已登记仓数: 1
 - 是否需要业务数据库 Migration: no
 - 是否需要基础设施初始化: yes（只创建空 Database/本地账号，不创建业务表）
 
 ## 1. 当前状态
 
+### 1.0 完成后所有权纠偏（2026-09-09）
+
+用户确认 `deploy/` 属于独立实现仓，而不是 Workspace 治理仓。本文后续早期记录中的“工作区根 deploy / repo-workspace”由本修订覆盖：实现与 Repository Delivery 已迁入 `implementation/ai-platform-infrastructure`，仓库登记为 `repo-4`。DU 编号 `DU-WS-*` 为保持已形成的证据引用与审计连续性不改号，其 `repository` 字段统一改为 `repo-4`。
+
 ### 1.1 工作区与仓库
 
 | 对象 | 当前事实 | 设计影响 |
 | --- | --- | --- |
-| 工作区 Git 根 | 只管理 SDD/standards/product/delivery，尚无 `deploy/` | 新增三仓共享的基础设施运行契约 |
+| 工作区 Git 根 | 只管理 SDD/standards/product/delivery，不承载 `deploy/` | 登记并引用独立基础设施仓 |
 | repo-1 Backend | Spring Boot 3.5.15 / Spring Cloud 2025.0.3 / SCA 2025.0.0.0；8 个服务已预留 MySQL/Nacos 变量 | 只作为运行时联调对象，本设计不改 Java 代码 |
 | repo-2 Frontend | mall-web/mall-admin 基线已交付 | 不受影响，Frontend → Gateway 属 M0 总验收 |
 | repo-3 AI Service | FastAPI 工程基线已交付且无基础设施强依赖 | 不修改，禁止直连 Java 业务库 |
@@ -53,13 +57,13 @@ repo-1 的实际连接点：
 
 ## 2. 提议方案
 
-采用“工作区单一 Compose 权威 + 四服务独立就绪检查 + 显式命名卷 + 环境变量契约 + PowerShell 轻量入口”方案。应用仍从 IDE/宿主机运行，基础设施不反向感知 Java、Frontend 或 AI 业务配置。
+采用“独立基础设施仓单一 Compose 权威 + 四服务独立就绪检查 + 显式命名卷 + 环境变量契约 + PowerShell 轻量入口”方案。应用仍从 IDE/宿主机运行，基础设施不反向感知 Java、Frontend 或 AI 业务配置。
 
 ## 2.1 备选方案对比（Alternatives Considered）
 
 | 方案 | 优点 | 代价/风险 | 结论 |
 | --- | --- | --- | --- |
-| A. 工作区根 `deploy/` 维护单一 Compose | 三仓共享，与 product 逻辑总览和 spec 一致，无复制漂移 | 需将工作区仓纳入 Harness 追踪 | **采用：已登记 repo-workspace** |
+| A. 独立基础设施仓维护单一 `deploy/` | 四仓共享，运行资产与 Workspace 治理资产分离，无复制漂移 | 增加一个独立 Git 仓的版本协作 | **采用：已登记 repo-4** |
 | B. 放入 repo-1 | 与 Java 联调距离近，可直接绑定 repo-1 | 基础设施被误解为 Java 私有，Frontend/AI 共享契约不对称，违反已确认 spec | 不采用 |
 | C. 三仓各存一份 Compose | 每仓可独立拉起 | 版本、端口、账号和卷契约必然漂移 | 禁止 |
 | D. 开发机手工安装中间件 | 无镜像拉取 | 无法复现，直接违反 REQ-M0-004 | 禁止 |
@@ -184,11 +188,11 @@ Java mall-identity 启动联调 → MySQL PASS + Nacos PASS + Redis PENDING(现�
 
 ## 3. 仓库影响（Repository Impact）
 
-### 3.1 repo-workspace（工作区 Git 仓）
+### 3.1 repo-4（独立基础设施仓）
 
-- 技术职责: 作为三仓共享本地基础设施契约的唯一写入方。
+- 技术职责: 作为 Backend、Frontend、AI Service 共享本地基础设施契约的唯一写入方。
 - 修改概要: 新增 §2.2 所列 `deploy/` 资产。
-- 追踪契约: `.sdd/repositories.yaml`、Change metadata 与 front-matter 均使用 `repo-workspace`，交付单元使用别名 `WS`。
+- 追踪契约: `.sdd/repositories.yaml`、Change metadata 与 DU metadata 均使用 `repo-4`；历史 DU ID 保留 `WS` 后缀以保持引用连续。
 
 ### 3.2 repo-1（只读联调目标）
 
@@ -202,8 +206,8 @@ repo-2 与 repo-3 无修改、无运行时强依赖，不列入影响仓。
 
 - **API Contract**: 无新增 HTTP API。Java 与基础设施使用标准 MySQL/Redis/Nacos 协议，联调变量见 §2.9。
 - **Event Contract**: 无；本 Change 不引入 MQ。
-- **Data Contract**: 工作区拥有 Compose/环境变量契约；repo-1 各服务拥有各自 Database 的业务表和 Flyway 写权；Docker init 只建库与授权；repo-3 不得读写这些库。
-- **Repository Dependencies**: 工作区 `deploy/` 是运行时上游；repo-1 联调时依赖其端口与凭据契约。repo-2/repo-3 本期无依赖。
+- **Data Contract**: repo-4 拥有 Compose/环境变量契约；repo-1 各服务拥有各自 Database 的业务表和 Flyway 写权；Docker init 只建库与授权；repo-3 不得读写这些库。
+- **Repository Dependencies**: repo-4 `deploy/` 是运行时上游；repo-1 联调时依赖其端口与凭据契约。repo-2/repo-3 本期无依赖。
 - **Integration Boundary**: 宿主机运行 Java 使用 `localhost:<mapped-port>`；容器间使用 `mysql/redis/nacos/minio:<container-port>`；禁止固定宿主机 IP。
 - **Cross-Repository Sequence**: 先冻结 `.env.example` 和 Compose 契约 → 启动并完成容器验证 → 再按 §2.9 启动 `mall-identity` 联调。基础设施失败时不启动 Java；Java 联调失败不回滚已验证的容器配置，而是根据日志判定契约或应用问题。
 
@@ -229,23 +233,23 @@ repo-2 与 repo-3 无修改、无运行时强依赖，不列入影响仓。
 | Redis AOF 额外写入与磁盘体积 | 低 | 本地长期写入大量键 | `everysec` 在持久性/开销间折中；README 给出手动清理说明 |
 | MinIO 版本/许可证演进 | 中 | 将本地开源镜像直接演进为生产部署 | 本 Change 仅限本地 M0；生产选型、许可证和升级必须新建 Change |
 | Java → Redis 无现有入口 | 中 | AC-013 无法三项全 PASS | 明确 PENDING 并记录 repo-1 当前 POM/配置证据；不扩大本 Change |
-| 工作区仓远程地址漂移 | 中 | 本地 origin 或 `.sdd/repositories.yaml` 与正式地址不一致 | 两处统一为 `https://github.com/ws481634399/ai-platform-workspace.git`，doctor/Git remote 双重核对 |
+| 基础设施仓远程地址漂移 | 中 | 本地 origin 或 `.sdd/repositories.yaml` 与正式地址不一致 | 两处统一为 `https://github.com/ws481634399/ai-platform-infrastructure.git`，doctor/Git remote 双重核对 |
 
 ## 6. DU 划分（Delivery Units）
 
-> Harness 0.4 将交付单元的权威划分前移到 Design；下一阶段只能消费本表做任务分解，不得新造或改号。`repo-workspace` 已在 `.sdd/repositories.yaml` 登记，别名 `WS` 与下列编号一致。
+> Harness 0.4 将交付单元的权威划分前移到 Design。完成后纠偏保持 DU 编号不变，仅将所有权迁移到已登记的 `repo-4`。
 
 | DU | 仓库 | 职责（实现的设计范围） | covers AC | depends on |
 | --- | --- | --- | --- | --- |
-| DU-WS-001 | repo-workspace | Compose/环境变量/网络/命名卷基线，MySQL/Redis 及幂等建库 | AC-002, AC-004, AC-005, AC-008, AC-010, AC-014 | — |
-| DU-WS-002 | repo-workspace | Nacos 3.0.3、MinIO、四服务 readiness，PowerShell 运行入口与 README | AC-003, AC-006, AC-007, AC-011 | DU-WS-001 |
-| DU-WS-003 | repo-workspace | 环境前置、数据持久化、up/down/up 可重复性、Java MySQL/Nacos 联调与 Redis PENDING 证据 | AC-001, AC-009, AC-012, AC-013 | DU-WS-001, DU-WS-002 |
+| DU-WS-001 | repo-4 | Compose/环境变量/网络/命名卷基线，MySQL/Redis 及幂等建库 | AC-002, AC-004, AC-005, AC-008, AC-010, AC-014 | — |
+| DU-WS-002 | repo-4 | Nacos 3.0.3、MinIO、四服务 readiness，PowerShell 运行入口与 README | AC-003, AC-006, AC-007, AC-011 | DU-WS-001 |
+| DU-WS-003 | repo-4 | 环境前置、数据持久化、up/down/up 可重复性、Java MySQL/Nacos 联调与 Redis PENDING 证据 | AC-001, AC-009, AC-012, AC-013 | DU-WS-001, DU-WS-002 |
 
-划分依据：三个单元均只写入工作区仓；第一单元可以用 Compose config + MySQL/Redis 探针独立红绿，第二单元可用 Nacos/MinIO readiness + 脚本退出码独立红绿，第三单元以完整运行链与联调 Evidence 独立收口；依赖是单向无环的基线 → 服务 → 验证。
+划分依据：三个单元均只写入独立基础设施仓；第一单元可以用 Compose config + MySQL/Redis 探针独立红绿，第二单元可用 Nacos/MinIO readiness + 脚本退出码独立红绿，第三单元以完整运行链与联调 Evidence 独立收口；依赖是单向无环的基线 → 服务 → 验证。
 
 ## 8. 待澄清问题
 
-业务、技术和流程方案的阻塞性待澄清项数量为 **0**。用户已确认工作区远程地址，`repo-workspace` 已登记并与 Design/Change metadata 对齐。
+业务、技术和流程方案的阻塞性待澄清项数量为 **0**。用户已确认基础设施远程地址，`repo-4` 已登记并与 Design/Change metadata 对齐。
 
 非阻塞的实测项：Docker Engine 启动后确认四个镜像 tag 可拉取、镜像内 healthcheck 所需命令可用、Nacos 3.0.3 的 Server/Console readiness 路径按预期返回。这些是 Dev/Test Evidence，不改变本设计的契约。
 

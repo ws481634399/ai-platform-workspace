@@ -5,7 +5,7 @@
 # 实际交付见 repository-delivery.path 指向的 Repository Delivery。
 
 id: DU-WS-003
-repository: "repo-workspace" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+repository: "repo-4" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
 parent:
   change: "CHG-0006" # CHG-XXXX
 feature-path:
@@ -44,9 +44,9 @@ repository-delivery:
 status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
 evidence-ref: [] # repo 侧 evidence 引用（路径条目）
 baseline:
-  commit: "4a343a68e0c08e1b8d18fa9482ec1614f53f6166" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
+  commit: "9f6f9b536eb3899eb5224a3b94890aef76539d2b" # repo-4 首个完整迁移快照
 result:
-  commit: "ce6be39e3d51c8ab0ab38873757bf56f4b29e987" # completed 时的仓库 HEAD（可选）
+  commit: "a802438bda1450e6f11723c79e4e5bec080ba5e6" # repo-4 迁移与证据最终提交
   paths:
     - deploy/README.md
     - delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-003/evidence

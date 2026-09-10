@@ -38,7 +38,7 @@ CHG-0003、CHG-0004 与 CHG-0005 已分别建立 Java Backend、Frontend 和 AI 
 
 本期全部为 P0：
 
-1. **共享 Compose 基线**：在工作区根目录 `deploy/` 建立唯一权威 `docker-compose.infra.yml`，统一编排 MySQL、Redis、Nacos 和 MinIO；不在三个实现仓重复维护 Compose 副本。
+1. **共享 Compose 基线**：在独立基础设施仓 `implementation/ai-platform-infrastructure/deploy/` 建立唯一权威 `docker-compose.infra.yml`，统一编排 MySQL、Redis、Nacos 和 MinIO；不在 Workspace、Backend、Frontend 或 AI Service 仓重复维护 Compose 副本。
 2. **环境契约**：提交 `.env.example`、忽略真实 `.env`，集中声明版本、端口、本地账号、时区和其他可配置项；所有容器镜像使用明确且已验证的非漂移 tag。
 3. **MySQL 本地数据环境**：提供 utf8mb4、Asia/Shanghai、健康检查、持久卷和幂等初始化；为 Java 已规划服务预建 `mall_identity`、`mall_member`、`mall_product`、`mall_cart`、`mall_order`、`mall_inventory`、`mall_search`、`mall_system` 空数据库，可创建仅限本地开发的应用账号。
 4. **Redis 本地服务**：提供密码注入、就绪检查、数据卷与持久化配置，保证普通 `down` 后再 `up` 不会无条件丢失已验证的测试键。
@@ -99,7 +99,7 @@ CHG-0003、CHG-0004 与 CHG-0005 已分别建立 Java Backend、Frontend 和 AI 
 
 | # | 问题 | 本规格决策 | 后续阶段 |
 | --- | --- | --- | --- |
-| 1 | `deploy/` 落仓 | 工作区根 `deploy/` 为三仓共享权威入口，不在 repo-1 建副本。 | Design 将工作区仓纳入 DU/repository 追踪。 |
+| 1 | `deploy/` 落仓 | 2026-09-09 完成后纠偏：独立基础设施仓 `ai-platform-infrastructure` 为共享权威入口，不归属于 Workspace 或任一应用仓。 | Design/DU repository 统一调整为 repo-4。 |
 | 2 | 镜像与版本 | 必须锁定非 `latest` 的已验证 tag；Nacos 使用与现有 Java 客户端兼容的 Standalone 版本。 | Design 调查并确定精确 tag/鉴权参数，Test 留证。 |
 | 3 | 端口终值 | 默认 3306/6379/8848/9000/9001，Nacos 附加端口按客户端必需开放；冲突由 `.env` 显式覆盖。 | Design 给出完整端口表。 |
 | 4 | MySQL 初始化 | 预建 8 个空服务库，utf8mb4/Asia-Shanghai，允许本地应用账号，禁止业务 DDL。 | Design 确定最小权限和脚本幂等方式。 |

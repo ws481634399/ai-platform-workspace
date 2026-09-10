@@ -24,8 +24,8 @@ mode: multi
 #   可以配置多个repository
 
 repositories:
-  # OpenSpec/SDD 工作区仓：管理 delivery/standards/product/skills 与跨仓共享 deploy/ 资产。
-  # implementation/ 整体受 .gitignore 隔离，不将下方三个独立仓纳入本仓跟踪。
+  # OpenSpec/SDD 工作区仓：管理 delivery/standards/product/skills，不承载实现资产。
+  # implementation/ 整体受 .gitignore 隔离，不将下方独立仓纳入本仓跟踪。
   - id: repo-workspace
     alias: WS
     path: .
@@ -52,3 +52,9 @@ repositories:
     path: implementation/ai-platform-ai-service
     kind: git
     remote: https://github.com/ws481634399/ai-platform-AIService.git
+  # 本地基础设施独立仓（CHG-0006 完成后纠偏）：
+  # 统一管理 deploy/ 与仓库侧 delivery，不归属于 Workspace 或 Frontend 仓。
+  - id: repo-4
+    path: implementation/ai-platform-infrastructure
+    kind: git
+    remote: https://github.com/ws481634399/ai-platform-infrastructure.git

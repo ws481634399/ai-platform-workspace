@@ -15,11 +15,15 @@
 - Feature Path: 工程基础 > 本地基础设施 > 环境与运行时 > 建立本地基础设施环境
 - DU 总数: 3
 
+### 0.1 完成后所有权纠偏
+
+2026-09-09 用户确认实现资产应归属独立基础设施仓。三个 DU 保留原 ID，但目标仓统一由 `repo-workspace` 调整为 `repo-4`；Repository Delivery 位于该仓自身的 `delivery/CHG-0006/`。
+
 ## 任务清单
 
 ### DU-WS-001：Compose、环境变量、网络、卷与 MySQL/Redis 基线
 
-- 目标仓库: repo-workspace
+- 目标仓库: repo-4
 - 目标 Goal: 建立四服务共享 Compose 的声明式底座，并交付 MySQL/Redis 可启动、可鉴权、可持久化的基础配置。
 - Scope（范围）: `deploy/docker-compose.infra.yml`、`deploy/.env.example`、`deploy/.gitignore`、`deploy/.gitattributes`、`deploy/mysql/init/001-init-databases.sh`
 - Design References: `design.md` §2.2～§2.6、§3.1、§4 Data Contract、§5.1
@@ -58,7 +62,7 @@
 
 ### DU-WS-002：Nacos/MinIO 就绪、PowerShell 入口与运行文档
 
-- 目标仓库: repo-workspace
+- 目标仓库: repo-4
 - 目标 Goal: 在既有 Compose 基线上补齐 Nacos 3.0.3、MinIO 和四服务真实就绪判定，提供可诊断的 Windows 运行入口及等价原生命令。
 - Scope（范围）: `deploy/docker-compose.infra.yml`、`deploy/scripts/infra.ps1`、`deploy/README.md`
 - Design References: `design.md` §2.3～§2.5、§2.7、§3.1、§4 Cross-Repository Sequence、§5.2
@@ -118,7 +122,7 @@
 
 ### DU-WS-003：持久化、重复运行与 Java 真实联调证据
 
-- 目标仓库: repo-workspace
+- 目标仓库: repo-4
 - 目标 Goal: 按冻结的验证链执行真实环境验收，证明数据跨普通 down/up 恢复，并用 `mall-identity` 收集 Java → MySQL/Nacos 证据及 Redis PENDING 事实。
 - Scope（范围）: `deploy/README.md` 的验收说明、物化后 DU-WS-003 `evidence/`、`implementation/mall-backend-microservices` 只读联调
 - Design References: `design.md` §1.1～§1.2、§2.8～§2.9、§3.2、§4 Cross-Repository Sequence、§5.2
@@ -188,11 +192,11 @@
 | Nacos、MinIO、四服务 readiness、PowerShell 与 README | DU-WS-002 | TC-003、TC-006、TC-007、TC-011 |
 | Docker 前置、持久化、两轮重建、Java MySQL/Nacos/Redis PENDING Evidence | DU-WS-003 | TC-001、TC-009、TC-012、TC-013 |
 
-affected-repositories 为 `[repo-workspace]`，三个 DU 均一对一归属该仓。AC-001～AC-014 全部有 DU 和 TC，依赖仅为 `DU-WS-001 → DU-WS-002 → DU-WS-003`，无循环。
+affected-repositories 修订为 `[repo-4]`，三个 DU 均一对一归属该仓。AC-001～AC-014 全部有 DU 和 TC，依赖仅为 `DU-WS-001 → DU-WS-002 → DU-WS-003`，无循环。
 
 ## 依赖与跨仓契约
 
-- `repo-workspace` 是唯一写入仓；`implementation/mall-backend-microservices` 仅作为 `mall-identity` 联调对象读取和运行，不产生 repo-1 DU 或源代码改动。
+- `repo-4` 是唯一写入仓；`implementation/ai-platform-backend` 仅作为 `mall-identity` 联调对象读取和运行，不产生 repo-1 DU 或源代码改动。
 - 基础设施契约先冻结并健康，再启动 Java；基础设施失败时不得继续 Java 联调。
 - 宿主机应用使用 `localhost:<mapped-port>`，容器间使用服务名和容器端口；本 Change 不新增 HTTP/Event Contract 或业务 Migration。
 
@@ -206,7 +210,7 @@ affected-repositories 为 `[repo-workspace]`，三个 DU 均一对一归属该�
 | Secret 泄露 | DU-WS-001 | `.env` ignore、required interpolation、跟踪文件扫描，TC-010 |
 | 普通 down 误删数据 | DU-WS-002、DU-WS-003 | 默认脚本不传 `--volumes`，持久化恢复，TC-009/TC-012 |
 | Java Redis 无入口 | DU-WS-003 | 代码事实 + PENDING，不伪造 PASS，TC-013 |
-| 工作仓根路径触发 Harness doctor 告警 | DU-WS-003 | 保留真实 `repo-workspace:path .`；Gate/物化路径单独验证并在 Evidence 记录工具限制 |
+| 独立仓远程暂时不可达 | DU-WS-003 | 本地仓与 origin 已建立；保留网络失败事实，待网络恢复后推送 |
 
 ## 全局检查清单
 
@@ -214,6 +218,6 @@ affected-repositories 为 `[repo-workspace]`，三个 DU 均一对一归属该�
 - [x] 每个 DU 均有 Goal、Scope、Implementation Tasks、Sketch、Pseudocode 判定和 Verification。
 - [x] DU-WS-002/003 命中 `orchestration` 并包含主流程与异常分支伪代码；DU-WS-001 明确 N/A 理由。
 - [x] 14 条 AC 均映射到至少一个 DU 与一个 TC；所有任务都有 `verifies`。
-- [x] 依赖单向无环，且只写 repo-workspace；repo-1 保持只读联调。
+- [x] 依赖单向无环，且只写 repo-4；repo-1 保持只读联调。
 - [x] 未修改 spec.md/design.md，未写实现代码，未提前物化 Repository Delivery。
 

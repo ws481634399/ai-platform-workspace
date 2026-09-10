@@ -55,7 +55,7 @@
 
 ### 1.3 跨仓一致性（Phase 2.4）
 
-- 写入仓只有 `repo-workspace`，三个 DU 均已 `completed`；baseline 为 `4a343a68...`，result 为 `9ccb7ac...`，Review 开始时与仓库 HEAD 一致。
+- 原评审时写入仓为 `repo-workspace`，三个 DU 均已 `completed`；完成后已按 §4 将当前所有权修订为 `repo-4`，原 Commit 只保留作历史证据。
 - API/Event Contract 均无新增内容；Data Contract 保持“工作区只建库与授权、Java 服务通过 Flyway 拥有业务表、AI 不直连业务库”。
 - `mall-identity` 仅作为 repo-1 只读联调对象运行，未产生源码或 POM 改动；MySQL/Nacos 证据有效，Redis 缺入口按契约 PENDING。
 - 依赖顺序 `DU-WS-001 → DU-WS-002 → DU-WS-003` 与实际构建、运行、联调顺序一致，无循环或反向依赖。
@@ -96,3 +96,13 @@
 - [x] minor finding 已记录（本次无 minor）
 - [x] 知识同步候选已写入 §1.5
 - [x] 跨仓一致性已核对（单写入仓 + repo-1 只读联调）
+
+## 4. 完成后所有权修订复核（2026-09-09）
+
+- 当前唯一写入仓修订为 `repo-4`，路径 `implementation/ai-platform-infrastructure`；早期 `repo-workspace` Commit 仅作为历史实现证据保留。
+- `deploy/` 与 Repository Delivery 已物理迁入 repo-4，Workspace 根不再保留副本，避免双权威来源。
+- repo-4 origin 与 `.sdd/repositories.yaml` 均指向 `https://github.com/ws481634399/ai-platform-infrastructure.git`。
+- EV-015 给出独立仓实现快照，EV-016 完成 Compose、四服务健康和普通 down/up 持久化回归，8/8 PASS。
+- 远程连接在迁移时被重置，因此尚未推送；这是发布动作待办，不影响本地实现与证据完整性。
+
+修订复核结论：仓库所有权偏差已闭环，开放 finding 仍为 0。

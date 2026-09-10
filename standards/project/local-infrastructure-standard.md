@@ -1,19 +1,19 @@
 ---
 title: 本地基础设施运行规范
 tags: [infrastructure, docker-compose, local-development, operations]
-repos: [repo-workspace]
+repos: [repo-4]
 related-changes: [CHG-0006]
 created-at: 2026-09-08T21:55:00+08:00
-updated-at: 2026-09-08T21:55:00+08:00
+updated-at: 2026-09-10T00:00:00+08:00
 ---
 
 # 本地基础设施运行规范
 
-本规范定义 AI Platform 工作区共享本地基础设施的编排、配置、健康检查、数据保留与操作入口约束。后续增加或升级本地中间件时必须遵循本规范。
+本规范定义 AI Platform 独立基础设施仓的编排、配置、健康检查、数据保留与操作入口约束。后续增加或升级本地中间件时必须遵循本规范。
 
 ## 单一编排入口
 
-- 工作区只维护一份共享基础设施 Compose 权威文件，不在各实现仓复制同一套编排。
+- `repo-4` 只维护一份共享基础设施 Compose 权威文件，不在 Workspace 或各应用仓复制同一套编排。
 - 基础设施使用明确、可获取的非漂移镜像 tag，禁止 `latest` 或省略 tag。
 - 首次采用或升级镜像时必须记录实际 RepoDigest，确保测试证据可以追溯到具体镜像内容。
 - Compose 服务、端口、网络、卷和凭据变量必须集中声明；应用仓只消费契约，不反向控制基础设施容器。

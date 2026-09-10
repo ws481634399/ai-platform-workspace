@@ -24,14 +24,14 @@ items:
     recorded-at: "2026-09-08T20:10:00+08:00"
   - id: EV-003
     type: evidence-ref
-    repository: repo-workspace
+    repository: repo-4
     delivery-unit: DU-WS-001
     path: delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-001/evidence/evidence.yaml
     summary: Compose、MySQL、Redis、网络与 Scope Guard 证据
     recorded-at: "2026-09-08T20:10:00+08:00"
   - id: EV-004
     type: evidence-ref
-    repository: repo-workspace
+    repository: repo-4
     delivery-unit: DU-WS-002
     path: delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-002/evidence/evidence.yaml
     summary: PowerShell、Nacos、MinIO 与四服务 readiness 证据
@@ -50,7 +50,7 @@ items:
     recorded-at: "2026-09-08T20:10:00+08:00"
   - id: EV-006
     type: evidence-ref
-    repository: repo-workspace
+    repository: repo-4
     delivery-unit: DU-WS-003
     path: delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-003/evidence/evidence.yaml
     summary: 两轮运行、持久化与 Java MySQL/Nacos PASS、Redis PENDING
@@ -139,3 +139,26 @@ items:
     log: evidence/logs/review-fix-verification.log
     covers: [AC-003, AC-006, AC-011]
     recorded-at: "2026-09-08T20:52:53+08:00"
+  - id: EV-015
+    type: code-change
+    repo: repo-4
+    commit: 9f6f9b536eb3899eb5224a3b94890aef76539d2b
+    task: repository-ownership-correction
+    reason: 将 deploy 与 Repository Delivery 从 Workspace 迁入独立基础设施仓
+    files:
+      - path: deploy/docker-compose.infra.yml
+      - path: deploy/scripts/infra.ps1
+      - path: delivery/CHG-0006
+    recorded-at: "2026-09-09T22:32:55+08:00"
+  - id: EV-016
+    type: test-run
+    command: repo-4 compose config, start, health, ordinary down/up, Redis persistence and path ownership verification
+    result: passed
+    summary:
+      total: 8
+      passed: 8
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-infrastructure/delivery/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-003/evidence/logs/repository-migration-verification.log
+    covers: [AC-002, AC-003, AC-009, AC-010, AC-012]
+    recorded-at: "2026-09-09T22:32:55+08:00"

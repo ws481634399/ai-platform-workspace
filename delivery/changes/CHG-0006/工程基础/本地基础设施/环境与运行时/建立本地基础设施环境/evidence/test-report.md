@@ -9,7 +9,7 @@
 
 ## 1. 测试范围
 
-### 1.1 repo-workspace
+### 1.1 repo-4（完成后所有权修订）
 
 | DU | 测试范围 | 测试类型 |
 | --- | --- | --- |
@@ -78,3 +78,13 @@ Java → Redis 保持 PENDING：`mall-identity` 当前 POM 无 `mall-common-redi
 ## 5. 测试结论
 
 13 个 TC 完整 PASS，1 个 TC 的两项能力 PASS、Redis 子项 PENDING，0 FAIL。四服务当前继续保持 healthy，可进入 Test Human Gate。
+
+## 6. 独立基础设施仓迁移回归（2026-09-09）
+
+- 从 `implementation/ai-platform-infrastructure/deploy/` 执行 Compose 静态解析，退出码 0。
+- 从新仓启动并等待 MySQL、Redis、Nacos、MinIO，四项均为 healthy。
+- 写入临时 Redis 标记后执行普通 `down/up`，标记恢复成功并已删除，证明迁移继续复用命名卷。
+- `deploy/` 与 `delivery/CHG-0006/` 只存在于 repo-4，Workspace 根对应实现路径已移除。
+- 迁移回归 8/8 PASS；完整日志见 repo-4 的 `DU-WS-003/evidence/logs/repository-migration-verification.log`。
+
+迁移只修正仓库所有权，不改变原 14 条验收标准结论；服务在回归结束后保持 healthy。

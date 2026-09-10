@@ -27,7 +27,7 @@ features:
   - STORY-1-03-01-01
 repositories:
   # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
-  - repo-workspace
+  - repo-4
 related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
 
 # Phase 4.1 轻量化：Evidence 分档（gate-validator 按档位跳过 skip-tier 命中的 machine-checks）
@@ -75,11 +75,11 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  repo-workspace:
-    commit: 4a343a68e0c08e1b8d18fa9482ec1614f53f6166
+  repo-4:
+    commit: 9f6f9b536eb3899eb5224a3b94890aef76539d2b
 repository-result:
-  repo-workspace:
-    commit: ce6be39e3d51c8ab0ab38873757bf56f4b29e987
+  repo-4:
+    commit: a802438bda1450e6f11723c79e4e5bec080ba5e6
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
