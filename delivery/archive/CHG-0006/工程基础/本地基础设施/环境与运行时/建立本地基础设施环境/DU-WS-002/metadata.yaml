@@ -50,3 +50,13 @@ result:
     - deploy/scripts/infra.ps1
     - deploy/README.md
   symbols: [] # 关键代码符号（可选，格式 <file>::<symbol>，如 auth/service.go::Login）
+stories:
+  - id: STORY-1-03-01-01
+    title: 建立本地基础设施环境
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-1-03-01
+      name: 环境与运行时
+schema-version: 4
