@@ -6,29 +6,40 @@ stage: explore
 artifact: exploration.md
 
 # Machine Gate 校验项（GateValidator 执行，仅检查明确声明的项，不扫描全文 checkbox）
+# Phase 4.1 轻量化条目格式：
+#   字符串                          → severity: blocking（缺省）
+#   { id, severity: advisory }      → fail 只记 warning 不阻断
+#   { id, skip-tier: [light,...] }  → 当前 Change evidence-tier 命中时整条跳过
 machine-checks:
   - required-front-matter
   - no-placeholder
   - required-sections
-  - cross-reference-valid
+  - { id: cross-reference-valid, severity: advisory } # 引用缺失/误报只警告不卡流程
 
 # machine-checks: required-front-matter 的具体字段（exploration.md 无 front-matter）
 required-front-matter: []
 
 # machine-checks: no-placeholder 的具体占位符（这些 {{...}} 不应出现在正文中）
 required-replacements:
+  - requirement-points
   - feature-id
+  - story-id
   - feature-path
   - is-new-candidate
+  - evidence-verdict
   - reuse-decision
+  - conflict-resolution
 
 # machine-checks: required-sections 的具体标题（标题下必须有非注释内容）
 non-empty-ai-sections:
-  - "## 1. 需求理解"
-  - "## 2. Feature 归属"
-  - "## 3. 影响分析"
+  - "## 1. 需求要点"
+  - "## 2. Story 归属判定"
+  - "## 3. 证据评估"
+  - "## 4. 冲突点检测"
+  - "## 5. 待澄清问题"
 
 # Human Gate review 段（人工判断，CLI gate approve 时展示）
 human-checks:
-  - "## 1. 需求理解"
-  - "## 3. 影响分析"
+  - "## 2. Story 归属判定"
+  - "## 3. 证据评估"
+  - "## 4. 冲突点检测"

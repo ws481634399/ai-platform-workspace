@@ -103,6 +103,33 @@ features:
                   ]
               },
             {
+                id: FEAT-1-02,
+                name: AI 工程基线,
+                description: Python AI Service 独立工程基线：FastAPI/uv、LLM Client、Java API
+                  Client、Agent/Tool/Workflow/RAG 扩展边界与 Pytest 基础,
+                children:
+                  [
+                    {
+                        id: FEAT-1-02-01,
+                        name: AI 应用骨架,
+                        description: Python/FastAPI/uv 工程初始化、配置/日志/健康检查、Client 抽象边界与 Pytest 测试基线（M0
+                          REQ-M0-003）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-1-02-01-01,
+                                name: 建立 Python AI Service 工程基线,
+                                description: REQ-M0-003：Python 3.11 + uv + FastAPI 独立服务，LLM/Java API Client
+                                  抽象、Agent/Tool/Workflow/Prompt/RAG 扩展边界与
+                                  Pytest/Ruff 工程质量基线,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ]
+              },
+            {
                 id: FEAT-1-03,
                 name: 本地基础设施,
                 description: Docker Compose 统一管理 MySQL/Redis/Nacos/MinIO 本地开发基础设施环境（M0

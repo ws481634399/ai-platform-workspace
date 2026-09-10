@@ -1,0 +1,71 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+
+id: DU-AI-002
+repository: "repo-3"
+parent:
+  change: "CHG-0005"
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-02
+    name: AI 工程基线
+  level-3:
+    id: FEAT-1-02-01
+    name: AI 应用骨架
+  story:
+    id: STORY-1-02-01-01
+    name: 建立 Python AI Service 工程基线
+scope:
+  - app/main.py Lifespan 启动 5 步 + 7 异常处理器 + create_app(settings) 工厂函数
+  - app/api/v1/health.py APIRouter：GET /health 返回精确 JSON
+    {"service":"ai-service","status":"UP"}
+  - app/core/config.py：Settings(Pydantic) 13
+    字段，LLM_API_KEY=SecretStr，LOG_FORMAT/DATE_FORMAT 常量导出
+  - app/core/exceptions.py：AIBaseException(ABC) + 5
+    子类(PARAM/CONFIG/JAVA_API/LLM_PROVIDER/SYSTEM)
+  - app/core/logging.py：setup_logging(settings) 字典配置 + TraceIdFilter(contextvar)
+    + 脱敏Filter(sk-)，导出 trace_id_var ContextVar
+  - app/middleware/trace_logging.py：TraceIdMiddleware 6 步（读/生成
+    contextvar/写响应头/access log METHOD PATH STATUS DURATION trace_id/reset token）
+  - main.py create_app 装配 UnifyResult 5 字段异常响应 + AI-*-NNN 首码错误码映射
+dependencies:
+  - DU-AI-001
+acceptance:
+  - AC-03：uv run uvicorn app.main:app 启动日志含 "Uvicorn running on"；Ctrl+C 优雅退出且退出码
+    0
+  - AC-04：curl /health HTTP 200；json() 精确等于
+    {"service":"ai-service","status":"UP"}
+  - AC-05 凭据：config.py 中 LLM_API_KEY 声明为 Pydantic SecretStr；.env.example 13
+    字段存在；.gitignore 包含 .env 屏蔽
+  - 异常形状：触发 AI-CONFIG-102 时响应 JSON success=false，code=AI-CONFIG-102，traceId
+    非空，不含 Traceback 字段
+  - main.py 行数：wc -l app/main.py 结果 ≤ 40（≤ 50 buffer）
+  - 日志脱敏：输出包含 sk-XXXXX 长度密钥时，日志显示为 ***
+implementation-guidance:
+  sketch: true
+  pseudocode: true
+  complexity-trigger:
+    - orchestration
+repository-delivery:
+  path: "implementation/ai-platform-ai-service/delivery/CHG-0005/工程基础/AI 工程基线/AI
+    应用骨架/建立 Python AI Service 工程基线/DU-AI-002"
+status: completed
+evidence-ref: []
+baseline:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+result:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+  paths: []
+  symbols: []
+stories:
+  - id: STORY-1-02-01-01
+    title: 建立 Python AI Service 工程基线
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-1-02-01
+      name: AI 应用骨架
+schema-version: 4

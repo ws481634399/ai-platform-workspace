@@ -70,3 +70,14 @@ result:
     - web/advice/GlobalExceptionHandler.java::GlobalExceptionHandler
     - web/exception/BusinessException.java::BusinessException
     - web/config/WebFoundationAutoConfiguration.java::WebFoundationAutoConfiguration
+schema-version: 4
+stories:
+  - id: STORY-3
+    title: 建立 Java 后端微服务工程基线
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-2-01
+      name: 骨架与基础能力
+updated-at: 2026-09-02T14:40:06.207Z

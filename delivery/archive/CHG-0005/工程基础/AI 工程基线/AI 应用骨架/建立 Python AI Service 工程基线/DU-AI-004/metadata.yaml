@@ -1,0 +1,62 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+
+id: DU-AI-004
+repository: "repo-3"
+parent:
+  change: "CHG-0005"
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-02
+    name: AI 工程基线
+  level-3:
+    id: FEAT-1-02-01
+    name: AI 应用骨架
+  story:
+    id: STORY-1-02-01-01
+    name: 建立 Python AI Service 工程基线
+scope:
+  - 6 边界位目录骨架：agents/workflows/tools/prompts/rag/tests 的 __init__.py 或 .gitkeep
+  - 5 篇 README：agents/README + workflows/README + tools/README + prompts/README
+    + rag/README，分别引用对应 standards/engineering/ai 规范文件名
+  - tools/README 显式声明：写操作 Tool schema 必须带 confirmation_required: bool = True（R-07 对齐）
+  - prompts/README 显式声明：禁止在业务代码中以 f-string 硬编码 Prompt Template（R-13 对齐）
+  - tests/__init__.py 空占位文件
+dependencies:
+  - DU-AI-003
+acceptance:
+  - AC-11 find 计数：agents/ .py 文件除 __init__.py 数量为 0；tools/ 除 __init__.py 数量 ≤
+    1；workflows+rag 除 __init__.py 数量合计为 0
+  - AC-11 grep
+    关键词：ProductAgent/OrderAgent/search_products/get_product_detail/compare_products/get_order/search_knowledge/RAGRetriever/LangGraphState
+    → 真实实现 0 命中（注释中带 "属 M6，M0 未实现" 允许）
+  - 6 边界位 README 至少 5 篇存在，且至少 1 次在正文引用对应 standards/engineering/ai/*.md 规范文件名
+  - tools/README 正文包含 confirmation_required=True 或 confirmation_required: bool = True 的字样
+  - prompts/README 正文包含："禁止"或"不允许"+"f-string"或"硬编码"+"Prompt"字样的组合声明
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-ai-service/delivery/CHG-0005/工程基础/AI 工程基线/AI
+    应用骨架/建立 Python AI Service 工程基线/DU-AI-004"
+status: completed
+evidence-ref: []
+baseline:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+result:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+  paths: []
+  symbols: []
+stories:
+  - id: STORY-1-02-01-01
+    title: 建立 Python AI Service 工程基线
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-1-02-01
+      name: AI 应用骨架
+schema-version: 4

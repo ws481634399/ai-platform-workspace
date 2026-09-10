@@ -9,7 +9,7 @@
 #          旧 Change 仅在被显式操作（bind-feature-path / du materialize）时升级为 v2。
 # 后续 status/archive 由 Document API 改写（保留注释）。
 
-schema-version: 2 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
+schema-version: 4 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
 
 id: "CHG-0004" # CHG-XXXX，创建时填
 title: "建立前端基础工程基线（mall-web 与 mall-admin）" # 简短标题
@@ -99,23 +99,6 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:2acc7b30158edd16cdaa512aa08596aec4a0ab65827e8d67f4901e4f8e5347d9
         reason: "human-gate: skip (explore)"
-    status: accepted
-  prd:
-    path: prd.md
-    gates:
-      machine:
-        status: passed
-        checked-at: 2026-09-02T10:46:14.699Z
-        validator: sdd-prd
-        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
-        issues: []
-        warnings: []
-      human:
-        status: approved
-        reviewed-at: 2026-09-02T10:46:14.420Z
-        reviewer: user
-        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
-        reason: ""
     status: accepted
   design:
     path: design.md
@@ -229,3 +212,30 @@ artifacts:
           段晋升、Product/Glossary 无更新、STORY-4 delivered、索引重建完成）；gate approve
           交互确认在沙箱不可用，按 writeHumanGate 同规则人工写入，hash 与 machine gate 一致"
     status: accepted
+  spec:
+    path: spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T10:46:14.699Z
+        validator: sdd-prd
+        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T10:46:14.420Z
+        reviewer: user
+        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
+        reason: ""
+    status: accepted
+stories:
+  - id: STORY-4
+    title: 建立前端基础工程基线（mall-web 与 mall-admin）
+    inline: true
+    status: completed
+    path: ./
+    evidence-tier: standard
+    domain:
+      id: FEAT-3-01
+      name: 前端应用骨架

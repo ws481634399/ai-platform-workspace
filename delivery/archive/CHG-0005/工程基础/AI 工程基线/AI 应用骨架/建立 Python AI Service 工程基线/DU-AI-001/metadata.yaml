@@ -1,0 +1,65 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+#
+# Workspace DU 只保存 Reference / Summary / Status，不复制 implementation.md /
+# evidence 正文 / commit log（Reference, do not duplicate）。
+# 实际交付见 repository-delivery.path 指向的 Repository Delivery。
+
+id: DU-AI-001
+repository: "repo-3" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
+parent:
+  change: "CHG-0005" # CHG-XXXX
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-02
+    name: AI 工程基线
+  level-3:
+    id: FEAT-1-02-01
+    name: AI 应用骨架
+  story:
+    id: STORY-1-02-01-01
+    name: 建立 Python AI Service 工程基线
+scope:
+  - 仓库根 6
+    文件(.gitignore,.python-version,pyproject.toml,uv.lock,.env.example,README.md)
+    建立
+  - uv + hatchling 依赖配置 + requires-python 区间
+  - Ruff / Pyright / Pytest 三段集中配置(全部在 pyproject.toml)
+  - .gitignore 凭据安全(.env 屏蔽 / .venv/ 屏蔽 / 不屏蔽 .env.example)
+  - .env.example 13 字段(对应 Settings 字段名)
+dependencies: []
+acceptance:
+  - AC-01: .python-version 精确等于 3.11；uv run python --version 前缀 Python 3.11.
+  - AC-02: 仓库根存在 pyproject.toml 与 uv.lock；uv sync --frozen 退出码 0；uv lock --check 通过
+  - pyproject.toml 必须包含 [tool.ruff] [tool.pyright] [tool.pytest] 三段配置 + 运行时 6 依赖
+    + dev 3 工具
+  - .env.example 13 字段齐全(无真实凭据)；凭据敏感 grep 真实密文形态 0 命中
+  - .gitignore 明确屏蔽 .env / .venv，不屏蔽 .env.example
+  - 三质量工具可执行：ruff --version / pyright --version / pytest --version 输出版本号
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-ai-service/delivery/CHG-0005/工程基础/AI 工程基线/AI
+    应用骨架/建立 Python AI Service 工程基线/DU-AI-001" # repo 侧交付目录（workspace 相对路径），materialize 后回填
+status: completed # pending / developing / testing / completed（轻量记录，非 Lifecycle State）
+evidence-ref: [] # repo 侧 evidence 引用（路径条目）
+baseline:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04" # materialize 时记录的仓库 HEAD（可选，du sync-status 刷新）
+result:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04" # completed 时的仓库 HEAD（可选）
+  paths: [] # 实现影响路径（可选，repo 相对路径；completed 时 Agent 回填，如 auth/service.go）
+  symbols: [] # 关键代码符号（可选，格式 <file>::<symbol>，如 auth/service.go::Login）
+stories:
+  - id: STORY-1-02-01-01
+    title: 建立 Python AI Service 工程基线
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-1-02-01
+      name: AI 应用骨架
+schema-version: 4

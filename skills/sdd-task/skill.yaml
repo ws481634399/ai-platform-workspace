@@ -1,12 +1,12 @@
-# OpenSpec SDD Skill 定义（骨架）
+﻿# OpenSpec SDD Skill 定义（骨架）
 #
-# 版本: v0.1
+# 版本: 0.2.0
 # 类型: Skill 元数据 + Artifact Contract
 
 id: sdd-task
-version: 0.2.0
+version: 0.2.5
 stage: task
-description: 任务拆分阶段 Skill——将设计拆分为可执行任务，明确修改范围与验证方式
+description: 逐 DU 任务分解 Skill——消费 design 阶段 DU 划分表，对每个 DU 做任务分解 + Implementation Guidance
 input:
   - design.md
   - delivery/

@@ -1,7 +1,7 @@
 # Standards 知识索引
 
-> 最后更新: 2026-09-02T16:05:00Z
-> 关联 Change: CHG-0001, CHG-0003, CHG-0004
+> 最后更新: 2026-09-07T17:30:00Z
+> 关联 Change: CHG-0001, CHG-0003, CHG-0004, CHG-0005
 
 ## 导航
 - [规则知识说明](README.md) — Workspace 规则世界的目的、结构和使用指南
@@ -54,6 +54,7 @@
 - [Tool Calling 规范](engineering/ai/tool-calling-standard.md) — AI Agent 工具调用的设计、实现和管理规范
 - [AI 知识管理规范](engineering/ai/knowledge-standard.md) — AI 应用中的知识管理规范
 - [AI 评估规范](engineering/ai/evaluation-standard.md) — AI 应用能力的评估、测试和持续优化规范
+- [Python 质量工具配置规范](engineering/ai/python-quality-standard.md) — **（CHG-0005 已晋升）** Python 项目 Ruff + Pyright + Pytest 配置规范；含 10 规则集、strict 模式、Unknown* 关闭策略、asyncio_mode=auto
 
 ## SDD 流程规范（sdd/）
 - [Change Lifecycle](sdd/change-lifecycle.md) — Change 从需求到归档的生命周期管理规则

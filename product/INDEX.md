@@ -1,7 +1,7 @@
 # Product 知识索引
 
-> 最后更新: 2026-09-02T16:05:00Z
-> 关联 Change: CHG-0001（STORY-1 delivered：系统与微服务架构 §5 双仓结构修订）
+> 最后更新: 2026-09-07T17:30:00Z
+> 关联 Change: CHG-0001（STORY-1 delivered：系统与微服务架构 §5 双仓结构修订）, CHG-0005（STORY-1-02-01-01 delivered：AI Service Python 工程基线）
 > 能力 B 独立归档来源: docs/项目文件 设计文档集
 
 ## 导航

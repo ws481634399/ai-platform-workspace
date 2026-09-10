@@ -1,24 +1,33 @@
-# sdd-test: 测试验证
+# sdd-test: 独立测试验证
 
 > 阶段: test
 > 状态转换: developing → testing
 > 产出: evidence/test-report.md（跨仓聚合）+ 各仓 DU 级测试证据
 > 提示片段: prompts/common/persona-sdd.md · prompts/common/constraints.md · prompts/common/output-format.md · prompts/coding/persona-test.md
 
+Phase 4.3 S3：**测试独立性**——test Agent 只消费 test-design.md + spec/design，
+**不注入 implementation.md**（防「照实现写断言」）；照 TC 逐条执行并记 EVD。
+evidence-trace 机检：test-report 中引用的 TC-NNN 必须存在于 test-design.md。
+
 Phase 2.4 多仓语义：测试在各仓 DU 内执行，DU 级结果回传 Workspace，
 test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 
 ## 前置条件
 - Change 处于 `developing` 状态
-- STORY 级 tasks.md 已完成，全部 DU 已物化（du-materialized）
+- STORY 级 tasks.md + test-design.md 已完成（双产物），全部 DU 已物化（du-materialized）
 - 各仓 DU 状态已通过 `openspec du sync-status` 回传（develop → test 前置 du-fan-in-testing）
 
 ## 执行步骤
 
 ### 1. 读取前序 Artifact
 
-读取 `delivery/changes/<CHG>/prd.md`：
+读取 `delivery/changes/<CHG>/spec.md`：
 - 验收标准（AC-NNN）→ 测试用例的来源（DU Acceptance 按编号引用）
+
+读取 STORY 级 `test-design.md`（Phase 4.3 S3）：
+- **TC-NNN 测试用例表** → 照 TC 逐条执行（验证方式 / verified-by AC / 归属 DU）
+- TC-NOT-TESTABLE 标注 → 跳过并记录替代验证方式
+- 测试策略（§2）→ 分层执行顺序与数据准备
 
 读取 `delivery/changes/<CHG>/design.md`：
 - 接口契约 → 测试入参/出参
@@ -26,7 +35,10 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 - 业务规则 → 边界 case 设计
 - 风险评估 → 高风险项必须有测试覆盖
 
-读取 `delivery/changes/<CHG>/implementation.md` 与 STORY 级 tasks.md：
+> **测试独立性（Phase 4.3 S3）：不读 implementation.md**——test Agent 照 test-design 的 TC 逐条运行，
+> 不参考实际实现代码（防「照实现写断言」）。DU 状态从 metadata 获取（不读 implementation 正文）。
+
+读取 STORY 级 tasks.md 与 DU metadata：
 - DU 清单（仓库/状态/baseline/result）→ 确定各仓测试范围
 - DU Acceptance → 每个 DU 的验收测试点
 
@@ -50,7 +62,7 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 |------|------|------|---------|
 | 单元 | 函数/方法逻辑 | 项目测试框架 | 100% 函数覆盖 |
 | 集成 | 模块间接口 | 测试框架 + mock | 关键路径通过 |
-| E2E | 用户流程 | 手动/自动化 | PRD AC 全部通过 |
+| E2E | 用户流程 | 手动/自动化 | spec AC 全部通过 |
 
 **测试运行命令（按技术栈）：**
 - Node.js: `npm test` / `node --test`
@@ -78,17 +90,17 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 - [ ] 网络超时/错误
 - [ ] 数据库连接失败
 
-**PRD 验收标准映射：**
-每条 AC-NNN 必须有至少一个测试用例覆盖：
+**spec 验收标准映射：**
+每条 AC-NNN 必须有至少一个测试用例覆盖（TC，Phase 4.3 起追踪链机检 tc-coverage）：
 
 ```markdown
-| AC | 测试用例 | 类型 | 状态 |
-|----|---------|------|------|
-| AC-1 | 有效邮箱+密码注册 → 成功 | 单元+集成 | ✅ |
-| AC-2 | 已注册邮箱 → 409 | 单元 | ✅ |
-| AC-3 | 无效邮箱格式 → 400 | 单元 | ✅ |
-| AC-4 | 有效手机号+密码 → 成功 | 集成 | ✅ |
-| AC-5 | 密码强度不足 → 400 | 单元 | ✅ |
+| AC      | 测试用例                 | 类型       | 状态 |
+|---------|--------------------------|------------|------|
+| AC-001  | 有效邮箱+密码注册 → 成功 | 单元+集成  | ✅   |
+| AC-002  | 已注册邮箱 → 409         | 单元       | ✅   |
+| AC-003  | 无效邮箱格式 → 400       | 单元       | ✅   |
+| AC-004  | 有效手机号+密码 → 成功   | 集成       | ✅   |
+| AC-005  | 密码强度不足 → 400       | 单元       | ✅   |
 ```
 
 ### 3. 记录测试结果（DU 级 + Workspace 聚合）
@@ -111,8 +123,6 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 元信息 section（占位符替换）：
 - `{{change-id}}`：Change ID
 - `{{implementation-source}}`：`<CHG>/implementation.md`
-- `{{from-state}}`：developing
-- `{{to-state}}`：testing
 - `{{tested-at}}`：ISO8601 时间戳
 
 #### 4.1 报告内容方法论
@@ -138,13 +148,13 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 **§3 AC 覆盖矩阵：**
 
 ```markdown
-| AC | 测试用例 | 类型 | 状态 |
-|----|---------|------|------|
-| AC-1 | valid_email_register | 单元+集成 | ✅ |
-| AC-2 | duplicate_email | 单元 | ✅ |
-| AC-3 | invalid_email_format | 单元 | ✅ |
-| AC-4 | valid_phone_register | 集成 | ✅ |
-| AC-5 | weak_password | 单元 | ✅ |
+| AC      | 测试用例              | 类型       | 状态 |
+|---------|-----------------------|------------|------|
+| AC-001  | valid_email_register  | 单元+集成  | ✅   |
+| AC-002  | duplicate_email       | 单元       | ✅   |
+| AC-003  | invalid_email_format  | 单元       | ✅   |
+| AC-004  | valid_phone_register  | 集成       | ✅   |
+| AC-005  | weak_password         | 单元       | ✅   |
 ```
 
 **§4 证据清单：**
@@ -166,7 +176,7 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 
 产出前自检：
 - [ ] tasks.md 中每个 DU 是否都有测试覆盖（du-fan-in-testing）？
-- [ ] PRD 每条验收标准是否有对应测试用例？
+- [ ] spec 每条验收标准（AC-NNN）是否有对应测试用例？
 - [ ] design.md §4 跨仓协作契约是否有集成测试覆盖？
 - [ ] 正常路径和异常路径是否都覆盖？
 - [ ] 边界值是否有测试（空值/最小/最大/超长）？
@@ -213,7 +223,7 @@ import test from 'node:test';
 import assert from 'node:assert';
 import { registerUser } from '../../services/auth/register.js';
 
-test('AC-1: 有效邮箱+密码 → 注册成功', async () => {
+test('AC-001: 有效邮箱+密码 → 注册成功', async () => {
   const result = await registerUser({
     email: 'test@example.com',
     password: 'Password123'
@@ -222,21 +232,21 @@ test('AC-1: 有效邮箱+密码 → 注册成功', async () => {
   assert.ok(result.token);
 });
 
-test('AC-2: 已注册邮箱 → 返回 409', async () => {
+test('AC-002: 已注册邮箱 → 返回 409', async () => {
   await assert.rejects(
     () => registerUser({ email: 'existing@example.com', password: 'Password123' }),
     { code: 'DUPLICATE' }
   );
 });
 
-test('AC-3: 无效邮箱格式 → 返回 400', async () => {
+test('AC-003: 无效邮箱格式 → 返回 400', async () => {
   await assert.rejects(
     () => registerUser({ email: 'not-an-email', password: 'Password123' }),
     { code: 'INVALID_EMAIL' }
   );
 });
 
-test('AC-5: 密码强度不足 → 返回 400', async () => {
+test('AC-005: 密码强度不足 → 返回 400', async () => {
   await assert.rejects(
     () => registerUser({ email: 'test@example.com', password: '123' }),
     { code: 'WEAK_PASSWORD' }
@@ -255,8 +265,8 @@ test('AC-5: 密码强度不足 → 返回 400', async () => {
 
 ## 行为规则
 
-- 不修改 implementation.md / tasks.md / design.md / prd.md
-- 每个 DU 至少一个验收测试（对应 DU Acceptance），每条 PRD 验收标准必须有至少一个测试用例
+- 不修改 implementation.md / tasks.md / design.md / spec.md
+- 每个 DU 至少一个验收测试（对应 DU Acceptance），每条 spec 验收标准（AC-NNN）必须有至少一个测试用例
 - 多仓测试在各仓内执行，Workspace 聚合侧只做 evidence-ref 引用，不复制正文
 - 失败项必须有分析和处理建议
 - 测试日志必须完整保存到所属仓 DU evidence/

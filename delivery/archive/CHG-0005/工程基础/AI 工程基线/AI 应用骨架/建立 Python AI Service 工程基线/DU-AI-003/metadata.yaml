@@ -1,0 +1,67 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+
+id: DU-AI-003
+repository: "repo-3"
+parent:
+  change: "CHG-0005"
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-02
+    name: AI 工程基线
+  level-3:
+    id: FEAT-1-02-01
+    name: AI 应用骨架
+  story:
+    id: STORY-1-02-01-01
+    name: 建立 Python AI Service 工程基线
+scope:
+  - app/infrastructure/llm/client.py：LLMClient ABC +
+    ChatMessage/ChatUsage/ChatResponse/ChatChunk Pydantic 类型模型
+  - app/infrastructure/llm/factory.py：PROVIDER_REGISTRY={"mock": MockProvider} + LLMClientFactory.create(settings)（未知 key 抛 AI-CONFIG-102）
+  - app/infrastructure/llm/providers/mock.py：MockProvider 三方法
+    chat/chat_stream/structured_chat 全实现
+  - app/infrastructure/java/client.py：JavaAPIClient.__init__ 四扩展参数位 + _request
+    统一入口（Headers 合并、X-Trace-Id 注入、错误 201/202 映射、confirmation_required 取消订单注释锚点）
+dependencies:
+  - DU-AI-002
+acceptance:
+  - AC-06：grep -rn httpx.AsyncClient app/*.py 命中数 = 2（仅 lifespan 注入处 +
+    JavaAPIClient 类型签名处）；JavaAPIClient.__init__ 形参四扩展参数齐全
+  - AC-07：grep -rn "from openai\|import anthropic\|import openai" app/ services/
+    tools/ agents/ → 零命中
+  - LLM Factory：LLMClientFactory.create(Settings(LLM_PROVIDER=mock)) 类型为
+    MockProvider；unknown_vendor 抛 AI-CONFIG-102 且 code=AI-CONFIG-102
+  - Java Client _request 错误映射：模拟 5xx/NetworkError → AI-JAVA_API-201；模拟
+    4xx+success=false → AI-JAVA_API-202 message 包含原业务 code/message
+  - X-Trace-Id 透传：trace_id_var 设置为 my-trace-id-123 后，HTTPX 请求的 headers
+    X-Trace-Id = my-trace-id-123；X-Request-Source = ai-service
+implementation-guidance:
+  sketch: true
+  pseudocode: true
+  complexity-trigger:
+    - business-flow
+    - orchestration
+repository-delivery:
+  path: "implementation/ai-platform-ai-service/delivery/CHG-0005/工程基础/AI 工程基线/AI
+    应用骨架/建立 Python AI Service 工程基线/DU-AI-003"
+status: completed
+evidence-ref: []
+baseline:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+result:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+  paths: []
+  symbols: []
+stories:
+  - id: STORY-1-02-01-01
+    title: 建立 Python AI Service 工程基线
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-1-02-01
+      name: AI 应用骨架
+schema-version: 4

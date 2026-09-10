@@ -82,3 +82,14 @@ result:
     - mall-gateway/pom.xml
     - mall-gateway/src/main/resources/application.yml
   symbols: [] # 配置型 DU，无新增生产代码符号（9 个冒烟测试见 8 服务 src/test 与 gateway src/test）
+schema-version: 4
+stories:
+  - id: STORY-3
+    title: 建立 Java 后端微服务工程基线
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-2-01
+      name: 骨架与基础能力
+updated-at: 2026-09-02T14:40:06.209Z

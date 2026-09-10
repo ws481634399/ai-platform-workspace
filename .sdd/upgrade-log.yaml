@@ -63,3 +63,257 @@ upgrades:
       - prompts\review\persona-knowledge.md
       - prompts\review\persona-review.md
     rolledBack: null
+  - at: 2026-09-02T14:40:06.226Z
+    from:
+      harness: 0.2.0
+      workspaceTemplate: 0.2.0
+      schema: 0.1.0
+    to:
+      harness: 0.2.0
+      workspaceTemplate: 0.2.0
+    touchedFiles:
+      - skills\sdd-converge
+      - skills\sdd-knowledge
+      - skills\sdd-prd
+      - skills\sdd-reverse
+      - delivery/archive/CHG-0001/metadata.yaml
+      - delivery/archive/CHG-0002/metadata.yaml
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-002/metadata.yaml
+      - delivery/archive/CHG-0004/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-001/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-002/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-003/metadata.yaml
+    gitRevertFiles:
+      - skills\sdd-converge
+      - skills\sdd-knowledge
+      - skills\sdd-prd
+      - skills\sdd-reverse
+      - delivery/archive/CHG-0001/metadata.yaml
+      - delivery/archive/CHG-0002/metadata.yaml
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-002/metadata.yaml
+      - delivery/archive/CHG-0004/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-001/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-002/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-003/metadata.yaml
+    gitNewFiles: []
+    rolledBack: null
+  - at: 2026-09-02T14:57:34.654Z
+    from:
+      harness: 0.2.0
+      workspaceTemplate: 0.2.0
+      schema: 0.1.0
+    to:
+      harness: 0.3.0
+      workspaceTemplate: 0.3.0
+    touchedFiles:
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-explore
+      - skills\sdd-review
+      - skills\sdd-task
+      - skills\sdd-test
+      - .sdd\version.yaml
+    gitRevertFiles:
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-explore
+      - skills\sdd-review
+      - skills\sdd-task
+      - skills\sdd-test
+      - .sdd\version.yaml
+    gitNewFiles: []
+    rolledBack: null
+  - at: 2026-09-07T13:40:08.188Z
+    from:
+      harness: 0.3.0
+      workspaceTemplate: 0.3.0
+      schema: 0.1.0
+    to:
+      harness: 0.4.0
+      workspaceTemplate: 0.4.0
+    touchedFiles:
+      - skills\sdd-converge
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-explore
+      - skills\sdd-prd
+      - skills\sdd-review
+      - skills\sdd-task
+      - skills\sdd-test
+      - prompts\coding\persona-test.md
+      - prompts\common\output-format.md
+      - prompts\explore\persona-prd.md
+      - prompts\review\persona-review.md
+      - delivery/archive/CHG-0001/metadata.yaml
+      - delivery/archive/CHG-0002/metadata.yaml
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-002/metadata.yaml
+      - delivery/archive/CHG-0004/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-001/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-002/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-003/metadata.yaml
+      - delivery/archive/CHG-0005/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-001/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-002/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-003/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-004/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-005/metadata.yaml
+      - delivery/archive/CHG-0001/prd.md
+      - delivery/archive/CHG-0001/spec.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/prd.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/spec.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/prd.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/spec.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/prd.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/spec.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/prd.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/spec.md
+      - delivery/archive/CHG-0002/工程基础/README.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/README.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/README.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/README.md
+      - delivery/archive/CHG-0003/工程基础/README.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/README.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/README.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/README.md
+      - delivery/archive/CHG-0004/工程基础/README.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/README.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/README.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/README.md
+      - delivery/archive/CHG-0005/工程基础/README.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/README.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/README.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/README.md
+      - .sdd\version.yaml
+      - .sdd\workspace.yaml
+    gitRevertFiles:
+      - skills\sdd-converge
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-explore
+      - skills\sdd-prd
+      - skills\sdd-review
+      - skills\sdd-task
+      - skills\sdd-test
+      - prompts\coding\persona-test.md
+      - prompts\common\output-format.md
+      - prompts\explore\persona-prd.md
+      - prompts\review\persona-review.md
+      - delivery/archive/CHG-0001/metadata.yaml
+      - delivery/archive/CHG-0002/metadata.yaml
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-001/metadata.yaml
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/DU-BE-002/metadata.yaml
+      - delivery/archive/CHG-0004/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-001/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-002/metadata.yaml
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/DU-FE-003/metadata.yaml
+      - delivery/archive/CHG-0005/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-001/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-002/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-003/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-004/metadata.yaml
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/DU-AI-005/metadata.yaml
+      - delivery/archive/CHG-0001/prd.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/prd.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/prd.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/prd.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/prd.md
+      - .sdd\version.yaml
+      - .sdd\workspace.yaml
+    gitNewFiles:
+      - delivery/archive/CHG-0001/spec.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/spec.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/spec.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/spec.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/spec.md
+    rolledBack: null
+  - at: 2026-09-10T11:35:13.596Z
+    from:
+      harness: 0.4.0
+      workspaceTemplate: 0.4.0
+      schema: 0.1.0
+    to:
+      harness: 0.4.0
+      workspaceTemplate: 0.4.0
+    touchedFiles:
+      - skills\sdd-converge
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-review
+      - skills\sdd-task
+      - skills\sdd-test
+      - delivery/changes/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-001/metadata.yaml
+      - delivery/changes/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-002/metadata.yaml
+      - delivery/changes/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-003/metadata.yaml
+    gitRevertFiles:
+      - skills\sdd-converge
+      - skills\sdd-design
+      - skills\sdd-dev
+      - skills\sdd-task
+      - skills\sdd-test
+      - delivery/changes/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-001/metadata.yaml
+      - delivery/changes/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-002/metadata.yaml
+      - delivery/changes/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/DU-WS-003/metadata.yaml
+    gitNewFiles:
+      - skills\sdd-review
+    rolledBack: null

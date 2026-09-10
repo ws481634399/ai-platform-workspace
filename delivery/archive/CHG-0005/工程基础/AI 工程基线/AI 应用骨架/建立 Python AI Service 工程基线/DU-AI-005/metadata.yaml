@@ -1,0 +1,74 @@
+# OpenSpec Delivery Unit（Workspace 协调记录）
+
+id: DU-AI-005
+repository: "repo-3"
+parent:
+  change: "CHG-0005"
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-02
+    name: AI 工程基线
+  level-3:
+    id: FEAT-1-02-01
+    name: AI 应用骨架
+  story:
+    id: STORY-1-02-01-01
+    name: 建立 Python AI Service 工程基线
+scope:
+  - tests/conftest.py：三 fixture（test_settings monkeypatch /
+    app：create_app(test_settings) / client：ASGITransport AsyncClient）
+  - tests/test_settings.py：函数名精确
+    test_settings_load_from_env，覆盖断言：APP_NAME=ai-service-test + SecretStr
+    明文/脱敏双形态
+  - tests/test_health_endpoint.py：函数名精确 test_health_endpoint_ok，覆盖断言：HTTP 200 +
+    JSON 字段精确匹配
+  - tests/test_llm_client.py：函数名精确
+    test_llm_client_mock_returns_structured_response，覆盖 Mock.chat +
+    structured_chat 两断言
+  - evidence/ 目录骨架：evidence.yaml（初始骨架 EV-001~N）+ evidence/logs/.gitkeep +
+    README（六组 Environment/Dependency/Service/Health/Test/Architecture Scan 命令串
+    Windows PowerShell 兼容语法 + 重定向日志模板）
+  - evidence/arch_check.ps1（PowerShell 脚本）：三条 grep（AC-07 Provider SDK / AC-08 DB
+    Driver / AC-11 SLOC 计数 find）+ 预期退出码 0 注释
+dependencies:
+  - DU-AI-001
+  - DU-AI-002
+  - DU-AI-003
+  - DU-AI-004
+acceptance:
+  - AC-09：uv run pytest -q 退出码 0；pytest -v
+    列出的测试名集合包含精确三函数名：test_settings_load_from_env、test_health_endpoint_ok、test_llm_client_mock_returns_structured_response
+  - 质量三命令：uv run ruff check app tests 退出码 0；uv run pyright strict 退出码 0；uv run
+    ruff format --check app tests 退出码 0
+  - Evidence 操作手册：evidence/README.md 中列出 6 组命令（Environment / Dependency /
+    Service / Health / Test / Architecture Scan）且每组命令可复制执行
+  - arch_check.ps1 脚本存在且包含三条对应 grep/find 子命令注释 + 正例退出码=0
+  - evidence/logs 目录存在且至少包含 .gitkeep 文件（防止空目录不入库）
+implementation-guidance:
+  sketch: true
+  pseudocode: false
+  complexity-trigger: []
+repository-delivery:
+  path: "implementation/ai-platform-ai-service/delivery/CHG-0005/工程基础/AI 工程基线/AI
+    应用骨架/建立 Python AI Service 工程基线/DU-AI-005"
+status: completed
+evidence-ref: []
+baseline:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+result:
+  commit: "36cb94110a4af046c7e80e531a39abb4f776bc04"
+  paths: []
+  symbols: []
+stories:
+  - id: STORY-1-02-01-01
+    title: 建立 Python AI Service 工程基线
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-1-02-01
+      name: AI 应用骨架
+schema-version: 4

@@ -1,0 +1,254 @@
+# OpenSpec Change Metadata
+#
+# 版本: v3（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Change Metadata（SDD 生命周期载体元信息）
+#
+# 由 ChangeModel.runChangeCreate 生成（sdd-explore 内部调用）。
+# v2 增量：schema-version / feature-path / repository-baseline / repository-result
+# v3 增量：stories 列表（Change 1:N Story 权威索引）
+# 兼容规则：schema-version 缺失 = v1；= 2 旧格式（CHG↔Story 1:1 平铺）；= 3 新格式（含 stories）
+#          旧 Change 仅在被显式操作（bind-feature-path / split-story / upgrade）时升 v3
+# 后续 status/archive 由 Document API 改写（保留注释）。
+
+schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Story 平铺)；3=v3(本格式，1:N Stories)
+
+id: "CHG-0005" # CHG-XXXX，创建时填
+title: "建立 AI Service Python 工程基线（FastAPI + uv）" # 简短标题
+summary: "" # 一句话摘要（可选）
+status: archived # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+requirement: "REQ-M0-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
+created-at: "2026-09-04T13:49:53.873Z" # ISO8601，创建时填
+updated-at: "2026-09-07T13:33:32.545Z" # ISO8601，每次状态变更更新
+features:
+  - MOD-1
+  - FEAT-1-02
+  - FEAT-1-02-01
+  - STORY-1-02-01-01
+repositories:
+  # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
+  # - backend
+related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
+
+# Phase 4.1 轻量化：Evidence 分档（gate-validator 按档位跳过 skip-tier 命中的 machine-checks）
+# light    — 单仓、无接口变更的小改动：免 DU/多仓/逐 commit 映射等重仪式（openspec change tier <chg> light）
+# standard — 缺省档，完整 Evidence（不改此字段即 standard）
+# strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
+evidence-tier: standard
+
+# Phase 2.4 保留：feature-path（完整四级链）
+# v3 语义变更：仅 inline 单 Story 场景填（兼容 v2 语义）；多 Story 场景**不填**，
+# 权威 Story 链以 stories[*].path → story-metadata.yaml.feature-path 为准。
+# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-02
+    name: AI 工程基线
+  level-3:
+    id: FEAT-1-02-01
+    name: AI 应用骨架
+  story:
+    id: STORY-1-02-01-01
+    name: 建立 Python AI Service 工程基线
+  candidate: false
+
+# Phase 4.2 新增：stories 列表（Change 1:N Story 权威索引）
+# - 单 Story inline 模式：长度 = 1 且 inline=true（CHG 根目录同时是 Story 目录）
+# - 多 Story 三级模式：每条路径指向 stories/<STORY-ID>/ 目录，其中含 story-metadata.yaml
+stories:
+  - id: STORY-1-02-01-01
+    title: 建立 Python AI Service 工程基线
+    inline: true
+    status: pending
+    path: ./
+    evidence-tier: standard
+    domain:
+      id: FEAT-1-02-01
+      name: AI 应用骨架
+
+# Phase 2.4 保留：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
+# repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
+# repository-result：DU completed 时记录各仓结果 commit
+# 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
+repository-baseline:
+  repo-3:
+    commit: 36cb94110a4af046c7e80e531a39abb4f776bc04
+repository-result:
+  repo-3:
+    commit: 36cb94110a4af046c7e80e531a39abb4f776bc04
+  # backend: { commit: abc999 }
+
+  # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
+  # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-prd / change-design / convergence）。
+  # Story 级产物（story-spec / story-design / tasks / implementation / ...）Gate 存储在
+  # stories/<id>/story-metadata.yaml.artifacts（inline 模式仍存在此处，双语义合并）。
+  # GateRepository 用 setIn 按需创建（不预填，避免模板臃肿）。
+artifacts:
+  exploration:
+    path: exploration.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T13:55:33.488Z
+        validator: sdd-explore
+        artifact-hash: sha256:f652d5af5d72150cce7c76f2062b652ec7a7606463a03d1ffe0a184954e0f242
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:00:00Z
+        artifact-hash: sha256:f652d5af5d72150cce7c76f2062b652ec7a7606463a03d1ffe0a184954e0f242
+        reason: "human-gate: approved by user at 2026-09-04;
+          §1需求理解（三仓鼎立+M0插座+安全红线+知识检索注入）与§3影响分析（repo-3新建/后端前端零回退/三仓架构）经用户评审均通过"
+    status: accepted
+  spec:
+    path: spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T14:04:28.919Z
+        validator: sdd-prd
+        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:06:00Z
+        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
+        reason: "human-gate: approved by user at 2026-09-04;
+          §1背景（三仓鼎立拼图+M6业务紧迫性+架构红线M0代码落地）、§2用户价值（AI实施者JTBD三场景）、§5验收标准（11条AC
+          SMART化与exploration 12未知问题闭环表）经用户评审均通过"
+    status: accepted
+  design:
+    path: design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T14:14:36.561Z
+        validator: sdd-design
+        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:16:00Z
+        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
+        reason: "human-gate: approved by user at 2026-09-04;
+          §2提议方案（11子节：目录树9锚点+6边界位+AC-10/AC-11映射+Lifespan 5步+错误码NNN分配+Settings
+          13字段+Logging/TraceId+LLM抽象+Java
+          Client四参数位+Ruff/Pyright集中配置+Pytest三用例）、§4跨仓协作（UnifyResult
+          5字段+X-Trace-Id+写操作confirmation_required）、§6风险（10条含架构红线突破/日志泄露/uv源网络/Y\
+          AML冒号bug）经用户评审均通过"
+    status: accepted
+  tasks:
+    path: tasks.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T14:47:57.744Z
+        validator: sdd-task
+        artifact-hash: sha256:3df4b28e55f9bae2d6cef9c878072a10948af6a7fba5b771470dfcdf04ab483b
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:55:00Z
+        artifact-hash: sha256:3df4b28e55f9bae2d6cef9c878072a10948af6a7fba5b771470dfcdf04ab483b
+        reason: "human-gate: approved by user at 2026-09-04; tasks.md 5 DU-AI 拆分（repo-3
+          单仓 1:1，严格串行 1→2→3→4→5，无并行）、 覆盖率矩阵（设计变更点10节/仓库覆盖/PRD 11 AC 三方映射均无遗漏）、
+          跨仓契约（repo-3→repo-1 HTTP 单向、X-Trace-Id、UnifyResult 5字段、
+          confirmation_required 写操作）经用户评审通过"
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T16:04:06.178Z
+        validator: sdd-dev
+        artifact-hash: sha256:d18c7ffe0f8a21be92ff4183d63764d0acc0ad8dca2b6a9a9ae1093dd9a878c8
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-07T13:11:26.102Z
+        reviewer: user
+        artifact-hash: sha256:d18c7ffe0f8a21be92ff4183d63764d0acc0ad8dca2b6a9a9ae1093dd9a878c8
+        reason: ""
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-07T13:21:12.540Z
+        validator: sdd-test
+        artifact-hash: sha256:62d1f540e6a1ede64aa3140b20a4c5cd4d3eb1c7b25c435dd895a8b448210051
+        issues: []
+        warnings:
+          - "evidence/test-report.md: cross-reference 引用文件不存在:
+            CHG-0005/.../DU-AI-001/evidence/changeset.md"
+          - "evidence/test-report.md: cross-reference 引用文件不存在:
+            CHG-0005/.../DU-AI-002/evidence/changeset.md"
+          - "evidence/test-report.md: cross-reference 引用文件不存在:
+            CHG-0005/.../DU-AI-003/evidence/changeset.md"
+          - "evidence/test-report.md: cross-reference 引用文件不存在:
+            CHG-0005/.../DU-AI-004/evidence/changeset.md"
+      human:
+        status: approved
+        reviewed-at: 2026-09-07T13:21:20.312Z
+        reviewer: user
+        artifact-hash: sha256:62d1f540e6a1ede64aa3140b20a4c5cd4d3eb1c7b25c435dd895a8b448210051
+        reason: ""
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-07T13:30:12.920Z
+        validator: sdd-review
+        artifact-hash: sha256:037ba27f28152296d92f443674038b54217a5436a69e06ae60c93472f6beed55
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-07T13:27:15.715Z
+        reviewer: user
+        artifact-hash: sha256:037ba27f28152296d92f443674038b54217a5436a69e06ae60c93472f6beed55
+        reason: ""
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-07T13:33:05.835Z
+        validator: sdd-converge
+        artifact-hash: sha256:bd9e8f53fc581de11c49b594f7f1ff3936ab11f41fe045cbdaac2dd75c4b23c2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-07T13:33:10.057Z
+        reviewer: user
+        artifact-hash: sha256:bd9e8f53fc581de11c49b594f7f1ff3936ab11f41fe045cbdaac2dd75c4b23c2
+        reason: ""
+    status: accepted
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-07T13:32:29.906Z
+        validator: sdd-prd
+        artifact-hash: ""
+        issues:
+          - "Artifact not found: story-spec.md"
+        warnings: []

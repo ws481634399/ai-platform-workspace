@@ -73,3 +73,14 @@ result:
     - mall-web/src/stores/app.ts::useAppStore
     - mall-web/src/router/index.ts::router
     - mall-web/src/api/http.ts::http
+schema-version: 4
+stories:
+  - id: STORY-4
+    title: 建立前端基础工程基线（mall-web 与 mall-admin）
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-3-01
+      name: 前端应用骨架
+updated-at: 2026-09-02T14:40:06.222Z

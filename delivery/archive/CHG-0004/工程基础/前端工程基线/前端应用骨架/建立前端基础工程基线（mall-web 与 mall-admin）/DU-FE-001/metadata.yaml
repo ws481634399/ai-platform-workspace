@@ -74,3 +74,14 @@ result:
     - templates/src-skeleton/utils/.gitkeep
     - templates/src-skeleton/views/.gitkeep
   symbols: [] # 规范底座为模板类交付，无代码符号
+schema-version: 4
+stories:
+  - id: STORY-4
+    title: 建立前端基础工程基线（mall-web 与 mall-admin）
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-3-01
+      name: 前端应用骨架
+updated-at: 2026-09-02T14:40:06.218Z

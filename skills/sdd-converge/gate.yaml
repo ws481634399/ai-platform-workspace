@@ -5,13 +5,14 @@
 stage: converge
 artifact: convergence.md
 
+# Phase 4.1 轻量化：advisory fail 只记 warning 不阻断；skip-tier 命中 evidence-tier 时跳过
 machine-checks:
   - required-front-matter
   - no-placeholder
   - required-sections
-  - cross-reference-valid
-  - all-predecessors-accepted
-  - submodule-pointer-aligned # Phase 2.4：repository-result == 实际 Submodule HEAD
+  - { id: cross-reference-valid, severity: advisory } # 引用缺失/误报只警告不卡流程
+  - all-predecessors-accepted # 前序全部 accepted（converge 收口核心，保持 blocking）
+  - { id: submodule-pointer-aligned, skip-tier: [light] } # Phase 2.4：repository-result == 实际 Submodule HEAD（单仓无 submodule，轻量档跳过）
 
 required-front-matter: []
 
@@ -25,7 +26,9 @@ required-replacements:
 non-empty-ai-sections:
   - "## 1. 知识变化总结"
   - "## 2. 更新判断"
+  - "## 4. 全局验收标准对照" # 缺陷 10 收口：change-spec §5 逐条对照必填（机检保底节存在非空）
 
 human-checks:
   - "## 1. 知识变化总结"
   - "## 2. 更新判断"
+  - "## 4. 全局验收标准对照" # 缺陷 10：人审逐条核对验收点证据，跨 Story 集成点不得以局部验收替代

@@ -1,175 +1,158 @@
 # OpenSpec Context Rules Configuration
 #
-# 版本: v0.3
+# 版本: v0.4（Phase 4.2 缺口修复：exploration 注入 prd/design + converge 全链视图；基线 v0.1 / v0.2 / v0.3）
 # 类型: AI Context Loading Rules
 #
-# 定义 AI Agent 在不同 SDD 阶段
-# 应该读取的 Workspace 上下文。
+# 定义 AI Agent 在不同 SDD 阶段应该读取的 Workspace 上下文。
+# 装配逻辑见 core/sdd/context-assembler.js；规则是确定性的：
+# 同一 rules + 同一 Workspace 状态 → 同一 Context。
 #
-# v0.3 说明：
-# - 条目为结构化格式 { path, mode }，mode ∈ inline | outline | skip
-# - change-artifacts: 该阶段注入 Change Artifact 清单
-# - limits: 注入预算
-# - repos.<repoId>.read: 绑定 DU 时激活的 per-repo 规则段
+# read 条目格式（v0.2）：
+#   - path: <workspace 相对路径，目录或单文件>
+#     category: knowledge | artifact | code | meta   # 可选，语义分组（缺省按路径前缀推断）
+#     mode: inline | outline                          # inline=正文内联；outline=仅路径清单（缺省 inline）
+#     include: ["**/*.md"]                            # 可选 glob 白名单（相对 path 匹配）
+#     exclude: ["**/*.png"]                           # 可选 glob 黑名单
+#     max-files: 20                                   # 可选，条目级文件数上限
+#     max-bytes: 65536                                # 可选，条目级总字节上限
+#   v0.1 兼容：字符串条目（如 - standards/）等价于 { path, mode: inline }。
+#
+# change-artifacts：本 CHG 前序产物（相对 CHG 目录），正文注入 Instruction；
+#   task/dev/test/review/converge 阶段还会自动注入 STORY 级 tasks.md 与 DU-*/metadata.yaml
+#   （feature-path 未绑定时在 Instruction 中标注缺失）。
+#
+# repos（v0.3，Phase 2.7）：per-repo 规则段（repoId → { read }），仅当 workflow run
+#   显式绑定 DU（--du）且 DU.repository === repoId 时激活；条目格式与 read 完全一致。
+#   绑定 DU 后还会确定性注入 repo 侧上下文（task.md / metadata.yaml 正文，
+#   implementation.md / evidence/ 清单）——见 plans/phase-2.7-du-repo-context-design.md §5。
+#
+# limits：全局预算（超限确定性截断，清单列入 Instruction 的 skipped 段；per-repo 段同受约束）。
 
+version: 0.4
 
-# 不同开发阶段上下文规则
-
-version: 0.3
+limits:
+  total-max-bytes: 262144 # 256KB
+  total-max-files: 200
 
 stages:
 
-
-  # 探索阶段
-  #
-  # 目标：
-  # - 理解需求
-  # - 分析业务上下文
-  # - 识别影响范围
-
+  # 探索阶段：理解需求 / 分析业务上下文 / 识别影响范围
+  # product/ 只读 SSOT 与知识文件，不读 features/（派生缓存，方案 D 后仅作 IDE 导航）
   explore:
-
     read:
-
       - path: standards/
         mode: inline
-
-      - path: product/
+      - path: product/feature-tree.yaml
         mode: inline
+      - path: product/specs/
+        mode: inline
+      - path: product/glossary/
+        mode: outline
+    change-artifacts: [] # requirement.md 尚未产出
 
-
-
-  # 产品规格阶段
-  #
-  # 目标：
-  # - 生成产品规格
-  # - 定义验收标准
-  # - 明确业务规则
-
+  # 产品规格阶段：生成产品规格 / 定义验收标准 / 明确业务规则
+  # 补充 standards/ 读取：PRD 需确认功能范围与现有技术约束一致
   prd:
-
     read:
-
-      - path: product/
+      - path: product/feature-tree.yaml
         mode: inline
-
-      - path: delivery/
+      - path: product/specs/
         mode: inline
+      - path: standards/
+        mode: outline
+    change-artifacts:
+      - requirement.md
+      - exploration.md # v0.4：探索分析（Feature 归属/影响分析/未知问题）随交接注入，不再只传状态不传内容
 
-
-
-  # 设计阶段
-  #
-  # 目标：
-  # - 生成技术设计
-  # - 分析架构影响
-  # - 评估风险
-
+  # 设计阶段：生成技术设计 / 分析架构影响 / 评估风险
   design:
-
     read:
-
       - path: standards/
         mode: inline
-
-      - path: product/
+      - path: product/feature-tree.yaml
         mode: inline
-
+      - path: product/specs/
+        mode: outline
       - path: implementation/
-        mode: inline
+        mode: outline # 多仓：仅结构清单，代码正文按需读取
+    change-artifacts:
+      - requirement.md
+      - exploration.md # v0.4：未知问题清单是设计阶段澄清的直接输入
+      - prd.md
 
-
-
-  # 任务拆分阶段
-  #
-  # 目标：
-  # - 拆分设计为可执行任务
-  # - 明确修改范围
-  # - 定义验证方式
-
+  # 任务拆分阶段：拆解为 Delivery Unit / 产出 Implementation Guidance
   task:
-
     read:
-
-      - path: delivery/
-        mode: inline
-
-
-
-  # 开发阶段
-  #
-  # 目标：
-  # - 执行 Task
-  # - 修改实现代码
-  # - 遵循工程规范
-
-  dev:
-
-    read:
-
-      - path: delivery/
-        mode: inline
-
-      - path: implementation/
-        mode: inline
-
-
-
-  # 测试阶段
-  #
-  # 目标：
-  # - 验证实现
-  # - 生成 Evidence
-  # - 检查质量
-
-  test:
-
-    read:
-
-      - path: delivery/
-        mode: inline
-
-      - path: implementation/
-        mode: inline
-
-
-
-  # 评审阶段
-  #
-  # 目标：
-  # - 跨仓一致性检查
-  # - Evidence 完整性
-  # - 汇聚准备
-
-  review:
-
-    read:
-
       - path: standards/
         mode: outline
-
-      - path: implementation/
+      - path: delivery/
         mode: outline
-
     change-artifacts:
       - requirement.md
       - prd.md
       - design.md
 
-
-  # 知识沉淀阶段
-  #
-  # 目标：
-  # - 逆向分析
-  # - 更新项目知识
-  # - 沉淀经验
-
-  converge:
-
+  # 开发阶段：绑定 DU 实施 / 消费 repo task.md 全 9 节
+  # repos 段为 opt-in：按项目仓库取消注释并替换为实际 repoId（须与 .sdd/repositories.yaml 一致）
+  dev:
     read:
-
-      - path: delivery/
-        mode: inline
-
+      - path: standards/
+        mode: outline
       - path: implementation/
+        mode: outline # 仅结构清单；repo 侧正文由 DU 绑定自动注入
+    change-artifacts:
+      - prd.md
+      - design.md
+    # repos:                                   # ← 取消注释启用 per-repo 规则段（version 0.3）
+    #   backend:
+    #     read:
+    #       - path: implementation/backend/
+    #         mode: outline
+    #         exclude: ["**/node_modules/**", "**/dist/**", "**/target/**"]
+    #   frontend:
+    #     read:
+    #       - path: implementation/frontend/
+    #         mode: outline
+    #         exclude: ["**/node_modules/**", "**/dist/**"]
+
+  # 测试阶段：验证实现 / 生成 Evidence / 检查质量（repos 段同 dev，按需配置）
+  test:
+    read:
+      - path: standards/
+        mode: outline
+      - path: implementation/
+        mode: outline
+    change-artifacts:
+      - prd.md
+      - design.md
+
+  # 评审检查点阶段（Phase 2.2）：需求/设计一致性 / 代码质量 / 知识同步候选
+  review:
+    read:
+      - path: standards/
+        mode: outline
+      - path: implementation/
+        mode: outline
+    change-artifacts:
+      - requirement.md
+      - prd.md
+      - design.md
+
+  # 知识沉淀阶段：逆向分析 / 更新项目知识 / 沉淀经验
+  # product/ 只读 SSOT 与知识文件（同 explore），不读 features/ 派生缓存
+  converge:
+    read:
+      - path: product/feature-tree.yaml
         mode: inline
+      - path: product/specs/
+        mode: inline
+      - path: product/glossary/
+        mode: outline
+      - path: standards/
+        mode: outline
+    change-artifacts:
+      - design.md
+      - prd.md # v0.4：全局验收标准（change-prd §5）对照
+      - implementation.md # v0.4：跨仓实施汇总（DU 状态/Fan-in）
+      - evidence/test-report.md # v0.4：测试证据（多 Story 模式下 Story 级报告在 stories/<id>/，此处标注 missing 属预期）
+      - review-report.md # v0.4：审查结论与发现闭环情况（人审全链视图）
