@@ -46,7 +46,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-01-01/
+    path: 身份与权限/统一身份认证体系/管理员凭证认证/安全存储与校验管理员凭证/
     domain:
       id: FEAT-001-01-01
       name: 管理员凭证认证
@@ -55,7 +55,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-01-02/
+    path: 身份与权限/统一身份认证体系/管理员凭证认证/认证管理员登录凭证/
     domain:
       id: FEAT-001-01-01
       name: 管理员凭证认证
@@ -64,7 +64,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-02-01/
+    path: 身份与权限/统一身份认证体系/Token 生命周期/签发双 Token 登录会话/
     domain:
       id: FEAT-001-01-02
       name: Token 生命周期
@@ -73,7 +73,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-02-02/
+    path: 身份与权限/统一身份认证体系/Token 生命周期/轮换 Refresh Token/
     domain:
       id: FEAT-001-01-02
       name: Token 生命周期
@@ -82,7 +82,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-02-03/
+    path: 身份与权限/统一身份认证体系/Token 生命周期/撤销登录会话与状态失效/
     domain:
       id: FEAT-001-01-02
       name: Token 生命周期
@@ -91,7 +91,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-03-01/
+    path: 身份与权限/统一身份认证体系/身份接入与传播/隔离多类型身份主体/
     domain:
       id: FEAT-001-01-03
       name: 身份接入与传播
@@ -100,7 +100,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-03-02/
+    path: 身份与权限/统一身份认证体系/身份接入与传播/建立统一 SecurityContext/
     domain:
       id: FEAT-001-01-03
       name: 身份接入与传播
@@ -109,7 +109,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-03-03/
+    path: 身份与权限/统一身份认证体系/身份接入与传播/在 Gateway 验证并传播身份/
     domain:
       id: FEAT-001-01-03
       name: 身份接入与传播
@@ -118,7 +118,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-01-04-01/
+    path: 身份与权限/统一身份认证体系/管理端认证入口/接入管理端基础登录流程/
     domain:
       id: FEAT-001-01-04
       name: 管理端认证入口
@@ -134,9 +134,9 @@ repository-baseline:
     commit: 677133f17186cdcca4c5afa302cd07ed2ac7435e
 repository-result:
   repo-1:
-    commit: 217a5327bda68bb756e32e1e371326e3e62c57b3
+    commit: 5666b546f6cdfe7c6f6fee00b89e88fd45e65000
   repo-2:
-    commit: fc7d0f7e657d7659b6c6f162c2f06e0ab5d51339
+    commit: 0be3b000e99afe4a7dda006c9c7788e3841769e2
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。

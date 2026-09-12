@@ -45,7 +45,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-01-01/
+    path: 身份与权限/后台 RBAC 权限体系/权限主体管理/维护管理员生命周期/
     domain:
       id: FEAT-001-02-01
       name: 权限主体管理
@@ -54,7 +54,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-01-02/
+    path: 身份与权限/后台 RBAC 权限体系/权限主体管理/维护角色生命周期/
     domain:
       id: FEAT-001-02-01
       name: 权限主体管理
@@ -63,7 +63,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-01-03/
+    path: 身份与权限/后台 RBAC 权限体系/权限主体管理/分配管理员角色/
     domain:
       id: FEAT-001-02-01
       name: 权限主体管理
@@ -72,7 +72,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-02-01/
+    path: 身份与权限/后台 RBAC 权限体系/权限资源管理/维护后台菜单树/
     domain:
       id: FEAT-001-02-02
       name: 权限资源管理
@@ -81,7 +81,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-02-02/
+    path: 身份与权限/后台 RBAC 权限体系/权限资源管理/维护操作与 API 权限编码/
     domain:
       id: FEAT-001-02-02
       name: 权限资源管理
@@ -90,7 +90,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-02-03/
+    path: 身份与权限/后台 RBAC 权限体系/权限资源管理/分配角色权限/
     domain:
       id: FEAT-001-02-02
       name: 权限资源管理
@@ -99,7 +99,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-03-01/
+    path: 身份与权限/后台 RBAC 权限体系/授权执行与治理/执行后端 API 权限校验/
     domain:
       id: FEAT-001-02-03
       name: 授权执行与治理
@@ -108,7 +108,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-03-02/
+    path: 身份与权限/后台 RBAC 权限体系/授权执行与治理/缓存并及时失效权限/
     domain:
       id: FEAT-001-02-03
       name: 授权执行与治理
@@ -117,7 +117,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-02-03-03/
+    path: 身份与权限/后台 RBAC 权限体系/授权执行与治理/审计关键权限操作/
     domain:
       id: FEAT-001-02-03
       name: 授权执行与治理
@@ -131,7 +131,7 @@ repository-baseline:
     commit: 892eecbfc9d0de0fe15c8dbec8897009296b3888
 repository-result:
   repo-1:
-    commit: 217a5327bda68bb756e32e1e371326e3e62c57b3
+    commit: 5666b546f6cdfe7c6f6fee00b89e88fd45e65000
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。

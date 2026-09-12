@@ -1,0 +1,123 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0008" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-001-02-03-01" # Story ID（对齐 product/feature-tree.yaml）
+title: "执行后端 API 权限校验" # Story 标题
+summary: "通过 Spring Security 在业务服务实施真实 API 授权" # Story 一句话摘要（可选）
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-11T13:27:32.240Z" # ISO8601，创建时填
+updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
+
+# 交叉引用（Gate cross-reference blocking 检查：必须指向 change-spec.md / change-design.md 具体章节）
+change-spec-ref: "change-spec.md#33-story-拆分总表" # 例：change-spec.md#32-story-1-功能范围
+change-design-ref: "change-design.md#5-story-设计分派story-design-assignments" # 例：change-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: FEAT-001
+    name: 身份与权限
+  level-2:
+    id: FEAT-001-02
+    name: 后台 RBAC 权限体系
+  level-3:
+    id: FEAT-001-02-03
+    name: 授权执行与治理
+  story:
+    id: STORY-001-02-03-01
+    name: 执行后端 API 权限校验
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus:
+  - id: DU-BE-207
+    repository: repo-1
+    status: completed
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T01:55:04.282Z
+        validator: sdd-prd
+        artifact-hash: sha256:c7d5974520c65db9799391f407008dd39cc1bb02ebae29095c8e78a4fbfc0e8c
+        rules-hash: sha256:0366b12ef4af635fdd7c4e548ca79f118d1d7814bbe7567a0d86980ab3ed5ab6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-11T13:36:47.828Z
+        reviewer: Codex-on-user-request
+        artifact-hash: sha256:c7d5974520c65db9799391f407008dd39cc1bb02ebae29095c8e78a4fbfc0e8c
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T01:55:04.524Z
+        validator: sdd-design
+        artifact-hash: sha256:efa5b68eef6634fb559e916105bf3640a75ddbdcad1a74f272f4a3e2926b303d
+        rules-hash: sha256:bb4c3dce77832e0f95295a09c636f28f253f9f687854c6cc82054101b228b74e
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-12T01:55:04.534Z
+        reviewer: workflow
+        artifact-hash: sha256:efa5b68eef6634fb559e916105bf3640a75ddbdcad1a74f272f4a3e2926b303d
+        reason: "human-gate: skip (design @ story STORY-001-02-03-01)"
+    status: accepted
+  tasks:
+    path: tasks.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T02:21:51.200Z
+        validator: sdd-task
+        artifact-hash: sha256:b2aa2a0edb54d1293254adb97cffb82ac43d3fb50cd8387d974fbe231c6178d7
+        rules-hash: sha256:b222524e573221ef2a858e89137696ff566e53536acdcf6402239d3c0c02af56
+        issues: []
+        warnings:
+          - "tasks.md: DU DU-BE-207 scope 条目无 [S<n>] 引用（建议引用 Story 范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T02:22:41.592Z
+        reviewer: Codex-on-user-request
+        artifact-hash: sha256:b2aa2a0edb54d1293254adb97cffb82ac43d3fb50cd8387d974fbe231c6178d7
+        reason: ""
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:14:30.634Z
+        validator: sdd-test
+        artifact-hash: sha256:1dde257c3abdaa25fa72756497c160da2649f961c0d43df09012fc1b3977a2ec
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:14:45.529Z
+        reviewer: user
+        artifact-hash: sha256:1dde257c3abdaa25fa72756497c160da2649f961c0d43df09012fc1b3977a2ec
+        reason: ""

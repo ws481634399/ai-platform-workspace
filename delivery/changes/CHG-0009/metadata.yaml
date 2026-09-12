@@ -46,7 +46,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-01-01/
+    path: 身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/
     domain:
       id: FEAT-001-03-01
       name: 权限状态引导
@@ -55,7 +55,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-01-02/
+    path: 身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/
     domain:
       id: FEAT-001-03-01
       name: 权限状态引导
@@ -64,7 +64,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-01-03/
+    path: 身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/
     domain:
       id: FEAT-001-03-01
       name: 权限状态引导
@@ -73,7 +73,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-02-01/
+    path: 身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/
     domain:
       id: FEAT-001-03-02
       name: 动态导航与页面访问
@@ -82,7 +82,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-02-02/
+    path: 身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/
     domain:
       id: FEAT-001-03-02
       name: 动态导航与页面访问
@@ -91,7 +91,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-02-03/
+    path: 身份与权限/后台动态菜单与权限前端/动态导航与页面访问/守卫页面并区分 403 与 404/
     domain:
       id: FEAT-001-03-02
       name: 动态导航与页面访问
@@ -100,7 +100,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-03-01/
+    path: 身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/
     domain:
       id: FEAT-001-03-03
       name: 操作权限与认证异常
@@ -109,7 +109,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-03-02/
+    path: 身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token 刷新/
     domain:
       id: FEAT-001-03-03
       name: 操作权限与认证异常
@@ -118,7 +118,7 @@ stories:
     inline: false
     evidence-tier: strict
     status: developing
-    path: stories/STORY-001-03-03-03/
+    path: 身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/
     domain:
       id: FEAT-001-03-03
       name: 操作权限与认证异常
@@ -134,9 +134,9 @@ repository-baseline:
     commit: 677133f17186cdcca4c5afa302cd07ed2ac7435e
 repository-result:
   repo-1:
-    commit: 217a5327bda68bb756e32e1e371326e3e62c57b3
+    commit: 5666b546f6cdfe7c6f6fee00b89e88fd45e65000
   repo-2:
-    commit: fc7d0f7e657d7659b6c6f162c2f06e0ab5d51339
+    commit: 0be3b000e99afe4a7dda006c9c7788e3841769e2
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
