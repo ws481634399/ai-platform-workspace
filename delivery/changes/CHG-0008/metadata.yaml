@@ -16,10 +16,10 @@ schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0008" # CHG-XXXX，创建时填
 title: "建立后台 RBAC 权限体系" # 简短标题
 summary: "完成管理员、角色、菜单权限、后端授权、权限缓存失效与审计" # 一句话摘要（可选）
-status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M1-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-11T13:24:14.381Z" # ISO8601，创建时填
-updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
+updated-at: "2026-09-12T16:03:30.302Z" # dev evidence generated
 features:
   - FEAT-001
   - FEAT-001-02
@@ -127,9 +127,11 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  repo-1: { commit: 892eecbfc9d0de0fe15c8dbec8897009296b3888 }
+  repo-1:
+    commit: 892eecbfc9d0de0fe15c8dbec8897009296b3888
 repository-result:
-  repo-1: { commit: d665727914358b8afd27b3c4ca321091c5dbd980 }
+  repo-1:
+    commit: 217a5327bda68bb756e32e1e371326e3e62c57b3
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -246,6 +248,18 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:2bf0a2192d8e9ab27ed96532a367c4024c7763c6b4f2766db027d4173871fcc2
         reason: "human-gate: skip (design)"
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-12T15:55:45.044Z
+        validator: sdd-test
+        artifact-hash: ""
+        rules-hash: ""
+        issues:
+          - "Artifact not found: evidence/test-report.md"
+        warnings: []
 feature-path:
   level-1:
     id: FEAT-001

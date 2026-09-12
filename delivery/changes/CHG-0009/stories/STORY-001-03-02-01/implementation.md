@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-FE-304：implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-02-01/DU-FE-304/implementation.md
+- DU-FE-304：implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/DU-FE-304/implementation.md
 
 ## 3. Commit 记录
 

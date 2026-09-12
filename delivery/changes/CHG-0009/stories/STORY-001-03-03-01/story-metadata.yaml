@@ -13,8 +13,8 @@ change-id: "CHG-0009" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-03-03-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "统一控制按钮操作权限" # Story 标题
 summary: "提供可复用的 Directive、组件或组合式按钮权限能力" # Story 一句话摘要（可选）
-status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
-evidence-tier: strict # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.343Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
 
@@ -104,3 +104,20 @@ artifacts:
         artifact-hash: sha256:9f207b9ca58cc5f98e161ef73aa9394271719d35595d7dc05179a36bcea272e3
         reason: ""
     status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:07:46.218Z
+        validator: sdd-test
+        artifact-hash: sha256:f3979f68bb58c8296e237dc3b8cdfaac8ddd6b915543a8e7017c437f0fdbeaea
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:08:17.579Z
+        reviewer: user
+        artifact-hash: sha256:f3979f68bb58c8296e237dc3b8cdfaac8ddd6b915543a8e7017c437f0fdbeaea
+        reason: ""

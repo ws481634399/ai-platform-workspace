@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-BE-101：implementation/ai-platform-backend/delivery/CHG-0007/stories/STORY-001-01-01-01/DU-BE-101/implementation.md
+- DU-BE-101：implementation/ai-platform-backend/delivery/CHG-0007/身份与权限/统一身份认证体系/管理员凭证认证/安全存储与校验管理员凭证/DU-BE-101/implementation.md
 
 ## 3. Commit 记录
 

@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-FE-308：implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-02/DU-FE-308/implementation.md
+- DU-FE-308：implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token 刷新/DU-FE-308/implementation.md
 
 ## 3. Commit 记录
 

@@ -16,10 +16,10 @@ schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0007" # CHG-XXXX，创建时填
 title: "建立统一身份认证体系" # 简短标题
 summary: "完成后台管理员认证、双 Token、多主体隔离、Gateway 与 SecurityContext 及管理端基础登录" # 一句话摘要（可选）
-status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M1-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-11T13:24:14.211Z" # ISO8601，创建时填
-updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
+updated-at: "2026-09-12T16:03:30.137Z" # dev evidence generated
 features:
   - FEAT-001
   - FEAT-001-01
@@ -128,11 +128,15 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  repo-1: { commit: 892eecbfc9d0de0fe15c8dbec8897009296b3888 }
-  repo-2: { commit: 677133f17186cdcca4c5afa302cd07ed2ac7435e }
+  repo-1:
+    commit: 892eecbfc9d0de0fe15c8dbec8897009296b3888
+  repo-2:
+    commit: 677133f17186cdcca4c5afa302cd07ed2ac7435e
 repository-result:
-  repo-1: { commit: d665727914358b8afd27b3c4ca321091c5dbd980 }
-  repo-2: { commit: 65cb070977882dd3b666a691bd5f006d62448019 }
+  repo-1:
+    commit: 217a5327bda68bb756e32e1e371326e3e62c57b3
+  repo-2:
+    commit: fc7d0f7e657d7659b6c6f162c2f06e0ab5d51339
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -247,6 +251,18 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:1fee6309737e284b7bf8c000e399876701986c85bd8bdb20b9c0d3bcdf67d925
         reason: "human-gate: skip (design)"
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-12T15:55:44.893Z
+        validator: sdd-test
+        artifact-hash: ""
+        rules-hash: ""
+        issues:
+          - "Artifact not found: evidence/test-report.md"
+        warnings: []
 feature-path:
   level-1:
     id: FEAT-001

@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-FE-307：implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-01/DU-FE-307/implementation.md
+- DU-FE-307：implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/DU-FE-307/implementation.md
 
 ## 3. Commit 记录
 

@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-FE-101：implementation/ai-platform-frontend/delivery/CHG-0007/stories/STORY-001-01-04-01/DU-FE-101/implementation.md
+- DU-FE-101：implementation/ai-platform-frontend/delivery/CHG-0007/身份与权限/统一身份认证体系/管理端认证入口/接入管理端基础登录流程/DU-FE-101/implementation.md
 
 ## 3. Commit 记录
 

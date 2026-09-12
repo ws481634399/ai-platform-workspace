@@ -25,10 +25,10 @@ implementation-guidance:
   pseudocode: true
   complexity-trigger: [business-flow]
 repository-delivery:
-  path: implementation/ai-platform-backend/delivery/CHG-0007/stories/STORY-001-01-02-03/DU-BE-105
+  path: implementation/ai-platform-backend/delivery/CHG-0007/身份与权限/统一身份认证体系/Token 生命周期/撤销登录会话与状态失效/DU-BE-105
 status: completed
 evidence-ref:
-  - implementation/ai-platform-backend/delivery/CHG-0007/stories/STORY-001-01-02-03/DU-BE-105/evidence/evidence.yaml
+  - implementation/ai-platform-backend/delivery/CHG-0007/身份与权限/统一身份认证体系/Token 生命周期/撤销登录会话与状态失效/DU-BE-105/evidence/evidence.yaml
 baseline:
   commit: "892eecbfc9d0de0fe15c8dbec8897009296b3888"
 result:

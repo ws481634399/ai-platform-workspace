@@ -23,15 +23,15 @@
 
 ## 2. 各仓实施引用
 
-- DU-BE-201：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-01-01/DU-BE-201/implementation.md
-- DU-BE-202：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-01-02/DU-BE-202/implementation.md
-- DU-BE-203：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-01-03/DU-BE-203/implementation.md
-- DU-BE-204：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-02-01/DU-BE-204/implementation.md
-- DU-BE-205：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-02-02/DU-BE-205/implementation.md
-- DU-BE-206：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-02-03/DU-BE-206/implementation.md
-- DU-BE-207：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-03-01/DU-BE-207/implementation.md
-- DU-BE-208：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-03-02/DU-BE-208/implementation.md
-- DU-BE-209：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-03-03/DU-BE-209/implementation.md
+- DU-BE-201：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限主体管理/维护管理员生命周期/DU-BE-201/implementation.md
+- DU-BE-202：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限主体管理/维护角色生命周期/DU-BE-202/implementation.md
+- DU-BE-203：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限主体管理/分配管理员角色/DU-BE-203/implementation.md
+- DU-BE-204：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限资源管理/维护后台菜单树/DU-BE-204/implementation.md
+- DU-BE-205：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限资源管理/维护操作与 API 权限编码/DU-BE-205/implementation.md
+- DU-BE-206：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限资源管理/分配角色权限/DU-BE-206/implementation.md
+- DU-BE-207：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/授权执行与治理/执行后端 API 权限校验/DU-BE-207/implementation.md
+- DU-BE-208：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/授权执行与治理/缓存并及时失效权限/DU-BE-208/implementation.md
+- DU-BE-209：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/授权执行与治理/审计关键权限操作/DU-BE-209/implementation.md
 
 ## 3. Commit 记录
 

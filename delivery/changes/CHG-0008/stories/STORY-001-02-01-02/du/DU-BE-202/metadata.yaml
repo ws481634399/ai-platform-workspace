@@ -25,10 +25,10 @@ implementation-guidance:
   pseudocode: true
   complexity-trigger: [business-flow]
 repository-delivery:
-  path: implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-01-02/DU-BE-202
+  path: implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限主体管理/维护角色生命周期/DU-BE-202
 status: completed
 evidence-ref:
-  - implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-01-02/DU-BE-202/evidence/evidence.yaml
+  - implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/权限主体管理/维护角色生命周期/DU-BE-202/evidence/evidence.yaml
 baseline:
   commit: "892eecbfc9d0de0fe15c8dbec8897009296b3888"
 result:

@@ -13,8 +13,8 @@ change-id: "CHG-0008" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-02-03-03" # Story ID（对齐 product/feature-tree.yaml）
 title: "审计关键权限操作" # Story 标题
 summary: "记录管理员、角色、权限关系等安全敏感变更" # Story 一句话摘要（可选）
-status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
-evidence-tier: strict # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.257Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
 
@@ -104,3 +104,20 @@ artifacts:
         artifact-hash: sha256:f4df1ed44e8f05395acd061d2b238d4c16816fa26d44882be61e7765a1e3466e
         reason: ""
     status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:07:44.985Z
+        validator: sdd-test
+        artifact-hash: sha256:58b6da2c5f1303fd816b3fb0e09683959697e8e84a400ad5e825f4aff68e58a7
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:08:06.478Z
+        reviewer: user
+        artifact-hash: sha256:58b6da2c5f1303fd816b3fb0e09683959697e8e84a400ad5e825f4aff68e58a7
+        reason: ""

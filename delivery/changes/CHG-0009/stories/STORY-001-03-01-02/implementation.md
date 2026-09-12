@@ -16,8 +16,8 @@
 
 ## 2. 各仓实施引用
 
-- DU-BE-302：implementation/ai-platform-backend/delivery/CHG-0009/stories/STORY-001-03-01-02/DU-BE-302/implementation.md
-- DU-FE-302：implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-01-02/DU-FE-302/implementation.md
+- DU-BE-302：implementation/ai-platform-backend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/DU-BE-302/implementation.md
+- DU-FE-302：implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/DU-FE-302/implementation.md
 
 ## 3. Commit 记录
 

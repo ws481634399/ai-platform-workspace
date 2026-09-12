@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-FE-306：implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-02-03/DU-FE-306/implementation.md
+- DU-FE-306：implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/守卫页面并区分 403 与 404/DU-FE-306/implementation.md
 
 ## 3. Commit 记录
 

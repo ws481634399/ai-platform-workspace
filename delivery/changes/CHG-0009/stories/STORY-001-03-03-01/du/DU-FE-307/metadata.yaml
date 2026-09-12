@@ -25,10 +25,10 @@ implementation-guidance:
   pseudocode: true
   complexity-trigger: [business-flow]
 repository-delivery:
-  path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-01/DU-FE-307
+  path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/DU-FE-307
 status: completed
 evidence-ref:
-  - implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-01/DU-FE-307/evidence/evidence.yaml
+  - implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/DU-FE-307/evidence/evidence.yaml
 baseline:
   commit: "677133f17186cdcca4c5afa302cd07ed2ac7435e"
 result:

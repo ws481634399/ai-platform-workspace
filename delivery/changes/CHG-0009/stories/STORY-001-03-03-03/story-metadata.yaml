@@ -13,8 +13,8 @@ change-id: "CHG-0009" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-03-03-03" # Story ID（对齐 product/feature-tree.yaml）
 title: "统一处理认证授权异常" # Story 标题
 summary: "区分 401 与 403 并在退出或失效时清理身份、路由和权限状态" # Story 一句话摘要（可选）
-status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
-evidence-tier: strict # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.362Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
 
@@ -104,3 +104,20 @@ artifacts:
         artifact-hash: sha256:4f23978138d5793dd6630048554a1a9f85e7da3d5564ddcd86af1f92bcd944b2
         reason: ""
     status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:07:46.557Z
+        validator: sdd-test
+        artifact-hash: sha256:508227e37b68d0e36ee5c987d63c74d15c214f06a43391cbfa62e0e46655f60d
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:08:07.877Z
+        reviewer: user
+        artifact-hash: sha256:508227e37b68d0e36ee5c987d63c74d15c214f06a43391cbfa62e0e46655f60d
+        reason: ""

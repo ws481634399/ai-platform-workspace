@@ -13,8 +13,8 @@ change-id: "CHG-0009" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-03-02-03" # Story ID（对齐 product/feature-tree.yaml）
 title: "守卫页面并区分 403 与 404" # Story 标题
 summary: "拦截未授权页面并提供一致的 403、404 访问体验" # Story 一句话摘要（可选）
-status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
-evidence-tier: strict # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.336Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
 
@@ -104,3 +104,20 @@ artifacts:
         artifact-hash: sha256:4d9ca8acc6ed30f3c3d26d6773548d618978f01dd63ed3fa2751884eee96dc20
         reason: ""
     status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:07:46.056Z
+        validator: sdd-test
+        artifact-hash: sha256:0f4447dfd965892fcefcedb87787d587b0cc289974ebafc2772e53ba5ff18777
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:08:07.391Z
+        reviewer: user
+        artifact-hash: sha256:0f4447dfd965892fcefcedb87787d587b0cc289974ebafc2772e53ba5ff18777
+        reason: ""

@@ -13,8 +13,8 @@ change-id: "CHG-0009" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-03-02-02" # Story ID（对齐 product/feature-tree.yaml）
 title: "注册安全动态路由" # Story 标题
 summary: "通过前端白名单组件注册表映射后端菜单与页面路由" # Story 一句话摘要（可选）
-status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
-evidence-tier: strict # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.327Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
 
@@ -104,3 +104,20 @@ artifacts:
         artifact-hash: sha256:b5023460c32530eff6f63ae5b7c333f2d814f74411fbdc30cef710b94f43ac40
         reason: ""
     status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:07:45.877Z
+        validator: sdd-test
+        artifact-hash: sha256:767a27157f225b1c03be1e3426079b2ba0a3a49ccade15bed337ee310a85a0b5
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:08:07.243Z
+        reviewer: user
+        artifact-hash: sha256:767a27157f225b1c03be1e3426079b2ba0a3a49ccade15bed337ee310a85a0b5
+        reason: ""

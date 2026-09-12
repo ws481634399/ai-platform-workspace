@@ -62,76 +62,76 @@ items:
     type: evidence-ref
     repository: repo-1
     delivery-unit: DU-BE-301
-    path: implementation/ai-platform-backend/delivery/CHG-0009/stories/STORY-001-03-01-01/DU-BE-301/evidence/evidence.yaml
+    path: implementation/ai-platform-backend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/DU-BE-301/evidence/evidence.yaml
     summary: DU-BE-301 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-002
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-301
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-01-01/DU-FE-301/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/DU-FE-301/evidence/evidence.yaml
     summary: DU-FE-301 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-003
     type: evidence-ref
     repository: repo-1
     delivery-unit: DU-BE-302
-    path: implementation/ai-platform-backend/delivery/CHG-0009/stories/STORY-001-03-01-02/DU-BE-302/evidence/evidence.yaml
+    path: implementation/ai-platform-backend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/DU-BE-302/evidence/evidence.yaml
     summary: DU-BE-302 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-004
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-302
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-01-02/DU-FE-302/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/DU-FE-302/evidence/evidence.yaml
     summary: DU-FE-302 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-005
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-303
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-01-03/DU-FE-303/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/DU-FE-303/evidence/evidence.yaml
     summary: DU-FE-303 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-006
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-304
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-02-01/DU-FE-304/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/DU-FE-304/evidence/evidence.yaml
     summary: DU-FE-304 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-007
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-305
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-02-02/DU-FE-305/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/DU-FE-305/evidence/evidence.yaml
     summary: DU-FE-305 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-008
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-306
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-02-03/DU-FE-306/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/守卫页面并区分 403 与 404/DU-FE-306/evidence/evidence.yaml
     summary: DU-FE-306 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-009
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-307
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-01/DU-FE-307/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/DU-FE-307/evidence/evidence.yaml
     summary: DU-FE-307 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-010
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-308
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-02/DU-FE-308/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token 刷新/DU-FE-308/evidence/evidence.yaml
     summary: DU-FE-308 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"
   - id: EV-011
     type: evidence-ref
     repository: repo-2
     delivery-unit: DU-FE-309
-    path: implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-03/DU-FE-309/evidence/evidence.yaml
+    path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/DU-FE-309/evidence/evidence.yaml
     summary: DU-FE-309 实施与测试证据
     recorded-at: "2026-09-12T03:35:00Z"

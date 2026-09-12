@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-BE-209：implementation/ai-platform-backend/delivery/CHG-0008/stories/STORY-001-02-03-03/DU-BE-209/implementation.md
+- DU-BE-209：implementation/ai-platform-backend/delivery/CHG-0008/身份与权限/后台 RBAC 权限体系/授权执行与治理/审计关键权限操作/DU-BE-209/implementation.md
 
 ## 3. Commit 记录
 

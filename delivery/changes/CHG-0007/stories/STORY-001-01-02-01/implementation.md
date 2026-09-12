@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-BE-103：implementation/ai-platform-backend/delivery/CHG-0007/stories/STORY-001-01-02-01/DU-BE-103/implementation.md
+- DU-BE-103：implementation/ai-platform-backend/delivery/CHG-0007/身份与权限/统一身份认证体系/Token 生命周期/签发双 Token 登录会话/DU-BE-103/implementation.md
 
 ## 3. Commit 记录
 

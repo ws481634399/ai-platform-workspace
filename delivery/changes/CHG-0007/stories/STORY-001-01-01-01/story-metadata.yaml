@@ -13,8 +13,8 @@ change-id: "CHG-0007" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-01-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "安全存储与校验管理员凭证" # Story 标题
 summary: "建立管理员账号密码安全存储、状态检查与敏感信息保护" # Story 一句话摘要（可选）
-status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
-evidence-tier: strict # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.085Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
 
@@ -104,3 +104,20 @@ artifacts:
         artifact-hash: sha256:1ca0732739c2c5690d3c3e70309956681c51fe9e827132724cef7af2a3f84260
         reason: ""
     status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:07:41.925Z
+        validator: sdd-test
+        artifact-hash: sha256:fbf7a854762cd4afc5709582bd48defe021fc25aeb423fa0492468b8db5a3687
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:08:03.877Z
+        reviewer: user
+        artifact-hash: sha256:fbf7a854762cd4afc5709582bd48defe021fc25aeb423fa0492468b8db5a3687
+        reason: ""

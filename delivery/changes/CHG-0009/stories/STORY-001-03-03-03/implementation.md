@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-FE-309：implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-03-03/DU-FE-309/implementation.md
+- DU-FE-309：implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/DU-FE-309/implementation.md
 
 ## 3. Commit 记录
 

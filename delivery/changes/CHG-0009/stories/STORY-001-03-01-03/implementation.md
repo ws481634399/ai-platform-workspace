@@ -15,7 +15,7 @@
 
 ## 2. 各仓实施引用
 
-- DU-FE-303：implementation/ai-platform-frontend/delivery/CHG-0009/stories/STORY-001-03-01-03/DU-FE-303/implementation.md
+- DU-FE-303：implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/DU-FE-303/implementation.md
 
 ## 3. Commit 记录
 
