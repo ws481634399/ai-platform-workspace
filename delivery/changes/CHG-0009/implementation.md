@@ -11,9 +11,9 @@
 
 | DU | 仓库 | 状态 | Baseline | Result |
 |---|---|---|---|---|
-| DU-BE-301 | repo-1 | completed | 892eecb | ff05222 |
+| DU-BE-301 | repo-1 | completed | 892eecb | d665727 |
 | DU-FE-301 | repo-2 | completed | 677133f | 65cb070 |
-| DU-BE-302 | repo-1 | completed | 892eecb | ff05222 |
+| DU-BE-302 | repo-1 | completed | 892eecb | d665727 |
 | DU-FE-302 | repo-2 | completed | 677133f | 65cb070 |
 | DU-FE-303 | repo-2 | completed | 677133f | 65cb070 |
 | DU-FE-304 | repo-2 | completed | 677133f | 65cb070 |
@@ -39,7 +39,7 @@
 
 ## 3. Commit 记录
 
-- ff05222（repo-1）
+- d665727（repo-1）
 - 65cb070（repo-2）
 
 ## 4. Fan-in 状态

@@ -11,15 +11,15 @@
 
 | DU | 仓库 | 状态 | Baseline | Result |
 |---|---|---|---|---|
-| DU-BE-201 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-202 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-203 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-204 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-205 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-206 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-207 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-208 | repo-1 | completed | 892eecb | ff05222 |
-| DU-BE-209 | repo-1 | completed | 892eecb | ff05222 |
+| DU-BE-201 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-202 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-203 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-204 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-205 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-206 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-207 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-208 | repo-1 | completed | 892eecb | d665727 |
+| DU-BE-209 | repo-1 | completed | 892eecb | d665727 |
 
 ## 2. 各仓实施引用
 
@@ -35,7 +35,7 @@
 
 ## 3. Commit 记录
 
-- ff05222（repo-1）
+- d665727（repo-1）
 
 ## 4. Fan-in 状态
 

@@ -27,6 +27,7 @@
 - [x] du-fan-in-testing
 - [x] du-fan-in-complete
 
-## 5. 偏差
+## 5. 返工说明
 
-- 红灯命令未逐 TC 独立留存，详细说明见各 DU implementation.md；绿灯已全量复跑。
+- 本 Story 为前端 DU，本次 DDD 后端返工未改动其实现。
+- 详细 Red/Green 与回归结果见各 DU implementation.md。

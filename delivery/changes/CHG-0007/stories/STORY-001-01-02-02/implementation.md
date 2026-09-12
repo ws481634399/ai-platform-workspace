@@ -11,7 +11,7 @@
 
 | DU | 仓库 | 状态 | Baseline | Result |
 |---|---|---|---|---|
-| DU-BE-104 | repo-1 | completed | 892eecb | ff05222 |
+| DU-BE-104 | repo-1 | completed | 892eecb | d665727 |
 
 ## 2. 各仓实施引用
 
@@ -19,7 +19,7 @@
 
 ## 3. Commit 记录
 
-- DU-BE-104 → ff05222
+- DU-BE-104 → d665727
 
 ## 4. Fan-in 状态
 
@@ -27,6 +27,7 @@
 - [x] du-fan-in-testing
 - [x] du-fan-in-complete
 
-## 5. 偏差
+## 5. 返工说明
 
-- 红灯命令未逐 TC 独立留存，详细说明见各 DU implementation.md；绿灯已全量复跑。
+- 后端 DU 已改为 interfaces → application → domain，infrastructure 实现端口/仓储；由架构测试持续约束。
+- 详细 Red/Green 与回归结果见各 DU implementation.md。
