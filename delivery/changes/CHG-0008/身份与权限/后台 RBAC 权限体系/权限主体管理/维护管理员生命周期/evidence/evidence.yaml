@@ -1,0 +1,60 @@
+# OpenSpec Evidence Model（Phase 2.1）
+#
+# 版本: v0.1
+# 类型: Change 结构化证据索引
+#
+# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
+# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
+# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
+#
+# 条目结构（按 type 区分必填字段）：
+#
+# ---- type: code-change ----
+# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
+#   type: code-change
+#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
+#   commit: 23fdb62            # 必填，commit 短 sha（小写）
+#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
+#   reason: 实现注册服务        # 必填，为什么改
+#   files:                     # 必填（可为空数组），修改文件清单
+#     - path: src/services/auth/register.js
+#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
+#   recorded-at: ""            # ISO8601
+#
+# ---- type: test-run ----
+# - id: EV-002
+#   type: test-run
+#   command: npm test          # 必填，执行命令
+#   result: passed             # 必填，passed / failed / partial
+#   summary:                   # 必填（对象）
+#     total: 0
+#     passed: 0
+#     failed: 0
+#     skipped: 0
+#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
+#   covers: [AC-001, AC-002]       # 必填（可为空数组），覆盖的 PRD 验收标准
+#   recorded-at: ""
+#
+# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
+# - id: EV-003
+#   type: review-finding
+#   target: spec.md#AC-003        # 必填，指向被检查对象
+#   severity: major            # 必填，blocker / major / minor
+#   finding: 设计与实现不一致   # 必填
+#   resolution: ""             # 可选，处理结论
+#   recorded-at: ""
+#
+# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
+# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
+# - id: EV-004
+#   type: evidence-ref
+#   repository: backend        # 可选，仓库 id
+#   delivery-unit: DU-BE-001   # 可选，DU 绑定
+#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
+#                              # 必填，repo 侧证据文件（workspace 相对路径）
+#   summary: backend 单测 12 通过  # 可选，一句话摘要
+#   recorded-at: ""
+
+version: 0.1 # schema 版本
+change-id: "CHG-0008" # CHG-XXXX，创建时填充
+items: [] # Evidence 条目数组，按 recorded-at 升序

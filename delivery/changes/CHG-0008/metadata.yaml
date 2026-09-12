@@ -1,0 +1,262 @@
+# OpenSpec Change Metadata
+#
+# 版本: v4（Phase 4.3 Traceability：spec 改名 + stories[].domain）
+# 类型: Change Metadata（SDD 生命周期载体元信息）
+#
+# 由 ChangeModel.runChangeCreate 生成（sdd-explore 内部调用）。
+# v2 增量：schema-version / feature-path / repository-baseline / repository-result
+# v3 增量：stories 列表（Change 1:N Story 权威索引）
+# v4 增量：prd.md→spec.md / change-prd.md→change-spec.md 改名；stories[].domain 领域归属（inline 自动继承 L3）
+# 兼容规则：schema-version 缺失 = v1；= 2 旧格式（CHG↔Story 1:1 平铺）；= 3 三级规格（含 stories）；= 4 本格式
+#          旧 Change 仅在被显式操作（bind-feature-path / split-story / upgrade）时升 v4
+# 后续 status/archive 由 Document API 改写（保留注释）。
+
+schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Story 平铺)；3=v3(1:N Stories)；4=v4(本格式，spec 命名+domain)
+
+id: "CHG-0008" # CHG-XXXX，创建时填
+title: "建立后台 RBAC 权限体系" # 简短标题
+summary: "完成管理员、角色、菜单权限、后端授权、权限缓存失效与审计" # 一句话摘要（可选）
+status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+requirement: "REQ-M1-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
+created-at: "2026-09-11T13:24:14.381Z" # ISO8601，创建时填
+updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
+features:
+  - FEAT-001
+  - FEAT-001-02
+  - FEAT-001-02-01
+  - STORY-001-02-01-01
+repositories:
+  - repo-1
+related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
+
+# Phase 4.1 轻量化：Evidence 分档（gate-validator 按档位跳过 skip-tier 命中的 machine-checks）
+# light    — 单仓、无接口变更的小改动：免除仪式性检查（多仓协调/物化跟踪/逐 commit 映射），
+#            但结构完整性检查（追踪链/骨架/收口，标 structural:true）仍全量执行
+# standard — 缺省档，完整 Evidence（不改此字段即 standard）
+# strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
+evidence-tier: strict
+
+# Phase 4.2 新增：stories 列表（Change 1:N Story 权威索引）
+# - 单 Story inline 模式：长度 = 1 且 inline=true（CHG 根目录同时是 Story 目录）
+# - 多 Story 三级模式：每条路径指向 stories/<STORY-ID>/ 目录，其中含 story-metadata.yaml
+stories:
+  - id: STORY-001-02-01-01
+    title: 维护管理员生命周期
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-01-01/
+    domain:
+      id: FEAT-001-02-01
+      name: 权限主体管理
+  - id: STORY-001-02-01-02
+    title: 维护角色生命周期
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-01-02/
+    domain:
+      id: FEAT-001-02-01
+      name: 权限主体管理
+  - id: STORY-001-02-01-03
+    title: 分配管理员角色
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-01-03/
+    domain:
+      id: FEAT-001-02-01
+      name: 权限主体管理
+  - id: STORY-001-02-02-01
+    title: 维护后台菜单树
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-02-01/
+    domain:
+      id: FEAT-001-02-02
+      name: 权限资源管理
+  - id: STORY-001-02-02-02
+    title: 维护操作与 API 权限编码
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-02-02/
+    domain:
+      id: FEAT-001-02-02
+      name: 权限资源管理
+  - id: STORY-001-02-02-03
+    title: 分配角色权限
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-02-03/
+    domain:
+      id: FEAT-001-02-02
+      name: 权限资源管理
+  - id: STORY-001-02-03-01
+    title: 执行后端 API 权限校验
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-03-01/
+    domain:
+      id: FEAT-001-02-03
+      name: 授权执行与治理
+  - id: STORY-001-02-03-02
+    title: 缓存并及时失效权限
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-03-02/
+    domain:
+      id: FEAT-001-02-03
+      name: 授权执行与治理
+  - id: STORY-001-02-03-03
+    title: 审计关键权限操作
+    inline: false
+    evidence-tier: strict
+    status: developing
+    path: stories/STORY-001-02-03-03/
+    domain:
+      id: FEAT-001-02-03
+      name: 授权执行与治理
+
+# Phase 2.4 保留：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
+# repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
+# repository-result：DU completed 时记录各仓结果 commit
+# 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
+repository-baseline:
+  repo-1: { commit: 892eecbfc9d0de0fe15c8dbec8897009296b3888 }
+repository-result:
+  repo-1: { commit: ff05222409fc62e6e0cf96beda44964a83fb57a4 }
+
+# Phase 1.5 保留：artifacts 段（Gate Result 持久化）
+# v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
+# Story 级产物（story-spec / story-design / tasks / implementation / ...）Gate 存储在
+# stories/<id>/story-metadata.yaml.artifacts（inline 模式仍存在此处，双语义合并）。
+# GateRepository 用 setIn 按需创建（不预填，避免模板臃肿）。
+# Machine Gate 记录字段：status / checked-at / validator / artifact-hash / rules-hash / issues / warnings
+#   artifact-hash：产物内容 SHA-256，产物变化 → hash 变化 → 旧 Gate 失效
+#   rules-hash：gate.yaml 规则内容 SHA-256，规则变化 → hash 变化 → detectStaleArtifacts 报 rules-mismatch
+artifacts:
+  exploration:
+    path: exploration.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-11T13:25:32.738Z
+        validator: sdd-explore
+        artifact-hash: sha256:bb710ce4dcb4c9e54e50cd00cd276675ddbb6f66d1b0953c56602f1b2b12201a
+        rules-hash: sha256:4194b2a551e45101d209ff7daac11103cf0fcc9c2caeef61de163b3077f8825d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-11T13:25:32.751Z
+        reviewer: workflow
+        artifact-hash: sha256:bb710ce4dcb4c9e54e50cd00cd276675ddbb6f66d1b0953c56602f1b2b12201a
+        reason: "human-gate: skip (explore)"
+    status: accepted
+  spec:
+    path: spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-11T13:30:49.627Z
+        validator: sdd-prd
+        artifact-hash: sha256:f027fcd5e896a9f8657cb7fa361d4f66b6e27a52e0212701dfb79f9fa4090010
+        rules-hash: sha256:0366b12ef4af635fdd7c4e548ca79f118d1d7814bbe7567a0d86980ab3ed5ab6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-11T13:30:49.768Z
+        reviewer: Codex-on-user-request
+        artifact-hash: sha256:f027fcd5e896a9f8657cb7fa361d4f66b6e27a52e0212701dfb79f9fa4090010
+        reason: ""
+    status: accepted
+  change-spec:
+    path: change-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-11T13:30:49.938Z
+        validator: sdd-prd
+        artifact-hash: sha256:f027fcd5e896a9f8657cb7fa361d4f66b6e27a52e0212701dfb79f9fa4090010
+        rules-hash: sha256:0366b12ef4af635fdd7c4e548ca79f118d1d7814bbe7567a0d86980ab3ed5ab6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-11T13:30:10.964Z
+        reviewer: Codex-on-user-request
+        artifact-hash: sha256:f027fcd5e896a9f8657cb7fa361d4f66b6e27a52e0212701dfb79f9fa4090010
+        reason: ""
+  design:
+    path: design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-11T13:33:33.620Z
+        validator: sdd-design
+        artifact-hash: sha256:2bf0a2192d8e9ab27ed96532a367c4024c7763c6b4f2766db027d4173871fcc2
+        rules-hash: sha256:bb4c3dce77832e0f95295a09c636f28f253f9f687854c6cc82054101b228b74e
+        issues: []
+        warnings:
+          - "change-design.md: 多个 Story 同 domain（FEAT-001-02-01）:
+            STORY-001-02-01-01, STORY-001-02-01-02,
+            STORY-001-02-01-03——建议评估是否合并"
+          - "change-design.md: 多个 Story 同 domain（FEAT-001-02-02）:
+            STORY-001-02-02-01, STORY-001-02-02-02,
+            STORY-001-02-02-03——建议评估是否合并"
+          - "change-design.md: 多个 Story 同 domain（FEAT-001-02-03）:
+            STORY-001-02-03-01, STORY-001-02-03-02,
+            STORY-001-02-03-03——建议评估是否合并"
+      human:
+        status: approved
+        reviewed-at: 2026-09-11T13:34:00.313Z
+        reviewer: Codex-on-user-request
+        artifact-hash: sha256:2bf0a2192d8e9ab27ed96532a367c4024c7763c6b4f2766db027d4173871fcc2
+        reason: ""
+    status: accepted
+  change-design:
+    path: change-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-11T13:34:00.484Z
+        validator: sdd-design
+        artifact-hash: sha256:2bf0a2192d8e9ab27ed96532a367c4024c7763c6b4f2766db027d4173871fcc2
+        rules-hash: sha256:bb4c3dce77832e0f95295a09c636f28f253f9f687854c6cc82054101b228b74e
+        issues: []
+        warnings:
+          - "change-design.md: 多个 Story 同 domain（FEAT-001-02-01）:
+            STORY-001-02-01-01, STORY-001-02-01-02,
+            STORY-001-02-01-03——建议评估是否合并"
+          - "change-design.md: 多个 Story 同 domain（FEAT-001-02-02）:
+            STORY-001-02-02-01, STORY-001-02-02-02,
+            STORY-001-02-02-03——建议评估是否合并"
+          - "change-design.md: 多个 Story 同 domain（FEAT-001-02-03）:
+            STORY-001-02-03-01, STORY-001-02-03-02,
+            STORY-001-02-03-03——建议评估是否合并"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-11T13:34:00.500Z
+        reviewer: workflow
+        artifact-hash: sha256:2bf0a2192d8e9ab27ed96532a367c4024c7763c6b4f2766db027d4173871fcc2
+        reason: "human-gate: skip (design)"
+feature-path:
+  level-1:
+    id: FEAT-001
+    name: 身份与权限
+  level-2:
+    id: FEAT-001-02
+    name: 后台 RBAC 权限体系
+  level-3:
+    id: FEAT-001-02-01
+    name: 权限主体管理
+  story:
+    id: STORY-001-02-01-01
+    name: 维护管理员生命周期
+  candidate: false

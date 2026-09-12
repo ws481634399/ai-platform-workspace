@@ -1,0 +1,106 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0009" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-001-03-03-03" # Story ID（对齐 product/feature-tree.yaml）
+title: "统一处理认证授权异常" # Story 标题
+summary: "区分 401 与 403 并在退出或失效时清理身份、路由和权限状态" # Story 一句话摘要（可选）
+status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: strict # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-11T13:27:32.362Z" # ISO8601，创建时填
+updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
+
+# 交叉引用（Gate cross-reference blocking 检查：必须指向 change-spec.md / change-design.md 具体章节）
+change-spec-ref: "change-spec.md#33-story-拆分总表" # 例：change-spec.md#32-story-1-功能范围
+change-design-ref: "change-design.md#5-story-设计分派story-design-assignments" # 例：change-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: FEAT-001
+    name: 身份与权限
+  level-2:
+    id: FEAT-001-03
+    name: 后台动态菜单与权限前端
+  level-3:
+    id: FEAT-001-03-03
+    name: 操作权限与认证异常
+  story:
+    id: STORY-001-03-03-03
+    name: 统一处理认证授权异常
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus:
+  - id: DU-FE-309
+    repository: repo-2
+    status: completed
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T01:55:12.237Z
+        validator: sdd-prd
+        artifact-hash: sha256:c27ac299435534ed9d9e90d767a043d4ce787b50468f8e1f5bf81524a3831038
+        rules-hash: sha256:0366b12ef4af635fdd7c4e548ca79f118d1d7814bbe7567a0d86980ab3ed5ab6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-11T13:36:49.394Z
+        reviewer: Codex-on-user-request
+        artifact-hash: sha256:c27ac299435534ed9d9e90d767a043d4ce787b50468f8e1f5bf81524a3831038
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T01:55:12.483Z
+        validator: sdd-design
+        artifact-hash: sha256:cc923c6570c6b4b044b4dba13a2769b627041951b00efec642494e118253ad13
+        rules-hash: sha256:bb4c3dce77832e0f95295a09c636f28f253f9f687854c6cc82054101b228b74e
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-12T01:55:12.496Z
+        reviewer: workflow
+        artifact-hash: sha256:cc923c6570c6b4b044b4dba13a2769b627041951b00efec642494e118253ad13
+        reason: "human-gate: skip (design @ story STORY-001-03-03-03)"
+    status: accepted
+  tasks:
+    path: tasks.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T02:21:53.136Z
+        validator: sdd-task
+        artifact-hash: sha256:4f23978138d5793dd6630048554a1a9f85e7da3d5564ddcd86af1f92bcd944b2
+        rules-hash: sha256:b222524e573221ef2a858e89137696ff566e53536acdcf6402239d3c0c02af56
+        issues: []
+        warnings:
+          - "tasks.md: DU DU-FE-309 scope 条目无 [S<n>] 引用（建议引用 Story 范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T02:22:43.347Z
+        reviewer: Codex-on-user-request
+        artifact-hash: sha256:4f23978138d5793dd6630048554a1a9f85e7da3d5564ddcd86af1f92bcd944b2
+        reason: ""
+    status: accepted
