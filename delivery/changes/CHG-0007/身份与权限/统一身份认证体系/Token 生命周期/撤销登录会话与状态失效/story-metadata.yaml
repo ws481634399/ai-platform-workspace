@@ -13,7 +13,7 @@ change-id: "CHG-0007" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-01-02-03" # Story ID（对齐 product/feature-tree.yaml）
 title: "撤销登录会话与状态失效" # Story 标题
 summary: "主动退出、Token 撤销及管理员禁用后的会话失效" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.118Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
@@ -120,4 +120,21 @@ artifacts:
         reviewed-at: 2026-09-12T16:14:44.031Z
         reviewer: user
         artifact-hash: sha256:2acd759be896c92bca74a7d8fea436a244ae032671aac9143847ef6a1c4dd0ac
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:27:53.165Z
+        validator: sdd-review
+        artifact-hash: sha256:c3885373732816c978b1845c57a6a726db327030d3354c0eb1082a4aa267b0d5
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:28:10.719Z
+        reviewer: user
+        artifact-hash: sha256:c3885373732816c978b1845c57a6a726db327030d3354c0eb1082a4aa267b0d5
         reason: ""

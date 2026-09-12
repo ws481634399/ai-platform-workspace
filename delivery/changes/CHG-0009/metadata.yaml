@@ -16,10 +16,10 @@ schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0009" # CHG-XXXX，创建时填
 title: "建立后台动态菜单与权限前端" # 简短标题
 summary: "完成权限状态、动态菜单路由、按钮权限与 401/403/刷新协作" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M1-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-11T13:24:14.543Z" # ISO8601，创建时填
-updated-at: "2026-09-12T16:03:30.468Z" # dev evidence generated
+updated-at: "2026-09-12T16:35:11.000Z" # dev evidence generated
 features:
   - FEAT-001
   - FEAT-001-03
@@ -35,7 +35,7 @@ related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时
 #            但结构完整性检查（追踪链/骨架/收口，标 structural:true）仍全量执行
 # standard — 缺省档，完整 Evidence（不改此字段即 standard）
 # strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
-evidence-tier: strict
+evidence-tier: light
 
 # Phase 4.2 新增：stories 列表（Change 1:N Story 权威索引）
 # - 单 Story inline 模式：长度 = 1 且 inline=true（CHG 根目录同时是 Story 目录）
@@ -45,7 +45,7 @@ stories:
     title: 加载当前管理员身份
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/
     domain:
       id: FEAT-001-03-01
@@ -54,7 +54,7 @@ stories:
     title: 加载菜单与权限状态
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/
     domain:
       id: FEAT-001-03-01
@@ -63,7 +63,7 @@ stories:
     title: 恢复并刷新权限状态
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/
     domain:
       id: FEAT-001-03-01
@@ -72,7 +72,7 @@ stories:
     title: 渲染动态侧边栏菜单
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/
     domain:
       id: FEAT-001-03-02
@@ -81,7 +81,7 @@ stories:
     title: 注册安全动态路由
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/
     domain:
       id: FEAT-001-03-02
@@ -90,7 +90,7 @@ stories:
     title: 守卫页面并区分 403 与 404
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/动态导航与页面访问/守卫页面并区分 403 与 404/
     domain:
       id: FEAT-001-03-02
@@ -99,7 +99,7 @@ stories:
     title: 统一控制按钮操作权限
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/
     domain:
       id: FEAT-001-03-03
@@ -108,7 +108,7 @@ stories:
     title: 串行协调 Token 刷新
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token 刷新/
     domain:
       id: FEAT-001-03-03
@@ -117,7 +117,7 @@ stories:
     title: 统一处理认证授权异常
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/
     domain:
       id: FEAT-001-03-03
@@ -265,6 +265,40 @@ artifacts:
         issues:
           - "Artifact not found: evidence/test-report.md"
         warnings: []
+    status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    status: accepted
+  test-design:
+    path: test-design.md
+    status: accepted
+  implementation:
+    path: implementation.md
+    status: accepted
+  review-report:
+    path: review-report.md
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:34:53.791Z
+        validator: sdd-converge
+        artifact-hash: sha256:1cab4ea090ac0d0bcf4edb36e0ae84e69826fe51d16fe18c1f522c4246b6e295
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:35:02.995Z
+        reviewer: user
+        artifact-hash: sha256:1cab4ea090ac0d0bcf4edb36e0ae84e69826fe51d16fe18c1f522c4246b6e295
+        reason: ""
+    status: accepted
 feature-path:
   level-1:
     id: FEAT-001

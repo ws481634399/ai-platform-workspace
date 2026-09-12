@@ -13,7 +13,7 @@ change-id: "CHG-0007" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-01-01-02" # Story ID（对齐 product/feature-tree.yaml）
 title: "认证管理员登录凭证" # Story 标题
 summary: "校验管理员账号密码并建立可审计的认证结果" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.094Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
@@ -120,4 +120,21 @@ artifacts:
         reviewed-at: 2026-09-12T16:14:44.620Z
         reviewer: user
         artifact-hash: sha256:5237d3d75057f8724d0a8460422d0a28e90bb273b8c65aa6ee840edb881b8860
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:27:53.775Z
+        validator: sdd-review
+        artifact-hash: sha256:cdcb19613cfe162ab913b95c3e1f6afba2595c382eeb72c4bb1565b5570b90e3
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:28:11.338Z
+        reviewer: user
+        artifact-hash: sha256:cdcb19613cfe162ab913b95c3e1f6afba2595c382eeb72c4bb1565b5570b90e3
         reason: ""

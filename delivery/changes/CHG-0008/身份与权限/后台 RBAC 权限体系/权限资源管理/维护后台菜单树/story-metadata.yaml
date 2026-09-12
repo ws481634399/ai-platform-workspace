@@ -13,7 +13,7 @@ change-id: "CHG-0008" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-02-02-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "维护后台菜单树" # Story 标题
 summary: "维护目录、页面菜单的层级、排序和启停状态" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.215Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
@@ -120,4 +120,21 @@ artifacts:
         reviewed-at: 2026-09-12T16:14:46.441Z
         reviewer: user
         artifact-hash: sha256:7f6883c7e1a4e65aabe00f7247f7400a8e3cfc4576fc20ce4f835e9261047379
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:27:55.641Z
+        validator: sdd-review
+        artifact-hash: sha256:1d1640487ea16f1f6b25090dfdffacf29fde1c16e2ba52d9b8af0d149ce24014
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:28:13.295Z
+        reviewer: user
+        artifact-hash: sha256:1d1640487ea16f1f6b25090dfdffacf29fde1c16e2ba52d9b8af0d149ce24014
         reason: ""

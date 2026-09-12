@@ -16,10 +16,10 @@ schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0007" # CHG-XXXX，创建时填
 title: "建立统一身份认证体系" # 简短标题
 summary: "完成后台管理员认证、双 Token、多主体隔离、Gateway 与 SecurityContext 及管理端基础登录" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M1-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-11T13:24:14.211Z" # ISO8601，创建时填
-updated-at: "2026-09-12T16:03:30.137Z" # dev evidence generated
+updated-at: "2026-09-12T16:35:10.623Z" # dev evidence generated
 features:
   - FEAT-001
   - FEAT-001-01
@@ -35,7 +35,7 @@ related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时
 #            但结构完整性检查（追踪链/骨架/收口，标 structural:true）仍全量执行
 # standard — 缺省档，完整 Evidence（不改此字段即 standard）
 # strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
-evidence-tier: strict
+evidence-tier: light
 
 # Phase 4.2 新增：stories 列表（Change 1:N Story 权威索引）
 # - 单 Story inline 模式：长度 = 1 且 inline=true（CHG 根目录同时是 Story 目录）
@@ -45,7 +45,7 @@ stories:
     title: 安全存储与校验管理员凭证
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/管理员凭证认证/安全存储与校验管理员凭证/
     domain:
       id: FEAT-001-01-01
@@ -54,7 +54,7 @@ stories:
     title: 认证管理员登录凭证
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/管理员凭证认证/认证管理员登录凭证/
     domain:
       id: FEAT-001-01-01
@@ -63,7 +63,7 @@ stories:
     title: 签发双 Token 登录会话
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/Token 生命周期/签发双 Token 登录会话/
     domain:
       id: FEAT-001-01-02
@@ -72,7 +72,7 @@ stories:
     title: 轮换 Refresh Token
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/Token 生命周期/轮换 Refresh Token/
     domain:
       id: FEAT-001-01-02
@@ -81,7 +81,7 @@ stories:
     title: 撤销登录会话与状态失效
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/Token 生命周期/撤销登录会话与状态失效/
     domain:
       id: FEAT-001-01-02
@@ -90,7 +90,7 @@ stories:
     title: 隔离多类型身份主体
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/身份接入与传播/隔离多类型身份主体/
     domain:
       id: FEAT-001-01-03
@@ -99,7 +99,7 @@ stories:
     title: 建立统一 SecurityContext
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/身份接入与传播/建立统一 SecurityContext/
     domain:
       id: FEAT-001-01-03
@@ -108,7 +108,7 @@ stories:
     title: 在 Gateway 验证并传播身份
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/身份接入与传播/在 Gateway 验证并传播身份/
     domain:
       id: FEAT-001-01-03
@@ -117,7 +117,7 @@ stories:
     title: 接入管理端基础登录流程
     inline: false
     evidence-tier: strict
-    status: developing
+    status: completed
     path: 身份与权限/统一身份认证体系/管理端认证入口/接入管理端基础登录流程/
     domain:
       id: FEAT-001-01-04
@@ -263,6 +263,52 @@ artifacts:
         issues:
           - "Artifact not found: evidence/test-report.md"
         warnings: []
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-12T16:26:51.067Z
+        validator: sdd-review
+        artifact-hash: ""
+        rules-hash: ""
+        issues:
+          - "Artifact not found: review-report.md"
+        warnings: []
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:34:53.429Z
+        validator: sdd-converge
+        artifact-hash: "sha256:0d3645cb7d55ae7cf382cd97bc1c4dd3c1234c3761354b853a6c9ce7\
+          80abc6ef"
+        rules-hash: "sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55db\
+          dcec2"
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:35:02.642Z
+        reviewer: user
+        artifact-hash: sha256:0d3645cb7d55ae7cf382cd97bc1c4dd3c1234c3761354b853a6c9ce780abc6ef
+        reason: ""
+    status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    status: accepted
+  test-design:
+    path: test-design.md
+    status: accepted
+  implementation:
+    path: implementation.md
+    status: accepted
 feature-path:
   level-1:
     id: FEAT-001

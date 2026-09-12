@@ -13,7 +13,7 @@ change-id: "CHG-0007" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-01-03-03" # Story ID（对齐 product/feature-tree.yaml）
 title: "在 Gateway 验证并传播身份" # Story 标题
 summary: "Gateway 初验 Token 并以防伪边界向下游传播身份" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.144Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
@@ -120,4 +120,21 @@ artifacts:
         reviewed-at: 2026-09-12T16:14:44.922Z
         reviewer: user
         artifact-hash: sha256:37e3333e5769828c0430b36c170eb703b79ef747f3674686ef660039fe42f1c9
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:27:54.080Z
+        validator: sdd-review
+        artifact-hash: sha256:865e0568b06076648b0b29d663c52fa10165f93229381b51b9cdd15040f9bc07
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:28:11.644Z
+        reviewer: user
+        artifact-hash: sha256:865e0568b06076648b0b29d663c52fa10165f93229381b51b9cdd15040f9bc07
         reason: ""

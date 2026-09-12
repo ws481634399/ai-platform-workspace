@@ -13,7 +13,7 @@ change-id: "CHG-0007" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-01-03-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "隔离多类型身份主体" # Story 标题
 summary: "在 Token 与认证模型中区分 GUEST、MEMBER、ADMIN、SERVICE" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.127Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
@@ -120,4 +120,21 @@ artifacts:
         reviewed-at: 2026-09-12T16:14:45.220Z
         reviewer: user
         artifact-hash: sha256:e2649e53bcd534ae2f437744b92b404aa3d49cb14886d0f33d6455a511fc6c89
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:27:54.390Z
+        validator: sdd-review
+        artifact-hash: sha256:80d06180ee366153cace19787d7f30375086d08c32db13507820d3cda02d96a0
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:28:11.959Z
+        reviewer: user
+        artifact-hash: sha256:80d06180ee366153cace19787d7f30375086d08c32db13507820d3cda02d96a0
         reason: ""

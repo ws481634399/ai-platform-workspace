@@ -13,7 +13,7 @@ change-id: "CHG-0009" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-03-01-02" # Story ID（对齐 product/feature-tree.yaml）
 title: "加载菜单与权限状态" # Story 标题
 summary: "从后端加载菜单树和 Permission Codes 并建立统一状态" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.304Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
@@ -124,4 +124,21 @@ artifacts:
         reviewed-at: 2026-09-12T16:14:47.818Z
         reviewer: user
         artifact-hash: sha256:119c7a27f3e858e02fdaf305b88f48c178eb0f735a198048b6f25ce393b1636a
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:27:57.084Z
+        validator: sdd-review
+        artifact-hash: sha256:8af0ed51fa96054b5ddbbe5fa423fbf28eb734308081ff06b8bc836aa15a27a8
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:28:14.791Z
+        reviewer: user
+        artifact-hash: sha256:8af0ed51fa96054b5ddbbe5fa423fbf28eb734308081ff06b8bc836aa15a27a8
         reason: ""

@@ -13,7 +13,7 @@ change-id: "CHG-0008" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-001-02-01-03" # Story ID（对齐 product/feature-tree.yaml）
 title: "分配管理员角色" # Story 标题
 summary: "以受控方式维护管理员与角色的多对多关系" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: light # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-11T13:27:32.206Z" # ISO8601，创建时填
 updated-at: "2026-09-12T03:35:00Z" # dev evidence generated
@@ -120,4 +120,21 @@ artifacts:
         reviewed-at: 2026-09-12T16:14:45.857Z
         reviewer: user
         artifact-hash: sha256:ece9b7b11060279b82d1d8e0c1087641f9a9f6a6753d20c99856ee049fa5916e
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-12T16:27:55.013Z
+        validator: sdd-review
+        artifact-hash: sha256:375cbf9a649679e7de76756ff9191923408e5ba2420a37a223f2f98f24530995
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-12T16:28:12.621Z
+        reviewer: user
+        artifact-hash: sha256:375cbf9a649679e7de76756ff9191923408e5ba2420a37a223f2f98f24530995
         reason: ""
