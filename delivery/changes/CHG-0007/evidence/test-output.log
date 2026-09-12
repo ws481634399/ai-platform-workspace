@@ -1,0 +1,6 @@
+M1 CHG-0007 independent verification
+Tested at: 2026-09-12T17:02:00+08:00
+Backend: 58/58 PASS; targeted Maven command exit 0
+Frontend: 10/10 PASS; type-check PASS; lint 0 errors / 46 warnings; build PASS
+TC traceability: PARTIAL (27 TC rows lack direct numbered evidence)
+Conclusion: keep developing until Human Gate decision
