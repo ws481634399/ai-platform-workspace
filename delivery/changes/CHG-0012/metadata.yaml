@@ -16,17 +16,13 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0012" # CHG-XXXX，创建时填
 title: "商品发布与商城查询" # 简短标题
 summary: "商品上架下架、商城列表详情查询、内部查询契约与商品快照" # 一句话摘要（可选）
-status: exploring # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:55.301Z" # ISO8601，创建时填
-updated-at: "2026-09-13T03:31:56.868Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T09:45:05.135Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-03
-  - FEAT-002-03-01
-  - STORY-002-03-01-01
-  - FEAT-002-03-02
-  - STORY-002-03-02-01
   - FEAT-002-03-03
   - STORY-002-03-03-01
 repositories:
@@ -48,7 +44,7 @@ stories:
   - id: STORY-002-03-01-01
     title: 商品上下架与发布
     inline: false
-    status: pending
+    status: completed
     path: 商品与库存/商品发布与商城查询/发布与状态/商品上下架与发布/
     domain:
       id: FEAT-002-03-01
@@ -57,7 +53,7 @@ stories:
   - id: STORY-002-03-02-01
     title: 商城商品列表与详情查询
     inline: false
-    status: pending
+    status: completed
     path: 商品与库存/商品发布与商城查询/商城查询/商城商品列表与详情查询/
     domain:
       id: FEAT-002-03-02
@@ -66,7 +62,7 @@ stories:
   - id: STORY-002-03-03-01
     title: 内部查询契约与商品快照
     inline: false
-    status: pending
+    status: completed
     path: 商品与库存/商品发布与商城查询/内部契约与快照/内部查询契约与商品快照/
     domain:
       id: FEAT-002-03-03
@@ -78,11 +74,15 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: f0a26b3d9a34af760407bc2debe7c809ba736fe9
+  repo-2:
+    commit: d7f903428953b53109addee82f16e88c3a38042b
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: c6baa1a
+  repo-2:
+    commit: 2af5f93
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -111,3 +111,141 @@ artifacts:
         artifact-hash: sha256:c42a493a52d9389a350df6961387382e2c20e333abea05c81ff3f677357412aa
         reason: "human-gate: skip (explore)"
     status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T09:11:00.248Z
+        validator: sdd-prd
+        artifact-hash: sha256:368214e04de62e8555dbc6bd396257848fb0c1117853ad2ef52d9bf25525dd5c
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T09:11:00.210Z
+        reviewer: trae-agent
+        artifact-hash: sha256:368214e04de62e8555dbc6bd396257848fb0c1117853ad2ef52d9bf25525dd5c
+        reason: ""
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T09:13:46.601Z
+        validator: sdd-design
+        artifact-hash: sha256:ee6624925ca5f9bff8c7956fd306c13049fae0e66efc398deff9ac15fec70894
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-13T09:13:46.617Z
+        reviewer: workflow
+        artifact-hash: sha256:ee6624925ca5f9bff8c7956fd306c13049fae0e66efc398deff9ac15fec70894
+        reason: "human-gate: skip (design)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T09:17:23.811Z
+        validator: sdd-task
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewer: workflow
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T10:00:50.385Z
+        validator: sdd-converge
+        artifact-hash: sha256:e5018b8ee5766bfb82d57eb9805dade9aea845ffb6987674c313f034b00af497
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues:
+          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
+            draft)"
+          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
+            draft)"
+          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
+            (status: draft)"
+          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
+            draft)"
+          - "convergence.md: 存在 DU 但 metadata.repository-result 为空（DU completed
+            时应回填 result commit）"
+        warnings: []
+  test-report:
+    path: evidence/test-report.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T10:00:17.623Z
+        validator: sdd-test
+        artifact-hash: "sha256:df21e47bf700c9541701ffff61b8584950e913f98f9a3fce98eacda5\
+          30afe953"
+        rules-hash: "sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad4217\
+          04aa6"
+        issues: []
+        warnings: []
+  review-report:
+    path: review-report.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T10:00:17.638Z
+        validator: sdd-review
+        artifact-hash: "sha256:d88837eb76f5ac7f0607ec57a8c1a77c70635f116ea470a0e1fbc858\
+          ca89e911"
+        rules-hash: "sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b\
+          7ac88"
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T10:00:44.611Z
+        reviewer: trae-agent
+        artifact-hash: sha256:d88837eb76f5ac7f0607ec57a8c1a77c70635f116ea470a0e1fbc858ca89e911
+        reason: ""
+  implementation:
+    path: implementation.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T10:00:17.591Z
+        validator: sdd-dev
+        artifact-hash: sha256:32c5b374a20d3cac212c07714d0748c7a6bbe3fd79544930c21dcacd8320059f
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T10:00:44.530Z
+        reviewer: trae-agent
+        artifact-hash: sha256:32c5b374a20d3cac212c07714d0748c7a6bbe3fd79544930c21dcacd8320059f
+        reason: ""
+feature-path:
+  level-1:
+    id: FEAT-002
+    name: 商品与库存
+  level-2:
+    id: FEAT-002-03
+    name: 商品发布与商城查询
+  level-3:
+    id: FEAT-002-03-03
+    name: 内部契约与快照
+  story:
+    id: STORY-002-03-03-01
+    name: 内部查询契约与商品快照
+  candidate: false
