@@ -161,7 +161,7 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T11:00:47.807Z
+        checked-at: 2026-09-13T11:03:15.526Z
         validator: sdd-converge
         artifact-hash: sha256:04710ba750353594cb969977dea53d1eeda499599d26c8037f0efd9e32468ef6
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
@@ -180,7 +180,7 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T11:01:43.554Z
+        checked-at: 2026-09-13T11:03:55.714Z
         validator: sdd-task
         artifact-hash: ""
         rules-hash: ""
@@ -200,30 +200,50 @@ artifacts:
         warnings:
           - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
             至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T11:03:55.666Z
+        reviewer: trae-agent
+        artifact-hash: sha256:4f9484a442a406ae51e71deaf0c7468fa7a880f246295ddf4a8cd11744ff3a66
+        reason: ""
   test-report:
     path: evidence/test-report.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T11:01:56.888Z
+        status: passed
+        checked-at: 2026-09-13T11:02:56.013Z
         validator: sdd-test
-        artifact-hash: ""
-        rules-hash: ""
-        issues:
-          - "Artifact not found: evidence/test-report.md"
+        artifact-hash: "sha256:1be9a9aa4de85bf9905a628cf603bc5059399803348e231f24dd0e7a\
+          285467bb"
+        rules-hash: "sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad4217\
+          04aa6"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T11:03:06.921Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1be9a9aa4de85bf9905a628cf603bc5059399803348e231f24dd0e7a285467bb
+        reason: ""
   review-report:
     path: review-report.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T11:01:44.161Z
+        status: passed
+        checked-at: 2026-09-13T11:03:07.023Z
         validator: sdd-review
-        artifact-hash: ""
-        rules-hash: ""
-        issues:
-          - "Artifact not found: review-report.md"
+        artifact-hash: "sha256:1a4447fdd05b74c798812cfa46e7176791c7d0b77109dec7086f21dd\
+          f9198da5"
+        rules-hash: "sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b\
+          7ac88"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T11:03:15.398Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1a4447fdd05b74c798812cfa46e7176791c7d0b77109dec7086f21ddf9198da5
+        reason: ""
 feature-path:
   level-1:
     id: FEAT-002
