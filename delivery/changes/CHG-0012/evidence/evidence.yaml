@@ -74,7 +74,7 @@ items:
       - path: mall-admin/src/views/product/ProductListView.vue
         symbols: [ProductListView]
     recorded-at: "2026-09-13T17:30:00+08:00"
-  - id: EV-006b
+  - id: EV-013
     type: code-change
     repo: repo-1
     commit: 5df94fc
