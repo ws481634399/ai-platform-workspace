@@ -43,5 +43,12 @@
 ## 4. Fan-in 状态
 
 - [x] 所有 DU 物化完成（du-materialized）
-- [x] 所有 DU 进入 testing（du-fan-in-testing）
+- [x] 所有 DU 进入测试（du-fan-in-testing）
 - [x] 所有 DU completed（du-fan-in-complete）
+
+## 5. 交付后联调补全（2026-09-13）
+
+- 缺陷：真实集成环境点击商品列表页，`/api/admin/products/**` 经网关 404——DU-BE-304 交付了 ProductAdminController 但网关未配 products 路由（同类遗漏参见 CHG-0007 身份路由、CHG-0010 手工联调登记项）。
+- 修复（repo-1 mall-gateway application.yml）：新增路由 `mall-product-admin-spu`，`Path=/api/admin/products/**`（覆盖 SPU 端点与 `/{id}/skus` 子资源）→ `${MALL_GATEWAY_PRODUCT_URI:http://localhost:8103}`，与 CHG-0010 分类品牌路由共用同一覆写变量。
+- 权限链路依赖：商品接口 `@PreAuthorize('product:product:*')` 的跨服务权限传播依赖 CHG-0010 补全的 RedisSnapshotAuthorityConverter（见 CHG-0010 分类管理 Story implementation.md §5），本次联调同时验证该公共机制对本 Story 生效。
+- 实测（2026-09-13，经网关）：`GET /api/admin/products?pageNo=1&pageSize=10` → 200 空分页；`GET /api/admin/products/999` → 业务 404 B2141（路由与鉴权均通）。

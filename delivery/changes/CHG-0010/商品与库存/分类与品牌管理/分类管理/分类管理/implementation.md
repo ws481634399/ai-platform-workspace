@@ -50,5 +50,16 @@
 ## 4. Fan-in 状态
 
 - [x] 所有 DU 物化完成（du-materialized）
-- [x] 所有 DU 进入 testing（du-fan-in-testing）
+- [x] 所有 DU 进入测试（du-fan-in-testing）
 - [x] 所有 DU completed（du-fan-in-complete）
+
+## 5. 交付后联调补全（2026-09-13）
+
+- 触发：convergence.md §3 登记的浏览器手工联调走查在真实集成环境执行时，发现分类/品牌接口经网关访问返回 403（自动化测试用 mock 权限无法暴露）。
+- 根因：JWT 不含权限码、网关不透传权限，下游 mall-product 从恒为空的 `permissions` claim 取权；另 identity 未配 REDIS_PASSWORD 致授权快照从未写入 Redis。
+- 修复（代码在 repo-1，回刷正文见仓内 DU-BE-302 implementation.md「交付后联调补全」）：
+  - mall-common-security 新增 AuthorizationKeys / AuthoritySnapshot / RedisSnapshotAuthorityConverter（经共享 Redis 指针+快照加载权限，fail-closed）；
+  - mall-identity 快照写入时同步维护 `authz:current:{adminId}` 指针，补 spring.data.redis.*；
+  - mall-product 安全链改用新转换器，补 spring.data.redis.*。
+- 实测：登录 → bootstrap 后 GET /api/admin/categories/tree 与 GET /api/admin/brands 经网关均 200，分类管理页面可正常进入与展示。
+- 后续约束：CHG-0011/0012/0013 下游服务资源服务器统一接入该转换器（inventory 属 CHG-0013 范围）。

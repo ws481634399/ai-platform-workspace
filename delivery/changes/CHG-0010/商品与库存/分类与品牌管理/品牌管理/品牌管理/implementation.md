@@ -52,3 +52,7 @@
 - [x] 所有 DU 物化完成（du-materialized）
 - [x] 所有 DU 进入 testing（du-fan-in-testing）
 - [x] 所有 DU completed（du-fan-in-complete）
+
+## 5. 交付后联调补全（2026-09-13）
+
+品牌接口与分类共用同一安全链与 V3 权限种子，真实集成环境 403 的修复由姊妹 Story（分类管理 DU-BE-302 公共前置）一次完成，本 Story 无独立代码改动。根因、修复与实测详见同目录分类管理 Story implementation.md §5 及仓内 DU-BE-303 implementation.md「交付后联调补全」。修复后 GET /api/admin/brands 经网关 200。
