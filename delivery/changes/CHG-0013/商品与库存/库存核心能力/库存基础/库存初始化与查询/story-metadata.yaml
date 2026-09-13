@@ -109,10 +109,17 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T10:43:31.755Z
+        checked-at: 2026-09-13T10:46:35.467Z
         validator: sdd-dev
-        artifact-hash: ""
-        rules-hash: ""
+        artifact-hash: "sha256:b7b8731ca19b984e3f15434d4f95fe83e8ed1726b93a669cd51d8f6a\
+          9877e26c"
+        rules-hash: "sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6\
+          abb8d"
         issues:
-          - "Artifact not found: implementation.md"
-        warnings: []
+          - "implementation.md: repos-coverage: code-change EV-004 的 commit
+            eacca66 未在 implementation.md 中出现"
+          - "implementation.md: repos-coverage: code-change EV-005 的 commit
+            b453261 未在 implementation.md 中出现"
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
