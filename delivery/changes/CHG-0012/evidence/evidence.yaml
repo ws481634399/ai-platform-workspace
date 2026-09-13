@@ -82,6 +82,14 @@ items:
     reason: CHG-0012 DU metadata 状态更新（evidence/implementation）
     files: []
     recorded-at: "2026-09-13T17:40:00+08:00"
+  - id: EV-014
+    type: code-change
+    repo: repo-1
+    commit: f1e75f6
+    task: DU-BE-307/308
+    reason: CHG-0012 DU-BE-307/308 evidence/implementation/metadata
+    files: []
+    recorded-at: "2026-09-13T17:45:00+08:00"
   # ---- 仓侧证据引用 ----
   - id: EV-007
     type: evidence-ref
