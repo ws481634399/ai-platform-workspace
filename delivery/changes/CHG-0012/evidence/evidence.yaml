@@ -1,60 +1,130 @@
 # OpenSpec Evidence Model（Phase 2.1）
-#
-# 版本: v0.1
 # 类型: Change 结构化证据索引
-#
-# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
-# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
-# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
-#
-# 条目结构（按 type 区分必填字段）：
-#
-# ---- type: code-change ----
-# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
-#   type: code-change
-#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
-#   commit: 23fdb62            # 必填，commit 短 sha（小写）
-#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
-#   reason: 实现注册服务        # 必填，为什么改
-#   files:                     # 必填（可为空数组），修改文件清单
-#     - path: src/services/auth/register.js
-#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
-#   recorded-at: ""            # ISO8601
-#
-# ---- type: test-run ----
-# - id: EV-002
-#   type: test-run
-#   command: npm test          # 必填，执行命令
-#   result: passed             # 必填，passed / failed / partial
-#   summary:                   # 必填（对象）
-#     total: 0
-#     passed: 0
-#     failed: 0
-#     skipped: 0
-#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
-#   covers: [AC-001, AC-002]       # 必填（可为空数组），覆盖的 PRD 验收标准
-#   recorded-at: ""
-#
-# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
-# - id: EV-003
-#   type: review-finding
-#   target: requirement-spec.md#AC-003  # 必填，指向被检查对象
-#   severity: major            # 必填，blocker / major / minor
-#   finding: 设计与实现不一致   # 必填
-#   resolution: ""             # 可选，处理结论
-#   recorded-at: ""
-#
-# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
-# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
-# - id: EV-004
-#   type: evidence-ref
-#   repository: backend        # 可选，仓库 id
-#   delivery-unit: DU-BE-001   # 可选，DU 绑定
-#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
-#                              # 必填，repo 侧证据文件（workspace 相对路径）
-#   summary: backend 单测 12 通过  # 可选，一句话摘要
-#   recorded-at: ""
 
-version: 0.1 # schema 版本
-change-id: "CHG-0012" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+version: 0.1
+change-id: "CHG-0012"
+items:
+  # ---- DU-BE-306 商品上下架与发布后端（repo-1） ----
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 25fcddc
+    task: DU-BE-306
+    reason: DU-BE-306 开发基线（CHG-0011 完成点，非本 DU 改动）
+    files: []
+    recorded-at: "2026-09-13T17:00:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    commit: f0a26b3
+    task: DU-BE-306
+    reason: 商品上下架与发布后端（Product publish/unpublish、领域事件、权限码、管理端 API）
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/Product.java
+        symbols: [Product, publish, unpublish]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/event/ProductPublishedDomainEvent.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/event/ProductUnpublishedDomainEvent.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/product/ProductApplicationService.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/admin/ProductAdminController.java
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V5__add_product_publish_permission.sql
+    recorded-at: "2026-09-13T17:25:00+08:00"
+  # ---- DU-BE-307 商城查询后端（repo-1，同 commit f0a26b3） ----
+  - id: EV-003
+    type: code-change
+    repo: repo-1
+    commit: f0a26b3
+    task: DU-BE-307
+    reason: 商城商品列表与详情查询后端（MallProductController、mallPage 硬过滤 ON_SALE）
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallProductController.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/MallProductDtos.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/ProductRepository.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/persistence/product/ProductRepositoryImpl.java
+    recorded-at: "2026-09-13T17:25:00+08:00"
+  # ---- DU-BE-308 内部契约与快照后端（repo-1，同 commit f0a26b3） ----
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    commit: f0a26b3
+    task: DU-BE-308
+    reason: 内部查询契约与商品快照后端（InternalProductController、ProductSnapshotView）
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/internal/InternalProductController.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/internal/dto/ProductSnapshotView.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/product/ProductApplicationService.java
+    recorded-at: "2026-09-13T17:25:00+08:00"
+  # ---- DU-FE-304 商品上下架前端（repo-2） ----
+  - id: EV-005
+    type: code-change
+    repo: repo-2
+    commit: 036a77c
+    task: DU-FE-304
+    reason: DU-FE-304 开发基线（CHG-0011 完成点，非本 DU 改动）
+    files: []
+    recorded-at: "2026-09-13T17:00:00+08:00"
+  - id: EV-006
+    type: code-change
+    repo: repo-2
+    commit: d7f9034
+    task: DU-FE-304
+    reason: 商品列表上架/下架按钮与 API 客户端
+    files:
+      - path: mall-admin/src/api/product/product.ts
+        symbols: [productApi]
+      - path: mall-admin/src/views/product/ProductListView.vue
+        symbols: [ProductListView]
+    recorded-at: "2026-09-13T17:30:00+08:00"
+  # ---- 仓侧证据引用 ----
+  - id: EV-007
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-306
+    path: implementation/ai-platform-backend/delivery/CHG-0012/商品与库存/商品发布与商城查询/发布与状态/商品上下架与发布/DU-BE-306/evidence
+    summary: 商品上架/下架 API 测试 8 个用例全绿
+    recorded-at: "2026-09-13T17:31:00+08:00"
+  - id: EV-008
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-307
+    path: implementation/ai-platform-backend/delivery/CHG-0012/商品与库存/商品发布与商城查询/商城查询/商城商品列表与详情查询/DU-BE-307/evidence
+    summary: 商城列表/详情 API 测试 6 个用例全绿
+    recorded-at: "2026-09-13T17:31:00+08:00"
+  - id: EV-009
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-308
+    path: implementation/ai-platform-backend/delivery/CHG-0012/商品与库存/商品发布与商城查询/内部契约与快照/内部查询契约与商品快照/DU-BE-308/evidence
+    summary: 内部快照 API 测试 3 个用例全绿
+    recorded-at: "2026-09-13T17:31:00+08:00"
+  - id: EV-010
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-304
+    path: implementation/ai-platform-frontend/delivery/CHG-0012/商品与库存/商品发布与商城查询/发布与状态/商品上下架与发布/DU-FE-304/evidence
+    summary: 前端 vitest 28、type-check 0 error、build 成功
+    recorded-at: "2026-09-13T17:32:00+08:00"
+  # ---- 测试执行 ----
+  - id: EV-011
+    type: test-run
+    command: "mvn -pl mall-services/mall-product -am test"
+    result: passed
+    summary:
+      total: 61
+      passed: 61
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0012/商品与库存/商品发布与商城查询/发布与状态/商品上下架与发布/DU-BE-306/evidence/test-output.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015]
+    recorded-at: "2026-09-13T17:31:46+08:00"
+  - id: EV-012
+    type: test-run
+    command: "pnpm test && pnpm type-check && pnpm build (mall-admin)"
+    result: passed
+    summary:
+      total: 28
+      passed: 28
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0012/商品与库存/商品发布与商城查询/发布与状态/商品上下架与发布/DU-FE-304/evidence/test-output.log
+    covers: [AC-008, AC-009]
+    recorded-at: "2026-09-13T17:32:29+08:00"
