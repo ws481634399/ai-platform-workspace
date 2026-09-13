@@ -74,6 +74,14 @@ items:
       - path: mall-admin/src/views/product/ProductListView.vue
         symbols: [ProductListView]
     recorded-at: "2026-09-13T17:30:00+08:00"
+  - id: EV-006b
+    type: code-change
+    repo: repo-1
+    commit: 5df94fc
+    task: DU-BE-306/307
+    reason: CHG-0012 DU metadata 状态更新（evidence/implementation）
+    files: []
+    recorded-at: "2026-09-13T17:40:00+08:00"
   # ---- 仓侧证据引用 ----
   - id: EV-007
     type: evidence-ref

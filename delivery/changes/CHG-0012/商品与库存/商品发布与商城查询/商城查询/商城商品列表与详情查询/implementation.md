@@ -21,8 +21,11 @@
 
 | Commit | DU | 仓库 | 说明 |
 | --- | --- | --- | --- |
-| 25fcddc | DU-BE-307 | repo-1 | 开发基线（非本 DU 改动） |
-| f0a26b3 | DU-BE-307 | repo-1 | feat(CHG-0012): 商品上下架与发布、商城查询、内部契约快照 |
+| 25fcddc | DU-BE-306/307/308 | repo-1 | 开发基线（非本 DU 改动） |
+| f0a26b3 | DU-BE-306/307/308 | repo-1 | feat(CHG-0012): 商品上下架与发布、商城查询、内部契约快照 |
+| 5df94fc | DU-BE-306/307 | repo-1 | docs(sdd): CHG-0012 DU status completed |
+| 036a77c | DU-FE-304 | repo-2 | 开发基线（非本 DU 改动） |
+| d7f9034 | DU-FE-304 | repo-2 | feat(CHG-0012): 商品列表增加上架/下架操作 |
 
 ## 3. 各仓实施引用
 
