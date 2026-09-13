@@ -1,0 +1,51 @@
+id: DU-FE-304
+repository: repo-2
+parent:
+  change: CHG-0009
+feature-path:
+  level-1:
+    id: FEAT-001
+    name: 身份与权限
+  level-2:
+    id: FEAT-001-03
+    name: 后台动态菜单与权限前端
+  level-3:
+    id: FEAT-001-03-02
+    name: 动态导航与页面访问
+  story:
+    id: STORY-001-03-02-01
+    name: 渲染动态侧边栏菜单
+scope:
+  - "DES-001：实现本 Story 在 repo-2 的职责"
+dependencies: []
+acceptance:
+  - "AC-001, AC-002, AC-003"
+implementation-guidance:
+  sketch: true
+  pseudocode: true
+  complexity-trigger:
+    - business-flow
+repository-delivery:
+  path: implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/DU-FE-304
+status: completed
+evidence-ref:
+  - implementation/ai-platform-frontend/delivery/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/DU-FE-304/evidence/evidence.yaml
+baseline:
+  commit: "677133f17186cdcca4c5afa302cd07ed2ac7435e"
+result:
+  commit: "65cb070977882dd3b666a691bd5f006d62448019"
+  paths:
+    - mall-admin/src/components/DynamicMenuItem.vue
+    - mall-admin/src/layouts/AdminLayout.vue
+  symbols:
+    - "DynamicMenuItem, AdminLayout"
+stories:
+  - id: STORY-001-03-02-01
+    title: 渲染动态侧边栏菜单
+    inline: true
+    status: completed
+    path: ./
+    domain:
+      id: FEAT-001-03-02
+      name: 动态导航与页面访问
+schema-version: 4

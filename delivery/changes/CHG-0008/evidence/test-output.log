@@ -1,6 +1,0 @@
-M1 CHG-0008 independent verification
-Tested at: 2026-09-12T23:51:17+08:00
-Backend: 88/88 PASS; Maven exit 0
-Frontend: 22/22 PASS; type-check PASS; lint 0 errors / 46 warnings; build PASS
-TC traceability: PASS (27/27)
-Conclusion: technical test gate passed

@@ -2,7 +2,7 @@
 
 > 阶段: design
 > 状态转换: specified → designed
-> 产出: design.md
+> 产出: requirement-design.md
 > 提示片段: prompts/common/persona-sdd.md · prompts/common/constraints.md · prompts/common/output-format.md · prompts/design/persona-design.md
 
 ## 前置条件
@@ -47,7 +47,7 @@
 
 ### 3. 生成技术设计草稿
 
-读取模板 `templates/artifacts/design.md`，按结构填写。
+读取模板 `templates/artifacts/requirement-design.md`，按结构填写。
 
 front-matter（Phase 2.4 多仓）：
 - `affected-repositories`：受影响仓库 id 列表（对应 `.sdd/repositories.yaml`）
@@ -154,7 +154,7 @@ DU 拆分三判据（同时满足）：
 
 DU id 规范：`DU-<REPO别名>-<nnn>`（如 DU-BE-001 / DU-FE-001），别名见 `.sdd/repositories.yaml` 的 alias（缺省取 id 前 2-4 字符大写）。
 
-DU 划分表（写入 design.md §6 / story-design.md §5）：
+DU 划分表（写入 requirement-design.md §6 / story-design.md §5）：
 
 ```markdown
 | DU        | 仓库     | 职责（实现哪些 DES）        | covers AC      | depends on |
@@ -222,14 +222,14 @@ Story 拆分产出 metadata.stories[] 时，每 Story 条目填写 `domain:` 字
 - 风险缓解措施是否可接受？
 - 待澄清问题是否需要现在决定？
 
-写入 `delivery/changes/<CHG>/design.md`。
+写入 `delivery/changes/<CHG>/requirement-design.md`。
 
 ## 产出草稿
-- `delivery/changes/<CHG>/design.md` — 技术设计文档
+- `delivery/changes/<CHG>/requirement-design.md` — 技术设计文档（§6 DU 划分表为 SSOT）
 
 ## 用户确认
 
-展示 design.md 草稿给用户：
+展示 requirement-design.md 草稿给用户：
 - 方案是否合理？
 - 接口设计是否清晰？
 - 风险是否可控？
@@ -243,11 +243,11 @@ openspec change status <CHG> --set designed
 
 ## 工作示例
 
-> 完整示例参考: `templates/artifacts/examples/design.md`（含分层设计/接口定义/数据模型/Migration/风险评估）
+> 完整示例参考: `templates/artifacts/examples/requirement-design.md`（含分层设计/接口定义/数据模型/Migration/风险评估）
 
 **需求：** 用户注册（邮箱/手机号）
 
-**design.md §2 提议方案节选：**
+**requirement-design.md §2 提议方案节选：**
 ```
 ### 新增模块: auth/
 职责: 用户注册、认证
@@ -268,7 +268,7 @@ openspec change status <CHG> --set designed
 约束: email 和 phone 不可同时为空
 ```
 
-**design.md §6 风险评估节选：**
+**requirement-design.md §6 风险评估节选：**
 ```
 | 风险项 | 级别 | 缓解措施 |
 |--------|------|---------|

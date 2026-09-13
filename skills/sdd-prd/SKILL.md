@@ -1,8 +1,8 @@
-﻿# sdd-prd: 产品规格（spec.md）
+# sdd-prd: 产品规格（requirement-spec.md）
 
 > 阶段: prd
 > 状态转换: exploring → specified
-> 产出: spec.md（多 Story 模式另出 change-spec.md / story-spec.md）
+> 产出: requirement-spec.md（多 Story 模式另出 story-spec.md）
 > 提示片段: prompts/common/persona-sdd.md · prompts/common/constraints.md · prompts/common/output-format.md · prompts/explore/persona-prd.md
 
 ## 前置条件
@@ -50,7 +50,7 @@ exploration.md §5 中的"待澄清问题"必须在 prd 阶段解决：
 
 ### 3. 生成 spec 草稿
 
-读取模板 `templates/artifacts/spec.md`，按结构填写。
+读取模板 `templates/artifacts/requirement-spec.md`，按结构填写。
 
 元信息 section（占位符替换）：
 - `{{change-id}}`：Change ID
@@ -59,7 +59,7 @@ exploration.md §5 中的"待澄清问题"必须在 prd 阶段解决：
 
 #### 3.1 spec 分析方法论
 
-> 章节结构对齐模板 `templates/artifacts/spec.md`（业界锚点：产品规格/PRD 方法论，产物统一称 spec）。
+> 章节结构对齐模板 `templates/artifacts/requirement-spec.md`（业界锚点：产品规格/PRD 方法论，产物统一称 requirement-spec）。
 
 **§1 背景：**
 - 需求产生的业务背景（为什么现在要做？）
@@ -144,14 +144,14 @@ Scope 判断原则：
 - 更新 front-matter
 - 重新自检
 
-写入 `delivery/changes/<CHG>/spec.md`。
+写入 `delivery/changes/<CHG>/requirement-spec.md`。
 
 ## 产出草稿
-- `delivery/changes/<CHG>/spec.md` — 产品规格文档（inline 模式）；多 Story 模式另出 change-spec.md / story-spec.md
+- `delivery/changes/<CHG>/requirement-spec.md` — 产品规格文档（inline 模式）；多 Story 模式另出 story-spec.md
 
 ## 用户确认
 
-展示 spec.md 草稿给用户：
+展示 requirement-spec.md 草稿给用户：
 - 功能范围是否准确？
 - 验收标准是否可测试？
 - 业务规则是否完整？
@@ -165,7 +165,7 @@ openspec change status <CHG> --set specified
 
 ## 工作示例
 
-> 完整示例参考: `templates/artifacts/examples/spec.md`（含 7 条 SMART 验收标准 + Scope 管理 + 异常处理矩阵）
+> 完整示例参考: `templates/artifacts/examples/requirement-spec.md`（含 7 条 SMART 验收标准 + Scope 管理 + 异常处理矩阵）
 
 **需求来源：** "用户注册功能，支持邮箱或手机号注册"
 
