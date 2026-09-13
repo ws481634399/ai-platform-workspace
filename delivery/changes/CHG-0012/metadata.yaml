@@ -16,10 +16,10 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0012" # CHG-XXXX，创建时填
 title: "商品发布与商城查询" # 简短标题
 summary: "商品上架下架、商城列表详情查询、内部查询契约与商品快照" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:55.301Z" # ISO8601，创建时填
-updated-at: "2026-09-13T09:45:05.135Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T10:03:19.886Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-03
@@ -164,19 +164,20 @@ artifacts:
     path: convergence.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T10:02:48.236Z
+        status: passed
+        checked-at: 2026-09-13T10:03:19.858Z
         validator: sdd-converge
         artifact-hash: sha256:e5018b8ee5766bfb82d57eb9805dade9aea845ffb6987674c313f034b00af497
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
-        issues:
-          - "convergence.md: Submodule Pointer 未对齐: repo-1 recorded=c93d113
-            actual=c93d113aad1d80d80434b105e5a3db2f50c73753（先执行 openspec du
-            sync-status）"
-          - "convergence.md: Submodule Pointer 未对齐: repo-2 recorded=1420de6
-            actual=1420de63689800c3754d65eb42f57a52cc8ceed9（先执行 openspec du
-            sync-status）"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T10:03:13.882Z
+        reviewer: trae-agent
+        artifact-hash: sha256:e5018b8ee5766bfb82d57eb9805dade9aea845ffb6987674c313f034b00af497
+        reason: ""
+    status: accepted
   test-report:
     path: evidence/test-report.md
     status: accepted

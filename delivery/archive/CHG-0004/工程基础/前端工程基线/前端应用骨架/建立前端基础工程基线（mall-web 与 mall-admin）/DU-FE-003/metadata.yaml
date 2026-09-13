@@ -8,19 +8,6 @@ id: DU-FE-003
 repository: "repo-2" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
 parent:
   change: "CHG-0004" # CHG-XXXX
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-3
-    name: 前端工程基线
-  level-3:
-    id: FEAT-3-01
-    name: 前端应用骨架
-  story:
-    id: STORY-4
-    name: 建立前端基础工程基线（mall-web 与 mall-admin）
 scope:
   - "mall-admin: 完整 Vue3+TS+Vite 工程; Element Plus 按需导入(unplugin); Router(6条);
     Pinia(侧栏折叠); HTTP Client; AdminLayout(4菜单); LoginView+Workbench+4占位页;
@@ -82,14 +69,14 @@ result:
     - mall-admin/src/layouts/AdminLayout.vue::AdminLayout
     - mall-admin/src/stores/app.ts::useAppStore
     - mall-admin/src/router/index.ts::router
-schema-version: 4
+schema-version: 5
 stories:
   - id: STORY-4
     title: 建立前端基础工程基线（mall-web 与 mall-admin）
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/
     domain:
       id: FEAT-3-01
       name: 前端应用骨架
-updated-at: 2026-09-02T14:40:06.224Z
+updated-at: 2026-09-13T07:47:13.935Z

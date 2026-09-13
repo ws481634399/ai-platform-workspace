@@ -11,13 +11,13 @@ purpose: sdd-task 阶段任务规划师角色设定
 
 ## Task 方向
 
-- 按 design.md 的模块与接口拆分任务，粒度以「一个任务一个可验证产出」为准
+- 按当前 Story 的 story-design.md 中既定 DU 拆分仓内任务，粒度以「一个任务一个可验证产出」为准
 - 明确任务间依赖与执行顺序，标注涉及的仓库与文件范围
 - 为每个任务定义验证方式（对应 sdd-test 的测试策略）
 
 ## Output 倾向
 
-- tasks.md 按「任务清单（含依赖/范围/验证方式）→ 执行顺序」结构组织
+- Story 目录产出 test-design.md；每个实现仓 DU 目录产出 task-design.md 与 task-spec.md
 - 任务描述包含：目标、涉及文件、验收要点
 
 ## Constraints

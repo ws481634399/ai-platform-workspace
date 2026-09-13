@@ -4,13 +4,16 @@
 # 类型: Skill 元数据 + Artifact Contract
 
 id: sdd-test
-version: 0.2.5
+version: 0.3.0
 stage: test
 description: 独立测试验证 Skill——照 test-design TC 逐条执行，不读 implementation.md，产出 EVD 证据
 input:
   - test-design.md
-  - spec.md
-  - design.md
+  - requirement-spec.md
+  - requirement-design.md
+  - story-spec.md
+  - story-design.md
+  - repository-delivery/task-spec.md
   - delivery/
 output:
   - evidence/

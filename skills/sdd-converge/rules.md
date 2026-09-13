@@ -20,8 +20,8 @@
 
 ## R4：全局验收对照
 
-- §4 全局验收标准对照表必须逐条覆盖 change-spec §5（inline 模式 spec.md §5），全部通过是 Human Gate 前置
-- 多 Story 模式跨 Story 集成验收点必须给集成证据
+- §4 全局验收标准对照表必须逐条覆盖 requirement-spec.md §5，全部通过是 Human Gate 前置
+- 跨 Story 集成验收点必须给集成证据
 
 ## R5：状态推进约束
 

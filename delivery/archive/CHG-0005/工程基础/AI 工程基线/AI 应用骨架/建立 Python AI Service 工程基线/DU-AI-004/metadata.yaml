@@ -4,19 +4,6 @@ id: DU-AI-004
 repository: "repo-3"
 parent:
   change: "CHG-0005"
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-1-02
-    name: AI 工程基线
-  level-3:
-    id: FEAT-1-02-01
-    name: AI 应用骨架
-  story:
-    id: STORY-1-02-01-01
-    name: 建立 Python AI Service 工程基线
 scope:
   - 6 边界位目录骨架：agents/workflows/tools/prompts/rag/tests 的 __init__.py 或 .gitkeep
   - 5 篇 README：agents/README + workflows/README + tools/README + prompts/README
@@ -53,10 +40,11 @@ result:
 stories:
   - id: STORY-1-02-01-01
     title: 建立 Python AI Service 工程基线
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service 工程基线/
     domain:
       id: FEAT-1-02-01
       name: AI 应用骨架
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.082Z

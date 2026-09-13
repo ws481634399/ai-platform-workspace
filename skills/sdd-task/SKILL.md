@@ -9,7 +9,7 @@ Phase 4.4 起 sdd-task 产出模型调整：
 
 - **STORY 级产物**：仅 `test-design.md`（TC 测试用例设计，verified-by AC-NNN），是 task 阶段机检锚点
 - **仓内 DU 产物**：`task-design.md`（技术方案：§6 Implementation Sketch 必填 / §7 Pseudocode 条件必填）+ `task-spec.md`（契约验收：verifies TC / covers AC），由 `du materialize` 生成骨架后 Agent 填充
-- **DU 划分表 SSOT**：`requirement-design.md` §6（Change 级）或 `story-design.md` §5（Story 级），task 阶段只引用不新造（du-source-of-truth 机检：blocking）
+- **DU 划分表 SSOT**：当前 Story 的 `story-design.md` §5；task 阶段只引用不新造
 - **外部 tasks.md 已废弃**：Implementation Guidance 不再写外部文件，全部下沉到实现仓
 
 ## 前置条件
@@ -29,7 +29,7 @@ Phase 4.4 起 sdd-task 产出模型调整：
 
 从设计文档提取：
 
-- **DU 划分表**（requirement-design.md §6 / story-design.md §5）→ 本阶段权威输入，DU/仓库/covers AC/depends on 已由 design 决定，**只引用不新造**（du-source-of-truth 机检：blocking）
+- **DU 划分表**（当前 story-design.md §5）→ 本阶段权威输入，DU/仓库/covers AC/depends on 已由 design 决定，**只引用不新造**
 - **affected-repositories**（front-matter）→ 影响仓全集（design 已保证每仓至少 1 个 DU）
 - 提议方案（新增/修改模块、接口、数据模型）→ 归入对应 DU 的 Scope
 - **仓库影响分仓小节**（§3.x）→ 每个 DU 的 Goal 来源
@@ -137,7 +137,7 @@ Sketch 与 Pseudocode 不等价：Sketch = 结构方案（组件/调用关系）
 - [ ] DU ID 是否符合 `DU-<别名>-<nnn>` 且 Workspace 内唯一？
 - [ ] 所有 DU 是否全部在 DU 划分表中定义？（du-source-of-truth 机检：只引用不新造）
 - [ ] test-design.md 中每个 AC-NNN 是否至少被一个 TC-NNN verified-by？（tc-coverage 机检：blocking）
-- [ ] test-design.md 的 verified-by AC 列是否引用 spec 中真实存在的 AC-NNN？
+- [ ] test-design.md 的 verified-by AC 列是否引用 requirement-spec/story-spec 中真实存在的 AC-NNN？
 - [ ] test-design.md 的归属 DU 列是否引用 DU 划分表中的 DU id？
 - [ ] 不可测 AC 是否标注 `TC-NOT-TESTABLE: 理由`（进 warnings 不阻断）？
 - [ ] requirement-design.md 的每个变更点是否落入某个 DU 的 Scope？

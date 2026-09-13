@@ -61,22 +61,6 @@ artifacts:
         artifact-hash: sha256:342c293e2b3ac5d2d4ec6cbad84814db1a60536ecfcc30b853699fde84e55a28
         reason: ""
     status: accepted
-  design:
-    path: design.md
-    gates:
-      machine:
-        status: passed
-        checked-at: 2026-08-28T13:34:26.780Z
-        validator: sdd-design
-        artifact-hash: sha256:b9c5c2d9ec0c1aef186f16db02bb1510b350b01c3afacf9c7b0326ab792abc00
-        issues: []
-      human:
-        status: approved
-        reviewed-at: 2026-08-28T13:35:03.285Z
-        reviewer: ""
-        artifact-hash: sha256:b9c5c2d9ec0c1aef186f16db02bb1510b350b01c3afacf9c7b0326ab792abc00
-        reason: ""
-    status: accepted
   tasks:
     path: tasks.md
     gates:
@@ -160,8 +144,8 @@ artifacts:
         reason: "用户指示'先归档之前的 change'（2026-08-30），视为 Human Gate 批准；hash 与 Machine Gate
           一致（gate approve 交互式确认在沙箱不可用，按 writeHumanGate 同规则人工写入）"
     status: accepted
-  spec:
-    path: spec.md
+  requirement-spec:
+    path: requirement-spec.md
     gates:
       machine:
         status: passed
@@ -176,5 +160,21 @@ artifacts:
         artifact-hash: sha256:47437b5dfce663f8dff97cd71113c3d794c1344a2a5e388c4a9cfcfa32e14c13
         reason: ""
     status: accepted
-schema-version: 4
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-08-28T13:34:26.780Z
+        validator: sdd-design
+        artifact-hash: sha256:b9c5c2d9ec0c1aef186f16db02bb1510b350b01c3afacf9c7b0326ab792abc00
+        issues: []
+      human:
+        status: approved
+        reviewed-at: 2026-08-28T13:35:03.285Z
+        reviewer: ""
+        artifact-hash: sha256:b9c5c2d9ec0c1aef186f16db02bb1510b350b01c3afacf9c7b0326ab792abc00
+        reason: ""
+    status: accepted
+schema-version: 5
 stories: []

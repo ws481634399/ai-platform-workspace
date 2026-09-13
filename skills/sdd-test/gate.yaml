@@ -33,7 +33,7 @@ human-checks:
   - "## 1. 测试范围"
   - "## 3. 证据清单"
 
-# Phase 4.2 三级规格分层：3-tier 多 Story 时 test-report 落 stories/<id>/evidence/，
+# test-report 按当前 Story 落入其 evidence/，
 # workflow 传 storyId 激活 story mode（路径分发 + DU Fan-in 检查限定该 Story）；检查项不变。
 three-tier:
   story-artifact: evidence/test-report.md

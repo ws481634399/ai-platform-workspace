@@ -4,19 +4,6 @@ id: DU-AI-005
 repository: "repo-3"
 parent:
   change: "CHG-0005"
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-1-02
-    name: AI 工程基线
-  level-3:
-    id: FEAT-1-02-01
-    name: AI 应用骨架
-  story:
-    id: STORY-1-02-01-01
-    name: 建立 Python AI Service 工程基线
 scope:
   - tests/conftest.py：三 fixture（test_settings monkeypatch /
     app：create_app(test_settings) / client：ASGITransport AsyncClient）
@@ -65,10 +52,11 @@ result:
 stories:
   - id: STORY-1-02-01-01
     title: 建立 Python AI Service 工程基线
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service 工程基线/
     domain:
       id: FEAT-1-02-01
       name: AI 应用骨架
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.110Z

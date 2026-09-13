@@ -10,7 +10,7 @@
 #          旧 Change 仅在被显式操作（bind-feature-path / split-story / upgrade）时升 v3
 # 后续 status/archive 由 Document API 改写（保留注释）。
 
-schema-version: 4 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Story 平铺)；3=v3(本格式，1:N Stories)
+schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Story 平铺)；3=v3(本格式，1:N Stories)
 
 id: "CHG-0005" # CHG-XXXX，创建时填
 title: "建立 AI Service Python 工程基线（FastAPI + uv）" # 简短标题
@@ -18,7 +18,7 @@ summary: "" # 一句话摘要（可选）
 status: archived # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M0-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-04T13:49:53.873Z" # ISO8601，创建时填
-updated-at: "2026-09-07T13:33:32.545Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T07:47:13.967Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-1-02
@@ -35,35 +35,15 @@ related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时
 # strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
 evidence-tier: standard
 
-# Phase 2.4 保留：feature-path（完整四级链）
-# v3 语义变更：仅 inline 单 Story 场景填（兼容 v2 语义）；多 Story 场景**不填**，
-# 权威 Story 链以 stories[*].path → story-metadata.yaml.feature-path 为准。
-# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-1-02
-    name: AI 工程基线
-  level-3:
-    id: FEAT-1-02-01
-    name: AI 应用骨架
-  story:
-    id: STORY-1-02-01-01
-    name: 建立 Python AI Service 工程基线
-  candidate: false
-
 # Phase 4.2 新增：stories 列表（Change 1:N Story 权威索引）
 # - 单 Story inline 模式：长度 = 1 且 inline=true（CHG 根目录同时是 Story 目录）
 # - 多 Story 三级模式：每条路径指向 stories/<STORY-ID>/ 目录，其中含 story-metadata.yaml
 stories:
   - id: STORY-1-02-01-01
     title: 建立 Python AI Service 工程基线
-    inline: true
-    status: pending
-    path: ./
     evidence-tier: standard
+    status: completed
+    path: 工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service 工程基线/
     domain:
       id: FEAT-1-02-01
       name: AI 应用骨架
@@ -103,47 +83,6 @@ artifacts:
         artifact-hash: sha256:f652d5af5d72150cce7c76f2062b652ec7a7606463a03d1ffe0a184954e0f242
         reason: "human-gate: approved by user at 2026-09-04;
           §1需求理解（三仓鼎立+M0插座+安全红线+知识检索注入）与§3影响分析（repo-3新建/后端前端零回退/三仓架构）经用户评审均通过"
-    status: accepted
-  spec:
-    path: spec.md
-    gates:
-      machine:
-        status: passed
-        checked-at: 2026-09-04T14:04:28.919Z
-        validator: sdd-prd
-        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
-        issues: []
-        warnings: []
-      human:
-        status: approved
-        reviewer: user
-        approved-at: 2026-09-04T14:06:00Z
-        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
-        reason: "human-gate: approved by user at 2026-09-04;
-          §1背景（三仓鼎立拼图+M6业务紧迫性+架构红线M0代码落地）、§2用户价值（AI实施者JTBD三场景）、§5验收标准（11条AC
-          SMART化与exploration 12未知问题闭环表）经用户评审均通过"
-    status: accepted
-  design:
-    path: design.md
-    gates:
-      machine:
-        status: passed
-        checked-at: 2026-09-04T14:14:36.561Z
-        validator: sdd-design
-        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
-        issues: []
-        warnings: []
-      human:
-        status: approved
-        reviewer: user
-        approved-at: 2026-09-04T14:16:00Z
-        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
-        reason: "human-gate: approved by user at 2026-09-04;
-          §2提议方案（11子节：目录树9锚点+6边界位+AC-10/AC-11映射+Lifespan 5步+错误码NNN分配+Settings
-          13字段+Logging/TraceId+LLM抽象+Java
-          Client四参数位+Ruff/Pyright集中配置+Pytest三用例）、§4跨仓协作（UnifyResult
-          5字段+X-Trace-Id+写操作confirmation_required）、§6风险（10条含架构红线突破/日志泄露/uv源网络/Y\
-          AML冒号bug）经用户评审均通过"
     status: accepted
   tasks:
     path: tasks.md
@@ -252,3 +191,44 @@ artifacts:
         issues:
           - "Artifact not found: story-spec.md"
         warnings: []
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T14:04:28.919Z
+        validator: sdd-prd
+        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:06:00Z
+        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
+        reason: "human-gate: approved by user at 2026-09-04;
+          §1背景（三仓鼎立拼图+M6业务紧迫性+架构红线M0代码落地）、§2用户价值（AI实施者JTBD三场景）、§5验收标准（11条AC
+          SMART化与exploration 12未知问题闭环表）经用户评审均通过"
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T14:14:36.561Z
+        validator: sdd-design
+        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:16:00Z
+        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
+        reason: "human-gate: approved by user at 2026-09-04;
+          §2提议方案（11子节：目录树9锚点+6边界位+AC-10/AC-11映射+Lifespan 5步+错误码NNN分配+Settings
+          13字段+Logging/TraceId+LLM抽象+Java
+          Client四参数位+Ruff/Pyright集中配置+Pytest三用例）、§4跨仓协作（UnifyResult
+          5字段+X-Trace-Id+写操作confirmation_required）、§6风险（10条含架构红线突破/日志泄露/uv源网络/Y\
+          AML冒号bug）经用户评审均通过"
+    status: accepted

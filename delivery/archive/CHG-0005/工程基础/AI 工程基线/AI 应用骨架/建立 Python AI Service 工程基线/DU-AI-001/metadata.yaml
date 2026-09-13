@@ -8,19 +8,6 @@ id: DU-AI-001
 repository: "repo-3" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
 parent:
   change: "CHG-0005" # CHG-XXXX
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-1-02
-    name: AI 工程基线
-  level-3:
-    id: FEAT-1-02-01
-    name: AI 应用骨架
-  story:
-    id: STORY-1-02-01-01
-    name: 建立 Python AI Service 工程基线
 scope:
   - 仓库根 6
     文件(.gitignore,.python-version,pyproject.toml,uv.lock,.env.example,README.md)
@@ -56,10 +43,11 @@ result:
 stories:
   - id: STORY-1-02-01-01
     title: 建立 Python AI Service 工程基线
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service 工程基线/
     domain:
       id: FEAT-1-02-01
       name: AI 应用骨架
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.000Z

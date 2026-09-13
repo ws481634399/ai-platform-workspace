@@ -10,9 +10,9 @@ sdd-test 执行后，外部 Agent 完成测试与报告前，必须检查以下�
 ## 2. 测试范围与覆盖
 
 - [ ] §1 测试范围列出本报告覆盖的全部 DU（du-fan-in-testing：每个 DU 至少一个验收测试）
-- [ ] 每个 DU 的 Verification 清单（tasks.md：Unit/Integration/API/Migration/Error Case）已逐条验证
+- [ ] 每个 DU 的 Verification 清单（仓内 task-spec.md：Unit/Integration/API/Migration/Error Case）已逐条验证
 - [ ] spec 每条验收标准（AC-NNN）都有至少一个测试用例覆盖（AC↔TC 映射表无缺口）
-- [ ] design.md §4 跨仓协作契约（API/Event/Data + 集成边界）有集成/E2E 测试覆盖
+- [ ] requirement-design.md §4 跨仓协作契约（API/Event/Data + 集成边界）有集成/E2E 测试覆盖
 - [ ] 正常路径、异常路径（并发/超时/依赖失败）、边界值（空/最小/最大/超长）均有覆盖
 
 ## 3. 执行与证据
@@ -26,4 +26,4 @@ sdd-test 执行后，外部 Agent 完成测试与报告前，必须检查以下�
 ## 4. 状态推进
 
 - [ ] 全部 DU 测试通过（或失败项已闭环）后才推进 status 到 testing
-- [ ] 前序 Artifact（implementation.md / tasks.md / design.md / spec.md）未被改动；修缺陷的新 Commit 已回填 implementation.md §3
+- [ ] 前序 Artifact（implementation.md / test-design.md / task-design.md / task-spec.md / requirement-design.md / story-design.md / requirement-spec.md / story-spec.md）未被改动；修缺陷的新 Commit 已回填 implementation.md §3

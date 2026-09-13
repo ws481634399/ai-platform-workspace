@@ -214,7 +214,7 @@ created-at: "2026-01-01T00:00:00Z"
 
 **待澄清问题（§5）：**
 
-- 需求中哪些部分不够明确，需要后续阶段（prd 产出 spec.md / design）澄清？
+- 需求中哪些部分不够明确，需要后续阶段（prd 产出 requirement-spec.md / design）澄清？
 - 证据缺口汇总（context-rules v0.4 起 exploration 会注入下游，此清单下游直接可见）
 
 将步骤 2 检索到的历史知识整合到分析中，标注引用来源。

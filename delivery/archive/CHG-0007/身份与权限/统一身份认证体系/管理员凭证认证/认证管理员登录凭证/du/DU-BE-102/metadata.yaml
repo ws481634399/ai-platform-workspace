@@ -2,19 +2,6 @@ id: DU-BE-102
 repository: repo-1
 parent:
   change: CHG-0007
-feature-path:
-  level-1:
-    id: FEAT-001
-    name: 身份与权限
-  level-2:
-    id: FEAT-001-01
-    name: 统一身份认证体系
-  level-3:
-    id: FEAT-001-01-01
-    name: 管理员凭证认证
-  story:
-    id: STORY-001-01-01-02
-    name: 认证管理员登录凭证
 scope:
   - "DES-001：实现本 Story 在 repo-1 的职责"
 dependencies: []
@@ -44,10 +31,11 @@ result:
 stories:
   - id: STORY-001-01-01-02
     title: 认证管理员登录凭证
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 身份与权限/统一身份认证体系/管理员凭证认证/认证管理员登录凭证/
     domain:
       id: FEAT-001-01-01
       name: 管理员凭证认证
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.387Z

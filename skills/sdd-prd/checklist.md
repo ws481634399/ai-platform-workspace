@@ -1,6 +1,6 @@
 # sdd-prd Checklist
 
-sdd-prd 执行后，外部 Agent 补充完毕 spec.md 前，必须检查以下项：
+sdd-prd 执行后，外部 Agent 补充完毕 requirement-spec.md（或 Story 级 story-spec.md）前，必须检查以下项：
 
 ## 1. 元信息完整性
 
@@ -18,7 +18,7 @@ sdd-prd 执行后，外部 Agent 补充完毕 spec.md 前，必须检查以下�
 
 ## 3. 一致性
 
-- [ ] spec.md 与 exploration.md 的需求要点/冲突结论一致，不前后矛盾
+- [ ] requirement-spec.md / story-spec.md 与 exploration.md 的需求要点/冲突结论一致，不前后矛盾
 - [ ] 验收标准可追溯到 scope-in 中的需求点
 
 ## 4. 状态推进

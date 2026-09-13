@@ -20,9 +20,10 @@
 
 - `delivery/changes/<CHG>/requirement.md`
 - `delivery/changes/<CHG>/exploration.md`
-- `delivery/changes/<CHG>/spec.md`
-- `delivery/changes/<CHG>/design.md`
-- STORY 级 `delivery/changes/<CHG>/<L1>/<L2>/<L3>/<STORY>/tasks.md`
+- `delivery/changes/<CHG>/requirement-spec.md`
+- `delivery/changes/<CHG>/requirement-design.md`
+- 各 Story 的 `story-spec.md` / `story-design.md`
+- 各实现仓 DU 的 `task-design.md` / `task-spec.md`
 - `delivery/changes/<CHG>/implementation.md`（跨仓汇总；各仓 DU 正文按引用追溯）
 - STORY 级 `test-design.md`（Phase 4.3 S4：追踪链 TC 表，全链覆盖统计来源）
 - `delivery/changes/<CHG>/evidence/test-report.md`
@@ -37,9 +38,9 @@
 | -------------------- | ------------------------------------------ | ---------------------------------------------- |
 | requirement.md       | 用户需求来源                               | product（业务能力）                            |
 | exploration.md       | Feature 归属、影响分析                     | product（Feature 路径）                        |
-| spec.md              | 业务规则、验收标准                         | product（业务规则）、standards（验收标准模板） |
-| design.md            | 架构决策、接口设计、技术选型、跨仓协作契约 | standards（架构约定）、product（集成边界）     |
-| tasks.md（STORY 级） | DU 分解策略（仓库映射/依赖排序）           | standards（任务粒度约定）                      |
+| requirement/story spec | 业务规则、验收标准                         | product（业务规则）、standards（验收标准模板） |
+| requirement/story design | 架构决策、接口设计、技术选型、跨仓协作契约 | standards（架构约定）、product（集成边界）   |
+| task-design/task-spec（仓内 DU） | DU 技术方案、契约与验收            | standards（任务粒度约定）                      |
 | implementation.md    | 各仓代码模式、错误处理、安全实践           | standards（编码规范）                          |
 | test-report.md       | 测试策略、边界 case                        | standards（测试约定）                          |
 | review-report.md     | 评审发现、缺陷模式、修复经验               | standards（代码质量约定）                      |
@@ -125,7 +126,7 @@
 - 操作: 新增
 - 内容: 订单取消必须填写取消原因；取消原因枚举：不想要了/信息填错/重复下单/其他
 - 理由: 本 Change 的 spec 经人工确认确立了取消规则，作为后续订单类 Change 的产品依据
-- 来源: spec.md「业务规则」节
+- 来源: requirement-spec.md「业务规则」节
 
 ### Feature Tree 更新
 
@@ -241,7 +242,7 @@ openspec feature update <STORY-ID> --status delivered
 - [ ] 无遗留的 Unresolved 问题？
 - [ ] **追踪链全链覆盖统计（Phase 4.3 S4）**：AC→DES→DU→TC→EVD 各环节数量对齐？
   - spec AC 数 = test-design TC verified-by 覆盖的 AC 数
-  - design DU 数 = tasks.md DU 小节数
+  - design DU 数 = 实现仓 task-design.md / task-spec.md 对数
   - test-design TC 数 = test-report EVD 引用的 TC 数
   - 断链项是否已标注并进 §4 全局验收标准对照？
 
@@ -298,9 +299,9 @@ commit 指针的引用；各仓 DU 交付记录已在该仓 Git 中独立提交�
 
 **知识提取：**
 
-- design.md 中 bcrypt 密码哈希 → standards 候选（安全实践）
-- design.md 中 error-handling 模式 → standards 候选（错误处理）
-- spec.md 中"邮箱/手机号双入口" → product 候选（业务能力）
+- requirement-design.md 中 bcrypt 密码哈希 → standards 候选（安全实践）
+- requirement-design.md 中 error-handling 模式 → standards 候选（错误处理）
+- requirement-spec.md 中"邮箱/手机号双入口" → product 候选（业务能力）
 - implementation.md 中 API 响应格式 → no-update（实现细节）
 - test-report.md 中边界 case 策略 → standards 候选（测试约定）
 
@@ -325,7 +326,7 @@ commit 指针的引用；各仓 DU 交付记录已在该仓 Git 中独立提交�
 - 操作: 新增
 - 内容: 注册入口支持邮箱/手机号双入口；密码要求 ≥8 位含大小写与数字
 - 理由: spec 业务规则经人工评审确认，作为后续认证类 Change 的产品依据
-- 来源: spec.md「业务规则」节
+- 来源: requirement-spec.md「业务规则」节
 
 ### Feature Tree 更新
 

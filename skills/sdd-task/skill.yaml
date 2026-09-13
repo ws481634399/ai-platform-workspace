@@ -4,18 +4,21 @@
 # 类型: Skill 元数据 + Artifact Contract
 
 id: sdd-task
-version: 0.2.5
+version: 0.3.0
 stage: task
-description: 逐 DU 任务分解 Skill——消费 design 阶段 DU 划分表，对每个 DU 做任务分解 + Implementation Guidance
+description: 测试设计与 DU 技术方案 Skill——消费 design 阶段 DU 划分表，产出 test-design 并补全仓内 task-design/task-spec
 input:
-  - design.md
+  - requirement-design.md
+  - story-design.md
   - delivery/
 output:
-  - tasks.md
+  - test-design.md
+  - repository-delivery/task-design.md
+  - repository-delivery/task-spec.md
 requires-state: designed
 produces-state: tasked
 output-artifacts:
-  - tasks.md
+  - test-design.md
 prompts: # Phase 2.3：引用 prompts/ 提示片段（相对 prompts/，不含 .md）
   - common/persona-sdd
   - common/constraints

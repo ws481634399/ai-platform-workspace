@@ -9,7 +9,7 @@
 #          旧 Change 仅在被显式操作（bind-feature-path / du materialize）时升级为 v2。
 # 后续 status/archive 由 Document API 改写（保留注释）。
 
-schema-version: 4 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
+schema-version: 5 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
 
 id: "CHG-0002" # CHG-XXXX，创建时填
 title: "建立 mall-common 与 mall-contracts 公共基础模块" # 简短标题
@@ -17,7 +17,7 @@ summary: "核验型 Change：复用 CHG-0001 已交付的 10 个公共模块结�
 status: archived # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
 requirement: "ENG-BASE-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-08-30T15:54:34.386Z" # ISO8601，创建时填
-updated-at: "2026-09-01T12:47:01.865Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T07:47:13.693Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-1
@@ -27,24 +27,6 @@ repositories:
   # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
   - repo-1
 related-change: "CHG-0001" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
-
-# Phase 2.4 新增：feature-path（完整四级链，权威字段；STORY 目录物化是其投影）
-# 约束：CHG ↔ Story = 1:1；树唯一权威源是 product/feature-tree.yaml，此处为"引用不是副本"
-# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-1
-    name: Maven 工程与版本治理
-  level-3:
-    id: FEAT-1-01
-    name: 工程结构与公共模块
-  story:
-    id: STORY-2
-    name: 建立 mall-common 与 mall-contracts 公共基础模块
-  candidate: false
 
 # Phase 2.4 新增：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
 # repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
@@ -93,23 +75,6 @@ artifacts:
         artifact-hash: sha256:b9b9377d4c90523c879436a1b11aab5bd96ad27cfb110a568ee65feb12a991ca
         reason: "用户重复下达'开始 ENG-BASE-002'指令视为对探索产物的批准（核验型定位/STORY-2
           归属/未知问题处理方向均未提异议）；gate approve 交互确认在沙箱不可用，按 writeHumanGate 同规则人工写入"
-    status: accepted
-  design:
-    path: design.md
-    gates:
-      machine:
-        status: passed
-        checked-at: 2026-08-31T14:37:05.929Z
-        validator: sdd-design
-        artifact-hash: sha256:88621e9c3c7b2a158c29645c0f5039736cbfa65f2342b9abc45717d16788a5ff
-        issues: []
-      human:
-        status: approved
-        reviewed-at: 2026-08-31T14:36:00.000Z
-        reviewer: "user"
-        artifact-hash: sha256:88621e9c3c7b2a158c29645c0f5039736cbfa65f2342b9abc45717d16788a5ff
-        reason: "用户在设计草稿评审交互中明确选择'批准，进入任务拆解'（三步核验法/审计规则集 R1~R4 含 test
-          豁免条款/留证映射/风险缓解均确认）；gate approve 交互确认在沙箱不可用， 按 writeHumanGate 同规则人工写入"
     status: accepted
   tasks:
     path: tasks.md
@@ -203,8 +168,8 @@ artifacts:
           并已执行，Standards/Glossary 明确不更新及理由），知识沉淀过程见
           §3；评审确认沿袭用户跳过即批准链（test/review 阶段同规则）；按 writeHumanGate 同规则人工写入"
     status: accepted
-  spec:
-    path: spec.md
+  requirement-spec:
+    path: requirement-spec.md
     gates:
       machine:
         status: passed
@@ -220,12 +185,29 @@ artifacts:
         reason: "用户在 PRD 草稿评审交互中明确选择'批准，进入设计阶段'（核验型定位/AC-1~AC-10 验收标准/AC 复验证据策略均确认）；gate
           approve 交互确认在沙箱不可用，按 writeHumanGate 同规则人工写入"
     status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-08-31T14:37:05.929Z
+        validator: sdd-design
+        artifact-hash: sha256:88621e9c3c7b2a158c29645c0f5039736cbfa65f2342b9abc45717d16788a5ff
+        issues: []
+      human:
+        status: approved
+        reviewed-at: 2026-08-31T14:36:00.000Z
+        reviewer: "user"
+        artifact-hash: sha256:88621e9c3c7b2a158c29645c0f5039736cbfa65f2342b9abc45717d16788a5ff
+        reason: "用户在设计草稿评审交互中明确选择'批准，进入任务拆解'（三步核验法/审计规则集 R1~R4 含 test
+          豁免条款/留证映射/风险缓解均确认）；gate approve 交互确认在沙箱不可用， 按 writeHumanGate 同规则人工写入"
+    status: accepted
 stories:
   - id: STORY-2
     title: 建立 mall-common 与 mall-contracts 公共基础模块
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与 mall-contracts 公共基础模块/
     domain:
       id: FEAT-1-01
       name: 工程结构与公共模块

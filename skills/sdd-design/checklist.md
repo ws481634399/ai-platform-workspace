@@ -1,6 +1,6 @@
 # sdd-design Checklist
 
-sdd-design 执行后，外部 Agent 补充完毕 design.md 前，必须检查以下项：
+sdd-design 执行后，外部 Agent 补充完毕 requirement-design.md（或 Story 级 story-design.md）前，必须检查以下项：
 
 ## 1. 元信息
 
@@ -20,13 +20,13 @@ sdd-design 执行后，外部 Agent 补充完毕 design.md 前，必须检查以
 
 ## 3. 边界约束
 
-- [ ] design.md 未出现 DU-XXX 编号（Design 不产生 DU，拆 DU 是 sdd-task 职责）
+- [ ] §6 DU 划分表已定义全部 DU，且每个 DU 均为单仓、covers AC 非空、依赖无环
 - [ ] 未出现实现级伪代码（Pseudocode 是 sdd-task 在 DU 层的 Dev Guidance）
-- [ ] 方案不与 spec.md 范围矛盾（scope-out 未被设计覆盖；spec 全部 Scope In 项有设计落点）
+- [ ] 方案不与 requirement-spec.md / story-spec.md 范围矛盾（Scope Out 未被设计覆盖；全部 Scope In 项有设计落点）
 - [ ] 数据模型覆盖 spec 全部业务规则；每个接口有明确的入参/出参/错误码
 - [ ] 接口契约与工程规范（standards/engineering/）一致
 
 ## 4. 状态推进
 
 - [ ] `openspec change status <CHG>` 显示 designed
-- [ ] 前序 Artifact（spec.md / exploration.md / requirement.md）未被改动
+- [ ] 前序 Artifact（requirement-spec.md / story-spec.md / exploration.md / requirement.md）未被改动

@@ -23,10 +23,10 @@ sdd-review 是 sdd-converge 前的**独立质量检查点**：
 ### 1. 读取输入
 
 依次读取：
-- `delivery/changes/<CHG>/spec.md` — AC 清单（需求一致性基准）
-- `delivery/changes/<CHG>/design.md` — 接口/模块/规则声明 + **跨仓协作契约 §4**（设计一致性基准）
+- `delivery/changes/<CHG>/requirement-spec.md` + 当前 `story-spec.md` — AC 清单（需求一致性基准）
+- `delivery/changes/<CHG>/requirement-design.md` + 当前 `story-design.md` — 接口/模块/规则声明 + **跨仓协作契约 §4**（设计一致性基准）
 - `delivery/changes/<CHG>/implementation.md` — 跨仓实施汇总（DU 状态总览）
-- STORY 级 `delivery/changes/<CHG>/<L1>/<L2>/<L3>/<STORY>/tasks.md` — DU 清单与 Acceptance
+- 各实现仓 DU 的 `task-design.md` / `task-spec.md` — 技术方案、DU 契约与 Acceptance
 - `delivery/changes/<CHG>/evidence/test-report.md` — 测试结论
 - `delivery/changes/<CHG>/evidence/evidence.yaml` — 结构化证据（对照的核心数据源；多仓 DU 侧证据按 evidence-ref 追溯）
 - `standards/*.md` — 现行规范（代码质量基准）
@@ -35,7 +35,7 @@ sdd-review 是 sdd-converge 前的**独立质量检查点**：
 
 #### 检查 1：需求一致性
 
-spec AC 逐条对照 evidence.yaml：
+requirement/story spec AC 逐条对照 evidence.yaml：
 
 | AC | test-run 证据（covers 字段） | 结论 |
 |----|------------------------------|------|
@@ -44,7 +44,7 @@ spec AC 逐条对照 evidence.yaml：
 
 - 每条 AC 必须有至少一个 `covers` 包含它的 test-run 条目
 - 有 test-report 但 evidence 无对应条目 → 视为缺口
-- 缺口 → 记 review-finding（target: `spec.md#AC-NNN`）
+- 缺口 → 记 review-finding（target: `requirement-spec.md#AC-NNN` 或 `story-spec.md#AC-NNN`）
 
 #### 检查 2：设计一致性（Design → DU → Implementation Traceability）
 
@@ -53,7 +53,7 @@ spec AC 逐条对照 evidence.yaml：
 ```text
 Workspace Design（§2 方案 / §4 契约）
         ↓ 检查 a
-DU Implementation Sketch / Pseudocode（tasks.md DU 小节 + repo task.md §7/§8）
+DU Implementation Sketch / Pseudocode（仓内 task-design.md §6/§7 + task-spec.md）
         ↓ 检查 b
 Actual Implementation（code-change 证据 + 源码抽查）
         ↓ 检查 c
@@ -62,15 +62,15 @@ Acceptance Criteria 满足
 
 | 检查 | 内容 | 偏差处理 |
 |------|------|---------|
-| a. DU ↔ Design | Sketch/契约引用是否与 design.md 一致；Pseudocode 是否违背 API / Data / Architecture Contract | 记 review-finding（target: `tasks.md#DU-XXX` 或 `design.md#<section>`） |
+| a. DU ↔ Design | Sketch/契约引用是否与 requirement/story design 一致；Pseudocode 是否违背 API / Data / Architecture Contract | 记 review-finding（target: `task-design.md#DU-XXX` 或 `requirement-design.md#<section>`） |
 | b. Implementation ↔ DU | 实际实现是否符合 DU spec；**偏离但 repo implementation.md `## Deviations` 有记录且合理 → 通过；偏离但未记录 → major** | 记 review-finding（target: `implementation.md#Deviations`） |
 | c. AC 满足 | 偏离后是否仍满足 DU Acceptance 与 spec AC | 不满足 → blocker |
 
-design.md 声明 ↔ code-change 条目对照：
+requirement-design.md / story-design.md 声明 ↔ code-change 条目对照：
 - 设计声明的接口/模块是否在 code-change 的 files/symbols 中出现
 - code-change 的 reason 是否与设计动机冲突
-- **Phase 2.4 跨仓一致性**：design.md §4 协作契约（API/Event/Data + 依赖方向）是否被各仓 DU 的实现与测试证据共同满足；affected-repositories 是否都有对应 DU 的 code-change 证据
-- 偏差 → 记 review-finding（target: `design.md#<section>` 或 `文件:symbol`）
+- **跨仓一致性**：requirement-design.md §4 协作契约（API/Event/Data + 依赖方向）是否被各仓 DU 的实现与测试证据共同满足；affected-repositories 是否都有对应 DU 的 code-change 证据
+- 偏差 → 记 review-finding（target: `requirement-design.md#<section>` 或 `文件:symbol`）
 
 > 可复用的偏离理由（如「仓内已有反腐败层」）列入 §1.4 知识同步候选。
 

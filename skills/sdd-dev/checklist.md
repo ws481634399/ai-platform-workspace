@@ -5,8 +5,8 @@ sdd-dev 执行后，外部 Agent 在各仓内完成实现前，必须检查以�
 ## 1. Guidance 消费（repo 侧）
 
 - [ ] 已按 DU 逐个实现（DU 1:1 仓库），未跨仓改码
-- [ ] repo task.md §7 Test Guidance / §8 Review Guidance / §9 Done Criteria 已逐条消费
-- [ ] tasks.md 中本仓 DU 的 Implementation Sketch 已落实为真实代码；命中 complexity-trigger 的 Pseudocode 逻辑方向被遵循（不要求逐行）
+- [ ] 仓内 task-design.md §6/§7 与 task-spec.md Verification 已逐条消费
+- [ ] task-design.md 中本仓 DU 的 Implementation Sketch 已落实为真实代码；命中 complexity-trigger 的 Pseudocode 逻辑方向被遵循（不要求逐行）
 - [ ] Design Contract（API/Data/Architecture）未被违反；发现契约错误回到 sdd-design 修正，不在实现侧私改
 - [ ] 被依赖仓已完成契约冻结（跨仓 DU 按 Execution Order 实施）
 
@@ -26,4 +26,4 @@ sdd-dev 执行后，外部 Agent 在各仓内完成实现前，必须检查以�
 
 - [ ] 每个完成 DU 已 `openspec du sync-status <id>` 回传（in_progress→completed，含 result commit 与证据引用）
 - [ ] Workspace 聚合 implementation.md：§1 DU 状态总览与各仓实际一致；§2 各仓 evidence-ref 引用（不复制正文）；§3 Commit 记录表完整；§4 Fan-in 状态与 du status 一致
-- [ ] 前序 Artifact（tasks.md / design.md / spec.md / exploration.md / requirement.md）未被改动
+- [ ] 前序 Artifact（test-design.md / task-design.md / task-spec.md / requirement-design.md / story-design.md / requirement-spec.md / story-spec.md）未被改动

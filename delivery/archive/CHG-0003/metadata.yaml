@@ -9,7 +9,7 @@
 #          旧 Change 仅在被显式操作（bind-feature-path / du materialize）时升级为 v2。
 # 后续 status/archive 由 Document API 改写（保留注释）。
 
-schema-version: 4 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
+schema-version: 5 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
 
 id: "CHG-0003" # CHG-XXXX，创建时填
 title: "建立 Java 后端微服务工程基线" # 简短标题
@@ -17,7 +17,7 @@ summary: "" # 一句话摘要（可选）
 status: archived # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
 requirement: "ENG-M0-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-01T12:56:25.204Z" # ISO8601，创建时填
-updated-at: "2026-09-01T15:08:44.953Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T07:47:13.766Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-2
@@ -27,24 +27,6 @@ repositories:
   # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
   # - backend
 related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
-
-# Phase 2.4 新增：feature-path（完整四级链，权威字段；STORY 目录物化是其投影）
-# 约束：CHG ↔ Story = 1:1；树唯一权威源是 product/feature-tree.yaml，此处为"引用不是副本"
-# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-2
-    name: 微服务工程基线
-  level-3:
-    id: FEAT-2-01
-    name: 骨架与基础能力
-  story:
-    id: STORY-3
-    name: 建立 Java 后端微服务工程基线
-  candidate: false
 
 # Phase 2.4 新增：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
 # repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
@@ -93,22 +75,6 @@ artifacts:
         artifact-hash: sha256:cb34ce49b1f9892b5151bc24ca5111e97f77203fc09592cb43f92ca588cf9a5a
         reason: 用户审阅探索产物全文后明确选择批准进入PRD（STORY-3归属/Gap定位/6项未知问题倾向方案均确认）；gate
           approve交互确认在沙箱不可用，按writeHumanGate同规则写入
-    status: accepted
-  design:
-    path: design.md
-    gates:
-      machine:
-        status: passed
-        checked-at: 2026-09-01T13:22:50.576Z
-        validator: sdd-design
-        artifact-hash: sha256:a094a345e3236966126b93bdf9d296b466c946fa1d2a36d1556185c168108ced
-        issues: []
-      human:
-        status: approved
-        reviewed-at: 2026-09-01T13:24:47.114Z
-        reviewer: user
-        artifact-hash: sha256:a094a345e3236966126b93bdf9d296b466c946fa1d2a36d1556185c168108ced
-        reason: 用户明确选择批准进入任务拆解（四能力面/栈隔离/BOM零变更/Pending策略均确认）
     status: accepted
   tasks:
     path: tasks.md
@@ -188,8 +154,8 @@ artifacts:
         reason: 用户确认进入 converge 阶段；3 项 standards 晋升 + STORY-3 delivered + 索引更新；gate
           approve 交互在沙箱不可用，按 writeHumanGate 同规则写入
     status: accepted
-  spec:
-    path: spec.md
+  requirement-spec:
+    path: requirement-spec.md
     gates:
       machine:
         status: passed
@@ -204,12 +170,28 @@ artifacts:
         artifact-hash: sha256:b9bb43294f9e90b837bfcb1a65e42bf9d363c3817624a55d3a76077bc5a80a75
         reason: 用户明确选择批准进入设计（Scope In 10项/Scope Out/6项定向决策/AC-01~12映射均确认）
     status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-01T13:22:50.576Z
+        validator: sdd-design
+        artifact-hash: sha256:a094a345e3236966126b93bdf9d296b466c946fa1d2a36d1556185c168108ced
+        issues: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-01T13:24:47.114Z
+        reviewer: user
+        artifact-hash: sha256:a094a345e3236966126b93bdf9d296b466c946fa1d2a36d1556185c168108ced
+        reason: 用户明确选择批准进入任务拆解（四能力面/栈隔离/BOM零变更/Pending策略均确认）
+    status: accepted
 stories:
   - id: STORY-3
     title: 建立 Java 后端微服务工程基线
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/
     domain:
       id: FEAT-2-01
       name: 骨架与基础能力

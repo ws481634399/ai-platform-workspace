@@ -8,19 +8,6 @@ id: DU-BE-002
 repository: "repo-1" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
 parent:
   change: "CHG-0003" # CHG-XXXX
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-2
-    name: 微服务工程基线
-  level-3:
-    id: FEAT-2-01
-    name: 骨架与基础能力
-  story:
-    id: STORY-3
-    name: 建立 Java 后端微服务工程基线
 scope:
   - services-persistence-wiring
   - application-yml-unify
@@ -82,14 +69,14 @@ result:
     - mall-gateway/pom.xml
     - mall-gateway/src/main/resources/application.yml
   symbols: [] # 配置型 DU，无新增生产代码符号（9 个冒烟测试见 8 服务 src/test 与 gateway src/test）
-schema-version: 4
+schema-version: 5
 stories:
   - id: STORY-3
     title: 建立 Java 后端微服务工程基线
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/
     domain:
       id: FEAT-2-01
       name: 骨架与基础能力
-updated-at: 2026-09-02T14:40:06.209Z
+updated-at: 2026-09-13T07:47:13.823Z

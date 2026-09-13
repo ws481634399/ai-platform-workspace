@@ -2,7 +2,7 @@
 
 > 阶段: prd
 > 状态转换: exploring → specified
-> 产出: requirement-spec.md（多 Story 模式另出 story-spec.md）
+> 产出：Requirement 的 requirement-spec.md，以及每个 Story 的 story-spec.md
 > 提示片段: prompts/common/persona-sdd.md · prompts/common/constraints.md · prompts/common/output-format.md · prompts/explore/persona-prd.md
 
 ## 前置条件
@@ -147,7 +147,8 @@ Scope 判断原则：
 写入 `delivery/changes/<CHG>/requirement-spec.md`。
 
 ## 产出草稿
-- `delivery/changes/<CHG>/requirement-spec.md` — 产品规格文档（inline 模式）；多 Story 模式另出 story-spec.md
+- `delivery/changes/<CHG>/requirement-spec.md` — Requirement 产品总规格
+- `<Story 目录>/story-spec.md` — 每个 Story 的产品规格（数量 1..N）
 
 ## 用户确认
 

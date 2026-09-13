@@ -131,10 +131,15 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T10:48:28.526Z
+        checked-at: 2026-09-13T10:49:53.921Z
         validator: sdd-test
-        artifact-hash: ""
-        rules-hash: ""
+        artifact-hash: "sha256:aafecb525df24d324bc677a38c9f0ff055a10b671cc5c76f2f97e7f0\
+          b1d82d9e"
+        rules-hash: "sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad4217\
+          04aa6"
         issues:
-          - "Artifact not found: evidence/test-report.md"
+          - "evidence/test-report.md: DU DU-BE-401 status=pending，未达到
+            testing（Fan-in 阻断）"
+          - "evidence/test-report.md: DU DU-FE-401 status=pending，未达到
+            testing（Fan-in 阻断）"
         warnings: []

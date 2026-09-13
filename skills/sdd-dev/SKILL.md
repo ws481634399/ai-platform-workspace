@@ -2,7 +2,7 @@
 
 > 阶段: dev
 > 状态转换: tasked → developing
-> 产出: implementation.md（跨仓汇总）+ 各仓 DU 实施（代码/task.md/evidence/）+ evidence/ 聚合
+> 产出: implementation.md（跨仓汇总）+ 各仓 DU 实施（代码/task-design.md/task-spec.md/evidence/）+ evidence/ 聚合
 > 提示片段: prompts/common/persona-sdd.md · prompts/common/constraints.md · prompts/common/output-format.md · prompts/coding/persona-dev.md
 
 Phase 2.4 多仓语义：实施正文在各仓 DU 内完成，Workspace 的 implementation.md
@@ -11,8 +11,8 @@ Phase 2.4 多仓语义：实施正文在各仓 DU 内完成，Workspace 的 impl
 ## 前置条件
 
 - Change 处于 `tasked` 状态
-- STORY 级 tasks.md + test-design.md 已完成（双产物，`<CHG>/<L1>/<L2>/<L3>/<STORY>/`）
-- design.md 已完成（含 affected-repositories front-matter）
+- STORY 级 test-design.md 已完成，仓内 task-design.md / task-spec.md 已填充
+- requirement-design.md 与当前 Story 的 story-design.md 已完成
 - Change 已绑定 feature-path（metadata.feature-path）
 - Workspace DU 已注册（`openspec du create`）并已物化（`openspec du materialize <CHG> <DU-ID>`）到各仓
 
@@ -20,13 +20,13 @@ Phase 2.4 多仓语义：实施正文在各仓 DU 内完成，Workspace 的 impl
 
 ### 1. 读取前序 Artifact
 
-读取 `delivery/changes/<CHG>/design.md`、STORY 级 `tasks.md` + `test-design.md` 和 DU metadata。
+读取 `requirement-design.md`、当前 Story 的 `story-design.md` / `test-design.md`、仓内 `task-design.md` / `task-spec.md` 和 DU metadata。
 
 > Phase 4.3 S3：dev 读 test-design.md 获取 TC-NNN 测试意图（红绿灯对象），按 TC 先写失败测试再实现。
 
 #### 1.1 信息提取清单
 
-从 design.md 提取：
+从 requirement-design.md / story-design.md 提取：
 
 - 接口契约（入参/出参/错误码）→ 实现的接口规范
 - **跨仓协作契约（§4）** → 本仓 DU 与其他仓 DU 的依赖方向与集成边界
@@ -34,7 +34,7 @@ Phase 2.4 多仓语义：实施正文在各仓 DU 内完成，Workspace 的 impl
 - 架构约定 → 分层结构、模块边界
 - 风险缓解措施 → 实现时必须遵守的约束
 
-从 STORY 级 tasks.md 提取：
+从仓内 task-spec.md 提取：
 
 - **本仓 DU 的 Goal / Scope / Design References / Acceptance Criteria** → 本仓实施边界
 - DU Dependencies → 跨仓 DU 的执行顺序（被依赖仓先完成契约冻结）
@@ -47,13 +47,13 @@ Phase 2.4 多仓语义：实施正文在各仓 DU 内完成，Workspace 的 impl
 - baseline（基线 commit）→ 变更起点
 - implementation-guidance（Phase 2.5）→ 本 DU 是否要求 Pseudocode（pseudocode/complexity-trigger）
 
-从 repo 侧 task.md（各仓 DU 目录内，materialize 生成）提取（Phase 2.5）：
+从仓内 task-design.md（各仓 DU 目录内，materialize 生成）提取：
 
-- §7 Implementation Sketch → 推荐组件与调用关系（实施的结构基线）
-- §8 Pseudocode → 关键流程执行逻辑（逻辑基线；`N/A` 则跳过）
-- §9 Verification → 自测清单（DU 完成前逐项验证）
+- §6 Implementation Sketch → 推荐组件与调用关系（实施的结构基线）
+- §7 Pseudocode → 关键流程执行逻辑（逻辑基线；`N/A + 理由` 则跳过）
+- task-spec.md Verification → 自测清单（DU 完成前逐项验证）
 
-> 实施前先读 repo task.md §7/§8/§9，不读则视为未消费 DU Guidance。
+> 实施前先读仓内 task-design.md §6/§7 与 task-spec.md，不读则视为未消费 DU Guidance。
 
 从 standards/ 提取：
 
@@ -79,10 +79,10 @@ Phase 2.4 多仓语义：实施正文在各仓 DU 内完成，Workspace 的 impl
 
 **每个 DU 内按 Task 执行：**
 
-1. 读取 repo 侧 task.md 全 9 节（Goal / Scope / Design References / Dependencies / AC / Sketch / Pseudocode / Verification）和 design.md 对应设计
+1. 读取仓内 task-design.md / task-spec.md 和 requirement-design.md / story-design.md 对应设计
 2. 在该仓内确认目标文件路径和模块
 3. 写代码（遵循该仓 standards/ 编码规范；结构参照 §7 Sketch，流程参照 §8 Pseudocode）
-4. 自测（按 DU acceptance 与 task.md §9 Verification 清单）
+4. 自测（按 DU acceptance 与 task-spec.md Verification 清单）
 5. Commit（一个 Task 一个 Commit，在该仓的 Git 中提交）
 
 #### 2.2 偏离记录（Deviations，Phase 2.5）
@@ -174,7 +174,7 @@ Phase 4.3 S3 起 dev 实施**红绿灯 TDD**——每个有 `verifies: TC-NNN` �
 
 **执行规则：**
 
-- tasks.md 每个 DU 小节的 `verifies: TC-NNN` 字段是红绿灯对象——dev 按 TC 编号先写失败测试
+- task-spec.md 的 `verifies: TC-NNN` 字段是红绿灯对象——dev 按 TC 编号先写失败测试
 - test-design.md 中定义了 TC-NNN 的验证方式与 verified-by AC——dev 读 test-design 获取测试意图
 - 无 TC 的任务只能是 `type: docs/chore`（非功能性任务，不要求红绿灯）
 - 红灯失败原因必须是「功能未实现」（如 `TypeError: register is not a function`），不能是语法错误或环境缺失
@@ -249,7 +249,8 @@ openspec du sync-status <CHG> <DU-ID>
 元信息 section（占位符替换）：
 
 - `{{change-id}}`：Change ID
-- `{{tasks-source}}`：STORY 级 tasks.md 相对路径（`<L1>/<L2>/<L3>/<STORY>/tasks.md`）
+- `{{test-design-source}}`：STORY 级 test-design.md 相对路径
+- `{{task-design-source}}` / `{{task-spec-source}}`：仓内 DU 产物相对路径
 - `{{started-at}}`：ISO8601 时间戳
 - `{{primary-repo}}`：metadata.repositories[0]
 
@@ -264,14 +265,14 @@ openspec du sync-status <CHG> <DU-ID>
 
 产出前自检：
 
-- [ ] tasks.md 中每个仓是否至少有一个 DU 已物化并实施（du-materialized）？
+- [ ] requirement-design/story-design 中声明的每个 DU 是否都已物化并实施（du-materialized）？
 - [ ] 每个 DU 的实施是否限定在其 Scope 内，未越仓改动？
-- [ ] 实施前是否已读 repo task.md §7/§8/§9（消费 DU Guidance，Phase 2.5）？
+- [ ] 实施前是否已读仓内 task-design.md §6/§7 与 task-spec.md（消费 DU Guidance）？
 - [ ] 与 DU 建议（Sketch/Pseudocode）偏离时是否已记录到 repo implementation.md `## Deviations`（三要素齐全）？
-- [ ] 每个 DU 是否已按 task.md §9 Verification 清单逐项验证？
+- [ ] 每个 DU 是否已按 task-spec.md Verification 清单逐项验证？
 - [ ] 有 `verifies: TC-NNN` 的任务是否执行了红绿灯（先红后绿）？（red-green-record 机检：advisory）
 - [ ] DU 级 evidence/red-green.md 是否记录了每个 TC 的红→绿证据？
-- [ ] 代码是否遵循 design.md 的接口契约与跨仓协作契约？
+- [ ] 代码是否遵循 requirement-design.md / story-design.md 的接口契约与跨仓协作契约？
 - [ ] 代码是否遵循该仓 standards/ 编码规范？
 - [ ] 每个 Commit 是否对应一个 Task 并标注 DU？
 - [ ] DU 级 evidence/evidence.yaml 是否与 Workspace 聚合记录一致？
@@ -294,7 +295,7 @@ openspec du sync-status <CHG> <DU-ID>
 ## 产出草稿
 
 - `implementation/<repo>/` — 各仓实际代码（在该仓 Git 中提交）
-- `implementation/<repo>/delivery/<...>/DU-XXX/` — 各仓 DU 正文（task.md/implementation.md/evidence/）
+- `implementation/<repo>/delivery/<...>/DU-XXX/` — 各仓 DU 正文（task-design.md/task-spec.md/implementation.md/evidence/）
 - `delivery/changes/<CHG>/implementation.md` — 跨仓实施汇总（引用）
 - `delivery/changes/<CHG>/evidence/` — Workspace 级聚合证据
 
@@ -360,9 +361,9 @@ export async function register(req, res) {
 
 ## 行为规则
 
-- 不修改 design.md / tasks.md / spec.md
+- 不修改 requirement-design.md / story-design.md / requirement-spec.md / story-spec.md / test-design.md / task-design.md / task-spec.md
 - 实施严格限定在 DU 的 Scope 与所属仓库内，不越仓改动
-- 实施前先读 repo task.md §7/§8/§9，不默默改道；偏离必须记录 Deviations，不为匹配伪代码写坏代码（Phase 2.5）
+- 实施前先读仓内 task-design.md §6/§7 与 task-spec.md，不默默改道；偏离必须记录 Deviations，不为匹配伪代码写坏代码
 - Workspace implementation.md 只引用各仓 DU 正文，不复制（Reference do not duplicate）
 - DU baseline/result 变化必须通过 `openspec du sync-status` 回传，不手改 metadata
 - 一个 Task 一个 Commit，不混合多个 Task

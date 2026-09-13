@@ -18,6 +18,6 @@
 
 ## R4：Artifact 写入约束
 
-- 不修改 tasks.md 以上阶段的 Artifact
+- 不修改 test-design.md、task-design.md、task-spec.md 及其以上阶段的 Artifact
 - patchStatus 前 validateTransition(tasked, developing)
 - DU 完成必须 `openspec du sync-status` 回传（含 result commit 与证据引用）；未回传不得推进

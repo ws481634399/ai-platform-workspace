@@ -2,19 +2,6 @@ id: DU-FE-304
 repository: repo-2
 parent:
   change: CHG-0009
-feature-path:
-  level-1:
-    id: FEAT-001
-    name: 身份与权限
-  level-2:
-    id: FEAT-001-03
-    name: 后台动态菜单与权限前端
-  level-3:
-    id: FEAT-001-03-02
-    name: 动态导航与页面访问
-  story:
-    id: STORY-001-03-02-01
-    name: 渲染动态侧边栏菜单
 scope:
   - "DES-001：实现本 Story 在 repo-2 的职责"
 dependencies: []
@@ -42,10 +29,11 @@ result:
 stories:
   - id: STORY-001-03-02-01
     title: 渲染动态侧边栏菜单
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/
     domain:
       id: FEAT-001-03-02
       name: 动态导航与页面访问
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:30.969Z

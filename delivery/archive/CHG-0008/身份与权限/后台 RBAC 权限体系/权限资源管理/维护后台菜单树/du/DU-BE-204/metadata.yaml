@@ -2,19 +2,6 @@ id: DU-BE-204
 repository: repo-1
 parent:
   change: CHG-0008
-feature-path:
-  level-1:
-    id: FEAT-001
-    name: 身份与权限
-  level-2:
-    id: FEAT-001-02
-    name: 后台 RBAC 权限体系
-  level-3:
-    id: FEAT-001-02-02
-    name: 权限资源管理
-  story:
-    id: STORY-001-02-02-01
-    name: 维护后台菜单树
 scope:
   - "DES-001：实现本 Story 在 repo-1 的职责"
 dependencies: []
@@ -45,10 +32,11 @@ result:
 stories:
   - id: STORY-001-02-02-01
     title: 维护后台菜单树
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 身份与权限/后台 RBAC 权限体系/权限资源管理/维护后台菜单树/
     domain:
       id: FEAT-001-02-02
       name: 权限资源管理
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.692Z

@@ -33,7 +33,7 @@ human-checks:
   - "## 2. Commit 记录"
   - "## 4. 与 Task 对应关系"
 
-# Phase 4.2 三级规格分层：3-tier 多 Story 时 implementation.md / evidence/ 落 stories/<id>/，
+# implementation.md / evidence/ 按当前 Story 聚合，
 # workflow 传 storyId 激活 story mode（路径分发 + DU/Evidence 检查限定该 Story）；检查项不变。
 three-tier:
   story-artifact: implementation.md

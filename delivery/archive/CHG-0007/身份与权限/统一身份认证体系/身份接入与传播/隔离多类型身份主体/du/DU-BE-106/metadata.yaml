@@ -2,19 +2,6 @@ id: DU-BE-106
 repository: repo-1
 parent:
   change: CHG-0007
-feature-path:
-  level-1:
-    id: FEAT-001
-    name: 身份与权限
-  level-2:
-    id: FEAT-001-01
-    name: 统一身份认证体系
-  level-3:
-    id: FEAT-001-01-03
-    name: 身份接入与传播
-  story:
-    id: STORY-001-01-03-01
-    name: 隔离多类型身份主体
 scope:
   - "DES-001：实现本 Story 在 repo-1 的职责"
 dependencies: []
@@ -42,10 +29,11 @@ result:
 stories:
   - id: STORY-001-01-03-01
     title: 隔离多类型身份主体
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 身份与权限/统一身份认证体系/身份接入与传播/隔离多类型身份主体/
     domain:
       id: FEAT-001-01-03
       name: 身份接入与传播
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.490Z

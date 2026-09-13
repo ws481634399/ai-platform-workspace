@@ -1,0 +1,82 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0002" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-2" # Story ID（对齐 product/feature-tree.yaml）
+title: "建立 mall-common 与 mall-contracts 公共基础模块" # Story 标题
+summary: "核验型 Change：复用 CHG-0001 已交付的 10 个公共模块结构，显式审计 mall-common-core 依赖方向并复验 9 条 AC" # Story 一句话摘要（可选）
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-13T07:47:13.678Z" # ISO8601，创建时填
+updated-at: "2026-09-13T07:47:13.678Z" # ISO8601，每次变更更新
+
+# 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
+change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
+change-design-ref: "" # 例：requirement-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1
+    name: Maven 工程与版本治理
+  level-3:
+    id: FEAT-1-01
+    name: 工程结构与公共模块
+  story:
+    id: STORY-2
+    name: 建立 mall-common 与 mall-contracts 公共基础模块
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus: []
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-08-31T14:29:53.231Z
+        validator: sdd-prd
+        artifact-hash: sha256:f3cb5ae45fb303f81e023e1e86f5202b16151e5c303008768183cd0c22742f3f
+        issues: []
+      human:
+        status: approved
+        reviewed-at: 2026-08-31T14:29:34.121Z
+        reviewer: user
+        artifact-hash: sha256:f3cb5ae45fb303f81e023e1e86f5202b16151e5c303008768183cd0c22742f3f
+        reason: 用户在 PRD 草稿评审交互中明确选择'批准，进入设计阶段'（核验型定位/AC-1~AC-10 验收标准/AC 复验证据策略均确认）；gate
+          approve 交互确认在沙箱不可用，按 writeHumanGate 同规则人工写入
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-08-31T14:37:05.929Z
+        validator: sdd-design
+        artifact-hash: sha256:88621e9c3c7b2a158c29645c0f5039736cbfa65f2342b9abc45717d16788a5ff
+        issues: []
+      human:
+        status: approved
+        reviewed-at: 2026-08-31T14:36:00.000Z
+        reviewer: user
+        artifact-hash: sha256:88621e9c3c7b2a158c29645c0f5039736cbfa65f2342b9abc45717d16788a5ff
+        reason: 用户在设计草稿评审交互中明确选择'批准，进入任务拆解'（三步核验法/审计规则集 R1~R4 含 test
+          豁免条款/留证映射/风险缓解均确认）；gate approve 交互确认在沙箱不可用， 按 writeHumanGate 同规则人工写入
+    status: accepted

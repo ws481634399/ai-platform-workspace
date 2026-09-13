@@ -1,0 +1,84 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0006" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-1-03-01-01" # Story ID（对齐 product/feature-tree.yaml）
+title: "建立本地基础设施环境" # Story 标题
+summary: "Docker Compose 统一管理 MySQL/Redis/Nacos/MinIO 本地开发基础设施" # Story 一句话摘要（可选）
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-13T07:47:14.133Z" # ISO8601，创建时填
+updated-at: "2026-09-13T07:47:14.133Z" # ISO8601，每次变更更新
+
+# 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
+change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
+change-design-ref: "" # 例：requirement-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-03
+    name: 本地基础设施
+  level-3:
+    id: FEAT-1-03-01
+    name: 环境与运行时
+  story:
+    id: STORY-1-03-01-01
+    name: 建立本地基础设施环境
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus: []
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-07T14:47:04.862Z
+        validator: sdd-prd
+        artifact-hash: sha256:15a2066c16f9b7ef48c2a1479c708f1b7ff21d890f6967cbcfa5b5a082b488c0
+        rules-hash: sha256:0366b12ef4af635fdd7c4e548ca79f118d1d7814bbe7567a0d86980ab3ed5ab6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-07T14:48:03.011Z
+        reviewer: user
+        artifact-hash: sha256:15a2066c16f9b7ef48c2a1479c708f1b7ff21d890f6967cbcfa5b5a082b488c0
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-07T15:16:46.933Z
+        validator: sdd-design
+        artifact-hash: sha256:1b319388cd22e565ca09cb35a229368d8614af5a92a516d9ed06a8809faee60e
+        rules-hash: sha256:bb4c3dce77832e0f95295a09c636f28f253f9f687854c6cc82054101b228b74e
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-07T15:17:23.608Z
+        reviewer: user
+        artifact-hash: sha256:1b319388cd22e565ca09cb35a229368d8614af5a92a516d9ed06a8809faee60e
+        reason: ""
+    status: accepted

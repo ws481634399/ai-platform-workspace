@@ -23,5 +23,5 @@
 
 ## R5：Artifact 写入约束
 
-- 只写 design.md，不得覆写 spec.md / exploration.md / requirement.md
+- 先写 requirement-design.md，再逐 Story 写对应 story-design.md；不得覆写上游产物
 - patchStatus 前 validateTransition(specified, designed)

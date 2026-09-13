@@ -9,7 +9,7 @@
 #          旧 Change 仅在被显式操作（bind-feature-path / du materialize）时升级为 v2。
 # 后续 status/archive 由 Document API 改写（保留注释）。
 
-schema-version: 4 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
+schema-version: 5 # 1 = 旧格式（仅 features 扁平表）；2 = 本格式
 
 id: "CHG-0004" # CHG-XXXX，创建时填
 title: "建立前端基础工程基线（mall-web 与 mall-admin）" # 简短标题
@@ -17,7 +17,7 @@ summary: "一次性建立 mall-web 商城端与 mall-admin 后台端两个 Vue3 
 status: archived # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/tasked/developing/testing/completed/archived
 requirement: "REQ-M0-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-01T15:32:54.586Z" # ISO8601，创建时填
-updated-at: "2026-09-02T14:28:46.723Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T07:47:13.856Z" # ISO8601，每次状态变更更新
 features:
   - MOD-1
   - FEAT-3
@@ -33,24 +33,6 @@ related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时
 # standard — 缺省档，完整 Evidence（不改此字段即 standard）
 # strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
 evidence-tier: standard
-
-# Phase 2.4 新增：feature-path（完整四级链，权威字段；STORY 目录物化是其投影）
-# 约束：CHG ↔ Story = 1:1；树唯一权威源是 product/feature-tree.yaml，此处为"引用不是副本"
-# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-3
-    name: 前端工程基线
-  level-3:
-    id: FEAT-3-01
-    name: 前端应用骨架
-  story:
-    id: STORY-4
-    name: 建立前端基础工程基线（mall-web 与 mall-admin）
-  candidate: false
 
 # Phase 2.4 新增：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
 # repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
@@ -99,23 +81,6 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:2acc7b30158edd16cdaa512aa08596aec4a0ab65827e8d67f4901e4f8e5347d9
         reason: "human-gate: skip (explore)"
-    status: accepted
-  design:
-    path: design.md
-    gates:
-      machine:
-        status: passed
-        checked-at: 2026-09-02T10:56:38.064Z
-        validator: sdd-design
-        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
-        issues: []
-        warnings: []
-      human:
-        status: skipped
-        reviewed-at: 2026-09-02T10:56:38.079Z
-        reviewer: workflow
-        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
-        reason: "human-gate: skip (design)"
     status: accepted
   tasks:
     path: tasks.md
@@ -212,8 +177,8 @@ artifacts:
           段晋升、Product/Glossary 无更新、STORY-4 delivered、索引重建完成）；gate approve
           交互确认在沙箱不可用，按 writeHumanGate 同规则人工写入，hash 与 machine gate 一致"
     status: accepted
-  spec:
-    path: spec.md
+  requirement-spec:
+    path: requirement-spec.md
     gates:
       machine:
         status: passed
@@ -229,13 +194,29 @@ artifacts:
         artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
         reason: ""
     status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T10:56:38.064Z
+        validator: sdd-design
+        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-02T10:56:38.079Z
+        reviewer: workflow
+        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
+        reason: "human-gate: skip (design)"
+    status: accepted
 stories:
   - id: STORY-4
     title: 建立前端基础工程基线（mall-web 与 mall-admin）
-    inline: true
-    status: completed
-    path: ./
     evidence-tier: standard
+    status: completed
+    path: 工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/
     domain:
       id: FEAT-3-01
       name: 前端应用骨架

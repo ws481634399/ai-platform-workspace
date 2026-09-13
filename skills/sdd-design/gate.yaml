@@ -1,6 +1,6 @@
 # OpenSpec SDD Gate 配置（Phase 1.5）
 # 见 phase-1.5-workflow-engine-design.md §11
-# Phase 4.4：需求级产物统一为 requirement-design.md（原 design.md / change-design.md 收敛），DU 划分表 SSOT 唯一在此
+# Phase 4.4：需求级产物统一为 requirement-design.md；DU 划分只存在于各 Story 的 story-design.md
 
 stage: design
 artifact: requirement-design.md
@@ -14,9 +14,6 @@ machine-checks:
   - { id: repositories-match-metadata, skip-tier: [light] } # 单仓轻量档免多仓声明对齐
   - feature-path-bound # Phase 2.4：feature-path 四级完整且 candidate=false（收口项，保持 blocking）
   - story-domain-boundary # Phase 4.3 S2：stories[].domain 领域归属（缺 domain.id 阻断；同域重叠 advisory）；Change 级检查，story mode 跳过
-  - { id: du-defined, skip-tier: [light] } # Phase 4.3 S2：DU 划分表存在 + 每 DU covers ≥1 AC（light 档跳过）
-  - { id: du-dependency, skip-tier: [light] } # Phase 4.3 S2：DU depends on 引用有效 + 无环（light 档跳过）
-  - { id: ac-coverage, skip-tier: [light] } # Phase 4.3 S4：DU covers 的 AC 必须存在于 requirement-spec（追踪链仪式检查，light 档跳过）
 
 required-front-matter: []
 
@@ -35,10 +32,10 @@ human-checks:
   - "## 1. 当前状态"
   - "## 2. 提议方案"
   - "## 2.1 备选方案对比（Alternatives Considered）"
-  - "## 7. 风险"
+  - "## 6. 风险"
 
 # Phase 4.2 三级规格分层（plans/phase-4.2-three-tier-spec-design.md §5/§8）
-# Phase 4.4 起 Change 级与 stage 级同指 requirement-design.md（多 Story 时 change3 模式走本段配置）；
+# Phase 4.4 起 Change 级与 stage 级同指 requirement-design.md；
 # Story 级（workflow 传 storyId）检查各 Story 目录的 story-design.md。
 three-tier:
   change-artifact: requirement-design.md

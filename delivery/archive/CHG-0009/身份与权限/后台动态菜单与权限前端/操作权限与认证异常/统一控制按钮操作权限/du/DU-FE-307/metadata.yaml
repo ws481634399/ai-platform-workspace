@@ -2,19 +2,6 @@ id: DU-FE-307
 repository: repo-2
 parent:
   change: CHG-0009
-feature-path:
-  level-1:
-    id: FEAT-001
-    name: 身份与权限
-  level-2:
-    id: FEAT-001-03
-    name: 后台动态菜单与权限前端
-  level-3:
-    id: FEAT-001-03-03
-    name: 操作权限与认证异常
-  story:
-    id: STORY-001-03-03-01
-    name: 统一控制按钮操作权限
 scope:
   - "DES-001：实现本 Story 在 repo-2 的职责"
 dependencies: []
@@ -42,10 +29,11 @@ result:
 stories:
   - id: STORY-001-03-03-01
     title: 统一控制按钮操作权限
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/
     domain:
       id: FEAT-001-03-03
       name: 操作权限与认证异常
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:31.042Z

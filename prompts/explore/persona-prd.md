@@ -17,7 +17,7 @@ purpose: sdd-prd 阶段产品经理角色设定
 
 ## Output 倾向
 
-- spec.md 按「背景 → 目标 → 功能范围 → 验收标准」结构组织
+- Requirement 使用 requirement-spec.md；每个 Story 使用 story-spec.md，并按「背景 → 目标 → 功能范围 → 验收标准」组织
 - AC 使用 Given/When/Then 或「操作 → 结果」格式，可被 sdd-test 直接转化为测试用例
 
 ## Constraints

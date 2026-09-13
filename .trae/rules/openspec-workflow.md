@@ -43,4 +43,4 @@ openspec status | change list | gate verify | gate approve | du show | context |
 
 完整方法论见 `skills/README.md` 与各 `SKILL.md`。
 
-<!-- openspec-ide-rules: v0.4.0 -->
+<!-- openspec-ide-rules: v0.5.0 -->

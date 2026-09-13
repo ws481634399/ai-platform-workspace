@@ -20,5 +20,5 @@
 ## R4：Artifact 写入约束
 
 - 只写 evidence/ 下的 Artifact
-- 不修改 implementation.md / tasks.md / design.md / spec.md
+- 不修改 implementation.md / test-design.md / task-design.md / task-spec.md / requirement-design.md / story-design.md / requirement-spec.md / story-spec.md
 - patchStatus 前 validateTransition(developing, testing)

@@ -5,7 +5,7 @@
 > 产出: evidence/test-report.md（跨仓聚合）+ 各仓 DU 级测试证据
 > 提示片段: prompts/common/persona-sdd.md · prompts/common/constraints.md · prompts/common/output-format.md · prompts/coding/persona-test.md
 
-Phase 4.3 S3：**测试独立性**——test Agent 只消费 test-design.md + spec/design，
+Phase 4.4：**测试独立性**——test Agent 只消费 test-design.md + requirement/story spec/design + 仓内 task-spec.md，
 **不注入 implementation.md**（防「照实现写断言」）；照 TC 逐条执行并记 EVD。
 evidence-trace 机检：test-report 中引用的 TC-NNN 必须存在于 test-design.md。
 
@@ -14,14 +14,14 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 
 ## 前置条件
 - Change 处于 `developing` 状态
-- STORY 级 tasks.md + test-design.md 已完成（双产物），全部 DU 已物化（du-materialized）
+- STORY 级 test-design.md 与仓内 task-spec.md 已完成，全部 DU 已物化（du-materialized）
 - 各仓 DU 状态已通过 `openspec du sync-status` 回传（develop → test 前置 du-fan-in-testing）
 
 ## 执行步骤
 
 ### 1. 读取前序 Artifact
 
-读取 `delivery/changes/<CHG>/spec.md`：
+读取 `delivery/changes/<CHG>/requirement-spec.md`，并读取当前 Story 的 `story-spec.md`：
 - 验收标准（AC-NNN）→ 测试用例的来源（DU Acceptance 按编号引用）
 
 读取 STORY 级 `test-design.md`（Phase 4.3 S3）：
@@ -29,7 +29,7 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 - TC-NOT-TESTABLE 标注 → 跳过并记录替代验证方式
 - 测试策略（§2）→ 分层执行顺序与数据准备
 
-读取 `delivery/changes/<CHG>/design.md`：
+读取 `delivery/changes/<CHG>/requirement-design.md`，并读取当前 Story 的 `story-design.md`：
 - 接口契约 → 测试入参/出参
 - **跨仓协作契约（§4）** → 集成测试的跨仓场景
 - 业务规则 → 边界 case 设计
@@ -38,14 +38,14 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 > **测试独立性（Phase 4.3 S3）：不读 implementation.md**——test Agent 照 test-design 的 TC 逐条运行，
 > 不参考实际实现代码（防「照实现写断言」）。DU 状态从 metadata 获取（不读 implementation 正文）。
 
-读取 STORY 级 tasks.md 与 DU metadata：
+读取仓内 task-spec.md 与 DU metadata：
 - DU 清单（仓库/状态/baseline/result）→ 确定各仓测试范围
-- DU Acceptance → 每个 DU 的验收测试点
+- task-spec 的 Acceptance / Verification → 每个 DU 的验收测试点
 
 ### 2. 执行测试
 
 **Phase 2.4：进入各仓目录执行**（`implementation/<repo>/`），按仓运行该仓测试；
-跨仓集成场景按 design.md §4 协作契约执行。
+跨仓集成场景按 requirement-design.md §4 协作契约执行。
 
 #### 2.1 测试策略
 
@@ -175,12 +175,12 @@ test-report.md 按仓聚合（每个受影响仓库一个分仓小节）。
 ### 5. 质量自检
 
 产出前自检：
-- [ ] tasks.md 中每个 DU 是否都有测试覆盖（du-fan-in-testing）？
+- [ ] requirement-design/story-design 中每个 DU 是否都有测试覆盖（du-fan-in-testing）？
 - [ ] spec 每条验收标准（AC-NNN）是否有对应测试用例？
-- [ ] design.md §4 跨仓协作契约是否有集成测试覆盖？
+- [ ] requirement-design.md §4 跨仓协作契约是否有集成测试覆盖？
 - [ ] 正常路径和异常路径是否都覆盖？
 - [ ] 边界值是否有测试（空值/最小/最大/超长）？
-- [ ] design.md 高风险项是否有测试覆盖？
+- [ ] requirement-design.md / story-design.md 高风险项是否有测试覆盖？
 - [ ] 各仓测试日志是否完整保存到该仓 DU evidence/，Workspace 聚合是否一致？
 - [ ] DU 状态是否已回传（sync-status）？
 - [ ] 失败项是否有分析和处理建议？
@@ -265,7 +265,7 @@ test('AC-005: 密码强度不足 → 返回 400', async () => {
 
 ## 行为规则
 
-- 不修改 implementation.md / tasks.md / design.md / spec.md
+- 不修改 implementation.md / test-design.md / task-design.md / task-spec.md / requirement-design.md / story-design.md / requirement-spec.md / story-spec.md
 - 每个 DU 至少一个验收测试（对应 DU Acceptance），每条 spec 验收标准（AC-NNN）必须有至少一个测试用例
 - 多仓测试在各仓内执行，Workspace 聚合侧只做 evidence-ref 引用，不复制正文
 - 失败项必须有分析和处理建议

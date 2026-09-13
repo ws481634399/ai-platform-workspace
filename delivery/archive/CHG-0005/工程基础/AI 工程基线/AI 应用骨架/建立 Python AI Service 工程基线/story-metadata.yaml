@@ -1,0 +1,89 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0005" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-1-02-01-01" # Story ID（对齐 product/feature-tree.yaml）
+title: "建立 Python AI Service 工程基线" # Story 标题
+summary: "" # Story 一句话摘要（可选）
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-13T07:47:13.956Z" # ISO8601，创建时填
+updated-at: "2026-09-13T07:47:13.956Z" # ISO8601，每次变更更新
+
+# 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
+change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
+change-design-ref: "" # 例：requirement-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-1-02
+    name: AI 工程基线
+  level-3:
+    id: FEAT-1-02-01
+    name: AI 应用骨架
+  story:
+    id: STORY-1-02-01-01
+    name: 建立 Python AI Service 工程基线
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus: []
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T14:04:28.919Z
+        validator: sdd-prd
+        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:06:00Z
+        artifact-hash: sha256:e5193fd02d1a2f78768d6c57f6f7d39cb53db58c8b2b074d32a96ddecc514737
+        reason: "human-gate: approved by user at 2026-09-04;
+          §1背景（三仓鼎立拼图+M6业务紧迫性+架构红线M0代码落地）、§2用户价值（AI实施者JTBD三场景）、§5验收标准（11条AC
+          SMART化与exploration 12未知问题闭环表）经用户评审均通过"
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-04T14:14:36.561Z
+        validator: sdd-design
+        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewer: user
+        approved-at: 2026-09-04T14:16:00Z
+        artifact-hash: sha256:9a036ae59d25851bf8df3869ab351420fdb1094b412ca471acac7d0eb5f7c0e8
+        reason: "human-gate: approved by user at 2026-09-04;
+          §2提议方案（11子节：目录树9锚点+6边界位+AC-10/AC-11映射+Lifespan 5步+错误码NNN分配+Settings
+          13字段+Logging/TraceId+LLM抽象+Java
+          Client四参数位+Ruff/Pyright集中配置+Pytest三用例）、§4跨仓协作（UnifyResult
+          5字段+X-Trace-Id+写操作confirmation_required）、§6风险（10条含架构红线突破/日志泄露/uv源网络/Y\
+          AML冒号bug）经用户评审均通过"
+    status: accepted

@@ -29,7 +29,7 @@ non-empty-ai-sections:
 human-checks:
   - "## 2. 测试策略"
 
-# Phase 4.2 三级规格分层：3-tier 多 Story 时 test-design.md 逐 Story 生成
+# test-design.md 始终逐 Story 生成
 #（stories/<id>/test-design.md），workflow 传 storyId 激活 story mode；
 # DU 相关检查自动限定该 Story 的四级路径与实现仓实体集合。
 three-tier:

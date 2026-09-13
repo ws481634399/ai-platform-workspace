@@ -1,6 +1,6 @@
 # OpenSpec SDD Gate 配置（Phase 1.5）
 # 见 phase-1.5-workflow-engine-design.md §11
-# Phase 4.4：需求级产物统一为 requirement-spec.md（原 spec.md / change-spec.md 收敛），单/多 Story 一份
+# Phase 4.4：每个 Requirement 固定一份 requirement-spec.md，并拆成 1..N 个普通 Story
 
 stage: prd
 artifact: requirement-spec.md
@@ -36,7 +36,7 @@ human-checks:
   - "## 7. 成功指标"
 
 # Phase 4.2 三级规格分层（plans/phase-4.2-three-tier-spec-design.md §5/§8）
-# Phase 4.4 起 Change 级与 stage 级同指 requirement-spec.md（多 Story 时 change3 模式走本段配置）；
+# Requirement 级与 stage 级同指 requirement-spec.md；
 # Story 级（workflow 传 storyId）检查各 Story 目录的 story-spec.md。
 three-tier:
   change-artifact: requirement-spec.md

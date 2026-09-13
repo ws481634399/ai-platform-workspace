@@ -7,13 +7,13 @@
 
 ## 前置条件
 - Change 处于 `specified` 状态
-- spec.md 已完成
+- requirement-spec.md 已完成；进入 Story 设计时，当前 story-spec.md 已完成
 
 ## 执行步骤
 
 ### 1. 读取前序 Artifact
 
-读取 `delivery/changes/<CHG>/spec.md`。
+Requirement 设计读取 `requirement-spec.md`；每个 Story 的设计同时读取该 Story 的 `story-spec.md`。
 
 #### 1.1 信息提取清单
 
@@ -58,7 +58,7 @@ front-matter（Phase 2.4 多仓）：
 
 元信息 section（占位符替换）：
 - `{{change-id}}`：Change ID
-- `{{spec-source}}`：`<CHG>/spec.md`
+- `{{spec-source}}`：Requirement 设计用 `<CHG>/requirement-spec.md`；Story 设计再补当前 story-spec.md
 - `{{repos-involved}}`：metadata.repositories 数组拼接
 - `{{repo-impact-count}}`：metadata.repositories.length
 - `{{need-migration}}`：初始化 `no`（Agent 分析后改）
@@ -154,7 +154,7 @@ DU 拆分三判据（同时满足）：
 
 DU id 规范：`DU-<REPO别名>-<nnn>`（如 DU-BE-001 / DU-FE-001），别名见 `.sdd/repositories.yaml` 的 alias（缺省取 id 前 2-4 字符大写）。
 
-DU 划分表（写入 requirement-design.md §6 / story-design.md §5）：
+DU 划分表（只写入当前 story-design.md §5）：
 
 ```markdown
 | DU        | 仓库     | 职责（实现哪些 DES）        | covers AC      | depends on |
@@ -163,19 +163,19 @@ DU 划分表（写入 requirement-design.md §6 / story-design.md §5）：
 | DU-FE-001 | frontend | 注册页面（DES-003）         | AC-001, AC-002 | DU-BE-001  |
 ```
 
-- `covers AC` 必须引用 spec.md / story-spec.md 中真实存在的 AC-NNN（每 DU 至少 1 个，du-defined 机检）
+- `covers AC` 必须引用 requirement-spec.md / story-spec.md 中真实存在的 AC-NNN（每 DU 至少 1 个，du-defined 机检）
 - `depends on` 为空写 `—`；有依赖填 DU id，多个用逗号分隔
 - design 验收后用 `openspec du create` 登记 DU 框架（repository/scope/acceptance/dependencies/complexity）；
   tasked 态 sdd-task 补 tasks 路径。DU 登记时机前移到 design 是为了让 task 阶段只做任务分解
 
-**领域化 Story 拆分判据**（多 Story Change，注入 story-splitting 指令）：
+**领域化 Story 拆分判据**（所有 Requirement 均执行 story-splitting）：
 
 1. **领域边界优先** — Story 划在业务能力/子域边界上（feature-tree L3 即领域锚点），一个 Story 只落一个 L3 节点下的能力增量
 2. **独立可验收** — 每个 Story 有独立 AC 集，AC 不得跨 Story 重复
 3. **变更局部性** — 一个 Story 的 DU 尽量收敛在少数仓库（跨仓 Story 需在拆分时声明理由）
 4. **1 需求 → N Story 是常态** — story-splitting 的默认检查不是「能否合成一个」，而是「按领域切分后每个是否独立可交付」
 
-Story 拆分产出 metadata.stories[] 时，每 Story 条目填写 `domain:` 字段（L3 节点 id + 名；inline 单 Story 由 `bind-feature-path` 自动继承 L3）。机检 `story-domain-boundary`：缺 domain.id → fail（blocking）；多 Story 同 domain → 提示合并评估（advisory）。
+Story 拆分产出 metadata.stories[] 时，每 Story 条目填写 `domain:` 字段（L3 节点 id + 名）。机检 `story-domain-boundary`：缺 domain.id → fail（blocking）；多个 Story 同 domain → 提示合并评估（advisory）。
 
 **§7 风险评估：**
 
@@ -208,7 +208,7 @@ Story 拆分产出 metadata.stories[] 时，每 Story 条目填写 `domain:` 字
 - [ ] front-matter `affected-repositories` 是否与 §3 分仓小节一致（task 阶段 du-coverage 机检输入）？
 - [ ] 多仓需求是否给出跨仓协作契约（API/Event/Data + 依赖方向 + 集成边界）？
 - [ ] §6 DU 划分表是否产出？每个 DU 是否覆盖 ≥1 个 AC-NNN（du-defined 机检）？DU depends on 是否无环（du-dependency 机检）？
-- [ ] 多 Story Change 是否按领域边界拆分？每 Story 是否填写 `domain`（story-domain-boundary 机检）？
+- [ ] Requirement 是否按实际需求边界拆成 1..N 个 Story？每个 Story 是否填写 `domain`？
 - [ ] 风险评估是否包含兼容性/性能/安全维度？
 - [ ] 设计是否与 standards/ 已有约定一致？
 - [ ] 是否复用了可复用的现有模块（避免重复造轮子）？
@@ -225,7 +225,8 @@ Story 拆分产出 metadata.stories[] 时，每 Story 条目填写 `domain:` 字
 写入 `delivery/changes/<CHG>/requirement-design.md`。
 
 ## 产出草稿
-- `delivery/changes/<CHG>/requirement-design.md` — 技术设计文档（§6 DU 划分表为 SSOT）
+- `delivery/changes/<CHG>/requirement-design.md` — 需求级总体技术设计
+- 当前 Story 的 `story-design.md` — Story 细化设计与 DU 划分 SSOT
 
 ## 用户确认
 
@@ -279,7 +280,7 @@ openspec change status <CHG> --set designed
 
 ## 行为规则
 
-- 不修改 spec.md / requirement.md / exploration.md
+- 不修改 requirement-spec.md / story-spec.md / requirement.md / exploration.md
 - 不修改 standards/（只能引用）
 - 不直接写 implementation/ 代码
 - 产出 DU 划分表（§6）：DU/仓库/covers AC/depends on；design 验收后用 `openspec du create` 登记 DU 框架（sdd-task 仅消费此表做任务分解，不新造 DU）

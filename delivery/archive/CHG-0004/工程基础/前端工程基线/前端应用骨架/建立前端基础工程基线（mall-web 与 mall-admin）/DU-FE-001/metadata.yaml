@@ -8,19 +8,6 @@ id: DU-FE-001
 repository: "repo-2" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
 parent:
   change: "CHG-0004" # CHG-XXXX
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-3
-    name: 前端工程基线
-  level-3:
-    id: FEAT-3-01
-    name: 前端应用骨架
-  story:
-    id: STORY-4
-    name: 建立前端基础工程基线（mall-web 与 mall-admin）
 scope:
   - "根 README, .gitignore"
   - "镜像源文件模板:
@@ -74,14 +61,14 @@ result:
     - templates/src-skeleton/utils/.gitkeep
     - templates/src-skeleton/views/.gitkeep
   symbols: [] # 规范底座为模板类交付，无代码符号
-schema-version: 4
+schema-version: 5
 stories:
   - id: STORY-4
     title: 建立前端基础工程基线（mall-web 与 mall-admin）
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与 mall-admin）/
     domain:
       id: FEAT-3-01
       name: 前端应用骨架
-updated-at: 2026-09-02T14:40:06.218Z
+updated-at: 2026-09-13T07:47:13.886Z

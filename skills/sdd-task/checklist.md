@@ -1,6 +1,6 @@
 # sdd-task Checklist
 
-sdd-task 执行后，外部 Agent 补充完毕 tasks.md 前，必须检查以下项：
+sdd-task 执行后，外部 Agent 补充完毕 test-design.md 与仓内 task-design.md / task-spec.md 前，必须检查以下项：
 
 ## 1. 元信息
 
@@ -12,7 +12,7 @@ sdd-task 执行后，外部 Agent 补充完毕 tasks.md 前，必须检查以下
 - [ ] affected-repositories 中每个仓库至少 1 个 DU（du-coverage 机检）
 - [ ] 每个 DU 1:1 对应一个仓库（跨仓交付必须拆成多个 DU）
 - [ ] DU ID 符合 `DU-<REPO别名>-NNN` 三位编号且 Workspace 内唯一
-- [ ] design.md 每个变更点（模块/接口/数据模型）都落入某个 DU 的 Scope
+- [ ] requirement-design.md / story-design.md 每个变更点（模块/接口/数据模型）都落入某个 DU 的 Scope
 - [ ] spec 每条验收标准（AC-NNN）都映射到某个 DU 的 Acceptance
 - [ ] 跨仓依赖显式声明（Dependencies + Execution Order / Parallelization）且无循环
 
@@ -22,7 +22,7 @@ sdd-task 执行后，外部 Agent 补充完毕 tasks.md 前，必须检查以下
 - [ ] complexity-trigger 判定合理：business-flow/algorithm/state-transition/orchestration 命中 → Pseudocode 必填（无 placeholder/N/A）
 - [ ] 未命中触发器的 DU 写了 `N/A + 理由`，不留空占位
 - [ ] 每个 DU 都有 Verification 清单（Unit/Integration/API/Migration/Error Case，供 sdd-test 消费）
-- [ ] Sketch/Pseudocode 与 design.md §2 方案 / §4 跨仓契约一致（未引入新接口/新表）
+- [ ] Sketch/Pseudocode 与 requirement-design.md §2 方案 / §4 跨仓契约一致（未引入新接口/新表）
 - [ ] 系统级决策未下沉到 DU（发现则上浮 design 或标记待澄清）
 
 ## 4. 注册与物化
@@ -34,5 +34,5 @@ sdd-task 执行后，外部 Agent 补充完毕 tasks.md 前，必须检查以下
 ## 5. 状态推进
 
 - [ ] status 已到 tasked
-- [ ] 前序 Artifact（design.md / spec.md / exploration.md / requirement.md）未被改动
-- [ ] tasks.md 未出现实现级代码提交（实施由 sdd-dev 在 repo 侧执行）
+- [ ] 前序 Artifact（requirement-design.md / story-design.md / requirement-spec.md / story-spec.md / exploration.md / requirement.md）未被改动
+- [ ] test-design.md、task-design.md、task-spec.md 未出现实现级代码提交（实施由 sdd-dev 在 repo 侧执行）

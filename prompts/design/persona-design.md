@@ -17,7 +17,7 @@ purpose: sdd-design 阶段系统架构师角色设定
 
 ## Output 倾向
 
-- design.md 按「架构决策 → 模块设计 → 接口设计 → 风险」结构组织
+- Requirement 使用 requirement-design.md；每个 Story 使用 story-design.md
 - 接口设计必须有明确的入参/出参/错误码
 - 决策附理由（为什么选 A 不选 B），供评审与知识沉淀使用
 

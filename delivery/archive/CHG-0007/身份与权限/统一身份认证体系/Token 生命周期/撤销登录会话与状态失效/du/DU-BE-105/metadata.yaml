@@ -2,19 +2,6 @@ id: DU-BE-105
 repository: repo-1
 parent:
   change: CHG-0007
-feature-path:
-  level-1:
-    id: FEAT-001
-    name: 身份与权限
-  level-2:
-    id: FEAT-001-01
-    name: 统一身份认证体系
-  level-3:
-    id: FEAT-001-01-02
-    name: Token 生命周期
-  story:
-    id: STORY-001-01-02-03
-    name: 撤销登录会话与状态失效
 scope:
   - "DES-001：实现本 Story 在 repo-1 的职责"
 dependencies: []
@@ -46,10 +33,11 @@ result:
 stories:
   - id: STORY-001-01-02-03
     title: 撤销登录会话与状态失效
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 身份与权限/统一身份认证体系/Token 生命周期/撤销登录会话与状态失效/
     domain:
       id: FEAT-001-01-02
       name: Token 生命周期
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.283Z

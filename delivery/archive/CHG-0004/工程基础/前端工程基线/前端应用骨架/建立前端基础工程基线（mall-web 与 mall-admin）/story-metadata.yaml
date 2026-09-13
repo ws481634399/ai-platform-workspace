@@ -1,0 +1,82 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0004" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-4" # Story ID（对齐 product/feature-tree.yaml）
+title: "建立前端基础工程基线（mall-web 与 mall-admin）" # Story 标题
+summary: "一次性建立 mall-web 商城端与 mall-admin 后台端两个 Vue3 + TS + Vite 前端应用的统一工程基线（M0，P0）" # Story 一句话摘要（可选）
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-13T07:47:13.846Z" # ISO8601，创建时填
+updated-at: "2026-09-13T07:47:13.846Z" # ISO8601，每次变更更新
+
+# 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
+change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
+change-design-ref: "" # 例：requirement-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: MOD-1
+    name: 工程基础
+  level-2:
+    id: FEAT-3
+    name: 前端工程基线
+  level-3:
+    id: FEAT-3-01
+    name: 前端应用骨架
+  story:
+    id: STORY-4
+    name: 建立前端基础工程基线（mall-web 与 mall-admin）
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus: []
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T10:46:14.699Z
+        validator: sdd-prd
+        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-02T10:46:14.420Z
+        reviewer: user
+        artifact-hash: sha256:c95ab3c560bad4e99b8b68f93224d8c1fd419feda8384a85cbc315bdd0fae53d
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-02T10:56:38.064Z
+        validator: sdd-design
+        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-02T10:56:38.079Z
+        reviewer: workflow
+        artifact-hash: sha256:c11b7be05dbc16c51a01c8fc1acb0ea4e13f21efe039ffe9b13af7dae6d19f8a
+        reason: "human-gate: skip (design)"
+    status: accepted

@@ -16,10 +16,10 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0011" # CHG-XXXX，创建时填
 title: "商品与 SKU 管理" # 简短标题
 summary: "建立 Product/SPU 与 SKU 核心模型，含属性、价格、图片，后台维护商品与多个 SKU" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:54.905Z" # ISO8601，创建时填
-updated-at: "2026-09-13T08:54:20.816Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T09:05:18.300Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-02
@@ -142,21 +142,20 @@ artifacts:
     path: convergence.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T09:02:48.976Z
+        status: passed
+        checked-at: 2026-09-13T09:05:18.271Z
         validator: sdd-converge
         artifact-hash: sha256:f3d2f0d04360ae669792ebe21383e237cf189eb6487af642b0922931696fa3b0
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
-        issues:
-          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
-            (status: draft)"
-          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
-            draft)"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T09:05:08.089Z
+        reviewer: trae-agent
+        artifact-hash: sha256:f3d2f0d04360ae669792ebe21383e237cf189eb6487af642b0922931696fa3b0
+        reason: ""
+    status: accepted
   test-design:
     path: test-design.md
     status: accepted

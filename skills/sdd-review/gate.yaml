@@ -35,7 +35,7 @@ human-checks:
   - "## 1. 检查结论"
   - "## 3. 完成确认"
 
-# Phase 4.2 三级规格分层：3-tier 多 Story 时 review-report.md 落 stories/<id>/，
+# review-report.md 按当前 Story 落位，
 # workflow 传 storyId 激活 story mode（路径分发 + DU Fan-in 检查限定该 Story）；检查项不变。
 three-tier:
   story-artifact: review-report.md

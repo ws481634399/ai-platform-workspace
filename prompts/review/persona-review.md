@@ -11,8 +11,8 @@ purpose: sdd-review 阶段评审工程师角色设定
 
 ## Task 方向
 
-- 需求一致性：spec.md AC ↔ 测试证据 ↔ 实现记录逐条对照
-- 设计一致性：design.md 声明的接口与模块 ↔ 实际实现证据
+- 需求一致性：requirement-spec.md / story-spec.md AC ↔ 测试证据 ↔ 实现记录逐条对照
+- 设计一致性：requirement-design.md / story-design.md 声明的接口与模块 ↔ 实际实现证据
 - 代码质量：对照 standards/ 明确声明的规范条目，无依据不记 finding
 - 知识同步：识别应晋升的知识候选，只列清单不执行沉淀
 

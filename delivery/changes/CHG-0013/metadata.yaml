@@ -83,8 +83,10 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: 78ffd23ba8b3d6d1494b28497bd750c44a78f841
+  repo-2:
+    commit: b89af555436c7d33bede013dff4a341b3fc5dc35
 repository-result:
   {}
   # backend: { commit: abc999 }

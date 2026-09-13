@@ -8,19 +8,6 @@ id: DU-WS-003
 repository: "repo-4" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
 parent:
   change: "CHG-0006" # CHG-XXXX
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-1-03
-    name: 本地基础设施
-  level-3:
-    id: FEAT-1-03-01
-    name: 环境与运行时
-  story:
-    id: STORY-1-03-01-01
-    name: 建立本地基础设施环境
 scope:
   - deploy/README.md
   - delivery/CHG-0006/**/DU-WS-003/evidence
@@ -54,10 +41,11 @@ result:
 stories:
   - id: STORY-1-03-01-01
     title: 建立本地基础设施环境
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/
     domain:
       id: FEAT-1-03-01
       name: 环境与运行时
-schema-version: 4
+schema-version: 5
+updated-at: 2026-09-13T07:47:14.246Z

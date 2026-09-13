@@ -443,3 +443,135 @@ upgrades:
     gitRevertFiles: []
     gitNewFiles: []
     rolledBack: null
+  - at: 2026-09-13T07:47:31.175Z
+    from:
+      harness: 0.4.0
+      workspaceTemplate: 0.4.0
+      schema: 0.1.0
+    to:
+      harness: 0.5.0
+      workspaceTemplate: 0.5.0
+    touchedFiles:
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/du/DU-FE-305/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/du/DU-FE-305/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/du/DU-FE-304/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/du/DU-FE-304/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token
+        刷新/du/DU-FE-308/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token
+        刷新/du/DU-FE-308/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token
+        刷新/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/du/DU-FE-309/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/du/DU-FE-309/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/du/DU-FE-307/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/du/DU-FE-307/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-BE-301/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-BE-301/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-FE-301/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-FE-301/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-BE-302/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-BE-302/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-FE-302/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-FE-302/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/du/DU-FE-303/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/du/DU-FE-303/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/story-metadata.yaml
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/spec.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/story-spec.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/design.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/story-design.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/spec.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/story-spec.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/design.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/story-design.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/spec.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/story-spec.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/design.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/story-design.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/spec.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/story-spec.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/design.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/story-design.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/spec.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/story-spec.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/design.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/story-design.md
+      - .sdd\version.yaml
+      - .sdd\workspace.yaml
+    gitRevertFiles:
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/du/DU-FE-305/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/du/DU-FE-305/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/注册安全动态路由/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/du/DU-FE-304/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/du/DU-FE-304/身份与权限/后台动态菜单与权限前端/动态导航与页面访问/渲染动态侧边栏菜单/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token
+        刷新/du/DU-FE-308/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token
+        刷新/du/DU-FE-308/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/串行协调 Token
+        刷新/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/du/DU-FE-309/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/du/DU-FE-309/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一处理认证授权异常/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/du/DU-FE-307/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/du/DU-FE-307/身份与权限/后台动态菜单与权限前端/操作权限与认证异常/统一控制按钮操作权限/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-BE-301/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-BE-301/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-FE-301/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/du/DU-FE-301/身份与权限/后台动态菜单与权限前端/权限状态引导/加载当前管理员身份/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-BE-302/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-BE-302/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-FE-302/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/du/DU-FE-302/身份与权限/后台动态菜单与权限前端/权限状态引导/加载菜单与权限状态/story-metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/du/DU-FE-303/metadata.yaml
+      - delivery/archive/CHG-0009/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/du/DU-FE-303/身份与权限/后台动态菜单与权限前端/权限状态引导/恢复并刷新权限状态/story-metadata.yaml
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/spec.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/design.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/spec.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/design.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/spec.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/design.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/spec.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/design.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/spec.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/design.md
+      - .sdd\version.yaml
+      - .sdd\workspace.yaml
+    gitNewFiles:
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/story-spec.md
+      - delivery/archive/CHG-0002/工程基础/Maven 工程与版本治理/工程结构与公共模块/建立 mall-common 与
+        mall-contracts 公共基础模块/story-design.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/story-spec.md
+      - delivery/archive/CHG-0003/工程基础/微服务工程基线/骨架与基础能力/建立 Java
+        后端微服务工程基线/story-design.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/story-spec.md
+      - delivery/archive/CHG-0004/工程基础/前端工程基线/前端应用骨架/建立前端基础工程基线（mall-web 与
+        mall-admin）/story-design.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/story-spec.md
+      - delivery/archive/CHG-0005/工程基础/AI 工程基线/AI 应用骨架/建立 Python AI Service
+        工程基线/story-design.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/story-spec.md
+      - delivery/archive/CHG-0006/工程基础/本地基础设施/环境与运行时/建立本地基础设施环境/story-design.md
+    rolledBack: null

@@ -8,19 +8,6 @@ id: DU-BE-001
 repository: "repo-1" # 所属仓库 id（对应 .sdd/repositories.yaml，1:1 硬约束）
 parent:
   change: "CHG-0003" # CHG-XXXX
-feature-path:
-  level-1:
-    id: MOD-1
-    name: 工程基础
-  level-2:
-    id: FEAT-2
-    name: 微服务工程基线
-  level-3:
-    id: FEAT-2-01
-    name: 骨架与基础能力
-  story:
-    id: STORY-3
-    name: 建立 Java 后端微服务工程基线
 scope:
   - unify-result
   - errorcode-segments
@@ -70,14 +57,14 @@ result:
     - web/advice/GlobalExceptionHandler.java::GlobalExceptionHandler
     - web/exception/BusinessException.java::BusinessException
     - web/config/WebFoundationAutoConfiguration.java::WebFoundationAutoConfiguration
-schema-version: 4
+schema-version: 5
 stories:
   - id: STORY-3
     title: 建立 Java 后端微服务工程基线
-    inline: true
+    evidence-tier: standard
     status: completed
-    path: ./
+    path: 工程基础/微服务工程基线/骨架与基础能力/建立 Java 后端微服务工程基线/
     domain:
       id: FEAT-2-01
       name: 骨架与基础能力
-updated-at: 2026-09-02T14:40:06.207Z
+updated-at: 2026-09-13T07:47:13.799Z
