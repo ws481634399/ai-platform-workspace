@@ -106,16 +106,33 @@ artifacts:
     path: evidence/test-report.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T10:55:03.453Z
+        status: passed
+        checked-at: 2026-09-13T10:55:52.709Z
         validator: sdd-test
-        artifact-hash: sha256:72d56a9e4e53405592e04c4d26b68f73bfce0bdbf98288c42f77b8d5fa91caf3
+        artifact-hash: sha256:1f73b194bb3d1f7ce21bb05e766c6952f91c8eca11d94241a8b989e935a83c1c
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
-        issues:
-          - "evidence/test-report.md: 引用 TC TC-015 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
-          - "evidence/test-report.md: 引用 TC TC-016 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
-          - "evidence/test-report.md: 引用 TC TC-017 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T10:56:01.389Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1f73b194bb3d1f7ce21bb05e766c6952f91c8eca11d94241a8b989e935a83c1c
+        reason: ""
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T10:56:08.710Z
+        validator: sdd-dev
+        artifact-hash: sha256:9c7126a5a93504dae48d57110c4b1039ea5c47a1d6af4145e8f4c52ca469870e
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues:
+          - "implementation.md: repos-coverage: code-change EV-006 的 commit
+            1420de6 未在 implementation.md 中出现"
+          - "implementation.md: repos-coverage: code-change EV-007 的 commit
+            8a52622 未在 implementation.md 中出现"
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"

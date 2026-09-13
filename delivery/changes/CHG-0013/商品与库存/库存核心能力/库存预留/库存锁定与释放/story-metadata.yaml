@@ -106,22 +106,33 @@ artifacts:
     path: evidence/test-report.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T10:55:03.425Z
+        status: passed
+        checked-at: 2026-09-13T10:55:53.027Z
         validator: sdd-test
-        artifact-hash: sha256:94928441c3032ec0be0b1446bc53ef9412b65e38c401a43692ca0f6d1949f941
+        artifact-hash: sha256:444624747ffb3ce6f55a25a39e2a817c2b6f55f5e36e075c5af8a6d2bec8f18f
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
-        issues:
-          - "evidence/test-report.md: 引用 TC TC-010 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
-          - "evidence/test-report.md: 引用 TC TC-011 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
-          - "evidence/test-report.md: 引用 TC TC-012 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
-          - "evidence/test-report.md: 引用 TC TC-013 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
-          - "evidence/test-report.md: 引用 TC TC-014 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
-          - "evidence/test-report.md: 引用 TC TC-019 不存在于
-            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T10:56:01.365Z
+        reviewer: trae-agent
+        artifact-hash: sha256:444624747ffb3ce6f55a25a39e2a817c2b6f55f5e36e075c5af8a6d2bec8f18f
+        reason: ""
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T10:56:08.662Z
+        validator: sdd-dev
+        artifact-hash: sha256:8df8fd9c20fa9a8fa1511c99462c71ff3f5b59acea9c14f9de5fbadc938add44
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues:
+          - "implementation.md: repos-coverage: code-change EV-006 的 commit
+            1420de6 未在 implementation.md 中出现"
+          - "implementation.md: repos-coverage: code-change EV-007 的 commit
+            8a52622 未在 implementation.md 中出现"
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"

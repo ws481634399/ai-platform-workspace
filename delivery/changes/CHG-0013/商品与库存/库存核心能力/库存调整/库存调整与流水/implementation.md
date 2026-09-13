@@ -26,6 +26,8 @@
 | e2bff4b | DU-BE-401/402/403/404 | repo-1 | feat(inventory): 库存应用服务与管理端/内部接口 |
 | eacca66 | DU-BE-401/402/403/404 | repo-1 | feat: 库存跨服务支持与权限路由 |
 | b453261 | DU-BE-401/402/403/404 | repo-1 | test(inventory): 库存聚合与预留状态机单元测试 |
+| 1420de6 | — | repo-2 | 开发基线 |
+| 8a52622 | DU-FE-401 | repo-2 | feat(admin): 库存列表与流水前端页面 |
 
 ## 3. 各仓实施引用
 
