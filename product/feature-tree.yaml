@@ -440,5 +440,215 @@ features:
                   ]
               }
           ]
+      },
+    {
+        id: FEAT-002,
+        name: 商品与库存,
+        description: 商品权威数据（Product Context）与库存权威数据（Inventory
+          Context）能力域，支撑分类品牌、SPU/SKU、发布查询与库存核心能力,
+        children:
+          [
+            {
+                id: FEAT-002-01,
+                name: 分类与品牌管理,
+                description: 商品分类树与品牌基础数据的后台维护，含启停与合法性约束（REQ-M2-001）,
+                children:
+                  [
+                    {
+                        id: FEAT-002-01-01,
+                        name: 分类管理,
+                        description: 分类生命周期、层级、启停与排序管理（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-01-01-01,
+                                name: 分类管理,
+                                description: 分类创建/编辑/查询/树查询/启停/排序/父子层级与循环防护,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-002-01-02,
+                        name: 品牌管理,
+                        description: 品牌生命周期、Logo 与排序管理（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-01-02-01,
+                                name: 品牌管理,
+                                description: 品牌创建/编辑/查询/启停/Logo与排序,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-002-02,
+                name: 商品与 SKU 管理,
+                description: Product/SPU 与 SKU 核心模型，含属性、价格、图片及后台维护（REQ-M2-002）,
+                children:
+                  [
+                    {
+                        id: FEAT-002-02-01,
+                        name: 商品主数据,
+                        description: Product/SPU 聚合维护（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-02-01-01,
+                                name: 商品 SPU 管理,
+                                description: Product 聚合：基本信息/分类/品牌/描述/主图/状态生命周期（草稿）,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-002-02-02,
+                        name: SKU 与规格,
+                        description: SKU 规格、编码、价格与图片维护（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-02-02-01,
+                                name: SKU 与规格管理,
+                                description: SKU 实体：规格属性/编码唯一/图片/销售价格合法性与精确金额,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-002-03,
+                name: 商品发布与商城查询,
+                description: 商品上下架、商城列表详情查询、内部查询契约与商品快照（REQ-M2-003）,
+                children:
+                  [
+                    {
+                        id: FEAT-002-03-01,
+                        name: 发布与状态,
+                        description: 商品上架下架与发布校验（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-03-01-01,
+                                name: 商品上下架与发布,
+                                description: 上架业务校验与下架动作，领域事件语义,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-002-03-02,
+                        name: 商城查询,
+                        description: 商城商品列表与详情查询（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-03-02-01,
+                                name: 商城商品列表与详情查询,
+                                description: 商品列表/分类品牌筛选/分页排序/详情含 SKU 与价格,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-002-03-03,
+                        name: 内部契约与快照,
+                        description: 内部查询契约与商品快照语义（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-03-03-01,
+                                name: 内部查询契约与商品快照,
+                                description: 内部 API 契约（productId/skuId/price...）与订单历史快照语义,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-002-04,
+                name: 库存核心能力,
+                description: SKU 库存初始化/查询/调整/锁定/释放/确认扣减，幂等与并发防护，库存流水（REQ-M2-004）,
+                children:
+                  [
+                    {
+                        id: FEAT-002-04-01,
+                        name: 库存基础,
+                        description: 库存初始化与查询（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-04-01-01,
+                                name: 库存初始化与查询,
+                                description: SKU 库存记录建立与单/批查询，不变量 Available>=0,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-002-04-02,
+                        name: 库存调整,
+                        description: 库存调整与流水（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-04-02-01,
+                                name: 库存调整与流水,
+                                description: 调整库存并记录 before/after/原因/操作者/时间流水(INIT/ADJUST),
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-002-04-03,
+                        name: 库存预留,
+                        description: 库存锁定与释放（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-04-03-01,
+                                name: 库存锁定与释放,
+                                description: LOCK/RELEASE 幂等，防超卖，释放不重复加库存,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-002-04-04,
+                        name: 库存确认,
+                        description: 库存确认扣减（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-002-04-04-01,
+                                name: 库存确认扣减,
+                                description: DEDUCT 仅对已锁定库存生效，幂等，库存永不为负,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              }
+          ]
       }
   ]
