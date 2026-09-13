@@ -504,7 +504,7 @@ features:
                                 id: STORY-002-02-01-01,
                                 name: 商品 SPU 管理,
                                 description: Product 聚合：基本信息/分类/品牌/描述/主图/状态生命周期（草稿）,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -519,7 +519,7 @@ features:
                                 id: STORY-002-02-02-01,
                                 name: SKU 与规格管理,
                                 description: SKU 实体：规格属性/编码唯一/图片/销售价格合法性与精确金额,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }
@@ -543,7 +543,7 @@ features:
                                 id: STORY-002-03-01-01,
                                 name: 商品上下架与发布,
                                 description: 上架业务校验与下架动作，领域事件语义,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -558,7 +558,7 @@ features:
                                 id: STORY-002-03-02-01,
                                 name: 商城商品列表与详情查询,
                                 description: 商品列表/分类品牌筛选/分页排序/详情含 SKU 与价格,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -573,7 +573,7 @@ features:
                                 id: STORY-002-03-03-01,
                                 name: 内部查询契约与商品快照,
                                 description: 内部 API 契约（productId/skuId/price...）与订单历史快照语义,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }
