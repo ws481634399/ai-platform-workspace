@@ -1,4 +1,4 @@
-# Test Design（Verification Intent — 验证意图）
+﻿# Test Design（Verification Intent — 验证意图）
 
 > 阶段：sdd-task 产物（STORY 级）
 > 位置：STORY 级 —— `CHG-0013/.../库存调整与流水/test-design.md`
@@ -16,8 +16,8 @@
 
 ## 1. 测试用例
 
-| TC | 验证方式 | verified-by AC | 归属 DU | 备注 |
-| --- | --- | --- | --- | --- |
+| TC | 验证方式 | verified-by AC | 备注 |
+| --- | --- | --- | --- |
 | TC-001 | API 集成测试：POST /{skuId}/adjust 正 delta → total 增加；负 delta → total 减少；流水记录 before/after/delta/reason/operator | AC-008 | DU-BE-402 | 调整 |
 | TC-002 | API 集成测试：负 delta 导致 total<0 → INVALID_ARGUMENT，库存不变 | AC-009 | DU-BE-402 | 防负 |
 | TC-003 | 数据断言：调整后 inventory_log 存在 ADJUST 记录，含 before/after/delta/reason | AC-018 | DU-BE-402 | ADJUST 流水 |

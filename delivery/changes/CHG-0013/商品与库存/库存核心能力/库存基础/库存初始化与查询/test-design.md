@@ -1,4 +1,4 @@
-# Test Design（Verification Intent — 验证意图）
+﻿# Test Design（Verification Intent — 验证意图）
 
 > 阶段：sdd-task 产物（STORY 级）
 > 位置：STORY 级 —— `CHG-0013/.../库存初始化与查询/test-design.md`
@@ -16,8 +16,8 @@
 
 ## 1. 测试用例
 
-| TC | 验证方式 | verified-by AC | 归属 DU | 备注 |
-| --- | --- | --- | --- | --- |
+| TC | 验证方式 | verified-by AC | 备注 |
+| --- | --- | --- | --- |
 | TC-001 | API 集成测试：携带 inventory:stock:init，POST /init 合法 skuId+totalQuantity>=0 → 200，total=初始值、locked=0、available=total | AC-001 | DU-BE-401 | 初始化 |
 | TC-002 | API 集成测试：skuId 不存在（mock SkuClient 返回不存在）→ INVALID_ARGUMENT | AC-002 | DU-BE-401 | SKU 契约 |
 | TC-003 | API 集成测试：同一 skuId 重复初始化 → CONFLICT，无重复落库 | AC-003 | DU-BE-401 | 幂等初始化 |

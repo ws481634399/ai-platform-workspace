@@ -161,7 +161,7 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T11:03:15.526Z
+        checked-at: 2026-09-13T11:07:35.987Z
         validator: sdd-converge
         artifact-hash: sha256:04710ba750353594cb969977dea53d1eeda499599d26c8037f0efd9e32468ef6
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
@@ -180,15 +180,13 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T11:05:28.960Z
+        checked-at: 2026-09-13T11:10:42.059Z
         validator: sdd-task
-        artifact-hash: "sha256:0f61dec1606493a56577fa987fb95f0de93f89fbc0478557f31c5549\
-          cb9eaf2d"
+        artifact-hash: "sha256:18eee4aaede1ef58fc6d51a8f3cc130321d7ea7a19fd0fa8b75c6beb\
+          df7ff6d2"
         rules-hash: "sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42\
           515d3"
         issues:
-          - "test-design.md: 缺少必需 section: ## 1. 测试用例"
-          - "test-design.md: test-design.md 缺少 TC 表（tc-coverage 无法校验）"
           - "test-design.md: Change CHG-0013 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
           - "test-design.md: Change CHG-0013 的 DU 表属于 Story：请指定 storyId，或使用

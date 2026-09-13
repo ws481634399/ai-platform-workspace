@@ -1,4 +1,4 @@
-# Test Design（Verification Intent — 验证意图）
+﻿# Test Design（Verification Intent — 验证意图）
 
 > 阶段：sdd-task 产物（STORY 级）
 > 位置：STORY 级 —— `CHG-0013/.../库存锁定与释放/test-design.md`
@@ -16,8 +16,8 @@
 
 ## 1. 测试用例
 
-| TC | 验证方式 | verified-by AC | 归属 DU | 备注 |
-| --- | --- | --- | --- | --- |
+| TC | 验证方式 | verified-by AC | 备注 |
+| --- | --- | --- | --- |
 | TC-001 | API 集成测试：POST /internal/inventory/lock，available>=quantity → 200，locked+=quantity，reservation 状态 LOCKED | AC-010 | DU-BE-403 | 锁定成功 |
 | TC-002 | API 集成测试：available<quantity → STOCK_INSUFFICIENT，locked 不变 | AC-011 | DU-BE-403 | 防超卖 |
 | TC-003 | API 集成测试：同一 reservationId 重复锁定 → 返回原结果，locked 不重复增加 | AC-012 | DU-BE-403 | 幂等锁定 |
