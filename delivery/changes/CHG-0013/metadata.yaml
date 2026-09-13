@@ -177,23 +177,24 @@ artifacts:
         warnings: []
   test-design:
     path: test-design.md
+    status: accepted
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T11:10:42.059Z
+        status: passed
+        checked-at: 2026-09-13T11:11:12.684Z
         validator: sdd-task
         artifact-hash: "sha256:18eee4aaede1ef58fc6d51a8f3cc130321d7ea7a19fd0fa8b75c6beb\
           df7ff6d2"
         rules-hash: "sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42\
           515d3"
-        issues:
-          - "test-design.md: Change CHG-0013 的 DU 表属于 Story：请指定 storyId，或使用
-            listDesignDuRows 聚合全部 Story"
-          - "test-design.md: Change CHG-0013 的 DU 表属于 Story：请指定 storyId，或使用
-            listDesignDuRows 聚合全部 Story"
+        issues: []
         warnings: []
+      human:
+        status: skipped
+        reviewer: workflow
   implementation:
     path: implementation.md
+    status: accepted
     gates:
       machine:
         status: passed
@@ -213,6 +214,7 @@ artifacts:
         reason: ""
   test-report:
     path: evidence/test-report.md
+    status: accepted
     gates:
       machine:
         status: passed
@@ -232,6 +234,7 @@ artifacts:
         reason: ""
   review-report:
     path: review-report.md
+    status: accepted
     gates:
       machine:
         status: passed
