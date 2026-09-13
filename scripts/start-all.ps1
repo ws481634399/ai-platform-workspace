@@ -1,27 +1,38 @@
-﻿# 一键启动开发环境：基础设施(Docker) → 后端微服务 → 网关 → 前端
+﻿# 一键启动后端开发环境：基础设施(Docker) → 后端微服务 → 网关
+# 前端由开发者自行启动（pnpm dev），本脚本默认不管。
 # 用法（在仓库根目录执行）:
-#   .\scripts\start-all.ps1              # 全部 8 个微服务 + 网关 + 2 个前端
-#   .\scripts\start-all.ps1 -Core        # 最小可用集: identity/product/gateway + 前端
-#   .\scripts\start-all.ps1 -NoFrontend  # 不启动前端
+#   .\scripts\start-all.ps1              # 基础设施 + 全部 8 个微服务 + 网关
+#   .\scripts\start-all.ps1 -Core        # 最小可用集: identity/product/gateway
+#   .\scripts\start-all.ps1 -Frontend    # 顺带启动 2 个前端（mall-admin 5173 / mall-web 5174）
 #   .\scripts\start-all.ps1 -Build       # 启动前先执行 mvn clean package -DskipTests
 # 已在运行的组件自动跳过，可重复执行。
 param(
     [switch]$Core,
-    [switch]$NoFrontend,
+    [switch]$Frontend,
     [switch]$Build
 )
 
 $Root     = Split-Path $PSScriptRoot -Parent
 $Backend  = Join-Path $Root 'implementation\ai-platform-backend'
-$Frontend = Join-Path $Root 'implementation\ai-platform-frontend'
+$FrontendDir = Join-Path $Root 'implementation\ai-platform-frontend'
 $LogDir   = Join-Path $Root 'logs'
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 
 # ---- 环境变量（子进程继承；已设置的系统环境变量优先生效）----
-if (-not $env:MYSQL_PASSWORD) { $env:MYSQL_PASSWORD = '123456' }
+# 须与 implementation/ai-platform-infrastructure/deploy/.env 保持一致
+if (-not $env:MYSQL_USER)         { $env:MYSQL_USER = 'mall_local' }
+if (-not $env:MYSQL_PASSWORD)     { $env:MYSQL_PASSWORD = '123456' }
+if (-not $env:MYSQL_PORT)         { $env:MYSQL_PORT = '13306' }   # 宿主机原生 3306 被占用，Docker MySQL 映射 13306
+$env:NACOS_ENABLED = 'true'
+$env:NACOS_ADDR    = 'localhost:8848'
+$env:FLYWAY_ENABLED = 'true'      # 有 db/migration 的服务首次启动需自动建表
 $beUri = ($Backend -replace '\\', '/')
 $env:JWT_PUBLIC_KEY_LOCATION  = "file:///$beUri/local-keys/jwt-public.pem"
 $env:JWT_PRIVATE_KEY_LOCATION = "file:///$beUri/local-keys/jwt-private.pem"
+# 超级管理员引导（首次启动 mall-identity 自动创建 admin，已存在则跳过）
+$env:ADMIN_BOOTSTRAP_ENABLED  = 'true'
+$env:ADMIN_BOOTSTRAP_USERNAME = 'admin'
+$env:ADMIN_BOOTSTRAP_PASSWORD = 'Admin@123456'
 
 # ---- 服务清单：名称 / 端口 / jar 相对路径 ----
 $targets = @(
@@ -40,10 +51,8 @@ if ($Core) {
 }
 
 function Test-Port([int]$Port) {
-    $c = New-Object System.Net.Sockets.TcpClient
-    try { return $c.ConnectAsync('127.0.0.1', $Port).Wait(300) -and $c.Connected }
-    catch { return $false }
-    finally { $c.Dispose() }
+    # 查系统 TCP 监听表，覆盖 IPv4/IPv6 任意监听地址（比主动连接探测可靠）
+    return [bool](Get-NetTCPConnection -State Listen -LocalPort $Port -ErrorAction SilentlyContinue)
 }
 
 function Wait-Port([int]$Port, [int]$Seconds = 60) {
@@ -56,14 +65,15 @@ function Wait-Port([int]$Port, [int]$Seconds = 60) {
 }
 
 # ================ [1/4] 基础设施 ================
-Write-Host '==> [1/4] 基础设施 (Docker: MySQL 3306 / Redis 6379)'
-$Infra = Join-Path $Root 'implementation\ai-platform-infrastructure\deploy\docker-compose.infra.yml'
-if ((Test-Port 3306) -and (Test-Port 6379)) {
+Write-Host '==> [1/4] 基础设施 (Docker: MySQL 13306 / Redis 6379 / Nacos 8848 / MinIO 9000)'
+$Infra    = Join-Path $Root 'implementation\ai-platform-infrastructure\deploy\docker-compose.infra.yml'
+$InfraEnv = Join-Path $Root 'implementation\ai-platform-infrastructure\deploy\.env'
+if ((Test-Port 13306) -and (Test-Port 6379)) {
     Write-Host '    已在运行，跳过'
 } else {
-    docker compose -f $Infra up -d 2>&1 | ForEach-Object { Write-Host "    $_" }
+    docker compose --env-file $InfraEnv -f $Infra up -d 2>&1 | ForEach-Object { Write-Host "    $_" }
 }
-foreach ($p in 3306, 6379) {
+foreach ($p in 13306, 6379) {
     if (Wait-Port $p 60) { Write-Host "    端口 $p 就绪" }
     else { Write-Warning "    端口 $p 未就绪，后端服务可能启动失败" }
 }
@@ -104,9 +114,9 @@ if ($started.Count -gt 0) {
     }
 }
 
-# ================ [4/4] 前端 (Vite) ================
+# ================ [4/4] 前端 (Vite，默认跳过) ================
 $frontends = @()
-if (-not $NoFrontend) {
+if ($Frontend) {
     Write-Host '==> [4/4] 前端 (Vite)'
     $frontends = @(
         @{ Name = 'mall-admin'; Port = 5173 },
@@ -114,7 +124,7 @@ if (-not $NoFrontend) {
     )
     foreach ($f in $frontends) {
         if (Test-Port $f.Port) { Write-Host "    $($f.Name): 已在运行 (:$( $f.Port ))，跳过"; continue }
-        $dir = Join-Path $Frontend $f.Name
+        $dir = Join-Path $FrontendDir $f.Name
         $out = Join-Path $LogDir "$($f.Name).log"
         $err = Join-Path $LogDir "$($f.Name).err.log"
         try {
@@ -127,6 +137,8 @@ if (-not $NoFrontend) {
         }
     }
     Start-Sleep -Seconds 5
+} else {
+    Write-Host '==> [4/4] 前端：跳过（自行在 mall-admin / mall-web 目录执行 pnpm dev）'
 }
 
 # ================ 汇总 ================
@@ -145,5 +157,8 @@ foreach ($f in $frontends) {
     Write-Host ("  {0,-14} :{1,-6} {2}" -f $f.Name, $f.Port, $status) -ForegroundColor $color
 }
 Write-Host ''
-Write-Host "管理后台: http://localhost:5173   商城端: http://localhost:5174"
+if ($Frontend) {
+    Write-Host "管理后台: http://localhost:5173   商城端: http://localhost:5174"
+}
+Write-Host "网关入口: http://localhost:8080"
 Write-Host "运行日志: $LogDir"
