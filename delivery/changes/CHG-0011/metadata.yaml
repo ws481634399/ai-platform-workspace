@@ -16,17 +16,15 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0011" # CHG-XXXX，创建时填
 title: "商品与 SKU 管理" # 简短标题
 summary: "建立 Product/SPU 与 SKU 核心模型，含属性、价格、图片，后台维护商品与多个 SKU" # 一句话摘要（可选）
-status: exploring # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:54.905Z" # ISO8601，创建时填
-updated-at: "2026-09-13T03:31:56.810Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T07:51:04.901Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-02
   - FEAT-002-02-01
   - STORY-002-02-01-01
-  - FEAT-002-02-02
-  - STORY-002-02-02-01
 repositories:
   # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
   # - backend
@@ -67,8 +65,10 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: 23a1dfb7d1c86138f40de5cc6a173a50bff09953
+  repo-2:
+    commit: 6feacef8176a0e2bce912af86c240dbc7705b620
 repository-result:
   {}
   # backend: { commit: abc999 }
@@ -100,3 +100,53 @@ artifacts:
         artifact-hash: sha256:3284d86ecec655fe8addf3998b612caa62583e08e8c118c5084416ce53a18758
         reason: "human-gate: skip (explore)"
     status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T07:43:19.251Z
+        validator: sdd-prd
+        artifact-hash: sha256:bb87a7c7de43d3dd91593b0eb00476b1acdab113c93915e63fe2ccf30c5f98f0
+        rules-hash: sha256:3723b7d1a3e0274193ffda146a04bb046dbc5122fd7f12b4971472b7705034de
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T07:43:19.221Z
+        reviewer: trae-agent
+        artifact-hash: sha256:bb87a7c7de43d3dd91593b0eb00476b1acdab113c93915e63fe2ccf30c5f98f0
+        reason: ""
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T07:44:34.285Z
+        validator: sdd-design
+        artifact-hash: sha256:5fbdd917e1b61ad77cbcb8d82757e9301b0e03c95073b8ec443d8f562256526d
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-13T07:44:34.298Z
+        reviewer: workflow
+        artifact-hash: sha256:5fbdd917e1b61ad77cbcb8d82757e9301b0e03c95073b8ec443d8f562256526d
+        reason: "human-gate: skip (design)"
+    status: accepted
+feature-path:
+  level-1:
+    id: FEAT-002
+    name: 商品与库存
+  level-2:
+    id: FEAT-002-02
+    name: 商品与 SKU 管理
+  level-3:
+    id: FEAT-002-02-01
+    name: 商品主数据
+  story:
+    id: STORY-002-02-01-01
+    name: 商品 SPU 管理
+  candidate: false
