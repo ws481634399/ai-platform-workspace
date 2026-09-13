@@ -13,10 +13,10 @@ change-id: "CHG-0013" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-002-04-03-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "库存锁定与释放" # Story 标题
 summary: "" # Story 一句话摘要（可选）
-status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-13T03:31:56.915Z" # ISO8601，创建时填
-updated-at: "2026-09-13T10:17:58.177Z" # ISO8601，每次变更更新
+updated-at: "2026-09-13T10:58:01.242Z" # ISO8601，每次变更更新
 
 # 交叉引用（Gate cross-reference blocking 检查：必须指向 change-spec.md / change-design.md 具体章节）
 change-spec-ref: "" # 例：change-spec.md#32-story-1-功能范围
@@ -107,32 +107,54 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-13T10:55:53.027Z
+        checked-at: 2026-09-13T10:58:00.914Z
         validator: sdd-test
         artifact-hash: sha256:444624747ffb3ce6f55a25a39e2a817c2b6f55f5e36e075c5af8a6d2bec8f18f
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
         issues: []
         warnings: []
       human:
-        status: approved
-        reviewed-at: 2026-09-13T10:56:01.365Z
-        reviewer: trae-agent
+        status: skipped
+        reviewed-at: 2026-09-13T10:58:00.929Z
+        reviewer: workflow
         artifact-hash: sha256:444624747ffb3ce6f55a25a39e2a817c2b6f55f5e36e075c5af8a6d2bec8f18f
-        reason: ""
+        reason: "human-gate: skip (test @ story STORY-002-04-03-01)"
+    status: accepted
   implementation:
     path: implementation.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T10:56:08.662Z
+        status: passed
+        checked-at: 2026-09-13T10:57:38.404Z
         validator: sdd-dev
-        artifact-hash: sha256:8df8fd9c20fa9a8fa1511c99462c71ff3f5b59acea9c14f9de5fbadc938add44
+        artifact-hash: sha256:494282c41e7ed8035cbae2ae43088dd95ec152475cf56d4f3b1a390214ab4fb3
         rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
-        issues:
-          - "implementation.md: repos-coverage: code-change EV-006 的 commit
-            1420de6 未在 implementation.md 中出现"
-          - "implementation.md: repos-coverage: code-change EV-007 的 commit
-            8a52622 未在 implementation.md 中出现"
+        issues: []
         warnings:
           - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
             至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-13T10:57:38.419Z
+        reviewer: workflow
+        artifact-hash: sha256:494282c41e7ed8035cbae2ae43088dd95ec152475cf56d4f3b1a390214ab4fb3
+        reason: "human-gate: skip (dev @ story STORY-002-04-03-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T10:58:01.227Z
+        validator: sdd-review
+        artifact-hash: sha256:24c072f713a20c97bd1ae77916f46fb8c303b059c8e86c0e352a779235360cf2
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-13T10:58:01.239Z
+        reviewer: workflow
+        artifact-hash: sha256:24c072f713a20c97bd1ae77916f46fb8c303b059c8e86c0e352a779235360cf2
+        reason: "human-gate: skip (review @ story STORY-002-04-03-01)"
+    status: accepted
