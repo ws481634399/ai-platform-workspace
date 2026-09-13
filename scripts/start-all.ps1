@@ -23,6 +23,7 @@ New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 if (-not $env:MYSQL_USER)         { $env:MYSQL_USER = 'mall_local' }
 if (-not $env:MYSQL_PASSWORD)     { $env:MYSQL_PASSWORD = '123456' }
 if (-not $env:MYSQL_PORT)         { $env:MYSQL_PORT = '13306' }   # 宿主机原生 3306 被占用，Docker MySQL 映射 13306
+if (-not $env:REDIS_PASSWORD)     { $env:REDIS_PASSWORD = '123456' } # 授权快照共享 Redis（deploy/.env 同值）
 $env:NACOS_ENABLED = 'true'
 $env:NACOS_ADDR    = 'localhost:8848'
 $env:FLYWAY_ENABLED = 'true'      # 有 db/migration 的服务首次启动需自动建表
@@ -32,7 +33,7 @@ $env:JWT_PRIVATE_KEY_LOCATION = "file:///$beUri/local-keys/jwt-private.pem"
 # 超级管理员引导（首次启动 mall-identity 自动创建 admin，已存在则跳过）
 $env:ADMIN_BOOTSTRAP_ENABLED  = 'true'
 $env:ADMIN_BOOTSTRAP_USERNAME = 'admin'
-$env:ADMIN_BOOTSTRAP_PASSWORD = 'Admin@123456'
+$env:ADMIN_BOOTSTRAP_PASSWORD = 'Admin@123456'  # 引导校验要求 >=12 位；admin 已存在时引导跳过，此值仅为通过启动校验
 
 # ---- 服务清单：名称 / 端口 / jar 相对路径 ----
 $targets = @(
