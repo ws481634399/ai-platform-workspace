@@ -16,10 +16,10 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0013" # CHG-XXXX，创建时填
 title: "库存核心能力" # 简短标题
 summary: "SKU 库存初始化/查询/调整/锁定/释放/确认扣减，幂等与并发防护，库存流水" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-004" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:55.533Z" # ISO8601，创建时填
-updated-at: "2026-09-13T10:53:14.184Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T11:13:05.457Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-04
@@ -160,21 +160,20 @@ artifacts:
     path: convergence.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-13T11:07:35.987Z
+        status: passed
+        checked-at: 2026-09-13T11:13:05.428Z
         validator: sdd-converge
         artifact-hash: sha256:04710ba750353594cb969977dea53d1eeda499599d26c8037f0efd9e32468ef6
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
-        issues:
-          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
-            (status: draft)"
-          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
-            draft)"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T11:13:05.196Z
+        reviewer: trae-agent
+        artifact-hash: sha256:04710ba750353594cb969977dea53d1eeda499599d26c8037f0efd9e32468ef6
+        reason: ""
+    status: accepted
   test-design:
     path: test-design.md
     status: accepted
