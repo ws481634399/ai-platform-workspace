@@ -80,9 +80,9 @@ repository-baseline:
     commit: d7f903428953b53109addee82f16e88c3a38042b
 repository-result:
   repo-1:
-    commit: c93d113
+    commit: c93d113aad1d80d80434b105e5a3db2f50c73753
   repo-2:
-    commit: 1420de6
+    commit: 1420de63689800c3754d65eb42f57a52cc8ceed9
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -165,15 +165,15 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T10:02:28.031Z
+        checked-at: 2026-09-13T10:02:48.236Z
         validator: sdd-converge
         artifact-hash: sha256:e5018b8ee5766bfb82d57eb9805dade9aea845ffb6987674c313f034b00af497
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
         issues:
-          - "convergence.md: Submodule Pointer 未对齐: repo-1 recorded=c6baa1a
+          - "convergence.md: Submodule Pointer 未对齐: repo-1 recorded=c93d113
             actual=c93d113aad1d80d80434b105e5a3db2f50c73753（先执行 openspec du
             sync-status）"
-          - "convergence.md: Submodule Pointer 未对齐: repo-2 recorded=2af5f93
+          - "convergence.md: Submodule Pointer 未对齐: repo-2 recorded=1420de6
             actual=1420de63689800c3754d65eb42f57a52cc8ceed9（先执行 openspec du
             sync-status）"
         warnings: []
