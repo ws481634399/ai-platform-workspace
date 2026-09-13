@@ -22,10 +22,10 @@
 
 | Commit | DU | 仓库 | 说明 |
 | --- | --- | --- | --- |
-| 7cba45e | DU-BE-304 | repo-1 | 开发基线（CHG-0010 品牌管理） |
+| 7cba45e | DU-BE-304 | repo-1 | 开发基线（非本 DU 改动） |
 | 23a1dfb | DU-BE-304 | repo-1 | feat(product): 商品 SPU 与 SKU 管理后端 |
 | c65e75b | DU-BE-304 | repo-1 | docs(sdd): CHG-0011 DU-BE-304/305 任务产物 |
-| 6feacef | DU-FE-303 | repo-2 | 开发基线（CHG-0010 品牌前端） |
+| 6feacef | DU-FE-303 | repo-2 | 开发基线（非本 DU 改动） |
 | f14ead4 | DU-FE-303 | repo-2 | feat(product): 商品 SPU 与 SKU 管理前端 |
 
 ## 3. 各仓实施引用

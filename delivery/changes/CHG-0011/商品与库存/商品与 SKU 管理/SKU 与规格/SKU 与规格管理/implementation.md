@@ -13,19 +13,21 @@
 
 ## 1. Delivery Unit 状态总览
 
-| DU | 仓库 | 状态 | Baseline | Result |
-| --- | --- | --- | --- | --- |
-| DU-BE-305 | repo-1（ai-platform-backend） | completed | 7cba45e | 23a1dfb |
+| DU        | 仓库                          | 状态      | Baseline | Result  |
+| --------- | ----------------------------- | --------- | -------- | ------- |
+| DU-BE-305 | repo-1（ai-platform-backend） | completed | 7cba45e  | 23a1dfb |
 
 > 跨 Story 依赖：DU-BE-305 依赖 STORY-002-02-01-01 的 DU-BE-304（Product 聚合根与仓储），该依赖在 requirement-design §6 声明，不在本 Story DU 表中引用。
 
 ## 2. Commit 记录
 
-| Commit | DU | 仓库 | 说明 |
-| --- | --- | --- | --- |
-| 7cba45e | DU-BE-305 | repo-1 | 开发基线（CHG-0010 品牌管理） |
-| 23a1dfb | DU-BE-305 | repo-1 | feat(product): 商品 SPU 与 SKU 管理后端 |
-| c65e75b | DU-BE-305 | repo-1 | docs(sdd): CHG-0011 DU-BE-304/305 任务产物 |
+| Commit  | DU        | 仓库   | 说明                                                       |
+| ------- | --------- | ------ | ---------------------------------------------------------- |
+| 7cba45e | DU-BE-305 | repo-1 | 开发基线（非本 DU 改动）                                   |
+| 23a1dfb | DU-BE-305 | repo-1 | feat(product): 商品 SPU 与 SKU 管理后端                    |
+| c65e75b | DU-BE-305 | repo-1 | docs(sdd): CHG-0011 DU-BE-304/305 任务产物                 |
+| 6feacef | DU-FE-303 | repo-2 | 开发基线（非本 Story 改动）                                |
+| f14ead4 | DU-FE-303 | repo-2 | feat(product): 商品 SPU 与 SKU 管理前端（非本 Story 改动） |
 
 ## 3. 各仓实施引用
 

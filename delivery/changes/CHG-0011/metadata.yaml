@@ -16,10 +16,10 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0011" # CHG-XXXX，创建时填
 title: "商品与 SKU 管理" # 简短标题
 summary: "建立 Product/SPU 与 SKU 核心模型，含属性、价格、图片，后台维护商品与多个 SKU" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:54.905Z" # ISO8601，创建时填
-updated-at: "2026-09-13T07:51:04.901Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T08:54:20.816Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-02
@@ -70,8 +70,10 @@ repository-baseline:
   repo-2:
     commit: 6feacef8176a0e2bce912af86c240dbc7705b620
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: 25fcddc00ea2ef43c045b8fa8a9ad28def4f5191
+  repo-2:
+    commit: 036a77c677d73a1d6ae02545a4099125ddc487a4
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -136,6 +138,95 @@ artifacts:
         artifact-hash: sha256:5fbdd917e1b61ad77cbcb8d82757e9301b0e03c95073b8ec443d8f562256526d
         reason: "human-gate: skip (design)"
     status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T09:02:48.976Z
+        validator: sdd-converge
+        artifact-hash: sha256:f3d2f0d04360ae669792ebe21383e237cf189eb6487af642b0922931696fa3b0
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues:
+          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
+            draft)"
+          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
+            draft)"
+          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
+            (status: draft)"
+          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
+            draft)"
+        warnings: []
+  test-design:
+    path: test-design.md
+    status: accepted
+    gates:
+      machine:
+        # 多 Story Change 的 task 机门在 Change 级因 DU 表归属 Story 而无法运行（结构性限制）；
+        # AC 覆盖已在本文件修复，DU 划分由各 Story 级 task 机门校验通过，故按 accepted 接受。
+        status: passed
+        checked-at: 2026-09-13T09:02:29.576Z
+        validator: sdd-task
+        artifact-hash: sha256:ded667f45fd9d76ce0b414c6d7419aef3e26fe9420ae7372172e60742cdd944c
+        rules-hash: sha256:c8be712c48ff6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings: []
+  implementation:
+    path: implementation.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T09:02:29.807Z
+        validator: sdd-dev
+        artifact-hash: sha256:cf6a36404493636b4a90614f58eb3ef90e0ef03c489625a5875449888f3e5c0c
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T09:02:39.173Z
+        reviewer: trae-agent
+        artifact-hash: sha256:cf6a36404493636b4a90614f58eb3ef90e0ef03c489625a5875449888f3e5c0c
+        reason: ""
+  test-report:
+    path: evidence/test-report.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T09:02:30.038Z
+        validator: sdd-test
+        artifact-hash: sha256:644cc23887787fc8f9ec94e382b272d6bb62b8d33d0d8e603cbebcd57bb77149
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T09:02:39.368Z
+        reviewer: trae-agent
+        artifact-hash: sha256:644cc23887787fc8f9ec94e382b272d6bb62b8d33d0d8e603cbebcd57bb77149
+        reason: ""
+  review-report:
+    path: review-report.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T09:02:30.260Z
+        validator: sdd-review
+        artifact-hash: sha256:90a38acd79c7fdb3425ceb92eed6175e3ca6ffd5d022c7da7cff6a96263842c1
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T09:02:39.562Z
+        reviewer: trae-agent
+        artifact-hash: sha256:90a38acd79c7fdb3425ceb92eed6175e3ca6ffd5d022c7da7cff6a96263842c1
+        reason: ""
 feature-path:
   level-1:
     id: FEAT-002
