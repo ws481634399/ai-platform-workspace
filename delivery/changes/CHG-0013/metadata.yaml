@@ -16,19 +16,13 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0013" # CHG-XXXX，创建时填
 title: "库存核心能力" # 简短标题
 summary: "SKU 库存初始化/查询/调整/锁定/释放/确认扣减，幂等与并发防护，库存流水" # 一句话摘要（可选）
-status: exploring # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-004" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:55.533Z" # ISO8601，创建时填
-updated-at: "2026-09-13T03:31:56.932Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T10:17:58.380Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-04
-  - FEAT-002-04-01
-  - STORY-002-04-01-01
-  - FEAT-002-04-02
-  - STORY-002-04-02-01
-  - FEAT-002-04-03
-  - STORY-002-04-03-01
   - FEAT-002-04-04
   - STORY-002-04-04-01
 repositories:
@@ -122,3 +116,53 @@ artifacts:
         artifact-hash: sha256:2386657aefbe9472697223da4c132689d8175027fb00ff1b8f5fa2e62544534d
         reason: "human-gate: skip (explore)"
     status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T10:09:10.313Z
+        validator: sdd-prd
+        artifact-hash: sha256:8401f36e7b6de7bba84d730c0e9216ef32501951be5ac4674d92b80d2fbb0c31
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T10:09:10.275Z
+        reviewer: trae-agent
+        artifact-hash: sha256:8401f36e7b6de7bba84d730c0e9216ef32501951be5ac4674d92b80d2fbb0c31
+        reason: ""
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T10:10:30.392Z
+        validator: sdd-design
+        artifact-hash: sha256:1db4c4614171a763601e3f62f1034932b873689ee4d7c134bffcb3bc009fbd52
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-13T10:10:30.411Z
+        reviewer: workflow
+        artifact-hash: sha256:1db4c4614171a763601e3f62f1034932b873689ee4d7c134bffcb3bc009fbd52
+        reason: "human-gate: skip (design)"
+    status: accepted
+feature-path:
+  level-1:
+    id: FEAT-002
+    name: 商品与库存
+  level-2:
+    id: FEAT-002-04
+    name: 库存核心能力
+  level-3:
+    id: FEAT-002-04-04
+    name: 库存确认
+  story:
+    id: STORY-002-04-04-01
+    name: 库存确认扣减
+  candidate: false
