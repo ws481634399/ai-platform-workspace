@@ -80,9 +80,9 @@ repository-baseline:
     commit: d7f903428953b53109addee82f16e88c3a38042b
 repository-result:
   repo-1:
-    commit: c6baa1a
+    commit: c93d113
   repo-2:
-    commit: 2af5f93
+    commit: 1420de6
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -165,21 +165,17 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T10:00:50.385Z
+        checked-at: 2026-09-13T10:02:28.031Z
         validator: sdd-converge
         artifact-hash: sha256:e5018b8ee5766bfb82d57eb9805dade9aea845ffb6987674c313f034b00af497
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
         issues:
-          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
-            (status: draft)"
-          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
-            draft)"
-          - "convergence.md: 存在 DU 但 metadata.repository-result 为空（DU completed
-            时应回填 result commit）"
+          - "convergence.md: Submodule Pointer 未对齐: repo-1 recorded=c6baa1a
+            actual=c93d113aad1d80d80434b105e5a3db2f50c73753（先执行 openspec du
+            sync-status）"
+          - "convergence.md: Submodule Pointer 未对齐: repo-2 recorded=2af5f93
+            actual=1420de63689800c3754d65eb42f57a52cc8ceed9（先执行 openspec du
+            sync-status）"
         warnings: []
   test-report:
     path: evidence/test-report.md
