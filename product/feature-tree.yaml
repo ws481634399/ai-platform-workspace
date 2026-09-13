@@ -465,7 +465,7 @@ features:
                                 id: STORY-002-01-01-01,
                                 name: 分类管理,
                                 description: 分类创建/编辑/查询/树查询/启停/排序/父子层级与循环防护,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -480,7 +480,7 @@ features:
                                 id: STORY-002-01-02-01,
                                 name: 品牌管理,
                                 description: 品牌创建/编辑/查询/启停/Logo与排序,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }

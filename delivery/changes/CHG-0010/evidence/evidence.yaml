@@ -57,4 +57,192 @@
 
 version: 0.1 # schema 版本
 change-id: "CHG-0010" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+items:
+  # ---- DU-BE-302 分类后端 + 公共前置（repo-1） ----
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 57b6534
+    task: DU-BE-302
+    reason: DU-BE-302 开发基线（M2 分支前置公共提交，非本 DU 改动）
+    files: []
+    recorded-at: "2026-09-13T05:30:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    commit: ca7eb95
+    task: DU-BE-302
+    reason: 分类聚合与管理端五端点、安全链/权限菜单迁移/网关路由公共前置
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/category/Category.java
+        symbols: [Category, CategoryRules]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/admin/CategoryAdminController.java
+        symbols: [CategoryAdminController]
+      - path: mall-services/mall-product/src/main/resources/db/migration/V1__create_product_category_and_brand.sql
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V3__add_product_category_brand_permissions.sql
+    recorded-at: "2026-09-13T06:40:00+08:00"
+  # ---- DU-FE-301 分类页（repo-2） ----
+  - id: EV-003
+    type: code-change
+    repo: repo-2
+    commit: df16f31
+    task: DU-FE-301
+    reason: DU-FE-301 开发基线（M2 分支前置提交，非本 DU 改动）
+    files: []
+    recorded-at: "2026-09-13T06:50:00+08:00"
+  - id: EV-004
+    type: code-change
+    repo: repo-2
+    commit: c2f2c9c
+    task: DU-FE-301
+    reason: 分类树维护页与 category API 客户端
+    files:
+      - path: mall-admin/src/api/product/category.ts
+        symbols: [categoryApi]
+      - path: mall-admin/src/views/product/CategoryTreeView.vue
+        symbols: [CategoryTreeView]
+      - path: mall-admin/src/router/component-registry.ts
+    recorded-at: "2026-09-13T08:30:00+08:00"
+  - id: EV-005
+    type: code-change
+    repo: repo-2
+    commit: a4e3d06
+    task: DU-FE-301
+    reason: DU-FE-301 证据与元数据
+    files:
+      - path: delivery/CHG-0010/商品与库存/分类与品牌管理/分类管理/分类管理/DU-FE-301/implementation.md
+    recorded-at: "2026-09-13T08:35:00+08:00"
+  # ---- DU-BE-303 品牌后端（repo-1） ----
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    commit: db43b7b
+    task: DU-BE-303
+    reason: DU-BE-303 开发基线（DU-BE-302 完成点，非本 DU 改动）
+    files: []
+    recorded-at: "2026-09-13T12:00:00+08:00"
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    commit: 370ce59
+    task: DU-BE-303
+    reason: 品牌聚合、五端点管理 API 与分页插件，LOWER 跨库重名预判 + 唯一索引并发兜底
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/brand/Brand.java
+        symbols: [Brand]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/brand/BrandApplicationService.java
+        symbols: [BrandApplicationService]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/admin/BrandAdminController.java
+        symbols: [BrandAdminController]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/config/MybatisPlusConfig.java
+    recorded-at: "2026-09-13T14:50:00+08:00"
+  - id: EV-008
+    type: code-change
+    repo: repo-1
+    commit: 7cba45e
+    task: DU-BE-303
+    reason: DU-BE-303 证据与元数据
+    files:
+      - path: delivery/CHG-0010/商品与库存/分类与品牌管理/品牌管理/品牌管理/DU-BE-303/implementation.md
+    recorded-at: "2026-09-13T14:52:00+08:00"
+  # ---- DU-FE-302 品牌页（repo-2） ----
+  - id: EV-009
+    type: code-change
+    repo: repo-2
+    commit: 0789e6b
+    task: DU-FE-302
+    reason: 品牌维护页（分页/筛选/Logo 缩略/表单校验/启停）与 brand API 客户端
+    files:
+      - path: mall-admin/src/api/product/brand.ts
+        symbols: [brandApi]
+      - path: mall-admin/src/views/product/BrandListView.vue
+        symbols: [BrandListView]
+      - path: mall-admin/src/router/component-registry.ts
+    recorded-at: "2026-09-13T14:58:00+08:00"
+  - id: EV-010
+    type: code-change
+    repo: repo-2
+    commit: 6feacef
+    task: DU-FE-302
+    reason: DU-FE-302 证据与元数据
+    files:
+      - path: delivery/CHG-0010/商品与库存/分类与品牌管理/品牌管理/品牌管理/DU-FE-302/implementation.md
+    recorded-at: "2026-09-13T15:00:00+08:00"
+  # ---- 仓侧证据引用（Phase 2.4 多仓聚合，正文不复制） ----
+  - id: EV-011
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-302
+    path: implementation/ai-platform-backend/delivery/CHG-0010/商品与库存/分类与品牌管理/分类管理/分类管理/DU-BE-302/evidence
+    summary: 分类后端 22 测试全绿 + 红绿灯/变更集
+    recorded-at: "2026-09-13T06:42:00+08:00"
+  - id: EV-012
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-301
+    path: implementation/ai-platform-frontend/delivery/CHG-0010/商品与库存/分类与品牌管理/分类管理/分类管理/DU-FE-301/evidence
+    summary: 分类页 vitest 25、type-check/lint 0 error、build 成功
+    recorded-at: "2026-09-13T08:36:00+08:00"
+  - id: EV-013
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-303
+    path: implementation/ai-platform-backend/delivery/CHG-0010/商品与库存/分类与品牌管理/品牌管理/品牌管理/DU-BE-303/evidence
+    summary: 品牌后端 mall-product 36 测试全绿（含 TC-009 并发同名）
+    recorded-at: "2026-09-13T14:53:00+08:00"
+  - id: EV-014
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-302
+    path: implementation/ai-platform-frontend/delivery/CHG-0010/商品与库存/分类与品牌管理/品牌管理/品牌管理/DU-FE-302/evidence
+    summary: 品牌页 vitest 28、type-check/lint 0 error、build 成功
+    recorded-at: "2026-09-13T14:59:00+08:00"
+  # ---- 测试执行（test-run；日志正文在各实现仓 evidence，workspace 仅登记） ----
+  - id: EV-015
+    type: test-run
+    command: "mvn -pl mall-services/mall-product -am test"
+    result: passed
+    summary:
+      total: 22
+      passed: 22
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0010/商品与库存/分类与品牌管理/分类管理/分类管理/DU-BE-302/evidence/test-output.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-012]
+    recorded-at: "2026-09-13T06:41:00+08:00"
+  - id: EV-016
+    type: test-run
+    command: "pnpm test && pnpm type-check && pnpm lint && pnpm build (mall-admin)"
+    result: passed
+    summary:
+      total: 25
+      passed: 25
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0010/商品与库存/分类与品牌管理/分类管理/分类管理/DU-FE-301/evidence/logs/test.log
+    covers: [AC-011]
+    recorded-at: "2026-09-13T08:32:00+08:00"
+  - id: EV-017
+    type: test-run
+    command: "mvn -pl mall-services/mall-product -am test"
+    result: passed
+    summary:
+      total: 36
+      passed: 36
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0010/商品与库存/分类与品牌管理/品牌管理/品牌管理/DU-BE-303/evidence/test-output.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-009]
+    recorded-at: "2026-09-13T14:48:00+08:00"
+  - id: EV-018
+    type: test-run
+    command: "pnpm test && pnpm type-check && pnpm lint && pnpm build (mall-admin)"
+    result: passed
+    summary:
+      total: 28
+      passed: 28
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-frontend/delivery/CHG-0010/商品与库存/分类与品牌管理/品牌管理/品牌管理/DU-FE-302/evidence/logs/test.log
+    covers: [AC-008]
+    recorded-at: "2026-09-13T14:56:00+08:00"

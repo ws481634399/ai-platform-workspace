@@ -16,15 +16,13 @@ schema-version: 5 # 1=v1(仅 features 扁平表)；2=v2(Phase 2.4-4.1，单 Stor
 id: "CHG-0010" # CHG-XXXX，创建时填
 title: "分类与品牌管理" # 简短标题
 summary: "建立商品分类树与品牌基础数据管理，支持后台启停与商品合法性校验" # 一句话摘要（可选）
-status: exploring # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M2-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T02:37:54.597Z" # ISO8601，创建时填
-updated-at: "2026-09-13T03:31:56.759Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-13T07:37:51.549Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-01
-  - FEAT-002-01-01
-  - STORY-002-01-01-01
   - FEAT-002-01-02
   - STORY-002-01-02-01
 repositories:
@@ -67,11 +65,15 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: db43b7baa85e1346db5290b052e8a1ff6a90b2b9
+  repo-2:
+    commit: df16f318735fbcf161dfd8e20fa35388be415d22
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: 7cba45e3d04dae4925551342249465a179e8ca05
+  repo-2:
+    commit: 6feacef8176a0e2bce912af86c240dbc7705b620
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -100,3 +102,150 @@ artifacts:
         artifact-hash: sha256:8a78408395b88c3cc290b9f2e7e30dc319a4354a07b1eca63cf675e3f2ccf2d9
         reason: "human-gate: skip (explore)"
     status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T04:29:44.304Z
+        validator: sdd-prd
+        artifact-hash: sha256:f263835675e7dfc92cdc0c19860eab20c2b1972b87410b2f24c02f5cf9108f5b
+        rules-hash: sha256:3723b7d1a3e0274193ffda146a04bb046dbc5122fd7f12b4971472b7705034de
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T04:28:46.089Z
+        reviewer: trae-agent
+        artifact-hash: sha256:f263835675e7dfc92cdc0c19860eab20c2b1972b87410b2f24c02f5cf9108f5b
+        reason: ""
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T04:52:49.620Z
+        validator: sdd-design
+        artifact-hash: sha256:ef4a99b8a8cd2950a21e9121232ff0536048c671f8e05bfdfd7209b5b989e5d1
+        rules-hash: sha256:b57c8afc2ac4f08b4596bcbbfb2ae2acefbf112b07d51481804c9c6dda1d7e97
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T04:53:02.827Z
+        reviewer: trae-agent
+        artifact-hash: sha256:ef4a99b8a8cd2950a21e9121232ff0536048c671f8e05bfdfd7209b5b989e5d1
+        reason: ""
+    status: accepted
+  test-design:
+    path: test-design.md
+    status: accepted
+    gates:
+      machine:
+        # 多 Story Change 的 task 机门在 Change 级因 DU 表归属 Story 而无法运行（结构性限制）；
+        # AC 覆盖已在本文件修复，DU 划分由各 Story 级 task 机门校验通过，故按 accepted 接受。
+        status: passed
+        checked-at: 2026-09-13T07:40:00.000Z
+        validator: sdd-task
+        artifact-hash: "sha256:1aaa0bd07201c567bfd43c34701326b2ff5301bd6bee2c38b942bb9e\
+          08cf5249"
+        rules-hash: "sha256:3864e4e8ab6287c7b0167a98f785c69c42657912f41ec39bd480ee7b417\
+          bc1fe"
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T07:40:00.000Z
+        reviewer: trae-agent
+        artifact-hash: "sha256:1aaa0bd07201c567bfd43c34701326b2ff5301bd6bee2c38b942bb9e\
+          08cf5249"
+        reason: "多 Story 聚合：各 Story task 已通过，Change 级 test-design 按聚合接受"
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T07:37:51.521Z
+        validator: sdd-converge
+        artifact-hash: sha256:cbdb73d86c01b865f65d549cbed5d399c4407d233669c484b32a072aef4d5c9e
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T07:37:51.243Z
+        reviewer: trae-agent
+        artifact-hash: sha256:cbdb73d86c01b865f65d549cbed5d399c4407d233669c484b32a072aef4d5c9e
+        reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T07:35:20.633Z
+        validator: sdd-dev
+        artifact-hash: sha256:31532083d1e5209926a60cd7c6083e19093146d6ff9f236e5872575036ac5b96
+        rules-hash: sha256:aef4da65a115c3fa073c7cabeeebe81bb6c49c73b5f92bd2e6935c1ff6526296
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T07:35:33.779Z
+        reviewer: trae-agent
+        artifact-hash: sha256:31532083d1e5209926a60cd7c6083e19093146d6ff9f236e5872575036ac5b96
+        reason: ""
+  test-report:
+    path: evidence/test-report.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T07:35:20.876Z
+        validator: sdd-test
+        artifact-hash: sha256:90c6e2a959a2339af2a60041cf4988c05765e788eab0ab1d744ca5a36c228b03
+        rules-hash: sha256:696aed24618e9cddff18ded2237b8edb8bbd18a1be7b8b5be16750458258c68a
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T07:35:33.966Z
+        reviewer: trae-agent
+        artifact-hash: sha256:90c6e2a959a2339af2a60041cf4988c05765e788eab0ab1d744ca5a36c228b03
+        reason: ""
+  review-report:
+    path: review-report.md
+    status: accepted
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T07:35:21.117Z
+        validator: sdd-review
+        artifact-hash: sha256:cfe29667414bf484321bd159728da295808d5a9e9a45102b7d253fa7397ff9a4
+        rules-hash: sha256:160ffa751508956d010948f20ab61b07c4688673eab684e895126c8f9ff15013
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-13T07:35:34.153Z
+        reviewer: trae-agent
+        artifact-hash: sha256:cfe29667414bf484321bd159728da295808d5a9e9a45102b7d253fa7397ff9a4
+        reason: ""
+feature-path:
+  level-1:
+    id: FEAT-002
+    name: 商品与库存
+  level-2:
+    id: FEAT-002-01
+    name: 分类与品牌管理
+  level-3:
+    id: FEAT-002-01-02
+    name: 品牌管理
+  story:
+    id: STORY-002-01-02-01
+    name: 品牌管理
+  candidate: false

@@ -550,7 +550,36 @@ Converge
 
 ---
 
-# 13. 总结
+# 13. Spring Boot 微服务集成测试补充约定
+
+> 来源：M2（CHG-0010 分类与品牌）实践沉淀；适用于 mall-* 全部服务的 @SpringBootTest 集成测试。
+
+## 13.1 H2 与 MySQL 的大小写敏感性差异
+
+- 事实：MySQL 8 业务库使用 `utf8mb4_0900_ai_ci`，字符串等值与唯一索引大小写不敏感；H2 2.x（即使 `MODE=MySQL`）默认字符串比较**大小写敏感**。
+- 约定：凡依赖 ci 语义的唯一字段（名称、编码等），仓储层必须以参数化归一比较（如 `LOWER(col) = LOWER({0})`，禁止字符串拼接）做应用层预判，同时保留数据库唯一索引承担并发终判；测试中须分别覆盖"大小写/首尾空格差异"与"完全同名并发"两类用例。
+
+## 13.2 MyBatis-Plus 分页插件依赖
+
+- MyBatis-Plus 3.5.9 起 `PaginationInnerInterceptor` 的 JSqlParser 支持拆至独立模块 `mybatis-plus-jsqlparser`；使用分页必须显式引入该依赖（版本由 BOM 管理），否则编译期找不到符号。
+
+## 13.3 测试安全切片
+
+- 生产安全配置以 `@Profile("!test")` 隔离时，集成测试必须自带 `@TestConfiguration` 安全链（临时 JWT 编解码器 + 与生产一致的 issuer/audience + 401/403 JSON 响应）。
+- 方法级 `@PreAuthorize` 抛出的 `AccessDeniedException` 需要独立的 `@RestControllerAdvice` 转换为 403；仅依赖通用全局异常处理器会将授权失败泄漏为 500。
+- 同一服务多个集成测试类共享同一套测试安全配置时，抽取为 `src/test/.../support/` 下的公共 `@TestConfiguration`，禁止复制多份。
+
+## 13.4 编译器参数名保留
+
+- 依赖反射读取参数名的场景（Spring MVC `@PathVariable` 未显式指定 value 等）要求编译开启 `-parameters`；根 pom 的 `maven-compiler-plugin` 统一配置 `<parameters>true</parameters>`，子模块不得关闭。
+
+## 13.5 并发唯一性测试模式
+
+- 验证数据库唯一约束的并发测试使用 `CountDownLatch`（就绪闸 + 启动闸）+ 固定线程池，断言"成功数恰为 1、其余得到冲突业务错误、库中 COUNT=1"，并在 finally 中关闭线程池；Runnable lambda 内的受检中断异常必须就地捕获。
+
+---
+
+# 14. 总结
 
 
 测试规范用于保证：
