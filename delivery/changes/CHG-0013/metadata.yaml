@@ -161,7 +161,7 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-13T11:00:07.071Z
+        checked-at: 2026-09-13T11:00:47.807Z
         validator: sdd-converge
         artifact-hash: sha256:04710ba750353594cb969977dea53d1eeda499599d26c8037f0efd9e32468ef6
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
@@ -174,8 +174,55 @@ artifacts:
             (status: draft)"
           - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
             draft)"
-          - "convergence.md: 存在 DU 但 metadata.repository-result 为空（DU completed
-            时应回填 result commit）"
+        warnings: []
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T11:01:43.554Z
+        validator: sdd-task
+        artifact-hash: ""
+        rules-hash: ""
+        issues:
+          - "Artifact not found: test-design.md"
+        warnings: []
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-13T11:01:43.795Z
+        validator: sdd-dev
+        artifact-hash: sha256:4f9484a442a406ae51e71deaf0c7468fa7a880f246295ddf4a8cd11744ff3a66
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T11:01:56.888Z
+        validator: sdd-test
+        artifact-hash: ""
+        rules-hash: ""
+        issues:
+          - "Artifact not found: evidence/test-report.md"
+        warnings: []
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T11:01:44.161Z
+        validator: sdd-review
+        artifact-hash: ""
+        rules-hash: ""
+        issues:
+          - "Artifact not found: review-report.md"
         warnings: []
 feature-path:
   level-1:
