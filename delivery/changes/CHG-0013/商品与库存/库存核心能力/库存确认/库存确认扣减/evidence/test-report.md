@@ -18,9 +18,9 @@
 
 | TC | 归属 DU | 执行方式 | 结果 | 证据 |
 | --- | --- | --- | --- | --- |
-| TC-015 | DU-BE-404 | InventoryTest.confirmDeduction：total-=q、locked-=q，available 不变 | passed | repo-1 DU-BE-404 evidence |
-| TC-016 | DU-BE-404 | InventoryReservationTest.confirmIdempotent：重复扣减不变 | passed | 同上 |
-| TC-017 | DU-BE-404 | Inventory.confirmDeduction 超额 → InventoryException；非 LOCKED 状态拒绝 | passed | 同上 |
+| TC-001 | DU-BE-404 | InventoryTest.confirmDeduction：total-=q、locked-=q，available 不变 | passed | repo-1 DU-BE-404 evidence |
+| TC-002 | DU-BE-404 | InventoryReservationTest.confirmIdempotent：重复扣减不变 | passed | 同上 |
+| TC-003 | DU-BE-404 | Inventory.confirmDeduction 超额 → InventoryException；非 LOCKED 状态拒绝 | passed | 同上 |
 
 ## 2. 测试执行汇总
 

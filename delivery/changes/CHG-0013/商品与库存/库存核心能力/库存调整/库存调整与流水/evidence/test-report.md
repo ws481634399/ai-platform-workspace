@@ -18,9 +18,9 @@
 
 | TC | 归属 DU | 执行方式 | 结果 | 证据 |
 | --- | --- | --- | --- | --- |
-| TC-008 | DU-BE-402 | InventoryTest.adjustUpdatesTotal：正数加、负数减，available 同步 | passed | repo-1 DU-BE-402 evidence |
-| TC-009 | DU-BE-402 | InventoryTest.adjustRejectsNegativeResult：调整后 total<0 拒绝 | passed | 同上 |
-| TC-018 | DU-BE-402 | InventoryLog 记录 operationType=ADJUST，含 before/after/quantity/businessId | passed | 同上 |
+| TC-001 | DU-BE-402 | InventoryTest.adjustUpdatesTotal：正数加、负数减，available 同步 | passed | repo-1 DU-BE-402 evidence |
+| TC-002 | DU-BE-402 | InventoryTest.adjustRejectsNegativeResult：调整后 total<0 拒绝 | passed | 同上 |
+| TC-003 | DU-BE-402 | InventoryLog 记录 operationType=ADJUST，含 before/after/quantity/businessId | passed | 同上 |
 
 ## 2. 测试执行汇总
 

@@ -18,12 +18,12 @@
 
 | TC | 归属 DU | 执行方式 | 结果 | 证据 |
 | --- | --- | --- | --- | --- |
-| TC-010 | DU-BE-403 | InventoryTest.lockAndRelease：锁定后 locked+=q、available=total-locked | passed | repo-1 DU-BE-403 evidence |
-| TC-011 | DU-BE-403 | Inventory.lock 超额 → InventoryException.insufficient；lockStock SQL rows=0 | passed | 同上 |
-| TC-012 | DU-BE-403 | InventoryApplicationService.lock：reservationId 重复 → 返回已有预留 | passed | 同上 |
-| TC-013 | DU-BE-403 | Inventory.release：locked-=q，ReservationStatus → RELEASED | passed | 同上 |
-| TC-014 | DU-BE-403 | InventoryReservationTest.releaseIdempotent：重复释放不变 | passed | 同上 |
-| TC-019 | DU-BE-403 | lockStock SQL 条件更新 `WHERE (total - locked) >= ?` 保证并发安全 | passed | 同上（设计验证） |
+| TC-001 | DU-BE-403 | InventoryTest.lockAndRelease：锁定后 locked+=q、available=total-locked | passed | repo-1 DU-BE-403 evidence |
+| TC-002 | DU-BE-403 | Inventory.lock 超额 → InventoryException.insufficient；lockStock SQL rows=0 | passed | 同上 |
+| TC-003 | DU-BE-403 | InventoryApplicationService.lock：reservationId 重复 → 返回已有预留 | passed | 同上 |
+| TC-004 | DU-BE-403 | Inventory.release：locked-=q，ReservationStatus → RELEASED | passed | 同上 |
+| TC-005 | DU-BE-403 | InventoryReservationTest.releaseIdempotent：重复释放不变 | passed | 同上 |
+| TC-007 | DU-BE-403 | lockStock SQL 条件更新 `WHERE (total - locked) >= ?` 保证并发安全 | passed | 同上（设计验证） |
 
 ## 2. 测试执行汇总
 

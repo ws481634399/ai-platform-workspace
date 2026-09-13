@@ -102,3 +102,26 @@ artifacts:
         artifact-hash: sha256:72db7b378e963f41b9a54fa12509397ebd6afffeacc87d5c4f811a376a8457a9
         reason: "human-gate: skip (task @ story STORY-002-04-03-01)"
     status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T10:55:03.425Z
+        validator: sdd-test
+        artifact-hash: sha256:94928441c3032ec0be0b1446bc53ef9412b65e38c401a43692ca0f6d1949f941
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues:
+          - "evidence/test-report.md: 引用 TC TC-010 不存在于
+            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+          - "evidence/test-report.md: 引用 TC TC-011 不存在于
+            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+          - "evidence/test-report.md: 引用 TC TC-012 不存在于
+            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+          - "evidence/test-report.md: 引用 TC TC-013 不存在于
+            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+          - "evidence/test-report.md: 引用 TC TC-014 不存在于
+            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+          - "evidence/test-report.md: 引用 TC TC-019 不存在于
+            test-design.md（evidence-trace：EVD 对应的 TC 必须在 test-design 定义）"
+        warnings: []
