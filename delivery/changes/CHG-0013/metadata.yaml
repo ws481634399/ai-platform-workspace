@@ -88,8 +88,10 @@ repository-baseline:
   repo-2:
     commit: b89af555436c7d33bede013dff4a341b3fc5dc35
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: f6515de0650e4ff85ba031f3f579922f2ed26eca
+  repo-2:
+    commit: 490a3302175cd477356aa5465572d094297f6250
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # v3 语义：仅存储 **Change 级** 产物 Gate（exploration / change-spec / change-design / convergence）。
@@ -154,6 +156,27 @@ artifacts:
         artifact-hash: sha256:1db4c4614171a763601e3f62f1034932b873689ee4d7c134bffcb3bc009fbd52
         reason: "human-gate: skip (design)"
     status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-13T11:00:07.071Z
+        validator: sdd-converge
+        artifact-hash: sha256:04710ba750353594cb969977dea53d1eeda499599d26c8037f0efd9e32468ef6
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues:
+          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
+            draft)"
+          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
+            draft)"
+          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
+            (status: draft)"
+          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
+            draft)"
+          - "convergence.md: 存在 DU 但 metadata.repository-result 为空（DU completed
+            时应回填 result commit）"
+        warnings: []
 feature-path:
   level-1:
     id: FEAT-002

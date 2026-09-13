@@ -597,7 +597,7 @@ features:
                                 id: STORY-002-04-01-01,
                                 name: 库存初始化与查询,
                                 description: SKU 库存记录建立与单/批查询，不变量 Available>=0,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -612,7 +612,7 @@ features:
                                 id: STORY-002-04-02-01,
                                 name: 库存调整与流水,
                                 description: 调整库存并记录 before/after/原因/操作者/时间流水(INIT/ADJUST),
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -627,7 +627,7 @@ features:
                                 id: STORY-002-04-03-01,
                                 name: 库存锁定与释放,
                                 description: LOCK/RELEASE 幂等，防超卖，释放不重复加库存,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -642,7 +642,7 @@ features:
                                 id: STORY-002-04-04-01,
                                 name: 库存确认扣减,
                                 description: DEDUCT 仅对已锁定库存生效，幂等，库存永不为负,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }
