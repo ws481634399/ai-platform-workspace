@@ -111,9 +111,9 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T00:36:39.381Z
+        checked-at: 2026-09-14T00:54:08.264Z
         validator: sdd-dev
-        artifact-hash: sha256:d46f18e80d429a4f940880153236f9d234a0c4df00f6d845791d5e229219ff0d
+        artifact-hash: sha256:c81f9dcd7e488cf2fdf9c01211df04ca4435d34ffb86845eca01fac410538aa2
         rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
         issues: []
         warnings:
@@ -131,9 +131,9 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T00:40:33.612Z
+        checked-at: 2026-09-14T00:54:08.511Z
         validator: sdd-test
-        artifact-hash: sha256:a15eccde41c8373d9778c58a94d8b0d481d7f0fa75d3caca4593baa3d81aa639
+        artifact-hash: sha256:7d06b62296d9b84be93ec4ee1db75352ff8ae7de694b83ac6a288aeb6c19ad81
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
         issues: []
         warnings: []
@@ -149,7 +149,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T00:47:01.259Z
+        checked-at: 2026-09-14T00:54:08.760Z
         validator: sdd-review
         artifact-hash: sha256:bb98ddf4b22a30534f0eca62cb72952143f0071b3938bb126e6c26bf3ee8b5b6
         rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
