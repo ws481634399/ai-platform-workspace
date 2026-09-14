@@ -13,10 +13,10 @@ change-id: "CHG-0017" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-003-02-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "商城首页" # Story 标题
 summary: "mall-web 游客可访问的首页/分类/品牌/商品列表/详情 SKU 选择，真实价格（分）与批量库存可售状态聚合" # Story 一句话摘要（可选）
-status: designed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-14T14:11:44.794Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:24:38.752Z" # ISO8601，每次变更更新
+updated-at: "2026-09-14T15:58:46.669Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -81,4 +81,26 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:d0d300d8ab08ad918237b5460c54246bdf47b6b32384606350ad99dbf6c4b04a
         reason: "human-gate: skip (design @ story STORY-003-02-01-01)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:58:46.658Z
+        validator: sdd-task
+        artifact-hash: sha256:9d50350a0f3a771be905a72226cba4626aebb278f816aeb153361555d98d9652
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-701 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-FE-701 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:58:46.667Z
+        reviewer: workflow
+        artifact-hash: sha256:9d50350a0f3a771be905a72226cba4626aebb278f816aeb153361555d98d9652
+        reason: "human-gate: skip (task @ story STORY-003-02-01-01)"
     status: accepted

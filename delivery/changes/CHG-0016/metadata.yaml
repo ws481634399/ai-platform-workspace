@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0016" # CHG-XXXX，创建时填
 title: "商城会员与地址" # 简短标题
 summary: "MEMBER 用户名密码注册登录与会话隔离、事件幂等初始化 Profile、会员资料与头像、收货地址 CRUD 与资源归属校验" # 一句话摘要（可选）
-status: story-splitting # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.217Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:24:38.166Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T15:59:19.375Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-01
@@ -174,3 +174,20 @@ artifacts:
         artifact-hash: sha256:dc75cf4b4f826a9a886cb0d01ddc3abe2e3474ba3101251e8014dda2392d5693
         reason: "human-gate: skip (design)"
     status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-14T15:57:01.565Z
+        validator: sdd-task
+        artifact-hash: "sha256:7a134dd04768c5bdda690b1cbe146e6a834698b88ca844be6a25cde6\
+          9caf331a"
+        rules-hash: "sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42\
+          515d3"
+        issues:
+          - "test-design.md: Change CHG-0016 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+          - "test-design.md: Change CHG-0016 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+        warnings: []

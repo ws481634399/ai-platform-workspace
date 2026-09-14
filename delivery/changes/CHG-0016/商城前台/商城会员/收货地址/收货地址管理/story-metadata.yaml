@@ -4,10 +4,10 @@ change-id: "CHG-0016"
 story-id: "STORY-003-01-03-01"
 title: "收货地址管理"
 summary: "地址列表/新增/修改/删除/默认地址/查询默认，后端强制资源归属校验，默认地址唯一"
-status: pending
+status: tasked
 evidence-tier: standard
 created-at: "2026-09-14T14:39:17.195Z"
-updated-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T15:59:19.348Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -35,7 +35,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T14:56:01.333Z
+        checked-at: 2026-09-14T15:58:46.294Z
         validator: sdd-prd
         artifact-hash: sha256:b47e2ffdb612c31d59e5bde2c92939f81e3bae9708bed3ff4d991cea15ee82e2
         rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
@@ -47,20 +47,44 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:b47e2ffdb612c31d59e5bde2c92939f81e3bae9708bed3ff4d991cea15ee82e2
         reason: ""
+    status: accepted
   story-design:
     path: story-design.md
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T15:13:03.373Z
+        checked-at: 2026-09-14T15:59:11.468Z
         validator: sdd-design
         artifact-hash: sha256:cc649fe690095a44159104c835aa36d20432b09a985054665c77acfee409b2d0
         rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
         issues: []
         warnings: []
       human:
-        status: approved
-        reviewed-at: 2026-09-14T15:24:27.342Z
-        reviewer: trae-agent
+        status: skipped
+        reviewed-at: 2026-09-14T15:59:11.479Z
+        reviewer: workflow
         artifact-hash: sha256:cc649fe690095a44159104c835aa36d20432b09a985054665c77acfee409b2d0
-        reason: ""
+        reason: "human-gate: skip (design @ story STORY-003-01-03-01)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:59:19.333Z
+        validator: sdd-task
+        artifact-hash: sha256:4239098e7257494075e34605eb0faef6460140ff7cf1104d4bdd0b754d29ba82
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-604 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-FE-603 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:59:19.347Z
+        reviewer: workflow
+        artifact-hash: sha256:4239098e7257494075e34605eb0faef6460140ff7cf1104d4bdd0b754d29ba82
+        reason: "human-gate: skip (task @ story STORY-003-01-03-01)"
+    status: accepted

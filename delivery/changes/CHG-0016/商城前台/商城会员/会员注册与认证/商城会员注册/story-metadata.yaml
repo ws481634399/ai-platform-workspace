@@ -13,10 +13,10 @@ change-id: "CHG-0016" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-003-01-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "商城会员注册" # Story 标题
 summary: "MEMBER 用户名密码注册登录与会话隔离、事件幂等初始化 Profile、会员资料与头像、收货地址 CRUD 与资源归属校验" # Story 一句话摘要（可选）
-status: designed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-14T14:11:44.571Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:24:38.233Z" # ISO8601，每次变更更新
+updated-at: "2026-09-14T15:58:45.526Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -81,4 +81,24 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:5746faacaab630b67dda7df759ef729a67b7ea4b53e4d2509e13e5d368f619e5
         reason: "human-gate: skip (design @ story STORY-003-01-01-01)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:58:45.514Z
+        validator: sdd-task
+        artifact-hash: sha256:488ea569b7b81ec5c8956f40cc7454c53299f27a3f852eacff05b01e26b5789c
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-601 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:58:45.525Z
+        reviewer: workflow
+        artifact-hash: sha256:488ea569b7b81ec5c8956f40cc7454c53299f27a3f852eacff05b01e26b5789c
+        reason: "human-gate: skip (task @ story STORY-003-01-01-01)"
     status: accepted

@@ -17,10 +17,10 @@ id: "CHG-0015" # CHG-XXXX，创建时填
 title: "M3 前置就绪修复" # 简短标题
 summary: "修复 M2 遗留的商城联调阻塞：网关商城公开路由 401、库存服务内部调用凭证、库存分页 total=0、业务 ID
   字符串序列化、商品列表真实价格区间与有效 SKU 过滤" # 一句话摘要（可选）
-status: story-splitting # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-READY" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:01:53.598Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:24:37.667Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T15:58:27.213Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-03
@@ -149,3 +149,20 @@ artifacts:
         artifact-hash: sha256:1b33d4bd8ab8d07e6d72c1bb68ba2599d67bd6cf52ea6615499c60fbfc423d96
         reason: "human-gate: skip (design)"
     status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-14T15:57:10.096Z
+        validator: sdd-task
+        artifact-hash: "sha256:a505567af12b542b78024a71dd1089505600dd9cb564a9aa6c8b4418\
+          448dd359"
+        rules-hash: "sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42\
+          515d3"
+        issues:
+          - "test-design.md: Change CHG-0015 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+          - "test-design.md: Change CHG-0015 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+        warnings: []

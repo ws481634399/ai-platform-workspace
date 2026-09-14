@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0018" # CHG-XXXX，创建时填
 title: "购物车" # 简短标题
 summary: "纯 Redis 会员购物车核心操作与实时校验、游客 LocalStorage 购物车登录后幂等合并、memberId 取自 SecurityContext" # 一句话摘要（可选）
-status: story-splitting # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.654Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:24:39.250Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T15:59:24.910Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-03
@@ -166,3 +166,20 @@ artifacts:
         artifact-hash: sha256:efba532fdb02e6cae4b7ed4ad00e73360d75ecff8266e421ec41639b4b196443
         reason: "human-gate: skip (design)"
     status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-14T15:57:02.031Z
+        validator: sdd-task
+        artifact-hash: "sha256:a7e2c5ba9714d6dbd6a372a86535698b2b9120fecac8b3dd9f37bdc4\
+          4c275e1a"
+        rules-hash: "sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42\
+          515d3"
+        issues:
+          - "test-design.md: Change CHG-0018 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+          - "test-design.md: Change CHG-0018 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+        warnings: []

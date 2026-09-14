@@ -4,10 +4,10 @@ change-id: "CHG-0018"
 story-id: "STORY-003-03-02-01"
 title: "游客购物车与登录合并"
 summary: "LocalStorage 游客购物车；mergeToken 幂等合并到会员购物车，同 SKU 相加受上限截断，重复合并不累加"
-status: pending
+status: tasked
 evidence-tier: standard
 created-at: "2026-09-14T14:39:17.195Z"
-updated-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T15:59:24.882Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -35,7 +35,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T14:55:59.876Z
+        checked-at: 2026-09-14T15:58:48.556Z
         validator: sdd-prd
         artifact-hash: sha256:36690205a00378123f28cec9c96957682504b68450351d11ee0cb1c33de98b0f
         rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
@@ -47,20 +47,44 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:36690205a00378123f28cec9c96957682504b68450351d11ee0cb1c33de98b0f
         reason: ""
+    status: accepted
   story-design:
     path: story-design.md
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T15:24:06.460Z
+        checked-at: 2026-09-14T15:59:16.516Z
         validator: sdd-design
         artifact-hash: sha256:0e1437f42396aac6d2fc4a19f94661ce5a9a79caa15773f795e63eb484399c1f
         rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
         issues: []
         warnings: []
       human:
-        status: approved
-        reviewed-at: 2026-09-14T15:24:29.188Z
-        reviewer: trae-agent
+        status: skipped
+        reviewed-at: 2026-09-14T15:59:16.528Z
+        reviewer: workflow
         artifact-hash: sha256:0e1437f42396aac6d2fc4a19f94661ce5a9a79caa15773f795e63eb484399c1f
-        reason: ""
+        reason: "human-gate: skip (design @ story STORY-003-03-02-01)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:59:24.868Z
+        validator: sdd-task
+        artifact-hash: sha256:c92fedcee84bef395c834cb13b693aa91e6467058715d431ae235c2b2ac0200f
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-803 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-FE-801 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:59:24.881Z
+        reviewer: workflow
+        artifact-hash: sha256:c92fedcee84bef395c834cb13b693aa91e6467058715d431ae235c2b2ac0200f
+        reason: "human-gate: skip (task @ story STORY-003-03-02-01)"
+    status: accepted
