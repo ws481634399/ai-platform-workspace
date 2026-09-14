@@ -11,10 +11,4 @@ status: delivered
 
 REQ-M0-003：Python 3.11 + uv + FastAPI 独立服务，LLM/Java API Client 抽象、Agent/Tool/Workflow/Prompt/RAG 扩展边界与 Pytest/Ruff 工程质量基线
 
-## Change 历史
-
-| ID | 状态 | Scope | 更新时间 | 审计包（相对链接） |
-|---|---|---|---|---|
-| CHG-0005 | archived | archive | 2026-09-07 13:33:32 | [打开](../../../../../delivery/archive/CHG-0005/) |
-
-> 最近交付：`CHG-0005`（已归档）
+_（尚未绑定任何 Change）_

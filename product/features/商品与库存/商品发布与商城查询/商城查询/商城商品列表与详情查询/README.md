@@ -2,7 +2,7 @@
 id: STORY-002-03-02-01
 name: 商城商品列表与详情查询
 level: story
-status: planned
+status: delivered
 ---
 
 # 商城商品列表与详情查询

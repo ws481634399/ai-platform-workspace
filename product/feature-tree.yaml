@@ -650,5 +650,186 @@ features:
                 stories: []
               }
           ]
+      },
+    {
+        id: FEAT-003,
+        name: 商城前台,
+        description: 面向消费者的 mall-web 商城基础能力域：商城会员、商品浏览、购物车（M3）,
+        children:
+          [
+            {
+                id: FEAT-003-01,
+                name: 商城会员,
+                description: MEMBER 主体注册登录与会话、会员资料、收货地址（REQ-M3-001），mall-identity + mall-member
+                  + mall-web,
+                children:
+                  [
+                    {
+                        id: FEAT-003-01-01,
+                        name: 会员注册与认证,
+                        description: MEMBER 用户名密码注册、登录/刷新/退出、MEMBER 与 ADMIN Token 隔离、事件初始化 Profile,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-01-01-01,
+                                name: 商城会员注册,
+                                description: 用户名+密码注册 MEMBER 主体，登录标识唯一、密码哈希、事件幂等初始化 Member Profile，无验证码,
+                                status: planned
+                              },
+                            {
+                                id: STORY-003-01-01-02,
+                                name: 商城会员登录与会话,
+                                description: MEMBER 用户名密码登录、双 Token 刷新与退出，MEMBER/ADMIN Token 隔离，mall-web 统一登录态与
+                                  401 处理,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-003-01-02,
+                        name: 会员资料,
+                        description: 会员资料查看与维护：昵称、头像（MinIO）、基础信息；密码修改归 mall-identity,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-01-02-01,
+                                name: 会员资料维护,
+                                description: 查看/修改昵称、头像（MinIO）与基础资料；手机邮箱为资料字段；mall-web 个人中心,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-003-01-03,
+                        name: 收货地址,
+                        description: 地址 CRUD、默认地址唯一、资源归属校验,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-01-03-01,
+                                name: 收货地址管理,
+                                description: 地址列表/新增/修改/删除/默认地址/查询默认，后端强制资源归属校验，默认地址唯一,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ]
+              },
+            {
+                id: FEAT-003-02,
+                name: 商品浏览,
+                description: 游客可访问的商城首页、分类品牌、商品列表详情、SKU 选择与库存状态展示（REQ-M3-002），mall-product +
+                  mall-inventory + mall-web,
+                children:
+                  [
+                    {
+                        id: FEAT-003-02-01,
+                        name: 首页与公开分类品牌,
+                        description: 商城首页基础结构、有效分类树与品牌公开查询 API,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-02-01-01,
+                                name: 商城首页,
+                                description: mall-web 首页：分类入口、新品/推荐商品位，全部使用真实 Product 数据，游客可访问,
+                                status: planned
+                              },
+                            {
+                                id: STORY-003-02-01-02,
+                                name: 公开分类与品牌查询,
+                                description: GET /api/mall/categories/tree 与 GET /api/mall/brands
+                                  公开接口，仅返回有效数据，网关放行,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-003-02-02,
+                        name: 商品列表与详情,
+                        description: 商品列表分页/分类品牌筛选/排序/价格区间、详情与 SKU 规格选择、真实 SKU 价格,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-02-02-01,
+                                name: 商城商品列表,
+                                description: 分页/分类筛选/品牌筛选/排序，返回启用 SKU 最低/最高价（分），无有效 SKU 商品不展示，金额整数分,
+                                status: planned
+                              },
+                            {
+                                id: STORY-003-02-02-02,
+                                name: 商品详情与 SKU 选择,
+                                description: Product/SKU 区分、规格组合定位唯一 SKU、SKU 真实价格/图片/可售状态联动，下架与失效错误态,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-003-02-03,
+                        name: 库存状态展示,
+                        description: SKU 批量可售状态聚合查询（有货/库存不足/缺货），展示信息非交易保证,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-02-03-01,
+                                name: SKU 可售状态聚合,
+                                description: 批量 SKU 可售状态查询（有货/库存不足/缺货），避免 N+1，仅供展示非交易保证,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ]
+              },
+            {
+                id: FEAT-003-03,
+                name: 购物车,
+                description: Redis 会员购物车、游客购物车与登录合并、实时商品/价格/库存校验（REQ-M3-003），mall-cart +
+                  mall-web,
+                children:
+                  [
+                    {
+                        id: FEAT-003-03-01,
+                        name: 会员购物车,
+                        description: Redis 会员购物车核心操作与实时有效性/价格/库存校验,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-03-01-01,
+                                name: 购物车核心操作,
+                                description: Redis 会员购物车：加入/同 SKU 合并/改量/删除/单选全选，memberId 取自 SecurityContext，不锁库存,
+                                status: planned
+                              },
+                            {
+                                id: STORY-003-03-01-02,
+                                name: 购物车实时校验,
+                                description: 查看购物车按 Product/Inventory 最新状态识别下架/失效/调价/库存不足，展示最新价格，不产生成交价,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-003-03-02,
+                        name: 游客购物车与合并,
+                        description: LocalStorage 游客购物车、登录后幂等合并到会员购物车,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-003-03-02-01,
+                                name: 游客购物车与登录合并,
+                                description: LocalStorage 游客购物车；登录后按幂等键合并到会员购物车，同 SKU 数量相加受上限约束，重复合并不累加,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
       }
   ]

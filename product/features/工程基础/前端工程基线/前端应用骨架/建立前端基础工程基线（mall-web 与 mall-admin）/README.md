@@ -11,10 +11,4 @@ status: delivered
 
 Vue3 + TypeScript + Vite + pnpm 统一基线，Router/Pinia/Axios/Layout/Element Plus 接入与构建验证 (REQ-M0-002)
 
-## Change 历史
-
-| ID | 状态 | Scope | 更新时间 | 审计包（相对链接） |
-|---|---|---|---|---|
-| CHG-0004 | archived | archive | 2026-09-02 14:28:46 | [打开](../../../../../delivery/archive/CHG-0004/) |
-
-> 最近交付：`CHG-0004`（已归档）
+_（尚未绑定任何 Change）_

@@ -2,7 +2,7 @@
 id: STORY-002-03-03-01
 name: 内部查询契约与商品快照
 level: story
-status: planned
+status: delivered
 ---
 
 # 内部查询契约与商品快照
@@ -11,4 +11,10 @@ status: planned
 
 内部 API 契约（productId/skuId/price...）与订单历史快照语义
 
-_（尚未绑定任何 Change）_
+## Change 历史
+
+| ID | 状态 | Scope | 更新时间 | 审计包（相对链接） |
+|---|---|---|---|---|
+| CHG-0012 | completed | changes | 2026-09-13 10:03:19 | [打开](../../../../../delivery/changes/CHG-0012/) |
+
+> 当前绑定 Change：`CHG-0012`（completed）

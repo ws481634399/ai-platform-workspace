@@ -2,7 +2,7 @@
 id: STORY-002-02-02-01
 name: SKU 与规格管理
 level: story
-status: planned
+status: delivered
 ---
 
 # SKU 与规格管理

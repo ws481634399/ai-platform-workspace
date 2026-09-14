@@ -2,7 +2,7 @@
 id: STORY-002-04-02-01
 name: 库存调整与流水
 level: story
-status: planned
+status: delivered
 ---
 
 # 库存调整与流水

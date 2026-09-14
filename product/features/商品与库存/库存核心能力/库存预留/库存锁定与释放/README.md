@@ -2,7 +2,7 @@
 id: STORY-002-04-03-01
 name: 库存锁定与释放
 level: story
-status: planned
+status: delivered
 ---
 
 # 库存锁定与释放
