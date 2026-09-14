@@ -46,4 +46,21 @@ dus: []
 # 每个 artifact 节点结构同 Change metadata.artifacts.*：
 #   story-spec / story-design / tasks / implementation / test-report / review-report
 # Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
-artifacts: {}
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:01.709Z
+        validator: sdd-prd
+        artifact-hash: sha256:0f8c9e3ae77bfea248d2707b4446568b9abc674acf6dfc4252d56f8687008aec
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:01.886Z
+        reviewer: trae-agent
+        artifact-hash: sha256:0f8c9e3ae77bfea248d2707b4446568b9abc674acf6dfc4252d56f8687008aec
+        reason: ""

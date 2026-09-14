@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0018"
+story-id: "STORY-003-03-02-01"
+title: "游客购物车与登录合并"
+summary: "LocalStorage 游客购物车；mergeToken 幂等合并到会员购物车，同 SKU 相加受上限截断，重复合并不累加"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-03
+    name: 购物车
+  level-3:
+    id: FEAT-003-03-02
+    name: 游客购物车与合并
+  story:
+    id: STORY-003-03-02-01
+    name: 游客购物车与登录合并
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:55:59.876Z
+        validator: sdd-prd
+        artifact-hash: sha256:36690205a00378123f28cec9c96957682504b68450351d11ee0cb1c33de98b0f
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:00.050Z
+        reviewer: trae-agent
+        artifact-hash: sha256:36690205a00378123f28cec9c96957682504b68450351d11ee0cb1c33de98b0f
+        reason: ""

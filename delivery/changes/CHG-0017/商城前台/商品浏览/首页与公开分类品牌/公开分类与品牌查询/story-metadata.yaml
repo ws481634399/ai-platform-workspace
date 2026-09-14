@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0017"
+story-id: "STORY-003-02-01-02"
+title: "公开分类与品牌查询"
+summary: "GET /api/mall/categories/tree 与 /api/mall/brands 公开接口，仅返回有效数据，网关匿名放行"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-02
+    name: 商品浏览
+  level-3:
+    id: FEAT-003-02-01
+    name: 首页与公开分类品牌
+  story:
+    id: STORY-003-02-01-02
+    name: 公开分类与品牌查询
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:02.440Z
+        validator: sdd-prd
+        artifact-hash: sha256:34a82b0e7025b927e28f08cb6b9abd206bdd53aa6e2d0bfc842bedeb48b27419
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:02.615Z
+        reviewer: trae-agent
+        artifact-hash: sha256:34a82b0e7025b927e28f08cb6b9abd206bdd53aa6e2d0bfc842bedeb48b27419
+        reason: ""

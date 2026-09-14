@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0016"
+story-id: "STORY-003-01-01-02"
+title: "商城会员登录与会话"
+summary: "MEMBER 登录/双 Token 刷新/退出、MEMBER 与 ADMIN Token 隔离、mall-web 统一登录态与 401 处理"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-01
+    name: 商城会员
+  level-3:
+    id: FEAT-003-01-01
+    name: 会员注册与认证
+  story:
+    id: STORY-003-01-01-02
+    name: 商城会员登录与会话
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:00.600Z
+        validator: sdd-prd
+        artifact-hash: sha256:212f4baa94eee68366ae339b71783e71d58c523d7364d905def85e1846203a85
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:00.781Z
+        reviewer: trae-agent
+        artifact-hash: sha256:212f4baa94eee68366ae339b71783e71d58c523d7364d905def85e1846203a85
+        reason: ""

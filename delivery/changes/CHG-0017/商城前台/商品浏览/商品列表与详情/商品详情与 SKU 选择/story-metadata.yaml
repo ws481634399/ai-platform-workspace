@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0017"
+story-id: "STORY-003-02-02-02"
+title: "商品详情与 SKU 选择"
+summary: "Product/SKU 区分、规格组合定位唯一 SKU、真实价格图片可售状态联动，下架与失效错误态"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-02
+    name: 商品浏览
+  level-3:
+    id: FEAT-003-02-02
+    name: 商品列表与详情
+  story:
+    id: STORY-003-02-02-02
+    name: 商品详情与 SKU 选择
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:03.179Z
+        validator: sdd-prd
+        artifact-hash: sha256:8549782d9ca4868ba7c6586a0fc675ebed3c43c92afda9928a45976d9ffb080b
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:03.351Z
+        reviewer: trae-agent
+        artifact-hash: sha256:8549782d9ca4868ba7c6586a0fc675ebed3c43c92afda9928a45976d9ffb080b
+        reason: ""

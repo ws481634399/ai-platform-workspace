@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0018" # CHG-XXXX，创建时填
 title: "购物车" # 简短标题
 summary: "纯 Redis 会员购物车核心操作与实时校验、游客 LocalStorage 购物车登录后幂等合并、memberId 取自 SecurityContext" # 一句话摘要（可选）
-status: exploring # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: specified # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.654Z" # ISO8601，创建时填
-updated-at: "2026-09-14T14:12:56.831Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T14:56:19.520Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-03
@@ -74,6 +74,22 @@ stories:
       id: FEAT-003-03-01
       name: 会员购物车
     evidence-tier: standard
+  - id: STORY-003-03-01-02
+    title: 购物车实时校验
+    status: pending
+    path: 商城前台/购物车/会员购物车/购物车实时校验/
+    domain:
+      id: FEAT-003-03-01
+      name: 会员购物车
+    evidence-tier: standard
+  - id: STORY-003-03-02-01
+    title: 游客购物车与登录合并
+    status: pending
+    path: 商城前台/购物车/游客购物车与合并/游客购物车与登录合并/
+    domain:
+      id: FEAT-003-03-02
+      name: 游客购物车与合并
+    evidence-tier: standard
 
 # Phase 2.4 保留：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
 # repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
@@ -111,4 +127,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:058ddc343f173ba6d4baad600d7e67107994618a4985667cbf8869a8fcbc0e70
         reason: "human-gate: skip (explore)"
+    status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:19.496Z
+        validator: sdd-prd
+        artifact-hash: sha256:b170005813d90dd5d8271b432030bcd509c4223b6b6bd74f05e5b1897609cb7e
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:55:25.506Z
+        reviewer: trae-agent
+        artifact-hash: sha256:b170005813d90dd5d8271b432030bcd509c4223b6b6bd74f05e5b1897609cb7e
+        reason: ""
     status: accepted

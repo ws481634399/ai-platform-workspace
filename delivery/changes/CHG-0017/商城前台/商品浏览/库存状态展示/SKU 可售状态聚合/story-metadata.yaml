@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0017"
+story-id: "STORY-003-02-03-01"
+title: "SKU 可售状态聚合"
+summary: "批量 SKU 可售状态（有货/库存不足/缺货），避免 N+1，仅供展示非交易保证"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-02
+    name: 商品浏览
+  level-3:
+    id: FEAT-003-02-03
+    name: 库存状态展示
+  story:
+    id: STORY-003-02-03-01
+    name: SKU 可售状态聚合
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:03.540Z
+        validator: sdd-prd
+        artifact-hash: sha256:7f9ce491b35d1bcb666663815265d8238bdb8d76763212e72b593ec92a75065c
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:03.716Z
+        reviewer: trae-agent
+        artifact-hash: sha256:7f9ce491b35d1bcb666663815265d8238bdb8d76763212e72b593ec92a75065c
+        reason: ""

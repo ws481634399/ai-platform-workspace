@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0017" # CHG-XXXX，创建时填
 title: "商城商品浏览体验" # 简短标题
 summary: "mall-web 游客可访问的首页/分类/品牌/商品列表/详情 SKU 选择，真实价格（分）与批量库存可售状态聚合" # 一句话摘要（可选）
-status: exploring # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: specified # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.444Z" # ISO8601，创建时填
-updated-at: "2026-09-14T14:12:56.563Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T14:56:17.698Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-02
@@ -74,6 +74,38 @@ stories:
       id: FEAT-003-02-01
       name: 首页与公开分类品牌
     evidence-tier: standard
+  - id: STORY-003-02-01-02
+    title: 公开分类与品牌查询
+    status: pending
+    path: 商城前台/商品浏览/首页与公开分类品牌/公开分类与品牌查询/
+    domain:
+      id: FEAT-003-02-01
+      name: 首页与公开分类品牌
+    evidence-tier: standard
+  - id: STORY-003-02-02-01
+    title: 商城商品列表
+    status: pending
+    path: 商城前台/商品浏览/商品列表与详情/商城商品列表/
+    domain:
+      id: FEAT-003-02-02
+      name: 商品列表与详情
+    evidence-tier: standard
+  - id: STORY-003-02-02-02
+    title: 商品详情与 SKU 选择
+    status: pending
+    path: 商城前台/商品浏览/商品列表与详情/商品详情与 SKU 选择/
+    domain:
+      id: FEAT-003-02-02
+      name: 商品列表与详情
+    evidence-tier: standard
+  - id: STORY-003-02-03-01
+    title: SKU 可售状态聚合
+    status: pending
+    path: 商城前台/商品浏览/库存状态展示/SKU 可售状态聚合/
+    domain:
+      id: FEAT-003-02-03
+      name: 库存状态展示
+    evidence-tier: standard
 
 # Phase 2.4 保留：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
 # repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
@@ -111,4 +143,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:7edf31135ec2d51d73ece9665e57458705c732c6f55adb008477172dac1caf84
         reason: "human-gate: skip (explore)"
+    status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:17.672Z
+        validator: sdd-prd
+        artifact-hash: sha256:a081ecdf34cb652e36e7ef9cff996bf61366e60de3e36dfd9f1785ba0e38ba0d
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:55:27.420Z
+        reviewer: trae-agent
+        artifact-hash: sha256:a081ecdf34cb652e36e7ef9cff996bf61366e60de3e36dfd9f1785ba0e38ba0d
+        reason: ""
     status: accepted

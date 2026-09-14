@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0016"
+story-id: "STORY-003-01-03-01"
+title: "收货地址管理"
+summary: "地址列表/新增/修改/删除/默认地址/查询默认，后端强制资源归属校验，默认地址唯一"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-01
+    name: 商城会员
+  level-3:
+    id: FEAT-003-01-03
+    name: 收货地址
+  story:
+    id: STORY-003-01-03-01
+    name: 收货地址管理
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:01.333Z
+        validator: sdd-prd
+        artifact-hash: sha256:b47e2ffdb612c31d59e5bde2c92939f81e3bae9708bed3ff4d991cea15ee82e2
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:01.520Z
+        reviewer: trae-agent
+        artifact-hash: sha256:b47e2ffdb612c31d59e5bde2c92939f81e3bae9708bed3ff4d991cea15ee82e2
+        reason: ""

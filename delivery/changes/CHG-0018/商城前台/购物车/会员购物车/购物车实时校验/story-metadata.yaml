@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0018"
+story-id: "STORY-003-03-01-02"
+title: "购物车实时校验"
+summary: "查看购物车按 Product/Inventory 最新状态识别下架/失效/调价/库存不足，展示最新价格，依赖降级"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-03
+    name: 购物车
+  level-3:
+    id: FEAT-003-03-01
+    name: 会员购物车
+  story:
+    id: STORY-003-03-01-02
+    name: 购物车实时校验
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:55:59.516Z
+        validator: sdd-prd
+        artifact-hash: sha256:8548c6d0a93fbdb014c09a30e2dfceedab2368a3113a3d3a27d76e2632328b37
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:55:59.692Z
+        reviewer: trae-agent
+        artifact-hash: sha256:8548c6d0a93fbdb014c09a30e2dfceedab2368a3113a3d3a27d76e2632328b37
+        reason: ""

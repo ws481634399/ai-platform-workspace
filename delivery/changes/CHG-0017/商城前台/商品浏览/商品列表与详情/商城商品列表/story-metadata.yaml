@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0017"
+story-id: "STORY-003-02-02-01"
+title: "商城商品列表"
+summary: "分页/分类品牌筛选/排序，启用 SKU 最低最高价（分），无有效 SKU 不展示，金额整数分"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-02
+    name: 商品浏览
+  level-3:
+    id: FEAT-003-02-02
+    name: 商品列表与详情
+  story:
+    id: STORY-003-02-02-01
+    name: 商城商品列表
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:02.811Z
+        validator: sdd-prd
+        artifact-hash: sha256:7c42962d226f6b65f0d7c0189704da138cf5a5bb30ba4391f1c670cfedef80f5
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:02.993Z
+        reviewer: trae-agent
+        artifact-hash: sha256:7c42962d226f6b65f0d7c0189704da138cf5a5bb30ba4391f1c670cfedef80f5
+        reason: ""

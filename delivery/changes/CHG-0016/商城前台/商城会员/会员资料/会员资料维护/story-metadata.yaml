@@ -1,0 +1,49 @@
+schema-version: 1
+
+change-id: "CHG-0016"
+story-id: "STORY-003-01-02-01"
+title: "会员资料维护"
+summary: "查看/修改昵称、头像（MinIO）与基础资料，手机邮箱为资料字段，mall-web 个人中心"
+status: pending
+evidence-tier: standard
+created-at: "2026-09-14T14:39:17.195Z"
+updated-at: "2026-09-14T14:39:17.195Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-003
+    name: 商城前台
+  level-2:
+    id: FEAT-003-01
+    name: 商城会员
+  level-3:
+    id: FEAT-003-01-02
+    name: 会员资料
+  story:
+    id: STORY-003-01-02-01
+    name: 会员资料维护
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T14:56:00.966Z
+        validator: sdd-prd
+        artifact-hash: sha256:ff6a26001d8d3d2907783a2ce4febcba2d37a273682dbaa4ded8b0c3ee7a22bb
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T14:56:01.141Z
+        reviewer: trae-agent
+        artifact-hash: sha256:ff6a26001d8d3d2907783a2ce4febcba2d37a273682dbaa4ded8b0c3ee7a22bb
+        reason: ""
