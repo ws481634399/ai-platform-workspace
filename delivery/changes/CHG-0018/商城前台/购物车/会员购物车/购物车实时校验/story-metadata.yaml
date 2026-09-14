@@ -47,3 +47,20 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:8548c6d0a93fbdb014c09a30e2dfceedab2368a3113a3d3a27d76e2632328b37
         reason: ""
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:24:06.258Z
+        validator: sdd-design
+        artifact-hash: sha256:dd0723e1cc7b568060a114a5bb749f2817639d2f580c6bf6062ece9e655b0ede
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-14T15:24:29.004Z
+        reviewer: trae-agent
+        artifact-hash: sha256:dd0723e1cc7b568060a114a5bb749f2817639d2f580c6bf6062ece9e655b0ede
+        reason: ""

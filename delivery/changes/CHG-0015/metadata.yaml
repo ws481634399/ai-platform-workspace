@@ -17,10 +17,10 @@ id: "CHG-0015" # CHG-XXXX，创建时填
 title: "M3 前置就绪修复" # 简短标题
 summary: "修复 M2 遗留的商城联调阻塞：网关商城公开路由 401、库存服务内部调用凭证、库存分页 total=0、业务 ID
   字符串序列化、商品列表真实价格区间与有效 SKU 过滤" # 一句话摘要（可选）
-status: specified # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: story-splitting # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-READY" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:01:53.598Z" # ISO8601，创建时填
-updated-at: "2026-09-14T14:56:14.014Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T15:24:37.667Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-03
@@ -130,4 +130,22 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:f14042836e6862095f3e173a2effc2c60051e26848835a010dae6f2827871b16
         reason: ""
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:24:37.620Z
+        validator: sdd-design
+        artifact-hash: sha256:1b33d4bd8ab8d07e6d72c1bb68ba2599d67bd6cf52ea6615499c60fbfc423d96
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:24:37.635Z
+        reviewer: workflow
+        artifact-hash: sha256:1b33d4bd8ab8d07e6d72c1bb68ba2599d67bd6cf52ea6615499c60fbfc423d96
+        reason: "human-gate: skip (design)"
     status: accepted

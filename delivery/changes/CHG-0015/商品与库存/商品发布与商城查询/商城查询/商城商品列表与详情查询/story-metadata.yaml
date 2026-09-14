@@ -14,10 +14,10 @@ story-id: "STORY-002-03-02-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "商城商品列表与详情查询" # Story 标题
 summary: "修复 M2 遗留的商城联调阻塞：网关商城公开路由 401、库存服务内部调用凭证、库存分页 total=0、业务 ID
   字符串序列化、商品列表真实价格区间与有效 SKU 过滤" # Story 一句话摘要（可选）
-status: pending # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: designed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-14T14:11:44.321Z" # ISO8601，创建时填
-updated-at: "2026-09-14T14:11:44.321Z" # ISO8601，每次变更更新
+updated-at: "2026-09-14T15:24:37.723Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -52,7 +52,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T14:56:01.709Z
+        checked-at: 2026-09-14T15:24:37.685Z
         validator: sdd-prd
         artifact-hash: sha256:0f8c9e3ae77bfea248d2707b4446568b9abc674acf6dfc4252d56f8687008aec
         rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
@@ -64,3 +64,22 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:0f8c9e3ae77bfea248d2707b4446568b9abc674acf6dfc4252d56f8687008aec
         reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:24:37.716Z
+        validator: sdd-design
+        artifact-hash: sha256:80138f21c72c71c50a3eb0240ae592e2a6b5c6f8bf556676e8dedec73764264b
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:24:37.722Z
+        reviewer: workflow
+        artifact-hash: sha256:80138f21c72c71c50a3eb0240ae592e2a6b5c6f8bf556676e8dedec73764264b
+        reason: "human-gate: skip (design @ story STORY-002-03-02-01)"
+    status: accepted

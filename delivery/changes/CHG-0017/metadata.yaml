@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0017" # CHG-XXXX，创建时填
 title: "商城商品浏览体验" # 简短标题
 summary: "mall-web 游客可访问的首页/分类/品牌/商品列表/详情 SKU 选择，真实价格（分）与批量库存可售状态聚合" # 一句话摘要（可选）
-status: specified # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: story-splitting # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.444Z" # ISO8601，创建时填
-updated-at: "2026-09-14T14:56:17.698Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T15:24:38.683Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-02
@@ -161,4 +161,26 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:a081ecdf34cb652e36e7ef9cff996bf61366e60de3e36dfd9f1785ba0e38ba0d
         reason: ""
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:24:38.630Z
+        validator: sdd-design
+        artifact-hash: sha256:13f225c09332435dba9b4816485f92abebc3fea5f7957a78ab03e5a28bb54a07
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings:
+          - "requirement-design.md: 多个 Story 同 domain（FEAT-003-02-01）:
+            STORY-003-02-01-01, STORY-003-02-01-02——建议评估是否合并"
+          - "requirement-design.md: 多个 Story 同 domain（FEAT-003-02-02）:
+            STORY-003-02-02-01, STORY-003-02-02-02——建议评估是否合并"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:24:38.648Z
+        reviewer: workflow
+        artifact-hash: sha256:13f225c09332435dba9b4816485f92abebc3fea5f7957a78ab03e5a28bb54a07
+        reason: "human-gate: skip (design)"
     status: accepted

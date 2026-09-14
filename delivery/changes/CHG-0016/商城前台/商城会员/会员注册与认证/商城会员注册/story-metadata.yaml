@@ -13,10 +13,10 @@ change-id: "CHG-0016" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-003-01-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "商城会员注册" # Story 标题
 summary: "MEMBER 用户名密码注册登录与会话隔离、事件幂等初始化 Profile、会员资料与头像、收货地址 CRUD 与资源归属校验" # Story 一句话摘要（可选）
-status: pending # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: designed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-14T14:11:44.571Z" # ISO8601，创建时填
-updated-at: "2026-09-14T14:11:44.571Z" # ISO8601，每次变更更新
+updated-at: "2026-09-14T15:24:38.233Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -51,7 +51,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-14T14:56:00.235Z
+        checked-at: 2026-09-14T15:24:38.186Z
         validator: sdd-prd
         artifact-hash: sha256:e04f64cbd5cd99938e0370cfea5c283f4e477a4c821a20b3778d2b5c1b430dd5
         rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
@@ -63,3 +63,22 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:e04f64cbd5cd99938e0370cfea5c283f4e477a4c821a20b3778d2b5c1b430dd5
         reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-14T15:24:38.225Z
+        validator: sdd-design
+        artifact-hash: sha256:5746faacaab630b67dda7df759ef729a67b7ea4b53e4d2509e13e5d368f619e5
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T15:24:38.232Z
+        reviewer: workflow
+        artifact-hash: sha256:5746faacaab630b67dda7df759ef729a67b7ea4b53e4d2509e13e5d368f619e5
+        reason: "human-gate: skip (design @ story STORY-003-01-01-01)"
+    status: accepted
