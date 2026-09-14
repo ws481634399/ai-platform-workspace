@@ -1,0 +1,141 @@
+# OpenSpec Evidence Model（Phase 2.1）
+#
+# 版本: v0.1
+# 类型: Change 结构化证据索引
+#
+# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
+# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
+# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
+#
+# 条目结构（按 type 区分必填字段）：
+#
+# ---- type: code-change ----
+# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
+#   type: code-change
+#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
+#   commit: 23fdb62            # 必填，commit 短 sha（小写）
+#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
+#   reason: 实现注册服务        # 必填，为什么改
+#   files:                     # 必填（可为空数组），修改文件清单
+#     - path: src/services/auth/register.js
+#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
+#   recorded-at: ""            # ISO8601
+#
+# ---- type: test-run ----
+# - id: EV-002
+#   type: test-run
+#   command: npm test          # 必填，执行命令
+#   result: passed             # 必填，passed / failed / partial
+#   summary:                   # 必填（对象）
+#     total: 0
+#     passed: 0
+#     failed: 0
+#     skipped: 0
+#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
+#   covers: [AC-001, AC-002]       # 必填（可为空数组），覆盖的 PRD 验收标准
+#   recorded-at: ""
+#
+# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
+# - id: EV-003
+#   type: review-finding
+#   target: requirement-spec.md#AC-003  # 必填，指向被检查对象
+#   severity: major            # 必填，blocker / major / minor
+#   finding: 设计与实现不一致   # 必填
+#   resolution: ""             # 可选，处理结论
+#   recorded-at: ""
+#
+# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
+# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
+# - id: EV-004
+#   type: evidence-ref
+#   repository: backend        # 可选，仓库 id
+#   delivery-unit: DU-BE-001   # 可选，DU 绑定
+#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
+#                              # 必填，repo 侧证据文件（workspace 相对路径）
+#   summary: backend 单测 12 通过  # 可选，一句话摘要
+#   recorded-at: ""
+
+version: 0.1 # schema 版本
+change-id: "CHG-0014" # CHG-XXXX，创建时填充
+items:
+  - id: EV-CODE-001
+    type: code-change
+    repo: repo-1
+    commit: 6efd0b9
+    task: DU-BE-401
+    reason: Product/Gateway/Inventory Security 验收缺口修复。
+    files:
+      - path: mall-services/mall-product
+      - path: mall-gateway
+      - path: mall-services/mall-inventory
+    recorded-at: "2026-09-14T08:37:53+08:00"
+  - id: EV-CODE-002
+    type: code-change
+    repo: repo-2
+    commit: b34ae62
+    task: DU-FE-402
+    reason: mall-admin 商品聚合编辑页及 M1 回归修复。
+    files:
+      - path: mall-admin/src/views/product/ProductEditView.vue
+      - path: mall-admin/src/api
+    recorded-at: "2026-09-14T08:37:53+08:00"
+  - id: EV-CODE-003
+    type: code-change
+    repo: repo-2
+    commit: a89fe9e
+    task: DU-FE-402
+    reason: payload 自动化测试与异步错误收口。
+    files:
+      - path: mall-admin/src/views/product/product-editor.ts
+      - path: mall-admin/src/views/product/product-editor.spec.ts
+    recorded-at: "2026-09-14T08:43:00+08:00"
+  - id: EV-CODE-004
+    type: code-change
+    repo: repo-2
+    commit: 5f9067c
+    task: DU-FE-402
+    reason: 商品编辑资源子组件拆分。
+    files:
+      - path: mall-admin/src/views/product/ProductAssetsEditor.vue
+      - path: mall-admin/src/views/product/ProductSectionTitle.vue
+    recorded-at: "2026-09-14T08:45:00+08:00"
+  - id: EV-TEST-001
+    type: test-run
+    command: backend mvn test; frontend pnpm test/type-check/lint/build; browser verification
+    result: passed
+    summary:
+      total: 206
+      passed: 206
+      failed: 0
+      skipped: 0
+    log: evidence/test-report.md
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009]
+    recorded-at: "2026-09-14T08:45:30+08:00"
+  - id: EV-REVIEW-001
+    type: review-finding
+    target: mall-admin/src/views/product/ProductEditView.vue
+    severity: major
+    finding: 页面异步错误缺少显式收口。
+    resolution: a89fe9e 已修复，EV-TEST-001 回归通过。
+    recorded-at: "2026-09-14T08:46:00+08:00"
+  - id: EV-REVIEW-002
+    type: review-finding
+    target: test-design.md#TC-003
+    severity: major
+    finding: TC-003/004 缺少 payload 自动化测试。
+    resolution: a89fe9e 已新增测试，EV-TEST-001 回归通过。
+    recorded-at: "2026-09-14T08:46:00+08:00"
+  - id: EV-001
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-401
+    path: implementation/ai-platform-backend/delivery/CHG-0014/商品与库存/商品与 SKU 管理/商品主数据/商品 SPU 管理/DU-BE-401/evidence/evidence.yaml
+    summary: 后端 171 项测试全部通过，覆盖 Product/Gateway/Inventory Security。
+    recorded-at: "2026-09-14T08:32:00+08:00"
+  - id: EV-002
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-402
+    path: implementation/ai-platform-frontend/delivery/CHG-0014/商品与库存/商品与 SKU 管理/商品主数据/商品 SPU 管理/DU-FE-402/evidence/evidence.yaml
+    summary: 前端 31 项测试、type-check/lint/build 与真实浏览器检查全部通过。
+    recorded-at: "2026-09-14T08:32:00+08:00"

@@ -1,0 +1,100 @@
+version: 0.1
+change-id: CHG-0014
+story-id: STORY-002-02-01-01
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 6efd0b9
+    task: DU-BE-401
+    reason: 完成 Product 聚合创建、Gateway Product routes 与 Inventory SERVICE 授权。
+    files:
+      - path: mall-services/mall-product
+      - path: mall-gateway
+      - path: mall-services/mall-inventory
+    recorded-at: "2026-09-14T08:36:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    commit: b34ae62
+    task: DU-FE-402
+    reason: 完成 mall-admin 商品图片、属性、SKU 编辑与 M1 前端回归修复。
+    files:
+      - path: mall-admin/src/views/product/ProductEditView.vue
+      - path: mall-admin/src/api
+      - path: mall-admin/src/router/index.ts
+    recorded-at: "2026-09-14T08:36:00+08:00"
+  - id: EV-003
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-401
+    path: implementation/ai-platform-backend/delivery/CHG-0014/商品与库存/商品与 SKU 管理/商品主数据/商品 SPU 管理/DU-BE-401/evidence/evidence.yaml
+    summary: 后端 171 项测试全部通过。
+    recorded-at: "2026-09-14T08:32:00+08:00"
+  - id: EV-004
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-402
+    path: implementation/ai-platform-frontend/delivery/CHG-0014/商品与库存/商品与 SKU 管理/商品主数据/商品 SPU 管理/DU-FE-402/evidence/evidence.yaml
+    summary: 前端 29 项测试、type-check/lint/build 与浏览器检查全部通过。
+    recorded-at: "2026-09-14T08:32:00+08:00"
+  - id: EV-005
+    type: test-run
+    command: backend mvn test; frontend pnpm test/type-check/lint/build; desktop browser verification
+    result: passed
+    summary:
+      total: 206
+      passed: 206
+      failed: 0
+      skipped: 0
+    log: test-report.md
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009]
+    recorded-at: "2026-09-14T08:32:00+08:00"
+  - id: EV-006
+    type: code-change
+    repo: repo-2
+    commit: a89fe9e
+    task: DU-FE-402
+    reason: 补充 TC-003/004 payload 自动化测试并显式收口页面异步错误。
+    files:
+      - path: mall-admin/src/views/product/product-editor.ts
+      - path: mall-admin/src/views/product/product-editor.spec.ts
+      - path: mall-admin/src/views/product/ProductEditView.vue
+    recorded-at: "2026-09-14T08:43:00+08:00"
+  - id: EV-007
+    type: code-change
+    repo: repo-2
+    commit: 5f9067c
+    task: DU-FE-402
+    reason: 按组件规范拆分商品资源编辑区并将页面主文件收敛至 300 行。
+    files:
+      - path: mall-admin/src/views/product/ProductAssetsEditor.vue
+      - path: mall-admin/src/views/product/ProductSectionTitle.vue
+      - path: mall-admin/src/views/product/product-edit.css
+    recorded-at: "2026-09-14T08:45:00+08:00"
+  - id: EV-008
+    type: test-run
+    command: pnpm test && pnpm type-check && pnpm lint && pnpm build
+    result: passed
+    summary:
+      total: 31
+      passed: 31
+      failed: 0
+      skipped: 0
+    log: test-report.md
+    covers: [AC-003, AC-004, AC-008, AC-009]
+    recorded-at: "2026-09-14T08:45:30+08:00"
+  - id: EV-009
+    type: review-finding
+    target: mall-admin/src/views/product/ProductEditView.vue
+    severity: major
+    finding: 页面 API 异步链缺少显式 catch，不符合异步错误处理规范。
+    resolution: 已在 a89fe9e 增加错误收口并由 EV-008 回归验证。
+    recorded-at: "2026-09-14T08:46:00+08:00"
+  - id: EV-010
+    type: review-finding
+    target: test-design.md#TC-003
+    severity: major
+    finding: TC-003/004 原先仅有浏览器证据，缺少 payload 独立自动化验证。
+    resolution: 已在 a89fe9e 增加 product-editor.spec.ts，见 EV-008。
+    recorded-at: "2026-09-14T08:46:00+08:00"
