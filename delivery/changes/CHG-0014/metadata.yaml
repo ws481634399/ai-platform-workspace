@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0014" # CHG-XXXX，创建时填
 title: "M0-M2 验收缺口补全" # 简短标题
 summary: "补齐商品图片属性与原子 SKU 创建、商品 API 网关路由、库存内部接口鉴权及 M1 前端质量回归；手机端和 M3 mall-web 页面不在本次范围。" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M1-QUALITY,REQ-M2-002,REQ-M2-003,REQ-M2-004" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-13T15:29:38.662Z" # ISO8601，创建时填
-updated-at: "2026-09-14T00:40:33.654Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-14T00:51:41.021Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-02
@@ -39,7 +39,7 @@ evidence-tier: standard
 
 # Workflow Profile：full=逐阶段 Gate；fast=plan/dev/check 三个宏 Gate。Artifact 格式完全相同。
 workflow-profile: fast
-workflow-phase: check # fast 时为 plan/dev/check/completed；full 时为 null
+workflow-phase: completed # fast 时为 plan/dev/check/completed；full 时为 null
 workflow-switch-history:
   - from: full
     to: fast
@@ -63,16 +63,9 @@ workflow-gates:
           缺少 code-change Evidence 条目"
       checkedAt: 2026-09-14T00:34:57.496Z
     check:
-      status: failed
-      issues:
-        - "Machine gate failed: convergence.md: 前序 artifact 未 accepted:
-          test-design.md (status: draft); convergence.md: 前序 artifact 未
-          accepted: implementation.md (status: draft); convergence.md: 前序
-          artifact 未 accepted: evidence/test-report.md (status: draft);
-          convergence.md: 前序 artifact 未 accepted: review-report.md (status:
-          draft); convergence.md: 存在 DU 但 metadata.repository-result 为空（DU
-          completed 时应回填 result commit）"
-      checkedAt: 2026-09-14T00:48:29.057Z
+      status: passed
+      issues: []
+      checkedAt: 2026-09-14T00:51:41.040Z
 
 # Phase 2.4 保留：feature-path（完整四级链）
 # 兼容索引：首次绑定 Story 时可保留；权威 Story 链始终位于 story-metadata.yaml。
@@ -112,8 +105,10 @@ repository-baseline:
   {}
   # backend: { commit: abc111 }
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: 398dbdc3b6aee006e9bf5a81f01d69c755401243
+  repo-2:
+    commit: 447e8e03dcb67e7d863fde87b50d74f7cf504b4f
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
@@ -181,23 +176,20 @@ artifacts:
     path: convergence.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-14T00:48:29.044Z
+        status: passed
+        checked-at: 2026-09-14T00:51:40.985Z
         validator: sdd-converge
         artifact-hash: sha256:b5b9704edc70b268e6da7868f0411b2317d1343591acf78dc9cf37fcd8c77e40
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
-        issues:
-          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
-            (status: draft)"
-          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
-            draft)"
-          - "convergence.md: 存在 DU 但 metadata.repository-result 为空（DU completed
-            时应回填 result commit）"
+        issues: []
         warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-14T00:51:41.001Z
+        reviewer: workflow
+        artifact-hash: sha256:b5b9704edc70b268e6da7868f0411b2317d1343591acf78dc9cf37fcd8c77e40
+        reason: "human-gate: skip (converge)"
+    status: accepted
   test-design:
     path: test-design.md
     gates:
@@ -213,6 +205,7 @@ artifacts:
           - "test-design.md: Change CHG-0014 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
         warnings: []
+    status: accepted
   implementation:
     path: implementation.md
     gates:
@@ -226,6 +219,7 @@ artifacts:
         warnings:
           - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
             至少一条红→绿记录，advisory）"
+    status: accepted
   test-report:
     path: evidence/test-report.md
     gates:
@@ -237,6 +231,7 @@ artifacts:
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
         issues: []
         warnings: []
+    status: accepted
   review-report:
     path: review-report.md
     gates:
@@ -248,3 +243,4 @@ artifacts:
         rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
         issues: []
         warnings: []
+    status: accepted
