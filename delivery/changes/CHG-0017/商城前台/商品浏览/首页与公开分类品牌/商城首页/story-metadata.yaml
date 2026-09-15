@@ -104,3 +104,35 @@ artifacts:
         artifact-hash: sha256:9d50350a0f3a771be905a72226cba4626aebb278f816aeb153361555d98d9652
         reason: "human-gate: skip (task @ story STORY-003-02-01-01)"
     status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T15:45:09.181Z
+        validator: sdd-dev
+        artifact-hash: sha256:f755e6af5e6c728febfc301c1629638e10023a536349fc821562d7bd2bd5be8d
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T15:45:16.884Z
+        reviewer: trae-agent
+        artifact-hash: sha256:f755e6af5e6c728febfc301c1629638e10023a536349fc821562d7bd2bd5be8d
+        reason: ""
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-15T15:45:24.672Z
+        validator: sdd-test
+        artifact-hash: sha256:e35f7ebbdf85542341eb18e67f61e5741ddad4999d538191da7fdb4d4043ee65
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues:
+          - "evidence/test-report.md: DU DU-FE-701 status=pending，未达到
+            testing（Fan-in 阻断）"
+        warnings: []

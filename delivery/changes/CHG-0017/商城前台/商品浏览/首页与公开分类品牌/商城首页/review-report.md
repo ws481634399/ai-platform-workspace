@@ -4,7 +4,7 @@
 
 - Change ID：CHG-0017
 - Story ID：STORY-003-02-01-01
-- 审查对象：DU-BE-701（repo-1）
+- 审查对象：DU-BE-701（repo-1）、DU-FE-701（repo-2）
 - 审查时间：2026-09-15
 - 审查者：trae-agent
 

@@ -168,3 +168,38 @@ items: # Evidence 条目数组，按 recorded-at 升序
     log: 商城前台/商品浏览/首页与公开分类品牌/商城首页/evidence/test-report.md
     covers: [AC-001, AC-002]
     recorded-at: "2026-09-15T23:57:00+08:00"
+  # ---------- code-change（repo-2，STORY-003-02-01-01 / DU-FE-701） ----------
+  - id: EV-010
+    type: code-change
+    repo: repo-2
+    commit: 2c85e52
+    task: DU-FE-701
+    reason: 商城首页 + 公共组件——四态加载、分类/卡片路由、价区整数分展示、图片懒加载；沉淀 ProductCard/PriceText/StateView/BannerSlot。
+    files:
+      - path: mall-web/src/api/catalog.ts
+      - path: mall-web/src/components/ProductCard.vue
+      - path: mall-web/src/components/PriceText.vue
+      - path: mall-web/src/components/StateView.vue
+      - path: mall-web/src/components/BannerSlot.vue
+      - path: mall-web/src/views/HomeView.vue
+      - path: mall-web/vite.config.ts
+    recorded-at: "2026-09-16T00:20:00+08:00"
+  - id: EV-011
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-701
+    path: implementation/ai-platform-frontend/delivery/CHG-0017/商城前台/商品浏览/首页与公开分类品牌/商城首页/DU-FE-701/implementation.md
+    summary: mall-web 68/68（新增 14 + 既有 54），build 成功；含四态/路由/价区 TC。
+    recorded-at: "2026-09-16T00:21:00+08:00"
+  - id: EV-012
+    type: test-run
+    command: repo-2 pnpm test（68/68）、pnpm build（成功）
+    result: passed
+    summary:
+      total: 68
+      passed: 68
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/首页与公开分类品牌/商城首页/evidence/test-report.md
+    covers: [AC-018, AC-019]
+    recorded-at: "2026-09-16T00:22:00+08:00"
