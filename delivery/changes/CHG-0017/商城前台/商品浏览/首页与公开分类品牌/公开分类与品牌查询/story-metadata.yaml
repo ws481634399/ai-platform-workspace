@@ -4,10 +4,10 @@ change-id: "CHG-0017"
 story-id: "STORY-003-02-01-02"
 title: "公开分类与品牌查询"
 summary: "GET /api/mall/categories/tree 与 /api/mall/brands 公开接口，仅返回有效数据，网关匿名放行"
-status: tasked
+status: completed
 evidence-tier: standard
 created-at: "2026-09-14T14:39:17.195Z"
-updated-at: "2026-09-14T15:59:21.454Z"
+updated-at: "2026-09-15T15:12:02.976Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -91,7 +91,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-15T15:08:19.123Z
+        checked-at: 2026-09-15T15:11:44.343Z
         validator: sdd-dev
         artifact-hash: "sha256:2567c20c3669a483f54f687a26ec9898d0c5574002421c9f5dcae3c7\
           bb76b860"
@@ -102,22 +102,45 @@ artifacts:
           - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
             至少一条红→绿记录，advisory）"
       human:
-        status: approved
-        reviewed-at: 2026-09-15T15:09:00.453Z
-        reviewer: trae-agent
+        status: skipped
+        reviewed-at: 2026-09-15T15:11:44.356Z
+        reviewer: workflow
         artifact-hash: sha256:2567c20c3669a483f54f687a26ec9898d0c5574002421c9f5dcae3c7bb76b860
-        reason: ""
+        reason: "human-gate: skip (dev @ story STORY-003-02-01-02)"
+    status: accepted
   test-report:
     path: evidence/test-report.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-15T15:09:06.275Z
+        status: passed
+        checked-at: 2026-09-15T15:11:54.116Z
         validator: sdd-test
-        artifact-hash: sha256:38afbeba9a0ed951f461eb55f87039d2292aae22d17ad6b2991ec8b3ac1eea70
+        artifact-hash: sha256:f5de49a13b79cec3df96df7f4e28d22dde0c06e67e2309a00a3a84f4e9b8faaa
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
-        issues:
-          - "evidence/test-report.md: 缺少必需 section: ## 2. 测试执行汇总"
-          - "evidence/test-report.md: DU DU-BE-702 status=pending，未达到
-            testing（Fan-in 阻断）"
+        issues: []
         warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T15:11:54.128Z
+        reviewer: workflow
+        artifact-hash: sha256:f5de49a13b79cec3df96df7f4e28d22dde0c06e67e2309a00a3a84f4e9b8faaa
+        reason: "human-gate: skip (test @ story STORY-003-02-01-02)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T15:12:02.961Z
+        validator: sdd-review
+        artifact-hash: sha256:aea38b15010dea0c23e07c55d5bacf651f01dfa9da150456885e0fa5bd973139
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T15:12:02.974Z
+        reviewer: workflow
+        artifact-hash: sha256:aea38b15010dea0c23e07c55d5bacf651f01dfa9da150456885e0fa5bd973139
+        reason: "human-gate: skip (review @ story STORY-003-02-01-02)"
+    status: accepted

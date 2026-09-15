@@ -135,3 +135,36 @@ items: # Evidence 条目数组，按 recorded-at 升序
     log: 商城前台/商品浏览/库存状态展示/SKU 可售状态聚合/evidence/test-report.md
     covers: [AC-015, AC-016, AC-017]
     recorded-at: "2026-09-15T23:32:00+08:00"
+  # ---------- code-change（repo-1，STORY-003-02-01-01 / DU-BE-701） ----------
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    commit: 868ee02
+    task: DU-BE-701
+    reason: 商城首页聚合——分类入口(≤8启用根) + 新品(ON_SALE+启用SKU LIMIT 10 + 价区) + 推荐(fallback) + banners(空)，复用 mallPage 与 mallTree。
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallHomeController.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/home/HomeApplicationService.java
+        symbols: [home]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/MallHomeDtos.java
+      - path: mall-services/mall-product/src/test/java/com/ai/mall/product/interfaces/rest/mall/MallHomeApiTest.java
+    recorded-at: "2026-09-15T23:55:00+08:00"
+  - id: EV-008
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-701
+    path: implementation/ai-platform-backend/delivery/CHG-0017/商城前台/商品浏览/首页与公开分类品牌/商城首页/DU-BE-701/implementation.md
+    summary: mall-product 84/84（新增 3 + 既有 81 零回归）；含聚合/空态/上限 TC 映射、changeset。
+    recorded-at: "2026-09-15T23:56:00+08:00"
+  - id: EV-009
+    type: test-run
+    command: repo-1 mvn -pl mall-services/mall-product clean test（84/84）
+    result: passed
+    summary:
+      total: 84
+      passed: 84
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/首页与公开分类品牌/商城首页/evidence/test-report.md
+    covers: [AC-001, AC-002]
+    recorded-at: "2026-09-15T23:57:00+08:00"
