@@ -576,6 +576,26 @@ Converge
 ## 13.5 并发唯一性测试模式
 
 - 验证数据库唯一约束的并发测试使用 `CountDownLatch`（就绪闸 + 启动闸）+ 固定线程池，断言"成功数恰为 1、其余得到冲突业务错误、库中 COUNT=1"，并在 finally 中关闭线程池；Runnable lambda 内的受检中断异常必须就地捕获。
+- 注意 H2 内存库可能把并发冲突串行化为多个成功：用例须容忍「恰好一成」与「全部成功但最终 COUNT=1」两种结局，凡失败必须断言为预期的业务冲突错误码；真实 MySQL/PostgreSQL 下的必现冲突在集成测试阶段（真实两进程 + 真实 DB）复验，不得只凭 H2 宣告并发安全。
+
+## 13.6 H2 对 MySQL 生成列 DDL 的兼容写法
+
+- H2（MODE=MySQL）既不识别 MySQL 方言 `IF()` 函数，也不识别计算列的 `STORED` 关键字；
+  跨两库的生成列统一写标准 `CASE WHEN ... THEN ... ELSE ... END` 且省略 `STORED`
+  （MySQL 8 默认 VIRTUAL；UNIQUE 索引对虚拟生成列仍物化键值，唯一性语义等价）。
+- H2 2.x `INFORMATION_SCHEMA.INDEXES` 没有 `IS_UNIQUE/UNIQUE` 列，唯一性别查
+  `INDEX_TYPE_NAME LIKE '%UNIQUE%'`；唯一约束自动生成的支持索引名会带 `_INDEX_n`
+  后缀，断言按前缀 LIKE 匹配；冲突异常文案中的索引名可能为小写，不要依赖忽略大小写的
+  断言（assertj 无对应 API），直接按实测文案断言。
+
+## 13.7 ECJ 增量编译残留错误桩类
+
+- `test-compile` 曾失败后直接跑 `test`（不带 clean），ECJ 增量编译可能已向
+  `target/test-classes` 输出「Unresolved compilation problem」错误桩类，导致整类用例
+  初始化 Error 而非真实失败。出现整类 `java.lang.Error` 时先 `mvn clean test` 全量重编；
+  验证脚本统一走 `clean test` / `clean package`。
+
+> 13.6/13.7 来源：CHG-0016（shipping_address V2 生成列默认唯一，Flyway 干净库迁移验证）。
 
 ---
 

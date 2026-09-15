@@ -136,6 +136,58 @@ app.delete('/api/users/:id', auth, requireRole('admin'), async (req, res) => {
 - 限制并发会话数
 - 异地登录要求重新认证
 
+### 会员 JWT 双令牌会话（access + refresh family）
+
+面向 C 端会员的会话采用「短期 access token + 长期 refresh token」族（family）模型，
+CHG-0016 落地，后续 mall-web 所有会员态页面沿用：
+
+- **旋转与重放检测**：每次刷新签发新 refresh token 并使旧 token 失效（rotation）；
+  收到已旋转过的旧 token = 重放攻击，必须撤销整个 family（同会员该登录族全部会话下线），
+  撤销动作走独立事务（REQUIRES_NEW），避免外层回滚导致撤销不落库。
+- **版本失效**：会员表维护 auth_version；改密/管理员停用等场景递增版本，旧 access token
+  自然过期外，refresh 校验版本失败即拒登。
+- **双渠道下发**：登录/刷新响应同时在 body 发 access token（SPA 内存持有）与
+  HttpOnly+Secure+SameSite cookie 发 refresh token；登出同时撤族与清 cookie。
+- **前端 401 单飞重放**：业务请求遇 401 时由 http 客户端拦截器触发一次 refresh（多请求
+  并发共享同一个 refresh Promise，单飞），成功后重放原请求；refresh 自身 401 不重试，
+  集中清会话跳登录。
+- **防开放重定向**：登录拦截的 redirect 参数必须经白名单/同源策略校验
+  （仅允许站内相对路径，拒绝 `//host`、协议外跳），禁止原样回跳。
+
+> 来源：CHG-0016（商城会员注册/登录/会话）。验证要点：旋转后旧 refresh 重放整族撤销、
+> 并发 401 只触发一次 refresh、域外 redirect 被拒绝。
+
+### 授权失败双保险（路径层 + 方法级）
+
+- Spring 方法级 `@PreAuthorize` 的拒绝异常在 `DispatcherServlet` 内抛出，会被
+  `@ControllerAdvice`/`@RestControllerAdvice` 的兜底 `@ExceptionHandler(Exception.class)`
+  **抢先于** `ExceptionTranslationFilter` 处理，把 403 吞成 500。
+- 约定：凡有全局兜底 advice 的服务，授权必须双层——SecurityFilterChain 路径层
+  `hasRole(...)` 规则做首要收口，方法级注解做细粒度兜底；同时由 advice 显式映射
+  `AccessDeniedException → 403`。测试必须包含匿名 401 与越权角色 403 矩阵。
+
+> 来源：CHG-0016（真实 500 红基线驱动，会员资料/地址接口复验）。
+
+## 文件上传与对象存储
+
+用户上传文件（头像、商品图等）遵循以下安全与可用性约定（CHG-0016 头像链路落地）：
+
+- **双道大小限制**：Servlet 容器 `max-file-size` 与应用层显式字节数校验同时存在
+  （MockMvc/测试环境绕过容器解析，没有应用层校验等于不设防）；超限统一 400。
+- **魔数嗅探**：文件类型以服务端读取文件头魔数判定，contentType 与扩展名由服务端重算，
+  不信任客户端上传的 MIME、文件名与后缀；先查大小，再查魔数，最后才触碰对象存储——
+  任一拒绝路径对象存储必须零调用。
+- **对象 key 服务端生成**：路径形如 `{业务域}/{ownerId}/{UUIDv4}.{服务端重算扩展名}`，
+  禁止使用客户端原始文件名，杜绝路径穿越与互相覆盖。
+- **存储故障隔离 503**：对象存储（MinIO/S3）不可用时返回 503 且不写业务库半成品；
+  客户端 bean 构造无连接，桶采用首次使用懒创建（ensureBucket），基础设施离线不得阻断
+  应用启动与不相关主链（登录/注册等）；建桶竞态以二次存在性检查消化。
+- **覆盖上传不删旧对象**：更新文件以新 key 原子切换业务字段，旧对象在当前迭代不做 GC
+  （需要时另立清理任务）。
+
+> 来源：CHG-0016（MinIO 头像上传，2MB/jpeg/png/webp）。验证要点：伪装 GIF/超限文件
+> 400 且存储零调用、存储离线 503 不写库、断 MinIO 应用正常启动。
+
 ## 数据保护
 
 ### 敏感数据识别

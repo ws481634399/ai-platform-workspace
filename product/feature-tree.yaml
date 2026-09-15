@@ -675,14 +675,14 @@ features:
                                 id: STORY-003-01-01-01,
                                 name: 商城会员注册,
                                 description: 用户名+密码注册 MEMBER 主体，登录标识唯一、密码哈希、事件幂等初始化 Member Profile，无验证码,
-                                status: planned
+                                status: delivered
                               },
                             {
                                 id: STORY-003-01-01-02,
                                 name: 商城会员登录与会话,
                                 description: MEMBER 用户名密码登录、双 Token 刷新与退出，MEMBER/ADMIN Token 隔离，mall-web 统一登录态与
                                   401 处理,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -697,7 +697,7 @@ features:
                                 id: STORY-003-01-02-01,
                                 name: 会员资料维护,
                                 description: 查看/修改昵称、头像（MinIO）与基础资料；手机邮箱为资料字段；mall-web 个人中心,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -712,7 +712,7 @@ features:
                                 id: STORY-003-01-03-01,
                                 name: 收货地址管理,
                                 description: 地址列表/新增/修改/删除/默认地址/查询默认，后端强制资源归属校验，默认地址唯一,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }

@@ -297,6 +297,28 @@ application-prod.yml
 幂等处理能力。
 
 
+## 5.4 跨服务数据同步：Outbox-Lite 与双幂等（CHG-0016 晋升）
+
+没有独立 MQ 基础设施时，服务间「主库落库后必须通知对端」的同步采用事务内 outbox +
+定时补偿模式（CHG-0016 identity→member 会员建档链路落地，后续订单/库存等同步沿用）：
+
+- **事务内留痕**：业务事务同库写 outbox 行（状态 pending），提交后（afterCommit）
+  立即尝试一次 HTTP 投递；投递失败、进程崩溃由定时扫描 pending/过期行重试，
+  禁止在业务事务内发起远程调用（远程故障会回滚本地提交）。
+- **消费端双幂等**：① 事件携带确定性事件 ID，目标侧唯一约束兜底重复插入；
+  ② 目标应用服务先 `existsBy` 判定再执行，重复通知直接返回成功。
+- **上游契约缺事件 ID 时**：用 `UUID.nameUUIDFromBytes(("用途前缀:"+业务键).getBytes(UTF_8))`
+  派生确定性 UUID v3——同一业务键任意次补偿的事件 ID 恒定，命中目标侧幂等；
+  前缀按用途隔离，不同同步链路不复用。
+- **失败语义分级**：对端明确返回业务不可恢复（如 404 主体不存在、401 凭证失效）
+  转人工/告警或按业务补偿，不无限重试；网络故障/5xx 保持 pending 继续重试，
+  重试带退避并记录次数。
+
+> 来源：CHG-0016（MemberProvisionRelay afterCommit 投递 + 定时重试；
+> member 侧 profile provision 双幂等；profile-seed 契约仅 {memberId,username,status}
+> 时以确定性 UUID v3 作 initializedEventId）。
+
+
 ---
 
 # 6. 日志框架规范

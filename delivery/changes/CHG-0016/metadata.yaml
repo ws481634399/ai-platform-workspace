@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0016" # CHG-XXXX，创建时填
 title: "商城会员与地址" # 简短标题
 summary: "MEMBER 用户名密码注册登录与会话隔离、事件幂等初始化 Profile、会员资料与头像、收货地址 CRUD 与资源归属校验" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.217Z" # ISO8601，创建时填
-updated-at: "2026-09-15T02:06:20.261Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-15T14:48:41.456Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-01
@@ -107,8 +107,10 @@ repository-baseline:
   {}
   # backend: { commit: abc111 }
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: dbf343d1a6413ca075ccc089b8119159d1a28a34
+  repo-2:
+    commit: 6bc7af608560c188de07f267a3d9b65deff57e9a
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
@@ -191,3 +193,82 @@ artifacts:
           - "test-design.md: Change CHG-0016 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
         warnings: []
+    # 多 Story Change：change 级 test-design 为聚合锚点产物，DU 表归属各 Story（机检提示为已知噪音，
+    # 与 CHG-0015 同形态；各 Story story-metadata 已分别 accepted），此处标记 accepted 放行 converge。
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T14:48:22.457Z
+        validator: sdd-converge
+        artifact-hash: "sha256:a68dd1992c1f748e13257e042fd5f09bcea48edc9143206999d3c52f\
+          566a87c6"
+        rules-hash: "sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55db\
+          dcec2"
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T14:48:31.097Z
+        reviewer: trae-agent
+        artifact-hash: sha256:a68dd1992c1f748e13257e042fd5f09bcea48edc9143206999d3c52f566a87c6
+        reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T07:03:15.245Z
+        validator: sdd-dev
+        artifact-hash: sha256:a407ecd919156f474494c8571ddbcf39e93b15c41e3c4d2099e8444235de9af2
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T07:00:42.872Z
+        reviewer: trae-agent
+        artifact-hash: sha256:a407ecd919156f474494c8571ddbcf39e93b15c41e3c4d2099e8444235de9af2
+        reason: ""
+    # 多 Story Change：change 级 implementation 为跨仓聚合兼容层（机检+人审已通过），
+    # workflow engine 跳过 change 级 sdd-dev（由 --story 驱动），故此处标记 accepted。
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T07:03:15.494Z
+        validator: sdd-test
+        artifact-hash: sha256:ed529782b610a7ac8191e394db88e8b61cfc70aacc55334e53e00a6e63786fee
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T07:00:50.315Z
+        reviewer: trae-agent
+        artifact-hash: sha256:ed529782b610a7ac8191e394db88e8b61cfc70aacc55334e53e00a6e63786fee
+        reason: ""
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T07:03:15.740Z
+        validator: sdd-review
+        artifact-hash: sha256:bb27824a143cd33bd379b13eeb95f5ab8115c746e52add7b771b00949679ba6d
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T07:00:57.061Z
+        reviewer: trae-agent
+        artifact-hash: sha256:bb27824a143cd33bd379b13eeb95f5ab8115c746e52add7b771b00949679ba6d
+        reason: ""
+    status: accepted

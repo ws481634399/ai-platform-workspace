@@ -697,3 +697,25 @@ package.json 的 type-check script 按此约定声明。
 
 
 来源：CHG-0004 review-report.md §1.5
+
+# 15. 单元测试形态约定：逻辑切片优先（CHG-0016 晋升）
+
+mall-web/mall-admin 的 vitest 单测默认采用 **node 环境纯逻辑切片**，不为单个页面引入
+DOM 挂载栈：
+
+- **可测逻辑下沉三层**：`api/`（HTTP 契约：URL/方法/请求体/解包）、`utils/`（纯函数：
+  校验、归一、构造请求）、`stores/`（pinia 状态编排：成功落态/失败不污染/乐观与回滚）；
+  SFC（.vue）只做交互编排，不承载可单测的业务分支。
+- **不挂组件**：默认不引入 happy-dom / @vue/test-utils，spec 不做 DOM 查询/点击；
+  SFC 的模板类型与可编译性由 `vue-tsc` 双 tsconfig + `vite build` 兜底；
+  真实点击/弹层/confirm/两进程链路归集成测试阶段（真实浏览器 + 网关 + 后端）。
+- **mock 约定**：mock 唯一 HTTP 出口——
+  `const httpMocks = vi.hoisted(() => ({ get: vi.fn(), put: vi.fn(), post: vi.fn(), delete: vi.fn() })); vi.mock('@/api/http', () => ({ default: httpMocks }))`；
+  store 测试 mock 对应 `@/api/*` 模块；每个用例 `setActivePinia(createPinia())`。
+- **全流程行为的替代断言**：乐观更新在 mock 实现内捕获「请求等待期的本地态」断言即时生效；
+  失败路径断言快照回滚 + 强拉重取 + 错误 rethrow；写后强拉次数本身也是契约断言。
+- 只有当多个页面出现真实复用的复杂交互组件时，才评估在 frozen-lockfile 评审下引入
+  DOM 测试栈；不得以「组件测试好写」为由在单个 DU 内新增依赖。
+
+来源：CHG-0016（DU-FE-601/602/603 三个 DU、12 个 spec 全部 node 环境逻辑切片，
+登录态/资料/地址共 58 例；页面交互经 type-check+build 锁定，浏览器链路归 M3 Test）。

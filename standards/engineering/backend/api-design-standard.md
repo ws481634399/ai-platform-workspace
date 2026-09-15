@@ -540,6 +540,30 @@ GET /orders?page=1&size=20
 
 ---
 
+## 资源归属与聚合写约束（CHG-0016 晋升）
+
+会员/用户私有资源（地址、购物车、订单等）的接口遵循：
+
+- **资源 ID 永不作为身份来源**：ownerId 只从认证主体（SecurityContext/subjectId）解析，
+  路径或请求体里的 id 仅定位资源；Repository 端口的读写方法默认携带 ownerId 双条件
+  （`WHERE id = ? AND owner_id = ?`），更新/删除以影响行数判定成败。
+- **越权与不存在同构**：访问他人资源与访问不存在资源返回同一错误码（404 + 同一文案），
+  不使用 403，避免通过响应差异侧泄漏资源存在性；列表查询天然带 ownerId 过滤。
+- **「每聚合最多 N 条」**：应用层写前 `COUNT` 预判，超限返回 409 业务错误码；
+  前端可做同界前置拦截，服务端计数是安全边界。
+- **「每个 owner 恰好一个默认/首选项」双保险**：应用层同事务「清除旧标记 + 写入新标记」
+  保证常规路径；数据库层以生成列 + UNIQUE 索引承担并发终判
+  （owner 内默认行为 `CASE WHEN is_default=1 THEN owner_id ELSE NULL END`，跨 owner 的
+  NULL 互不冲突）；应用层捕获 `DuplicateKeyException` 转为 409 业务错误码，不把
+  Spring/数据库异常泄漏到接口层。
+- 写操作成功后以服务端视图重查返回（取数据库时间戳与默认排序），排序规则在 Mapper
+  固定（如 `is_default DESC, updated_at DESC`），客户端不提交排序。
+
+> 来源：CHG-0016（收货地址：归属 404 B0201、上限 B0202、默认冲突 B0203；
+> 双会员越权矩阵 + CountDownLatch 并发用例验证）。
+
+---
+
 # 11. AI Coding Agent接口修改规则
 
 
