@@ -57,4 +57,51 @@
 
 version: 0.1 # schema 版本
 change-id: "CHG-0016" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+items: # Evidence 条目数组，按 recorded-at 升序
+  # ---------- code-change（repo-1 后端，STORY-003-01-01-01 / DU-BE-601） ----------
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 2f70309
+    task: DU-BE-601
+    reason: 会员注册全链路——identity 会员账号三表（V7）与注册服务、Outbox-Lite afterCommit 投递与定时重试、issuer SubjectType 泛化、profile-seed 内部端点；member 侧 V1 member_profile 与双幂等 provision、JWT/内部凭证安全配置；两服务 26 例测试。
+    files:
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V7__create_member_account.sql
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/domain/model/member/MemberAccount.java
+        symbols: [register, ensureCanSignIn]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/domain/model/member/MemberUsername.java
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/application/member/MemberRegistrationService.java
+        symbols: [register]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/application/member/MemberProvisionRelay.java
+        symbols: [dispatchPending, tryDispatchAfterCommit]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/infrastructure/client/MemberProvisionClient.java
+        symbols: [provision]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/interfaces/rest/member/MemberAuthController.java
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/interfaces/rest/internal/InternalMemberController.java
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/infrastructure/security/RsaAccessTokenIssuer.java
+      - path: mall-services/mall-member/src/main/resources/db/migration/V1__create_member_tables.sql
+      - path: mall-services/mall-member/src/main/java/com/ai/mall/member/application/member/ProfileProvisionService.java
+        symbols: [provision]
+      - path: mall-services/mall-member/src/main/java/com/ai/mall/member/interfaces/rest/internal/InternalMemberProvisionController.java
+    recorded-at: "2026-09-15T09:50:00+08:00"
+  # ---------- test-run（STORY-003-01-01-01 独立验证） ----------
+  - id: EV-003
+    type: test-run
+    command: repo-1 mvn -pl mall-services/mall-identity test、mvn -pl mall-services/mall-member test、mvn clean package（24 模块全量）
+    result: passed
+    summary:
+      total: 224
+      passed: 224
+      failed: 0
+      skipped: 0
+    log: 商城前台/商城会员/会员注册与认证/商城会员注册/evidence/test-report.md
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007]
+    recorded-at: "2026-09-15T10:10:00+08:00"
+  # ---------- evidence-ref（repo-1 DU 侧证据引用，不复制正文） ----------
+  - id: EV-002
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-601
+    path: implementation/ai-platform-backend/delivery/CHG-0016/商城前台/商城会员/会员注册与认证/商城会员注册/DU-BE-601/evidence/evidence.yaml
+    summary: identity 67/67、member 10/10；24 模块全量 224 例全绿；含红基线（H2 JSON 双编码/共享库计数污染）→绿日志、TC-001~009 映射、changeset 与 DEV-1~3。
+    recorded-at: "2026-09-15T09:56:00+08:00"

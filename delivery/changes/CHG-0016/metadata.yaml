@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0016" # CHG-XXXX，创建时填
 title: "商城会员与地址" # 简短标题
 summary: "MEMBER 用户名密码注册登录与会话隔离、事件幂等初始化 Profile、会员资料与头像、收货地址 CRUD 与资源归属校验" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.217Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:59:19.375Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-15T02:06:20.261Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-01
