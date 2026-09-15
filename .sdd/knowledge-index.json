@@ -40,9 +40,9 @@
     {
       "title": "安全指南",
       "path": "standards/security-guidelines.md",
-      "tags": ["security", "owasp", "auth", "crypto", "input-validation"],
-      "summary": "基于 OWASP Top 10，定义输入校验、认证授权、数据保护与加密存储的安全要求",
-      "related-changes": []
+      "tags": ["security", "owasp", "auth", "crypto", "input-validation", "internal-endpoint", "zero-trust"],
+      "summary": "基于 OWASP Top 10，定义输入校验、认证授权、数据保护与加密存储的安全要求；CHG-0015 晋升：服务间内部端点隔离（独立 X-Internal-Token 凭证、JWT 不通内部、网关 /api/internal/** 外拒 404、白名单最小化）",
+      "related-changes": ["CHG-0015"]
     },
     {
       "title": "工程规范总入口",
@@ -103,9 +103,9 @@
     {
       "title": "后端接口设计规范",
       "path": "standards/engineering/backend/api-design-standard.md",
-      "tags": ["backend", "api", "rest", "design"],
-      "summary": "后端 API 接口实现规范，涵盖资源命名、幂等、错误码、版本与文档",
-      "related-changes": []
+      "tags": ["backend", "api", "rest", "design", "snowflake-id", "json-serialization"],
+      "summary": "后端 API 接口实现规范，涵盖资源命名、幂等、错误码、版本与文档；CHG-0015 晋升 §5.3：雪花业务 ID 出参统一 @StringId 字符串化、入参保持 Long、金额数量分页保持 number",
+      "related-changes": ["CHG-0015"]
     },
     {
       "title": "后端数据库访问规范",

@@ -17,10 +17,10 @@ id: "CHG-0015" # CHG-XXXX，创建时填
 title: "M3 前置就绪修复" # 简短标题
 summary: "修复 M2 遗留的商城联调阻塞：网关商城公开路由 401、库存服务内部调用凭证、库存分页 total=0、业务 ID
   字符串序列化、商品列表真实价格区间与有效 SKU 过滤" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-READY" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:01:53.598Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:58:27.213Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-15T01:02:22.824Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-002
   - FEAT-002-03
@@ -81,11 +81,15 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: f424c3b7b3cb5788a8939209390a01276be74b3c
+  repo-2:
+    commit: 77c8b23d5d8569a62ed76891a6fd090800085e2d
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: 694fa501ed6c0bbb12dfa7a0ab489cbb3f7fae18
+  repo-2:
+    commit: 83fbc90153647ccbf24cbb56a525c7e1cdd4265e
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
@@ -166,3 +170,82 @@ artifacts:
           - "test-design.md: Change CHG-0015 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
         warnings: []
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T01:02:22.799Z
+        validator: sdd-converge
+        artifact-hash: sha256:e2618602700f5ad32fdbdbe674809cf84fcbb7f9ceddec9c53d9612d64b1a537
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T01:02:22.556Z
+        reviewer: trae-agent
+        artifact-hash: sha256:e2618602700f5ad32fdbdbe674809cf84fcbb7f9ceddec9c53d9612d64b1a537
+        reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T00:59:01.257Z
+        validator: sdd-dev
+        artifact-hash: sha256:16e4d12b7e96d53d8a053c0199b875830df449a6eacd8feb7e01471e873260a1
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T00:59:10.105Z
+        reviewer: trae-agent
+        artifact-hash: sha256:16e4d12b7e96d53d8a053c0199b875830df449a6eacd8feb7e01471e873260a1
+        reason: ""
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T00:58:34.455Z
+        validator: sdd-test
+        artifact-hash: "sha256:8a88e59d86417eec6dcb7c43fe6260b2a97c5f6cc438249361569175\
+          0b06d761"
+        rules-hash: "sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad4217\
+          04aa6"
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T00:59:10.283Z
+        reviewer: trae-agent
+        artifact-hash: sha256:8a88e59d86417eec6dcb7c43fe6236b8f20939091750b06d761
+        reason: ""
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T00:58:34.678Z
+        validator: sdd-review
+        artifact-hash: "sha256:c1cc2b30731411f3aefe4efa529252574e24871c7c1d8ab0cdecd4f0\
+          483e8d48"
+        rules-hash: "sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b\
+          7ac88"
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-15T00:59:10.466Z
+        reviewer: trae-agent
+        artifact-hash: sha256:c1cc2b30711f3aefe4efa529252574e24871c7c1d8ab0cdecd4f0483e8d48
+        reason: ""
+    status: accepted

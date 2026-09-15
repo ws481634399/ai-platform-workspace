@@ -23,7 +23,7 @@
 - [Git 规范](git-conventions.md) — 分支命名、Commit 消息格式、PR 流程、.gitignore 基线
 
 ## 安全实践
-- [安全指南](security-guidelines.md) — 输入校验、认证授权、密码存储、数据保护、OWASP Top 10
+- [安全指南](security-guidelines.md) — 输入校验、认证授权、密码存储、数据保护、OWASP Top 10；**（CHG-0015 已晋升）** 服务间内部端点隔离（X-Internal-Token、JWT 不通内部、网关 404 外拒、白名单最小化）
 
 ## API 规范
 - [工程 API 规范](engineering/api-standard.md) — 软件系统 API 设计和管理规范
@@ -35,7 +35,7 @@
 - [后端工程规范入口](engineering/backend/README.md) — 后端系统开发过程中的通用工程规范
 - [后端架构规范](engineering/backend/architecture-standard.md) — 后端系统架构设计规范
 - [后端框架使用规范](engineering/backend/framework-standard.md) — **（CHG-0001 已晋升 §7.3/§7.4）** 后端技术框架、基础设施组件和工程配置使用规范；含 Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线版本组合、四层 POM 体系 / mall-bom 无 parent / enforcer 守门 / BOM 版本权威 / 依赖边界单向规则
-- [后端接口设计规范](engineering/backend/api-design-standard.md) — 后端 API 接口实现规范
+- [后端接口设计规范](engineering/backend/api-design-standard.md) — 后端 API 接口实现规范；**（CHG-0015 已晋升 §5.3）** 雪花业务 ID 出参 @StringId 字符串化、入参保持 Long、金额数量分页保持 number
 - [后端数据库访问规范](engineering/backend/database-access-standard.md) — 后端 DAL 设计和实现规范
 - [后端服务设计规范](engineering/backend/service-standard.md) — 后端服务层设计规范
 

@@ -331,6 +331,21 @@ Domain Entity
 |data|业务数据|
 
 
+## 5.3 业务 ID 序列化（字符串出参）
+
+雪花算法等 64 位长整型业务 ID（可达 19 位，超过 JavaScript `Number.MAX_SAFE_INTEGER` = 9007199254740991）经 JSON 直接输出为 number 时，JS/TS 等弱语言端会发生末位精度丢失，且一旦污染中间状态（表单、行键、路由参数）无法还原。
+
+规则：
+
+- **出参**：所有对外 DTO 的业务 ID 字段（含嵌套对象、分页 records、树形节点）必须序列化为 JSON 字符串。统一使用组合注解 `@StringId`（`@JacksonAnnotationsInside` + `@JsonSerialize(using = ToStringSerializer.class)`）标注，禁止逐字段手写 `@JsonSerialize`。
+- **入参**：Controller/Application 入参保持 `Long`，由 Jackson 原生兼容 `"123"` 与 `123` 两种形态，禁止为了对称把入参改成 String。
+- **仅业务 ID 字符串化**：金额（整数分）、数量、分页（page/size/total/current）、层级、排序字段必须保持 number 类型。
+- **自增主键与雪花主键一视同仁**：同一 DTO 中的 ID 表现形态必须一致，不按底层 `IdType` 区分。
+- 前端对应约定：API 层 ID 类型声明为 `string`；禁止 `Number(id)` 转换；路由 query 取参用 `String(...)`；未持久化实体的临时行键使用可识别前缀（如 `local-<n>`），不得与真实 ID 混淆。
+
+> 来源：CHG-0015（M3 前置就绪修复）。验证要点：19 位雪花 ID 全链路无末位偏差，并以「舍入形态 ID 应返回 404」作为链路无数值化的反证。
+
+
 ---
 
 # 6. 参数校验规范

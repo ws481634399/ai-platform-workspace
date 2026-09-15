@@ -1,4 +1,4 @@
-# OpenSpec Evidence Model（Phase 2.1）
+﻿# OpenSpec Evidence Model（Phase 2.1）
 #
 # 版本: v0.1
 # 类型: Change 结构化证据索引
@@ -57,4 +57,142 @@
 
 version: 0.1 # schema 版本
 change-id: "CHG-0015" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+items:
+  # ---------- code-change（repo-1 后端） ----------
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 335c47f
+    task: DU-BE-501
+    reason: 统一业务 ID 出参字符串化的 @StringId 元注解（Jackson 组合注解 + ToStringSerializer），杜绝雪花 ID 前端精度丢失。
+    files:
+      - path: mall-common/mall-common-web/src/main/java/com/ai/mall/common/web/annotation/StringId.java
+        symbols: [StringId]
+      - path: mall-common/mall-common-web/src/test/java/com/ai/mall/common/web/annotation/StringIdJacksonTest.java
+    recorded-at: "2026-09-15T10:10:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    commit: 6c3d583
+    task: DU-BE-501
+    reason: 服务间内部调用共享凭证机制（X-Internal-Token），"无凭证=拒绝"，JWT 不通内部端点。
+    files:
+      - path: mall-common/mall-common-security/src/main/java/com/ai/mall/common/security/InternalIdentityFilter.java
+        symbols: [InternalIdentityFilter]
+      - path: mall-common/mall-common-security/src/main/java/com/ai/mall/common/security/InternalSecurityProperties.java
+      - path: mall-common/mall-common-security/src/main/java/com/ai/mall/common/security/config/InternalSecurityAutoConfiguration.java
+    recorded-at: "2026-09-15T10:20:00+08:00"
+  - id: EV-003
+    type: code-change
+    repo: repo-1
+    commit: 8c500f1
+    task: DU-BE-501
+    reason: product 域 ID 字符串化、启用 SKU 真实价区聚合（单条 GROUP BY MIN/MAX 整数分）、商城列表 EXISTS 过滤无有效 SKU、内部快照调用携带凭证。
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/ProductRepository.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/persistence/product/PriceRangePo.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/persistence/product/ProductRepositoryImpl.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/persistence/product/SkuMapper.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/admin/dto/ProductDtos.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/MallProductDtos.java
+      - path: mall-services/mall-product/src/test/java/com/ai/mall/product/interfaces/rest/mall/MallProductApiTest.java
+    recorded-at: "2026-09-15T10:40:00+08:00"
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    commit: 78ed07b
+    task: DU-BE-501
+    reason: inventory 域分页插件修复 total=0、DTO ID 字符串化、SkuClient 内部凭证、无凭证 403 同构响应（含 DEV-3 潜伏 400/500 修复）。
+    files:
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/config/MybatisPlusConfig.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/client/SkuClient.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/interfaces/rest/admin/InventoryAdminController.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/interfaces/rest/admin/InventorySecurityExceptionAdvice.java
+      - path: mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/interfaces/rest/admin/InventoryAdminApiTest.java
+      - path: mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/interfaces/rest/internal/InternalInventorySecurityTest.java
+    recorded-at: "2026-09-15T11:00:00+08:00"
+  - id: EV-005
+    type: code-change
+    repo: repo-1
+    commit: e050ec9
+    task: DU-BE-501
+    reason: 网关显式最小白名单匿名放行（login/refresh/商城只读/health），/api/internal/** denyAll 对外返回 404 同构体。
+    files:
+      - path: mall-gateway/src/main/java/com/ai/mall/gateway/security/GatewaySecurityConfiguration.java
+      - path: mall-gateway/src/test/java/com/ai/mall/gateway/security/CHG0015GatewaySecurityChainTest.java
+    recorded-at: "2026-09-15T11:20:00+08:00"
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    commit: bd309ec
+    task: DU-BE-501
+    reason: DEV-4：库存流水重建领域对象时回填持久化雪花 ID，修复流水列表 id 恒序列化为 "0" 的潜伏缺陷（联调冒烟暴露）。
+    files:
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/persistence/inventory/InventoryRepositoryImpl.java
+        symbols: [logToDomain]
+      - path: mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/interfaces/rest/admin/InventoryAdminApiTest.java
+    recorded-at: "2026-09-15T18:30:00+08:00"
+  # ---------- code-change（repo-2 前端） ----------
+  - id: EV-007
+    type: code-change
+    repo: repo-2
+    commit: dd034e8
+    task: DU-FE-501
+    reason: mall-admin product/brand/category/inventory 四个 api 模块业务 ID 全面 string 化并同步 spec；金额/数量/分页保持 number。
+    files:
+      - path: mall-admin/src/api/product/product.ts
+      - path: mall-admin/src/api/product/brand.ts
+      - path: mall-admin/src/api/product/category.ts
+      - path: mall-admin/src/api/inventory/inventory.ts
+    recorded-at: "2026-09-15T15:10:00+08:00"
+  - id: EV-008
+    type: code-change
+    repo: repo-2
+    commit: ffeb468
+    task: DU-FE-501
+    reason: 商品/SKU/分类/品牌/库存五业务面视图去数值化：路由参数、编辑态 ID、行键、skuId 筛选与输入全部字符串化，未保存 SKU 使用 local-n 临时键。
+    files:
+      - path: mall-admin/src/views/product/ProductEditView.vue
+      - path: mall-admin/src/views/product/ProductListView.vue
+      - path: mall-admin/src/views/product/product-editor.ts
+      - path: mall-admin/src/views/product/CategoryTreeView.vue
+      - path: mall-admin/src/views/product/BrandListView.vue
+      - path: mall-admin/src/views/inventory/InventoryListView.vue
+      - path: mall-admin/src/views/inventory/InventoryLogView.vue
+    recorded-at: "2026-09-15T16:00:00+08:00"
+  # ---------- test-run（跨仓聚合） ----------
+  - id: EV-009
+    type: test-run
+    command: repo-1 mvn clean package；repo-2 pnpm type-check/lint/test/build；真后端 + 浏览器五页面联调冒烟
+    result: passed
+    summary:
+      total: 229
+      passed: 229
+      failed: 0
+      skipped: 0
+    log: 商品与库存/商品发布与商城查询/商城查询/商城商品列表与详情查询/implementation.md
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012]
+    recorded-at: "2026-09-15T19:30:00+08:00"
+  # ---------- review-finding（sdd-review） ----------
+  - id: EV-012
+    type: review-finding
+    target: implementation/ai-platform-backend/mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/persistence/inventory/InventoryRepositoryImpl.java#logToDomain
+    severity: major
+    finding: 库存流水重建领域对象时漏传持久化雪花 ID，流水列表 id 恒序列化为 "0"（DU-FE-501 端到端联调暴露，违反 AC-007/AC-012 的值正确性）。
+    resolution: bd309ec（EV-006）回填 assignId；inventory-logid-red→green 回归 20/20（EV-009），冒烟 INIT/ADJUST 流水均回填真实雪花 ID。
+    recorded-at: "2026-09-15T20:00:00+08:00"
+  # ---------- evidence-ref（repo 侧证据引用，不复制正文） ----------
+  - id: EV-010
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-501
+    path: implementation/ai-platform-backend/delivery/CHG-0015/商品与库存/商品发布与商城查询/商城查询/商城商品列表与详情查询/DU-BE-501/evidence/evidence.yaml
+    summary: 后端 24 模块构建成功、197 项测试全绿；DEV-4 回归后 inventory 20/20；含红/绿日志与联调证据。
+    recorded-at: "2026-09-15T19:00:00+08:00"
+  - id: EV-011
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-501
+    path: implementation/ai-platform-frontend/delivery/CHG-0015/商品与库存/商品发布与商城查询/商城查询/商城商品列表与详情查询/DU-FE-501/evidence/evidence.yaml
+    summary: 前端 type-check 0 错、lint 0 error、vitest 31/31、build 成功；真实后端五页面冒烟含接口固化日志。
+    recorded-at: "2026-09-15T19:00:00+08:00"

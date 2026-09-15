@@ -14,10 +14,10 @@ story-id: "STORY-002-03-02-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "商城商品列表与详情查询" # Story 标题
 summary: "修复 M2 遗留的商城联调阻塞：网关商城公开路由 401、库存服务内部调用凭证、库存分页 total=0、业务 ID
   字符串序列化、商品列表真实价格区间与有效 SKU 过滤" # Story 一句话摘要（可选）
-status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-14T14:11:44.321Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:58:27.188Z" # ISO8601，每次变更更新
+updated-at: "2026-09-15T00:51:27.239Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -104,4 +104,60 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:5f251245e857244b20dda128128fcbcb2c19959ce35579650a0eb6d14a993019
         reason: "human-gate: skip (task @ story STORY-002-03-02-01)"
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T00:45:33.605Z
+        validator: sdd-dev
+        artifact-hash: "sha256:5de65e65ae1097d76048ac3f004d7b391965208e352f70a7414ba5ad\
+          93f3db8f"
+        rules-hash: "sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6\
+          abb8d"
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T00:45:33.617Z
+        reviewer: workflow
+        artifact-hash: sha256:5de65e65ae1097d76048ac3f004d7b391965208e352f70a7414ba5ad93f3db8f
+        reason: "human-gate: skip (dev @ story STORY-002-03-02-01)"
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T00:49:37.118Z
+        validator: sdd-test
+        artifact-hash: sha256:5b50b0bcd6852aea3a750b97f48257c09c3cbe15e29d2c58d090c8d226478710
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T00:49:37.131Z
+        reviewer: workflow
+        artifact-hash: sha256:5b50b0bcd6852aea3a750b97f48257c09c3cbe15e29d2c58d090c8d226478710
+        reason: "human-gate: skip (test @ story STORY-002-03-02-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T00:51:27.225Z
+        validator: sdd-review
+        artifact-hash: sha256:4dd80fe5dc6e2291aa1650361b5c6f9e7425402c4649772737c2a23c574a0d28
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T00:51:27.237Z
+        reviewer: workflow
+        artifact-hash: sha256:4dd80fe5dc6e2291aa1650361b5c6f9e7425402c4649772737c2a23c574a0d28
+        reason: "human-gate: skip (review @ story STORY-002-03-02-01)"
     status: accepted
