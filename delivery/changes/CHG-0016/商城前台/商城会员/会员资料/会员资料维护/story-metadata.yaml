@@ -93,18 +93,18 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-15T05:42:25.273Z
+        checked-at: 2026-09-15T06:43:35.322Z
         validator: sdd-dev
-        artifact-hash: sha256:6bc21c07688545dd2de1a71eea8d451c398ea41efcc49c9953000482ac7254b4
+        artifact-hash: sha256:0e6f01631de13ea0e09660c305c6ffc5548aee7d3deb29bc0ca7e88f8a92d77f
         rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
         issues: []
         warnings: []
       human:
-        status: skipped
-        reviewed-at: 2026-09-15T05:42:25.284Z
-        reviewer: workflow
-        artifact-hash: sha256:6bc21c07688545dd2de1a71eea8d451c398ea41efcc49c9953000482ac7254b4
-        reason: "human-gate: skip (dev @ story STORY-003-01-02-01)"
+        status: approved
+        reviewed-at: 2026-09-15T06:43:44.856Z
+        reviewer: trae-agent
+        artifact-hash: sha256:0e6f01631de13ea0e09660c305c6ffc5548aee7d3deb29bc0ca7e88f8a92d77f
+        reason: ""
     status: accepted
   test-report:
     path: evidence/test-report.md

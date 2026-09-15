@@ -77,3 +77,12 @@ STORY-02 收尾态之上（其后仅有非代码的 SDD docs/chore 提交），�
   part=file 在后端 DTO（UnifyResult 包装、@StringId）与前端 types/api 逐一核对一致。
 - 真实 MinIO 9000 对象上传/桶公开读与 9000 不通 503、真实浏览器资料编辑与头像链路，
   留待 M3 Test 五集成场景两进程联调。
+
+## 6. 后续 Story 累计代码提交（repos-coverage 机检要求）
+
+本 Story 完成后，同 Change 后续 Story 的代码提交（各提交正文在对应 Story implementation.md）：
+
+| Commit | Story / DU | 仓库 | 说明 |
+| --- | --- | --- | --- |
+| e6068a1bf813dacf353fd509ab0535563f868230 | STORY-003-01-03-01 / DU-BE-604 | repo-1 | 收货地址 V2 生成列默认唯一 + CRUD/设默认/上限20/归属404 |
+| 6a10cdd2de3d5b317bdc1022cad8382e2e4b70b5 | STORY-003-01-03-01 / DU-FE-603 | repo-2 | mall-web 收货地址管理页（列表/弹层/删除确认/乐观设默认） |

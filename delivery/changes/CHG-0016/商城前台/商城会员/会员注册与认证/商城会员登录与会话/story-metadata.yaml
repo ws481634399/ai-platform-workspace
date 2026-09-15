@@ -93,17 +93,17 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-15T05:45:12.911Z
+        checked-at: 2026-09-15T06:43:35.096Z
         validator: sdd-dev
-        artifact-hash: sha256:686350c2c274305f8fd980c77606267db36df3a910ca4f158cdeb865b69363e0
+        artifact-hash: sha256:217cca45390e8f0f076ff24ec24a34120ec28c5519fd1ed0a6aac74d3814d670
         rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
         issues: []
         warnings: []
       human:
         status: approved
-        reviewed-at: 2026-09-15T05:45:26.818Z
+        reviewed-at: 2026-09-15T06:43:44.673Z
         reviewer: trae-agent
-        artifact-hash: sha256:686350c2c274305f8fd980c77606267db36df3a910ca4f158cdeb865b69363e0
+        artifact-hash: sha256:217cca45390e8f0f076ff24ec24a34120ec28c5519fd1ed0a6aac74d3814d670
         reason: ""
     status: accepted
   test-report:

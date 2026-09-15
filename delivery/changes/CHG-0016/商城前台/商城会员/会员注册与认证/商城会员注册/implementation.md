@@ -60,3 +60,5 @@
 | 97b83107636fbf9051140d591f6addcb86aad0db | STORY-003-01-01-02 / DU-FE-601 | repo-2 | mall-web 会员登录态基础设施与登录/注册页 |
 | 8c5a1e690845b85e03ee839318d4bcdbce88893b | STORY-003-01-02-01 / DU-BE-603 | repo-1 | 会员资料 GET/PUT /me、MinIO 头像上传与 profile-seed 懒补偿 |
 | c20c24c6230790a8bd5af70571e2165a1d67ff64 | STORY-003-01-02-01 / DU-FE-602 | repo-2 | mall-web 个人中心资料页 |
+| e6068a1bf813dacf353fd509ab0535563f868230 | STORY-003-01-03-01 / DU-BE-604 | repo-1 | 收货地址 V2 生成列默认唯一 + CRUD/设默认/上限20/归属404 |
+| 6a10cdd2de3d5b317bdc1022cad8382e2e4b70b5 | STORY-003-01-03-01 / DU-FE-603 | repo-2 | mall-web 收货地址管理页（列表/弹层/删除确认/乐观设默认） |
