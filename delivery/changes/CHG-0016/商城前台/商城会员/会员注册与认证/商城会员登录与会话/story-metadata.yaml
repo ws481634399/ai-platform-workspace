@@ -4,10 +4,10 @@ change-id: "CHG-0016"
 story-id: "STORY-003-01-01-02"
 title: "商城会员登录与会话"
 summary: "MEMBER 登录/双 Token 刷新/退出、MEMBER 与 ADMIN Token 隔离、mall-web 统一登录态与 401 处理"
-status: tasked
+status: completed
 evidence-tier: standard
 created-at: "2026-09-14T14:39:17.195Z"
-updated-at: "2026-09-14T15:59:18.653Z"
+updated-at: "2026-09-15T04:25:07.640Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -87,4 +87,58 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:c59a46ece5b49536a21165e63615b858517e146682e40d2b8e1c260696f34a9e
         reason: "human-gate: skip (task @ story STORY-003-01-01-02)"
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T03:03:02.996Z
+        validator: sdd-dev
+        artifact-hash: sha256:20674b1b278c3d6e9c2c53ea602b124c1b1110f01bcf273dcb924c4a3a6ae3d1
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T03:03:03.007Z
+        reviewer: workflow
+        artifact-hash: sha256:20674b1b278c3d6e9c2c53ea602b124c1b1110f01bcf273dcb924c4a3a6ae3d1
+        reason: "human-gate: skip (dev @ story STORY-003-01-01-02)"
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T04:24:49.918Z
+        validator: sdd-test
+        artifact-hash: sha256:976af6e7947b0de26a08f918d6fbe13213569ddb50df10bade5f7cbf5691b75f
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T04:24:49.936Z
+        reviewer: workflow
+        artifact-hash: sha256:976af6e7947b0de26a08f918d6fbe13213569ddb50df10bade5f7cbf5691b75f
+        reason: "human-gate: skip (test @ story STORY-003-01-01-02)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T04:25:07.625Z
+        validator: sdd-review
+        artifact-hash: sha256:71900ed45a64575838717e251fe20474ddbbe342988d86bae578e893e5d487f2
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T04:25:07.638Z
+        reviewer: workflow
+        artifact-hash: sha256:71900ed45a64575838717e251fe20474ddbbe342988d86bae578e893e5d487f2
+        reason: "human-gate: skip (review @ story STORY-003-01-01-02)"
     status: accepted

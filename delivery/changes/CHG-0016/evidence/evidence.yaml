@@ -105,3 +105,101 @@ items: # Evidence 条目数组，按 recorded-at 升序
     path: implementation/ai-platform-backend/delivery/CHG-0016/商城前台/商城会员/会员注册与认证/商城会员注册/DU-BE-601/evidence/evidence.yaml
     summary: identity 67/67、member 10/10；24 模块全量 224 例全绿；含红基线（H2 JSON 双编码/共享库计数污染）→绿日志、TC-001~009 映射、changeset 与 DEV-1~3。
     recorded-at: "2026-09-15T09:56:00+08:00"
+  # ---------- code-change（repo-1 后端，STORY-003-01-01-02 / DU-BE-602） ----------
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    commit: f1367cb
+    task: DU-BE-602
+    reason: 会员登录与会话——identity 会员会话域（MemberRefreshSession/端口）、认证/刷新/双令牌三应用服务（统一 401 文案、DISABLED 403、family 旋转、重放整族撤销 REQUIRES_NEW、logout 撤族+auth_version+1）、member_refresh_token 持久化三件套、login/refresh/logout 三端点（body+cookie 双发、memberId 字符串）、FORBIDDEN Kind；网关 MEMBER 角色/会员白名单/双向 403 矩阵与两条路由；identity+12、gateway+5 共 17 例测试。
+    files:
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/domain/model/member/MemberRefreshSession.java
+        symbols: [isActive]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/domain/repository/MemberRefreshSessionRepository.java
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/application/member/MemberAuthenticationApplicationService.java
+        symbols: [signIn]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/application/member/MemberRefreshSessionService.java
+        symbols: [issue, rotate, revokeAll]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/application/member/MemberTokenPairApplicationService.java
+        symbols: [issue, refresh, signOut]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/infrastructure/persistence/member/MemberRefreshSessionMapper.java
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/infrastructure/persistence/member/MyBatisMemberRefreshSessionRepository.java
+        symbols: [revokeFamily, revokeAllForMember]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/interfaces/rest/member/MemberAuthController.java
+        symbols: [login, refresh, logout]
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/application/exception/UseCaseException.java
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/interfaces/rest/IdentityExceptionHandler.java
+      - path: mall-services/mall-identity/src/main/java/com/ai/mall/identity/infrastructure/config/JwtConfiguration.java
+      - path: mall-gateway/src/main/java/com/ai/mall/gateway/security/GatewaySecurityConfiguration.java
+      - path: mall-gateway/src/main/resources/application.yml
+    recorded-at: "2026-09-15T11:10:00+08:00"
+  # ---------- evidence-ref（repo-1 DU-BE-602 侧证据引用，不复制正文） ----------
+  - id: EV-006
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-602
+    path: implementation/ai-platform-backend/delivery/CHG-0016/商城前台/商城会员/会员注册与认证/商城会员登录与会话/DU-BE-602/evidence/evidence.yaml
+    summary: identity 79/79（新增 12）、gateway 19/19（新增 5）；24 模块全量 242 例全绿；含红基线（撤销事务回滚/测试 issuer 装配等 4 处）→绿日志、TC-001~008 映射、changeset 与 DEV-1~3。
+    recorded-at: "2026-09-15T11:12:00+08:00"
+  # ---------- test-run（STORY-003-01-01-02 独立验证，repo-1 后端） ----------
+  - id: EV-005
+    type: test-run
+    command: repo-1 mvn -pl mall-services/mall-identity test、mvn -pl mall-gateway test、mvn clean package（24 模块全量）
+    result: passed
+    summary:
+      total: 242
+      passed: 242
+      failed: 0
+      skipped: 0
+    log: 商城前台/商城会员/会员注册与认证/商城会员登录与会话/evidence/test-report.md
+    covers: [AC-008, AC-009, AC-010, AC-011, AC-012, AC-013]
+    recorded-at: "2026-09-15T11:20:00+08:00"
+  # ---------- code-change（repo-2 前端 mall-web，STORY-003-01-01-02 / DU-FE-601） ----------
+  - id: EV-007
+    type: code-change
+    repo: repo-2
+    commit: 97b8310
+    task: DU-FE-601
+    reason: mall-web 会员登录态——http 拦截器 Bearer/X-Trace-Id 注入与 401 单飞 refresh 重放、refresh-coordinator 移植、member store（access 内存/refresh cookie/restore 单次）、clearSession、路由守卫与 safeRedirect 防开放重定向、auth API 四端点、Login/Register 视图与 MallLayout 用户区；vitest 6 文件 22 例。
+    files:
+      - path: mall-web/src/api/http.ts
+        symbols: ["请求拦截器", "响应拦截器"]
+      - path: mall-web/src/api/auth.ts
+        symbols: [memberAuthApi]
+      - path: mall-web/src/utils/refresh-coordinator.ts
+        symbols: [coordinateRefresh]
+      - path: mall-web/src/stores/member.ts
+        symbols: [useMemberStore]
+      - path: mall-web/src/auth/clear-session.ts
+        symbols: [clearSession]
+      - path: mall-web/src/router/index.ts
+      - path: mall-web/src/router/access-policy.ts
+        symbols: [resolveMemberRouteAccess, safeRedirect]
+      - path: mall-web/src/utils/member-form.ts
+        symbols: [validateMemberCredential]
+      - path: mall-web/src/views/auth/LoginView.vue
+      - path: mall-web/src/views/auth/RegisterView.vue
+      - path: mall-web/src/layouts/MallLayout.vue
+      - path: mall-web/package.json
+    recorded-at: "2026-09-15T12:20:00+08:00"
+  # ---------- evidence-ref（repo-2 DU-FE-601 侧证据引用，不复制正文） ----------
+  - id: EV-008
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-601
+    path: implementation/ai-platform-frontend/delivery/CHG-0016/商城前台/商城会员/会员注册与认证/商城会员登录与会话/DU-FE-601/evidence/evidence.yaml
+    summary: mall-web vitest 6 文件 22/22、vue-tsc 0 错误、eslint 0 errors、build 成功；含首跑 2 例断言失败→绿日志、TC-009/010 映射、changeset 与 DEV-1~2。
+    recorded-at: "2026-09-15T12:22:00+08:00"
+  # ---------- test-run（STORY-003-01-01-02 独立验证，repo-2 前端） ----------
+  - id: EV-009
+    type: test-run
+    command: repo-2 mall-web pnpm type-check、pnpm lint、pnpm test（vitest）、pnpm build
+    result: passed
+    summary:
+      total: 22
+      passed: 22
+      failed: 0
+      skipped: 0
+    log: 商城前台/商城会员/会员注册与认证/商城会员登录与会话/evidence/test-report.md
+    covers: [AC-014, AC-015]
+    recorded-at: "2026-09-15T12:25:00+08:00"
