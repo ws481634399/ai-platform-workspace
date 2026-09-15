@@ -100,3 +100,38 @@ items: # Evidence 条目数组，按 recorded-at 升序
     log: 商城前台/商品浏览/首页与公开分类品牌/公开分类与品牌查询/evidence/test-report.md
     covers: [AC-003, AC-004, AC-005]
     recorded-at: "2026-09-15T23:01:00+08:00"
+  # ---------- code-change（repo-1，STORY-003-02-03-01 / DU-BE-705） ----------
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    commit: b982bf5
+    task: DU-BE-705
+    reason: SKU 可售状态聚合——inventory 内部批量 availability（精确数量、无记录=0）；product 公开三态端点（阈值 10、白名单 DTO 无数量、故障降级 UNKNOWN）。
+    files:
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/interfaces/rest/internal/InternalInventoryController.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/application/inventory/InventoryApplicationService.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallSkuController.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/sku/SkuAvailabilityApplicationService.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/client/InventoryAvailabilityClient.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/StockStatus.java
+        symbols: [fromAvailableQty, STOCK_IN_THRESHOLD]
+    recorded-at: "2026-09-15T23:30:00+08:00"
+  - id: EV-005
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-705
+    path: implementation/ai-platform-backend/delivery/CHG-0017/商城前台/商品浏览/库存状态展示/SKU 可售状态聚合/DU-BE-705/evidence/evidence.yaml
+    summary: inventory 24/24（新增 4）、product 81/81（新增 6）；含 TC-001~006 映射、changeset。
+    recorded-at: "2026-09-15T23:31:00+08:00"
+  - id: EV-006
+    type: test-run
+    command: repo-1 mvn -pl mall-services/mall-inventory test（24/24）、mvn -pl mall-services/mall-product test（81/81）
+    result: passed
+    summary:
+      total: 105
+      passed: 105
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/库存状态展示/SKU 可售状态聚合/evidence/test-report.md
+    covers: [AC-015, AC-016, AC-017]
+    recorded-at: "2026-09-15T23:32:00+08:00"
