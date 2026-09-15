@@ -65,4 +65,13 @@ member_refresh_token 两表均由其 V7 迁移建好，本 Story 无新迁移。
 - 前端：repo-2 mall-web vitest 6 文件 22/22、vue-tsc 0 错误、eslint 0 errors、vite build 成功；
   首跑 2 例测试断言失败（mock 层断言错位、logout 重抛惯例）修正后转绿（DU-FE-601 red-green.md）。
 - 过程红基线：后端多构造器注入、重放撤销被事务回滚、测试上下文缺 issuer bean、claim Long/Integer 断言四处真实失败，修复后转绿（red→green 证据见 DU evidence/red-green.md）。
-- 真实两服务/浏览器 HTTP 联调留待 M3 Test 五集成场景；mall-member 8102 会员域端点尚未实现，网关 /api/mall/members 路由与 MEMBER 规则为后续 DU 预置（切片下游为 200 桩）。
+- 真实两服务/浏览器 HTTP 联调留待 M3 Test 五集成场景；mall-member 8102 会员域端点（/me、地址）未实现，网关 /api/mall/members 路由与 MEMBER 规则为后续 DU 预置（切片下游为 200 桩）。
+
+## 6. 后续 Story 累计代码提交（repos-coverage 机检要求）
+
+本 Story 完成后，同 Change 后续 Story 的代码提交（各提交正文在对应 Story implementation.md）：
+
+| Commit | Story / DU | 仓库 | 说明 |
+| --- | --- | --- | --- |
+| 8c5a1e690845b85e03ee839318d4bcdbce88893b | STORY-003-01-02-01 / DU-BE-603 | repo-1 | 会员资料 GET/PUT /me、MinIO 头像上传与 profile-seed 懒补偿 |
+| c20c24c6230790a8bd5af70571e2165a1d67ff64 | STORY-003-01-02-01 / DU-FE-602 | repo-2 | mall-web 个人中心资料页 |

@@ -49,3 +49,14 @@
 - ADMIN 零回归：AccessTokenIssuer 签名增加 SubjectType 参后，M1 认证授权套件（M1Acceptance 11、M1Security 5、M1TokenValidation 6 等）全绿。
 - 跨服务契约两侧锁定：identity MemberProvisionClient（relay 测试经端口 mock）↔ member InternalMemberProvisionApiTest（真实控制器+真实安全链+X-Internal-Token）；真实两服务 HTTP 联调留待 M3 Test 五集成场景。
 - 过程红基线：H2 JSON 列双编码导致 relay 反序列化失败、共享上下文 COUNT(*) 污染两处真实失败，修复后转绿（red→green 证据见 DU evidence/red-green.md）。
+
+## 6. 后续 Story 累计代码提交（repos-coverage 机检要求）
+
+本 Story 完成后，同 Change 后续 Story 的代码提交（各提交正文在对应 Story implementation.md）：
+
+| Commit | Story / DU | 仓库 | 说明 |
+| --- | --- | --- | --- |
+| f1367cb5617cae51a3de1c78256f6992915f5fa6 | STORY-003-01-01-02 / DU-BE-602 | repo-1 | 会员登录/刷新/退出双令牌与网关 MEMBER 隔离 |
+| 97b83107636fbf9051140d591f6addcb86aad0db | STORY-003-01-01-02 / DU-FE-601 | repo-2 | mall-web 会员登录态基础设施与登录/注册页 |
+| 8c5a1e690845b85e03ee839318d4bcdbce88893b | STORY-003-01-02-01 / DU-BE-603 | repo-1 | 会员资料 GET/PUT /me、MinIO 头像上传与 profile-seed 懒补偿 |
+| c20c24c6230790a8bd5af70571e2165a1d67ff64 | STORY-003-01-02-01 / DU-FE-602 | repo-2 | mall-web 个人中心资料页 |

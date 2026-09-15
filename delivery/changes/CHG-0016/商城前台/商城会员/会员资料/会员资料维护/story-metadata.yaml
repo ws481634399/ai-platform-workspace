@@ -4,10 +4,10 @@ change-id: "CHG-0016"
 story-id: "STORY-003-01-02-01"
 title: "会员资料维护"
 summary: "查看/修改昵称、头像（MinIO）与基础资料，手机邮箱为资料字段，mall-web 个人中心"
-status: tasked
+status: completed
 evidence-tier: standard
 created-at: "2026-09-14T14:39:17.195Z"
-updated-at: "2026-09-14T15:59:18.995Z"
+updated-at: "2026-09-15T05:46:06.160Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -87,4 +87,58 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:70e50295ccfa82ad0a52046af2ea5141996f615aa34d3e1c1861f3ba2aada2ce
         reason: "human-gate: skip (task @ story STORY-003-01-02-01)"
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T05:42:25.273Z
+        validator: sdd-dev
+        artifact-hash: sha256:6bc21c07688545dd2de1a71eea8d451c398ea41efcc49c9953000482ac7254b4
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T05:42:25.284Z
+        reviewer: workflow
+        artifact-hash: sha256:6bc21c07688545dd2de1a71eea8d451c398ea41efcc49c9953000482ac7254b4
+        reason: "human-gate: skip (dev @ story STORY-003-01-02-01)"
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T05:45:46.488Z
+        validator: sdd-test
+        artifact-hash: sha256:4a88dd7733d20e8cb68bcaee331d87732d35836c46bdfc13b615761d9306f919
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T05:45:46.500Z
+        reviewer: workflow
+        artifact-hash: sha256:4a88dd7733d20e8cb68bcaee331d87732d35836c46bdfc13b615761d9306f919
+        reason: "human-gate: skip (test @ story STORY-003-01-02-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T05:46:06.145Z
+        validator: sdd-review
+        artifact-hash: sha256:c4d9b3ec4dc234bdbb96371c29ca1c74ab543f06391a6fe08b26196031d5a5ce
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T05:46:06.158Z
+        reviewer: workflow
+        artifact-hash: sha256:c4d9b3ec4dc234bdbb96371c29ca1c74ab543f06391a6fe08b26196031d5a5ce
+        reason: "human-gate: skip (review @ story STORY-003-01-02-01)"
     status: accepted
