@@ -57,4 +57,46 @@
 
 version: 0.1 # schema 版本
 change-id: "CHG-0017" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+items: # Evidence 条目数组，按 recorded-at 升序
+  # ---------- code-change（repo-1 后端，STORY-003-02-01-02 / DU-BE-702） ----------
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: b4b5a1f
+    task: DU-BE-702
+    reason: 商城公开分类树（启用、禁用父整枝剪除）与品牌分页（仅 ENABLED、keyword LIKE ESCAPE 转义、size≤200），网关路由与匿名白名单扩展。
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallCategoryController.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallBrandController.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/MallCatalogDtos.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/MallCategoryTreeAssembler.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/category/CategoryApplicationService.java
+        symbols: [mallTree]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/brand/BrandApplicationService.java
+        symbols: [mallPage]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/persistence/brand/BrandRepositoryImpl.java
+        symbols: [page, escapeLike]
+      - path: mall-gateway/src/main/resources/application.yml
+      - path: mall-gateway/src/main/java/com/ai/mall/gateway/security/GatewaySecurityConfiguration.java
+    recorded-at: "2026-09-15T22:58:00+08:00"
+  # ---------- evidence-ref（repo-1 DU-BE-702 侧证据引用，不复制正文） ----------
+  - id: EV-002
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-702
+    path: implementation/ai-platform-backend/delivery/CHG-0017/商城前台/商品浏览/首页与公开分类品牌/公开分类与品牌查询/DU-BE-702/evidence/evidence.yaml
+    summary: mall-product 75/75（新增 5 + 既有 70 零回归）、mall-gateway 19/19；含红基线（ECJ 链式 eq 重载推断失败）→绿日志、TC-001/002/004 映射、changeset 与 DEV-1。
+    recorded-at: "2026-09-15T23:00:00+08:00"
+  # ---------- test-run（STORY-003-02-01-02 独立验证，repo-1 后端） ----------
+  - id: EV-003
+    type: test-run
+    command: repo-1 mvn -pl mall-services/mall-product clean test（75/75）、mvn -pl mall-gateway test（19/19）
+    result: passed
+    summary:
+      total: 94
+      passed: 94
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/首页与公开分类品牌/公开分类与品牌查询/evidence/test-report.md
+    covers: [AC-003, AC-004, AC-005]
+    recorded-at: "2026-09-15T23:01:00+08:00"
