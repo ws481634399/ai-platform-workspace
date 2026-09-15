@@ -203,3 +203,69 @@ items: # Evidence 条目数组，按 recorded-at 升序
     log: 商城前台/商品浏览/首页与公开分类品牌/商城首页/evidence/test-report.md
     covers: [AC-018, AC-019]
     recorded-at: "2026-09-16T00:22:00+08:00"
+  # ---------- code-change（repo-1，STORY-003-02-02-01 / DU-BE-703） ----------
+  - id: EV-013
+    type: code-change
+    repo: repo-1
+    commit: 751a792
+    task: DU-BE-703
+    reason: 商品列表增强：brandIds 多选、子孙分类展开、价区派生表排序、size≤50、min/maxPrice 非空。
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallProductController.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/application/product/ProductApplicationService.java
+        symbols: [mallPage, collectDescendantCategoryIds]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/persistence/product/ProductMapper.java
+        symbols: [selectMallPage]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/MallProductSort.java
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/ProductRepository.java
+    recorded-at: "2026-09-16T01:10:00+08:00"
+  - id: EV-014
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-703
+    path: implementation/ai-platform-backend/delivery/CHG-0017/商城前台/商品浏览/商品列表与详情/商城商品列表/DU-BE-703/implementation.md
+    summary: mall-product 90/90（新增 6 + 既有 84）；含 brandIds/子孙分类/价区排序/size/非空 TC。
+    recorded-at: "2026-09-16T01:11:00+08:00"
+  - id: EV-015
+    type: test-run
+    command: repo-1 mvn -pl mall-services/mall-product test（90/90）
+    result: passed
+    summary:
+      total: 90
+      passed: 90
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/商品列表与详情/商城商品列表/evidence/test-report.md
+    covers: [AC-006, AC-007, AC-008, AC-009]
+    recorded-at: "2026-09-16T01:12:00+08:00"
+  # ---------- code-change（repo-2，STORY-003-02-02-01 / DU-FE-703） ----------
+  - id: EV-016
+    type: code-change
+    repo: repo-2
+    commit: 5a97392
+    task: DU-FE-703
+    reason: 商品列表页：分类树+品牌多选+四档排序+分页，route.query 唯一状态源，requestSeq 竞态防护。
+    files:
+      - path: mall-web/src/api/catalog.ts
+      - path: mall-web/src/views/product/ProductListView.vue
+      - path: mall-web/src/router/index.ts
+    recorded-at: "2026-09-16T01:30:00+08:00"
+  - id: EV-017
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-703
+    path: implementation/ai-platform-frontend/delivery/CHG-0017/商城前台/商品浏览/商品列表与详情/商城商品列表/DU-FE-703/implementation.md
+    summary: mall-web 71/71，build 成功；query 同步 + serializeProductQuery TC。
+    recorded-at: "2026-09-16T01:31:00+08:00"
+  - id: EV-018
+    type: test-run
+    command: repo-2 pnpm test（71/71）、pnpm build（成功）
+    result: passed
+    summary:
+      total: 71
+      passed: 71
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/商品列表与详情/商城商品列表/evidence/test-report.md
+    covers: [AC-020]
+    recorded-at: "2026-09-16T01:32:00+08:00"

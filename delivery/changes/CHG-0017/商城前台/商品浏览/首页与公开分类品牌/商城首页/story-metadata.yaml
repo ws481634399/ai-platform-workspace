@@ -13,10 +13,10 @@ change-id: "CHG-0017" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-003-02-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "商城首页" # Story 标题
 summary: "mall-web 游客可访问的首页/分类/品牌/商品列表/详情 SKU 选择，真实价格（分）与批量库存可售状态聚合" # Story 一句话摘要（可选）
-status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-14T14:11:44.794Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:58:46.669Z" # ISO8601，每次变更更新
+updated-at: "2026-09-15T15:55:12.801Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -109,9 +109,9 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-15T15:45:09.181Z
+        checked-at: 2026-09-15T15:55:02.684Z
         validator: sdd-dev
-        artifact-hash: sha256:f755e6af5e6c728febfc301c1629638e10023a536349fc821562d7bd2bd5be8d
+        artifact-hash: sha256:8b8cadda05d6cbbdec19ab80d3425677fcb49e6d940e5b17d4cf12ac58142f9e
         rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
         issues: []
         warnings:
@@ -119,20 +119,44 @@ artifacts:
             至少一条红→绿记录，advisory）"
       human:
         status: approved
-        reviewed-at: 2026-09-15T15:45:16.884Z
+        reviewed-at: 2026-09-15T15:55:02.868Z
         reviewer: trae-agent
-        artifact-hash: sha256:f755e6af5e6c728febfc301c1629638e10023a536349fc821562d7bd2bd5be8d
+        artifact-hash: sha256:8b8cadda05d6cbbdec19ab80d3425677fcb49e6d940e5b17d4cf12ac58142f9e
         reason: ""
+    status: accepted
   test-report:
     path: evidence/test-report.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-15T15:45:24.672Z
+        status: passed
+        checked-at: 2026-09-15T15:55:03.152Z
         validator: sdd-test
-        artifact-hash: sha256:e35f7ebbdf85542341eb18e67f61e5741ddad4999d538191da7fdb4d4043ee65
+        artifact-hash: sha256:6eca9173cb242c53ab577f796fb75eb43655637ea977c171a9f50e225873e65c
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
-        issues:
-          - "evidence/test-report.md: DU DU-FE-701 status=pending，未达到
-            testing（Fan-in 阻断）"
+        issues: []
         warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T15:55:03.165Z
+        reviewer: workflow
+        artifact-hash: sha256:6eca9173cb242c53ab577f796fb75eb43655637ea977c171a9f50e225873e65c
+        reason: "human-gate: skip (test @ story STORY-003-02-01-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-15T15:55:12.788Z
+        validator: sdd-review
+        artifact-hash: sha256:a87e8ffba8cde7532386f760e6508be875314b1df6cbd6699d2d22414314e466
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-15T15:55:12.800Z
+        reviewer: workflow
+        artifact-hash: sha256:a87e8ffba8cde7532386f760e6508be875314b1df6cbd6699d2d22414314e466
+        reason: "human-gate: skip (review @ story STORY-003-02-01-01)"
+    status: accepted
