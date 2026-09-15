@@ -21,6 +21,12 @@
 | --- | --- | --- | --- |
 | b982bf5 | DU-BE-705 | repo-1 | feat(inventory,product): SKU 可售状态三态聚合与降级 |
 
+### 前置 Story 代码提交（repos-coverage 累计）
+
+| Commit | Story / DU | 仓库 | 说明 |
+| --- | --- | --- | --- |
+| b4b5a1f | STORY-003-02-01-02 / DU-BE-702 | repo-1 | 公开分类树与品牌查询接口 + 网关白名单 |
+
 ## 3. 各仓实施引用
 
 - repo-1：`implementation/ai-platform-backend/delivery/CHG-0017/商城前台/商品浏览/库存状态展示/SKU 可售状态聚合/DU-BE-705/implementation.md`
