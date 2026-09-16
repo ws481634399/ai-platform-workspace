@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0018" # CHG-XXXX，创建时填
 title: "购物车" # 简短标题
 summary: "纯 Redis 会员购物车核心操作与实时校验、游客 LocalStorage 购物车登录后幂等合并、memberId 取自 SecurityContext" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.654Z" # ISO8601，创建时填
-updated-at: "2026-09-14T15:59:24.910Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-16T01:48:19.042Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-03

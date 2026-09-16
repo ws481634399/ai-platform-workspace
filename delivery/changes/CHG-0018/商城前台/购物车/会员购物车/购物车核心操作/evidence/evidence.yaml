@@ -52,3 +52,17 @@ items:
     path: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/会员购物车/购物车核心操作/DU-BE-801/evidence/red-green.md
     summary: mall-cart 23/23、mall-product 95/95、mall-gateway 19/19 全绿 + 过程红 RED-1~5 + 真实环境 E2E 结论
     recorded-at: "2026-09-16T10:00:00+08:00"
+  - id: EV-004
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-801
+    command: mvn -pl mall-services/mall-cart test（Testcontainers Redis 7）
+    log: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/会员购物车/购物车核心操作/DU-BE-801/evidence/logs/be-cart-test.log
+    result: passed
+    summary:
+      total: 23
+      passed: 23
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-014]
+    recorded-at: "2026-09-16T11:00:00+08:00"
