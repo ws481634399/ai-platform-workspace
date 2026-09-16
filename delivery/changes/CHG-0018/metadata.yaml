@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0018" # CHG-XXXX，创建时填
 title: "购物车" # 简短标题
 summary: "纯 Redis 会员购物车核心操作与实时校验、游客 LocalStorage 购物车登录后幂等合并、memberId 取自 SecurityContext" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.654Z" # ISO8601，创建时填
-updated-at: "2026-09-16T01:48:19.042Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-16T14:32:00.148Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-03
@@ -203,18 +203,17 @@ artifacts:
     path: convergence.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-16T14:28:04.186Z
+        status: passed
+        checked-at: 2026-09-16T14:32:00.126Z
         validator: sdd-converge
         artifact-hash: sha256:c408bbe98cb6e8e3984026914c1bc42b13a51792ff011b1febe0bf2d051f0855
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
-        issues:
-          - "convergence.md: Submodule Pointer 未对齐: repo-1
-            recorded=2f2661092ece2f3458879dc2a7744f3f80fb6990
-            actual=973c252ccbfc0a1700083a78b8d91100fd939674（先执行 openspec du
-            sync-status）"
-          - "convergence.md: Submodule Pointer 未对齐: repo-2
-            recorded=bc61b4d880a1f0cac214ca9d9957e05676300b6c
-            actual=aac8ee8f9e78b695126a3003b16b2714143927fe（先执行 openspec du
-            sync-status）"
+        issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-16T14:31:53.422Z
+        reviewer: user
+        artifact-hash: sha256:c408bbe98cb6e8e3984026914c1bc42b13a51792ff011b1febe0bf2d051f0855
+        reason: ""
+    status: accepted
