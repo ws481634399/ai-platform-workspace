@@ -1,0 +1,87 @@
+version: 0.1
+change-id: CHG-0018
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-803
+    task: 游客购物车与登录合并（STORY-003-03-02-01）
+    reason: >-
+      mall-cart 合并能力：cart_merge.lua 原子合并（token 校验/消费/累加/999截断/100dropped/90天TTL）、
+      CartMergeService 应用层预校验、merge-token/merge 端点、CartConstants/CartErrorCode 扩展；
+      mall-product 公开 POST /api/mall/skus/items。覆盖 AC-015~AC-019、AC-022。
+    commit: "2f2661092ece2f3458879dc2a7744f3f80fb6990"
+    files:
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartConstants.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartErrorCode.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartRepository.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/infrastructure/redis/RedisCartRepository.java
+      - mall-services/mall-cart/src/main/resources/scripts/cart_merge.lua
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/application/cart/CartMergeService.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/mall/CartController.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/mall/dto/CartDtos.java
+      - mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallSkuController.java
+      - mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/MallSkuItemsDtos.java
+    recorded-at: "2026-09-16T22:00:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-801
+    task: 游客购物车与登录合并（STORY-003-03-02-01）
+    reason: >-
+      mall-web 双模购物车：useGuestCart（LocalStorage 持久化/上限）、cart store（合并编排）、
+      CartView（双模列表/三态/合计/去结算置灰）、ProductDetailView 加购接线、MallLayout 角标。
+      覆盖 AC-015、AC-017、AC-019、AC-020、AC-022。
+    commit: "bc61b4d880a1f0cac214ca9d9957e05676300b6c"
+    files:
+      - mall-web/src/api/cart.ts
+      - mall-web/src/composables/useGuestCart.ts
+      - mall-web/src/stores/cart.ts
+      - mall-web/src/views/cart/CartView.vue
+      - mall-web/src/views/product/ProductDetailView.vue
+      - mall-web/src/layouts/MallLayout.vue
+      - mall-web/src/router/index.ts
+      - mall-web/src/App.vue
+    recorded-at: "2026-09-16T22:00:00+08:00"
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-803
+    command: mvn -pl mall-services/mall-cart test（Testcontainers Redis 7）
+    log: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/游客购物车与合并/游客购物车与登录合并/DU-BE-803/evidence/logs/cart-merge-test.log
+    result: passed
+    summary:
+      total: 53
+      passed: 53
+      failed: 0
+      skipped: 0
+    covers: [AC-015, AC-016, AC-017, AC-018, AC-019]
+    recorded-at: "2026-09-16T21:50:00+08:00"
+  - id: EV-004
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-803
+    command: mvn -pl mall-services/mall-product test
+    log: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/游客购物车与合并/游客购物车与登录合并/DU-BE-803/evidence/logs/cart-merge-test.log
+    result: passed
+    summary:
+      total: 95
+      passed: 95
+      failed: 0
+      skipped: 0
+    covers: [AC-015]
+    recorded-at: "2026-09-16T21:51:00+08:00"
+  - id: EV-005
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-801
+    command: pnpm type-check && pnpm lint && pnpm build && pnpm test
+    log: implementation/ai-platform-frontend/delivery/CHG-0018/商城前台/购物车/游客购物车与合并/游客购物车与登录合并/DU-FE-801/evidence/logs/fe-three-checks.log
+    result: passed
+    summary:
+      total: 85
+      passed: 85
+      failed: 0
+      skipped: 0
+    covers: [AC-015, AC-017, AC-019, AC-020, AC-022]
+    recorded-at: "2026-09-16T22:05:00+08:00"
