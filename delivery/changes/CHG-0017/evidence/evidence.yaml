@@ -269,3 +269,94 @@ items: # Evidence 条目数组，按 recorded-at 升序
     log: 商城前台/商品浏览/商品列表与详情/商城商品列表/evidence/test-report.md
     covers: [AC-020]
     recorded-at: "2026-09-16T01:32:00+08:00"
+  # ---------- code-change（repo-1，STORY-003-02-02-02 / DU-BE-704） ----------
+  - id: EV-019
+    type: code-change
+    repo: repo-1
+    commit: 8496b53
+    task: DU-BE-704
+    reason: 商品详情增强：brandName/categoryPath（上溯≤3）/specDimensions（去重保序归并）/skuIndex（组合键→唯一 SKU，冲突取 skuId 较小 warn），仅启用 SKU 进矩阵。
+    files:
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/MallProductController.java
+        symbols: [toDetailView, buildCategoryPath]
+      - path: mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/mall/dto/MallProductDtos.java
+      - path: mall-services/mall-product/src/test/java/com/ai/mall/product/interfaces/rest/mall/MallProductDetailEnhancedTest.java
+    recorded-at: "2026-09-16T02:10:00+08:00"
+  - id: EV-020
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-704
+    path: implementation/ai-platform-backend/delivery/CHG-0017/商城前台/商品浏览/商品列表与详情/商品详情与 SKU 选择/DU-BE-704/implementation.md
+    summary: mall-product 93/93（新增 3 + 既有 90）；矩阵/404 统一口径 TC。
+    recorded-at: "2026-09-16T02:11:00+08:00"
+  - id: EV-021
+    type: test-run
+    command: repo-1 mvn -pl mall-services/mall-product test（93/93）
+    result: passed
+    summary:
+      total: 93
+      passed: 93
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/商品列表与详情/商品详情与 SKU 选择/evidence/test-report.md
+    covers: [AC-011, AC-013]
+    recorded-at: "2026-09-16T02:12:00+08:00"
+  # ---------- code-change（repo-2，STORY-003-02-02-02 / DU-FE-704） ----------
+  - id: EV-022
+    type: code-change
+    repo: repo-2
+    commit: 30712bd
+    task: DU-FE-704
+    reason: 商品详情页：SkuSelector 表驱动选择（DISABLED 置灰）、StockBadge 三态+UNKNOWN 重试、图集、DOMPurify 富文本净化、面包屑、404 专门态、/products/:id 路由。
+    files:
+      - path: mall-web/src/api/catalog.ts
+      - path: mall-web/src/components/SkuSelector.vue
+      - path: mall-web/src/components/StockBadge.vue
+      - path: mall-web/src/views/product/ProductDetailView.vue
+      - path: mall-web/src/router/index.ts
+    recorded-at: "2026-09-16T02:30:00+08:00"
+  - id: EV-023
+    type: evidence-ref
+    repository: repo-2
+    delivery-unit: DU-FE-704
+    path: implementation/ai-platform-frontend/delivery/CHG-0017/商城前台/商品浏览/商品列表与详情/商品详情与 SKU 选择/DU-FE-704/implementation.md
+    summary: mall-web 80/80（新增 9），build 成功；矩阵选择/三态/详情 API TC。
+    recorded-at: "2026-09-16T02:31:00+08:00"
+  - id: EV-024
+    type: test-run
+    command: repo-2 npx vitest run（80/80）、npx vite build（成功）
+    result: passed
+    summary:
+      total: 80
+      passed: 80
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/商品列表与详情/商品详情与 SKU 选择/evidence/test-report.md
+    covers: [AC-012, AC-014, AC-018, AC-020]
+    recorded-at: "2026-09-16T02:32:00+08:00"
+  # ---------- code-change（repo-2，STORY-003-02-02-02 / DU-FE-704 自审修复） ----------
+  - id: EV-025
+    type: code-change
+    repo: repo-2
+    commit: 92b0839
+    task: DU-FE-704
+    reason: 详情页自审修复：SkuSelector 多维禁用兼容算法（修三维度误全禁用）、StateView props API 对齐、availability 失败 UNKNOWN 降级不阻塞、vue-tsc 零错误；新增 ProductDetailView 4 例与三维度守护 1 例。
+    files:
+      - path: mall-web/src/components/SkuSelector.vue
+        symbols: [isValueDisabled]
+      - path: mall-web/src/views/product/ProductDetailView.vue
+      - path: mall-web/src/views/product/ProductDetailView.spec.ts
+      - path: mall-web/src/components/__tests__/SkuSelector.spec.ts
+    recorded-at: "2026-09-16T03:00:00+08:00"
+  - id: EV-026
+    type: test-run
+    command: repo-2 npx vitest run（85/85）、npx vue-tsc --noEmit（零错误）、npx vite build（成功）
+    result: passed
+    summary:
+      total: 85
+      passed: 85
+      failed: 0
+      skipped: 0
+    log: 商城前台/商品浏览/商品列表与详情/商品详情与 SKU 选择/evidence/test-report.md
+    covers: [AC-012, AC-014, AC-018, AC-020]
+    recorded-at: "2026-09-16T03:01:00+08:00"

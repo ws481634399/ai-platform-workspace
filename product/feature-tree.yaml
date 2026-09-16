@@ -736,14 +736,14 @@ features:
                                 id: STORY-003-02-01-01,
                                 name: 商城首页,
                                 description: mall-web 首页：分类入口、新品/推荐商品位，全部使用真实 Product 数据，游客可访问,
-                                status: planned
+                                status: delivered
                               },
                             {
                                 id: STORY-003-02-01-02,
                                 name: 公开分类与品牌查询,
                                 description: GET /api/mall/categories/tree 与 GET /api/mall/brands
                                   公开接口，仅返回有效数据，网关放行,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -758,13 +758,13 @@ features:
                                 id: STORY-003-02-02-01,
                                 name: 商城商品列表,
                                 description: 分页/分类筛选/品牌筛选/排序，返回启用 SKU 最低/最高价（分），无有效 SKU 商品不展示，金额整数分,
-                                status: planned
+                                status: delivered
                               },
                             {
                                 id: STORY-003-02-02-02,
                                 name: 商品详情与 SKU 选择,
                                 description: Product/SKU 区分、规格组合定位唯一 SKU、SKU 真实价格/图片/可售状态联动，下架与失效错误态,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       },
@@ -779,7 +779,7 @@ features:
                                 id: STORY-003-02-03-01,
                                 name: SKU 可售状态聚合,
                                 description: 批量 SKU 可售状态查询（有货/库存不足/缺货），避免 N+1，仅供展示非交易保证,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }

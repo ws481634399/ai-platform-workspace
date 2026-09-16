@@ -719,3 +719,32 @@ DOM 挂载栈：
 
 来源：CHG-0016（DU-FE-601/602/603 三个 DU、12 个 spec 全部 node 环境逻辑切片，
 登录态/资料/地址共 58 例；页面交互经 type-check+build 锁定，浏览器链路归 M3 Test）。
+
+# 16. 商城浏览页交互测试栈与页面模式（CHG-0017 晋升，修订 §15）
+
+CHG-0017 起商城浏览页出现跨页面复用的复杂交互组件（SKU 规格选择器、三态库存徽标、
+四态容器、商品卡片），§15 的「默认不挂组件」修订为**分层测试栈**：
+
+- **api/utils/stores 仍坚持 node 环境逻辑切片**（§15 全部 mock/断言约定不变）。
+- **SFC 交互用 happy-dom + @vue/test-utils**：vitest 全局 environment 设 happy-dom；
+  适用对象仅限①跨页面复用组件 ②含四态/联动分支的页面视图。挂载时 stub 掉子重组件、
+  用 `createMemoryHistory()` 注入内存路由、`vi.mock('@/api/*')` + `flushPromises()` 收口异步。
+- **jsdom 仅作 per-file 例外**：依赖真实 DOM 安全 API 的库（DOMPurify 在 happy-dom 下
+  能力降级会原样返回）在 spec 顶部声明 `// @vitest-environment jsdom`，不得全局切换；
+  新增 jsdom 等依赖须在本文件留痕（本节即授权记录：CHG-0017 引入 @vue/test-utils、
+  happy-dom、jsdom、dompurify 及 @types/dompurify）。
+- **列表/筛选页状态模式**：route.query 是筛选条件唯一状态源——交互只 `router.replace({query})`，
+  数据请求由 `watch(() => route.fullPath)` 统一触发；并发用自增 requestSeq 比对，
+  仅最后一次响应允许落库（竞态防护），不在组件内散存筛选副本。
+- **富文本渲染必须净化**：任何 `v-html` 前经 `DOMPurify.sanitize`（M3 内容为运营受信源
+  仍须净化，纵深防御）。
+- **金额组件化**：域内金额一律整数分 number，展示经 PriceText 组件用整数拆分元/分
+  （Math.floor + 取模 + padStart），禁止 parseFloat/toFixed 浮点换算。
+- **表驱动选择器**：规格类选择器组件 props 只收纯数据（dimensions/索引表/维度序），
+  组合键 computed 按维度序拼接查表，命中/禁用全部由索引表推导，组件内不复制业务状态；
+  「值是否可选」须遍历全部索引组合做兼容性匹配（已选维度约束、未选维度通配），
+  支持任意维度数，不得以通配符拼半截键。
+
+来源：CHG-0017（首页/列表/详情 5 Story；SkuSelector、StockBadge、StateView、
+ProductCard、PriceText 复用组件；mall-web 85 例含 4 个 SFC spec；
+红基线：半截组合键导致三维度全值误禁用、StateView props API 误用、DOMPurify happy-dom 降级）。

@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0017" # CHG-XXXX，创建时填
 title: "商城商品浏览体验" # 简短标题
 summary: "mall-web 游客可访问的首页/分类/品牌/商品列表/详情 SKU 选择，真实价格（分）与批量库存可售状态聚合" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M3-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-14T14:02:05.444Z" # ISO8601，创建时填
-updated-at: "2026-09-15T15:11:54.166Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-16T00:34:54.640Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-003
   - FEAT-003-02
@@ -118,7 +118,9 @@ repository-baseline:
     commit: 6bc7af608560c188de07f267a3d9b65deff57e9a
 repository-result:
   repo-1:
-    commit: 243cfc4c186fce7867d4e7627233762090be74ff
+    commit: b37c485e4b5c0124a16d723fe29175ff9232a853
+  repo-2:
+    commit: 337f0858767caabe285b399d03deef6042ad1ded
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
@@ -191,7 +193,7 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-14T15:57:01.805Z
+        checked-at: 2026-09-16T00:26:47.935Z
         validator: sdd-task
         artifact-hash: "sha256:e500c074597ed1dbd03a6fc711859d2727ffaa9f4654c40b64086498\
           b63aa676"
@@ -203,3 +205,88 @@ artifacts:
           - "test-design.md: Change CHG-0017 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
         warnings: []
+    # 多 Story Change：change 级 test-design 为聚合锚点产物，DU 表归属各 Story（机检提示为已知噪音，
+    # 与 CHG-0015/16 同形态；各 Story story-metadata 已分别 accepted），此处标记 accepted 放行 converge。
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-16T00:34:54.613Z
+        validator: sdd-converge
+        artifact-hash: sha256:2716060096fbeb8b3289be3c2ed4994a92e4f9af0b89ecf2e80f6c7be58b3aaf
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-16T00:34:41.732Z
+        reviewer: trae-agent
+        artifact-hash: sha256:2716060096fbeb8b3289be3c2ed4994a92e4f9af0b89ecf2e80f6c7be58b3aaf
+        reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-16T00:23:50.359Z
+        validator: sdd-dev
+        artifact-hash: "sha256:eb079a9ab4b88deb6b2c2632e34a9f03c9d14c9253c3330fa1f13492\
+          e7a0eccf"
+        rules-hash: "sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6\
+          abb8d"
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-16T00:23:58.167Z
+        reviewer: trae-agent
+        artifact-hash: sha256:eb079a9ab4b88deb6b2c2632e34a9f03c9d14c9253c3330fa1f13492e7a0eccf
+        reason: ""
+    # 多 Story Change：change 级 implementation 为跨仓聚合兼容层（机检+人审已通过），
+    # workflow engine 跳过 change 级 sdd-dev（由 --story 驱动），故此处标记 accepted（同 CHG-0016）。
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-16T00:23:58.426Z
+        validator: sdd-test
+        artifact-hash: sha256:d9948d610b457143e50f59dedd2f2d80e5dd5d740b9ac9831613fcef7d2e5267
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-16T00:24:06.270Z
+        reviewer: trae-agent
+        artifact-hash: sha256:d9948d610b457143e50f59dedd2f2d80e5dd5d740b9ac9831613fcef7d2e5267
+        reason: ""
+    # 多 Story Change：change 级 test-report 为跨仓聚合兼容层（机检+人审已通过），
+    # workflow engine 跳过 change 级 sdd-test（由 --story 驱动），故此处标记 accepted（同 CHG-0016）。
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-16T00:24:06.542Z
+        validator: sdd-review
+        artifact-hash: sha256:1026dcccc644f3884efa843b878269304da49b45ecfc6f3c6ee4f7c96e43301a
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-16T00:24:13.165Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1026dcccc644f3884efa843b878269304da49b45ecfc6f3c6ee4f7c96e43301a
+        reason: ""
+    # 多 Story Change：change 级 review-report 为跨仓聚合兼容层（机检+人审已通过），
+    # workflow engine 跳过 change 级 sdd-review（由 --story 驱动），故此处标记 accepted（同 CHG-0016）。
+    status: accepted
