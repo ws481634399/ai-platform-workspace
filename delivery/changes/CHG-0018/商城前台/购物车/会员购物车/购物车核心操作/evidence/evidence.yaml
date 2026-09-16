@@ -1,0 +1,54 @@
+version: 0.1
+change-id: CHG-0018
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-801
+    task: 购物车核心操作（STORY-003-03-01-01）
+    reason: >-
+      会员购物车 Redis 写模型：4 段 Lua 原子脚本（加购合并/上限/改量/删除/勾选 + 90 天滑动 TTL）、
+      加购前商品 SKU 双状态可售校验（mall-product 新增内部 sku/batch 契约）、
+      网关路由与 MEMBER 鉴权、M4 下单读取 selected-items 内部端点；覆盖 AC-001~007/014。
+    commit: ebfbeb2568f6fd0d743c503ec133120657010754
+    files:
+      - mall-services/mall-cart/pom.xml
+      - mall-services/mall-cart/src/main/resources/scripts/cart_add.lua
+      - mall-services/mall-cart/src/main/resources/scripts/cart_update.lua
+      - mall-services/mall-cart/src/main/resources/scripts/cart_remove.lua
+      - mall-services/mall-cart/src/main/resources/scripts/cart_select.lua
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartConstants.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartItem.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartErrorCode.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartScriptCode.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartRepository.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/infrastructure/redis/RedisCartRepository.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/infrastructure/client/RestProductSkuClient.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/application/cart/ProductSkuClient.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/application/cart/CartApplicationService.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/mall/CartController.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/mall/dto/CartDtos.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/internal/InternalCartController.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/infrastructure/config/CartSecurityConfiguration.java
+      - mall-services/mall-product/src/main/java/com/ai/mall/product/application/sku/SkuBatchApplicationService.java
+      - mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/internal/dto/SkuBatchDtos.java
+      - mall-services/mall-product/src/main/java/com/ai/mall/product/interfaces/rest/internal/InternalProductController.java
+      - mall-services/mall-product/src/main/java/com/ai/mall/product/domain/product/ProductRepository.java
+      - mall-services/mall-product/src/main/java/com/ai/mall/product/infrastructure/persistence/product/ProductRepositoryImpl.java
+      - mall-gateway/src/main/java/com/ai/mall/gateway/security/GatewaySecurityConfiguration.java
+      - mall-gateway/src/main/resources/application.yml
+    recorded-at: "2026-09-16T10:00:00+08:00"
+  - id: EV-002
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-801
+    path: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/会员购物车/购物车核心操作/DU-BE-801/evidence/changeset.md
+    summary: DU 级 34 文件变更清单（mall-cart/mall-product/mall-gateway）
+    recorded-at: "2026-09-16T10:00:00+08:00"
+  - id: EV-003
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-801
+    path: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/会员购物车/购物车核心操作/DU-BE-801/evidence/red-green.md
+    summary: mall-cart 23/23、mall-product 95/95、mall-gateway 19/19 全绿 + 过程红 RED-1~5 + 真实环境 E2E 结论
+    recorded-at: "2026-09-16T10:00:00+08:00"

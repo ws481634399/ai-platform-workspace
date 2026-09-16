@@ -102,3 +102,24 @@ artifacts:
         artifact-hash: sha256:73d40781b5c5ab7b478ad03b36fd5d55104bed55568c7065c5fd0a8c9f586d06
         reason: "human-gate: skip (task @ story STORY-003-03-01-01)"
     status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-16T01:44:39.109Z
+        validator: sdd-dev
+        artifact-hash: "sha256:1c5b4d1482af49d48c675b4976116e7cdbb10e94cf80f69ed122b7d9\
+          0f5698d4"
+        rules-hash: "sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6\
+          abb8d"
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-16T01:44:49.663Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1c5b4d1482af49d48c675b4976116e7cdbb10e94cf80f69ed122b7d90f5698d4
+        reason: ""
