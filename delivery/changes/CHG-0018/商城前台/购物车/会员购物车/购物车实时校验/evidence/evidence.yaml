@@ -1,0 +1,56 @@
+version: 0.1
+change-id: CHG-0018
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-802
+    task: 购物车实时校验（STORY-003-03-01-02）
+    reason: >-
+      GET /api/mall/cart 读模型实时聚合：一次 product sku/batch + 一次 inventory availability
+      装配 CartLine（商品/SKU 双状态、最新整数分价、调价检测、库存 0/1..9/≥10 三态、
+      条目级 UNKNOWN 降级整车 200、VALID+选中+有货选中合计）；只读不改 Redis；
+      AC-021 跨服务边界（仅 RestClient，无库表直查）。覆盖 AC-008~013、AC-021。
+    commit: 34a0eb2c59b93a6f38db65f4c9ba172c0cd3b97d
+    files:
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/application/cart/CartReadModel.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/application/cart/CartViewAssembler.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/application/cart/CartQueryService.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/application/cart/InventoryAvailabilityClient.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/infrastructure/client/RestInventoryAvailabilityClient.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/mall/CartController.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/mall/dto/CartDtos.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/domain/cart/CartConstants.java
+      - mall-services/mall-cart/src/main/resources/application.yml
+      - mall-services/mall-cart/src/test/java/com/ai/mall/cart/application/cart/CartViewAssemblerTest.java
+      - mall-services/mall-cart/src/test/java/com/ai/mall/cart/interfaces/rest/mall/CartReadApiTest.java
+      - mall-services/mall-cart/src/test/java/com/ai/mall/cart/infrastructure/CartBoundaryAuditTest.java
+    recorded-at: "2026-09-16T10:10:00+08:00"
+  - id: EV-002
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-802
+    path: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/会员购物车/购物车实时校验/DU-BE-802/evidence/changeset.md
+    summary: DU 级 13 文件变更清单（全部落在 mall-cart，契约方零改动）
+    recorded-at: "2026-09-16T10:10:00+08:00"
+  - id: EV-003
+    type: evidence-ref
+    repository: repo-1
+    delivery-unit: DU-BE-802
+    path: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/会员购物车/购物车实时校验/DU-BE-802/evidence/red-green.md
+    summary: mall-cart 41/41 全绿 + 过程红 RED-1~4 + 真实环境 inventory 宕机降级/重启恢复结论
+    recorded-at: "2026-09-16T10:10:00+08:00"
+  - id: EV-004
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-802
+    command: mvn -pl mall-services/mall-cart test（Testcontainers Redis 7）
+    log: implementation/ai-platform-backend/delivery/CHG-0018/商城前台/购物车/会员购物车/购物车实时校验/DU-BE-802/evidence/logs/be-cart-read-test.log
+    result: passed
+    summary:
+      total: 41
+      passed: 41
+      failed: 0
+      skipped: 0
+    covers: [AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-021]
+    recorded-at: "2026-09-16T10:05:00+08:00"

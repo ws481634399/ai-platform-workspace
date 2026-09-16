@@ -96,11 +96,15 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: 973c252ccbfc0a1700083a78b8d91100fd939674
+  repo-2:
+    commit: aac8ee8f9e78b695126a3003b16b2714143927fe
 repository-result:
-  repo-1: { commit: 2f2661092ece2f3458879dc2a7744f3f80fb6990 }
-  repo-2: { commit: bc61b4d880a1f0cac214ca9d9957e05676300b6c }
+  repo-1:
+    commit: 973c252ccbfc0a1700083a78b8d91100fd939674
+  repo-2:
+    commit: aac8ee8f9e78b695126a3003b16b2714143927fe
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
@@ -200,13 +204,17 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-16T14:27:10.250Z
+        checked-at: 2026-09-16T14:28:04.186Z
         validator: sdd-converge
         artifact-hash: sha256:c408bbe98cb6e8e3984026914c1bc42b13a51792ff011b1febe0bf2d051f0855
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
         issues:
-          - "convergence.md: repository-result 仓库 'backend' 不在
-            .sdd/repositories.yaml"
-          - "convergence.md: repository-result 仓库 'frontend' 不在
-            .sdd/repositories.yaml"
+          - "convergence.md: Submodule Pointer 未对齐: repo-1
+            recorded=2f2661092ece2f3458879dc2a7744f3f80fb6990
+            actual=973c252ccbfc0a1700083a78b8d91100fd939674（先执行 openspec du
+            sync-status）"
+          - "convergence.md: Submodule Pointer 未对齐: repo-2
+            recorded=bc61b4d880a1f0cac214ca9d9957e05676300b6c
+            actual=aac8ee8f9e78b695126a3003b16b2714143927fe（先执行 openspec du
+            sync-status）"
         warnings: []
