@@ -79,7 +79,16 @@
 - Lua 脚本具体实现：属代码细节。
 - AOF 配置（appendonly everysec）：CHG-0006 已确立，本 Change 仅验证。
 
-## 3. 全局验收标准对照
+## 3. 知识沉淀过程
+
+- 通读 3 Story 全部 Artifact（requirement/spec/design、3 套 story-spec/design/test-design、
+  6 个仓内 DU 的 task-design/implementation、3 份 Story test-report/review-report），
+  提取技术候选 3 组、业务规则候选 1 组。
+- 检索既有 standards：CHG-0017 已立公开只读口径与库存三态 → 本次补 Redis 存储与 Lua 原子写模式。
+- Spec 候选只在本文件起草（§2），未直接写 product/specs/，等待人工评审。
+- 无 Unresolved 问题；三个 Story review-report 无开放 blocker/major。
+
+## 4. 全局验收标准对照
 
 | AC | 验收点 | 证据 | 结论 |
 | --- | --- | --- | --- |
@@ -106,7 +115,7 @@
 | AC-021 | mall-cart 无库表直查，仅内部 API | Story 2 边界审计 | 通过 |
 | AC-022 | 前端三检通过，Redis AOF 生效 | Story 3 test-report TC-012 | 通过 |
 
-## 4. 完成确认
+## 5. 完成确认
 
 - [x] 全部 3 Story Artifact 已读取
 - [x] 知识分类完成（1 个 standards 文件追加、1 篇 Spec 晋升候选、3 节点 Feature Tree）
