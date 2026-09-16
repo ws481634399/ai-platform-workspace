@@ -102,9 +102,9 @@ repository-baseline:
     commit: aac8ee8f9e78b695126a3003b16b2714143927fe
 repository-result:
   repo-1:
-    commit: 973c252ccbfc0a1700083a78b8d91100fd939674
+    commit: dc0d8e372c91ce3a1bfab3a769d689e69d1f2673
   repo-2:
-    commit: aac8ee8f9e78b695126a3003b16b2714143927fe
+    commit: 98f9b6b7f5ce87a559d2917307a8256fdea0fdda
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
