@@ -99,8 +99,8 @@ repository-baseline:
   {}
   # backend: { commit: abc111 }
 repository-result:
-  backend: { commit: 2f2661092ece2f3458879dc2a7744f3f80fb6990 }
-  frontend: { commit: bc61b4d880a1f0cac214ca9d9957e05676300b6c }
+  repo-1: { commit: 2f2661092ece2f3458879dc2a7744f3f80fb6990 }
+  repo-2: { commit: bc61b4d880a1f0cac214ca9d9957e05676300b6c }
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
@@ -200,19 +200,13 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-16T14:24:39.682Z
+        checked-at: 2026-09-16T14:27:10.250Z
         validator: sdd-converge
         artifact-hash: sha256:c408bbe98cb6e8e3984026914c1bc42b13a51792ff011b1febe0bf2d051f0855
         rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
         issues:
-          - "convergence.md: 前序 artifact 未 accepted: test-design.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: implementation.md (status:
-            draft)"
-          - "convergence.md: 前序 artifact 未 accepted: evidence/test-report.md
-            (status: draft)"
-          - "convergence.md: 前序 artifact 未 accepted: review-report.md (status:
-            draft)"
-          - "convergence.md: 存在 DU 但 metadata.repository-result 为空（DU completed
-            时应回填 result commit）"
+          - "convergence.md: repository-result 仓库 'backend' 不在
+            .sdd/repositories.yaml"
+          - "convergence.md: repository-result 仓库 'frontend' 不在
+            .sdd/repositories.yaml"
         warnings: []
