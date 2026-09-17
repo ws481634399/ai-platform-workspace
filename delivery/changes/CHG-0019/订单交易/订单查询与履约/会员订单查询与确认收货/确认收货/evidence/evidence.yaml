@@ -1,0 +1,43 @@
+version: 0.1
+change-id: CHG-0019
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-905
+    task: 确认收货（STORY-004-03-01-02）
+    reason: >-
+      ReceiptService 经集中状态机执行 SHIPPED→COMPLETED CAS：completedAt 与 CONFIRM_RECEIPT
+      历史、本人订单 404 归属校验、重复确认 ALREADY_TARGET 幂等不触发库存；覆盖 AC-001~003。
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+    files:
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/ReceiptService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/mall/MemberOrderController.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/OrderStatus.java
+    recorded-at: "2026-09-17T11:55:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-902
+    task: 确认收货（STORY-004-03-01-02，前端按钮）
+    reason: >-
+      OrderDetailView 仅 SHIPPED 显确认收货按钮、二次确认、成功刷新；canConfirmReceipt 守门。
+    commit: 22ad40fbd481da3048b10411b98f90b91bbdc7b5
+    files:
+      - mall-web/src/views/order/OrderDetailView.vue
+      - mall-web/src/utils/order.ts
+    recorded-at: "2026-09-17T11:55:00+08:00"
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-905
+    command: mvn -pl mall-services/mall-order -am test
+    log: delivery/changes/CHG-0019/evidence/logs/backend-m4-test.log
+    result: passed
+    summary:
+      total: 18
+      passed: 18
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004]
+    recorded-at: "2026-09-17T11:55:00+08:00"

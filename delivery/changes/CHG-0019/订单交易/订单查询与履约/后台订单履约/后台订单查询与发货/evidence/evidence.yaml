@@ -1,0 +1,67 @@
+version: 0.1
+change-id: CHG-0019
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-907
+    task: 后台订单查询与发货（STORY-004-03-02-01，后端）
+    reason: >-
+      admin 多条件订单检索/详情、PAID→SHIPPED 发货 CAS（物流校验/operator/幂等）、
+      order:list/view/ship 权限点与订单菜单（identity V8 幂等迁移）、网关 admin 路由；
+      覆盖 AC-001~006。
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+    files:
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/ShipmentService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/AdminOrderController.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/dto/AdminOrderDtos.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/OrderWebExceptionHandler.java
+      - mall-services/mall-gateway/src/main/java/com/ai/mall/gateway/security/GatewaySecurityConfiguration.java
+      - mall-services/mall-gateway/src/main/resources/application.yml
+      - mall-services/mall-identity/src/main/resources/db/migration/V8__add_order_permissions.sql
+    recorded-at: "2026-09-17T12:00:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-903
+    task: 后台订单查询与发货（STORY-004-03-02-01，前端）
+    reason: >-
+      mall-admin 订单列表（筛选/分页）、订单详情（全字段/轨迹）与发货弹窗（权限按钮/必填校验），
+      注册动态组件 OrderList；覆盖 AC-007。
+    commit: 22ad40fbd481da3048b10411b98f90b91bbdc7b5
+    files:
+      - mall-admin/src/api/order/order.ts
+      - mall-admin/src/views/order/OrderListView.vue
+      - mall-admin/src/views/order/OrderDetailView.vue
+      - mall-admin/src/views/order/order-display.ts
+      - mall-admin/src/router/component-registry.ts
+      - mall-admin/src/router/index.ts
+    recorded-at: "2026-09-17T12:00:00+08:00"
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-907
+    command: mvn -pl mall-services/mall-order,mall-services/mall-identity -am test
+    log: delivery/changes/CHG-0019/evidence/logs/backend-m4-test.log
+    result: passed
+    summary:
+      total: 97
+      passed: 97
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006]
+    recorded-at: "2026-09-17T12:00:00+08:00"
+  - id: EV-004
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-903
+    command: pnpm type-check && pnpm test && pnpm build（mall-admin）
+    log: delivery/changes/CHG-0019/evidence/logs/frontend-mall-admin-test.log
+    result: passed
+    summary:
+      total: 35
+      passed: 35
+      failed: 0
+      skipped: 0
+    covers: [AC-007]
+    recorded-at: "2026-09-17T12:00:00+08:00"

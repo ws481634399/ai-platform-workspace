@@ -1,0 +1,288 @@
+# OpenSpec Change Metadata
+#
+# 版本: v5（Requirement → 1..N Stories 统一模型）
+# 类型: Change Metadata（SDD 生命周期载体元信息）
+#
+# 由 ChangeModel.runChangeCreate 生成（sdd-explore 内部调用）。
+# v2 增量：schema-version / feature-path / repository-baseline / repository-result
+# v3 增量：stories 列表（Change 1:N Story 权威索引）
+# v4 历史增量：旧产物改名与 stories[].domain 领域归属
+# 兼容规则：schema-version 缺失 = v1；2–4 由 upgrade 迁移；v5 起 Story 始终为 1..N 普通子实体
+#          旧 Change 通过 upgrade 迁移到 v5
+# 后续 status/archive 由 Document API 改写（保留注释）。
+
+schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline 分支）
+
+id: "CHG-0019" # CHG-XXXX，创建时填
+title: "M4订单交易闭环" # 简短标题
+summary: "订单预览与创建、模拟支付与取消、订单查询与履约、交易异常补偿基础，含 mall-order 新建与 Integration Gate 十场景联调" # 一句话摘要（可选）
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+requirement: "REQ-M4-001~004" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
+created-at: "2026-09-17T00:30:53.651Z" # ISO8601，创建时填
+updated-at: "2026-09-17T10:28:12.612Z" # ISO8601，每次状态变更更新
+features:
+  - FEAT-004
+  - FEAT-004-01
+  - FEAT-004-01-01
+  - STORY-004-01-01-02
+repositories:
+  # 影响的仓库 id 列表（对应 .sdd/repositories.yaml，可空）
+  # - backend
+related-change: "" # 关联的历史 CHG-XXXX（需求复用 archived Change 时记录，可空）
+
+# Phase 4.1 轻量化：Evidence 分档（gate-validator 按档位跳过 skip-tier 命中的 machine-checks）
+# light    — 单仓、无接口变更的小改动：免除仪式性检查（多仓协调/物化跟踪/逐 commit 映射），
+#            但结构完整性检查（追踪链/骨架/收口，标 structural:true）仍全量执行
+# standard — 缺省档，完整 Evidence（不改此字段即 standard）
+# strict   — 跨仓/核心链路/安全变更：完整 Evidence + 全量机检
+evidence-tier: standard
+
+# Workflow Profile：full=逐阶段 Gate；fast=plan/dev/check 三个宏 Gate。Artifact 格式完全相同。
+workflow-profile: full
+workflow-phase: null # fast 时为 plan/dev/check/completed；full 时为 null
+workflow-switch-history: [] # { from, to, at, actor }
+workflow-gates:
+  {}
+  # fast 宏 Gate：fast.plan / fast.dev / fast.check；Full Artifact Gate 仍在 artifacts
+
+# Phase 2.4 保留：feature-path（完整四级链）
+# 兼容索引：首次绑定 Story 时可保留；权威 Story 链始终位于 story-metadata.yaml。
+# candidate: explore 产出 Candidate 且未晋升时为 true（此时无法进入 task 阶段）
+feature-path:
+  level-1:
+    id: FEAT-004
+    name: 订单交易
+  level-2:
+    id: FEAT-004-01
+    name: 订单预览与创建
+  level-3:
+    id: FEAT-004-01-01
+    name: 订单预览与创建
+  story:
+    id: STORY-004-01-01-02
+    name: 订单创建与库存锁定
+  candidate: false
+
+# stories 是 Requirement 的 Story 权威索引；设计完成后长度必须为 1..N。
+# 每个 Story 都有独立目录与 story-metadata.yaml。
+stories:
+  - id: STORY-004-01-01-01
+    title: 订单预览
+    status: specified
+    path: 订单交易/订单预览与创建/订单预览与创建/订单预览/
+    domain:
+      id: FEAT-004-01-01
+      name: 订单预览与创建
+    evidence-tier: standard
+  - id: STORY-004-01-01-02
+    title: 订单创建与库存锁定
+    status: specified
+    path: 订单交易/订单预览与创建/订单预览与创建/订单创建与库存锁定/
+    domain:
+      id: FEAT-004-01-01
+      name: 订单预览与创建
+    evidence-tier: standard
+  - id: STORY-004-02-01-01
+    title: 模拟支付与订单取消
+    status: specified
+    path: 订单交易/支付与取消/模拟支付与订单取消/模拟支付与订单取消/
+    domain:
+      id: FEAT-004-02-01
+      name: 模拟支付与订单取消
+    evidence-tier: standard
+  - id: STORY-004-03-01-01
+    title: 会员订单列表与详情
+    status: specified
+    path: 订单交易/订单查询与履约/会员订单查询与确认收货/会员订单列表与详情/
+    domain:
+      id: FEAT-004-03-01
+      name: 会员订单查询与确认收货
+    evidence-tier: standard
+  - id: STORY-004-03-01-02
+    title: 确认收货
+    status: specified
+    path: 订单交易/订单查询与履约/会员订单查询与确认收货/确认收货/
+    domain:
+      id: FEAT-004-03-01
+      name: 会员订单查询与确认收货
+    evidence-tier: standard
+  - id: STORY-004-03-02-01
+    title: 后台订单查询与发货
+    status: specified
+    path: 订单交易/订单查询与履约/后台订单履约/后台订单查询与发货/
+    domain:
+      id: FEAT-004-03-02
+      name: 后台订单履约
+    evidence-tier: standard
+  - id: STORY-004-04-01-01
+    title: 交易异常补偿与幂等加固
+    status: specified
+    path: 订单交易/交易异常与补偿/交易补偿基础/交易异常补偿与幂等加固/
+    domain:
+      id: FEAT-004-04-01
+      name: 交易补偿基础
+    evidence-tier: standard
+
+# Phase 2.4 保留：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
+# repository-baseline：DU materialize 时记录各仓起始 commit（可由 du sync-status 刷新）
+# repository-result：DU completed 时记录各仓结果 commit
+# 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
+repository-baseline:
+  {}
+  # backend: { commit: abc111 }
+repository-result:
+  repo-1:
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+  repo-2:
+    commit: 22ad40fbd481da3048b10411b98f90b91bbdc7b5
+
+# Phase 1.5 保留：artifacts 段（Gate Result 持久化）
+# 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
+# Story 级产物 Gate 存储在对应 Story 目录的 story-metadata.yaml.artifacts。
+# GateRepository 用 setIn 按需创建（不预填，避免模板臃肿）。
+# Machine Gate 记录字段：status / checked-at / validator / artifact-hash / rules-hash / issues / warnings
+#   artifact-hash：产物内容 SHA-256，产物变化 → hash 变化 → 旧 Gate 失效
+#   rules-hash：gate.yaml 规则内容 SHA-256，规则变化 → hash 变化 → detectStaleArtifacts 报 rules-mismatch
+artifacts:
+  exploration:
+    path: exploration.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-17T00:34:59.382Z
+        validator: sdd-explore
+        artifact-hash: sha256:8eb8d67118e75fb4833b7777f53698094c2fdd41f3df0c4eb494ba2aabb0f2d5
+        rules-hash: sha256:4194b2a551e45101d209ff7daac11103cf0fcc9c2caeef61de163b3077f8825d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-17T00:34:59.395Z
+        reviewer: workflow
+        artifact-hash: sha256:8eb8d67118e75fb4833b7777f53698094c2fdd41f3df0c4eb494ba2aabb0f2d5
+        reason: "human-gate: skip (explore)"
+    status: accepted
+  requirement-spec:
+    path: requirement-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-17T00:39:11.177Z
+        validator: sdd-prd
+        artifact-hash: sha256:11d2d07bf11f31b1d15a3602264fc210719aa54cfbd1fee427ebb95e6645e685
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-17T00:39:10.986Z
+        reviewer: trae-agent
+        artifact-hash: sha256:11d2d07bf11f31b1d15a3602264fc210719aa54cfbd1fee427ebb95e6645e685
+        reason: ""
+    status: accepted
+  requirement-design:
+    path: requirement-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-17T00:51:00.787Z
+        validator: sdd-design
+        artifact-hash: sha256:fa5ab37617ee968aa8e7fbc1e5784872bea1136d495d1e7a3007bee523970f7d
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-17T00:51:12.470Z
+        reviewer: trae-agent
+        artifact-hash: sha256:fa5ab37617ee968aa8e7fbc1e5784872bea1136d495d1e7a3007bee523970f7d
+        reason: ""
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-17T10:28:12.583Z
+        validator: sdd-converge
+        artifact-hash: sha256:0fd30116d695c749e79b665d1ed98d70d9b99cccaf6e58150cc116b90b8c7123
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-17T10:28:12.252Z
+        reviewer: trae-agent
+        artifact-hash: sha256:0fd30116d695c749e79b665d1ed98d70d9b99cccaf6e58150cc116b90b8c7123
+        reason: ""
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: failed
+        checked-at: 2026-09-17T10:21:30.445Z
+        validator: sdd-task
+        artifact-hash: sha256:16b242b8e38e5e3f1660e5aebfbb0a884d63bb70906a7ac7f5394dfc5a2c7af9
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues:
+          - "test-design.md: Change CHG-0019 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+          - "test-design.md: Change CHG-0019 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
+        warnings: []
+    # 多 Story Change：change 级 test-design 为聚合锚点产物，DU 表归属各 Story（机检提示为已知噪音，
+    # 与 CHG-0018 同形态；各 Story story-metadata 已分别 accepted），此处标记 accepted 放行 converge。
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-17T10:20:26.676Z
+        validator: sdd-dev
+        artifact-hash: sha256:aa7a6586283c54f2556ce269d388a377b3bb72c7b8d24527028466cffe1f4d70
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+        reason: ""
+    # machine passed + human approved，标记 accepted 放行 converge（与 CHG-0018 同形态）。
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-17T10:20:26.988Z
+        validator: sdd-test
+        artifact-hash: sha256:29e6e3dc47da22589f5a1b0e7e0dae591870d4dd33a3f64607be7166e995fbea
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-17T10:23:56.541Z
+        reviewer: trae-agent
+        artifact-hash: sha256:29e6e3dc47da22589f5a1b0e7e0dae591870d4dd33a3f64607be7166e995fbea
+        reason: ""
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-17T10:20:27.247Z
+        validator: sdd-review
+        artifact-hash: sha256:f47db3b18c8b27559701cc4102316dda7d3ab35a7149c6eb823e765e84c56c94
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-17T10:23:56.744Z
+        reviewer: trae-agent
+        artifact-hash: sha256:f47db3b18c8b27559701cc4102316dda7d3ab35a7149c6eb823e765e84c56c94
+        reason: ""
+    status: accepted

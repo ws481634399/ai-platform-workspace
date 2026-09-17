@@ -1,0 +1,64 @@
+version: 0.1
+change-id: CHG-0019
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-904
+    task: 会员订单列表与详情（STORY-004-03-01-01，后端）
+    reason: >-
+      会员订单分页/状态 Tab/时间范围查询（强制 memberId 谓词、越权统一 404）、
+      详情聚合（商品/地址/金额快照、关键时间、升序状态历史）；覆盖 AC-001~004。
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+    files:
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/OrderQueryService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/mall/MemberOrderController.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/OrderViewAssembler.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/mall/dto/OrderDtos.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/OrderMapper.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/config/MybatisPlusConfig.java
+    recorded-at: "2026-09-17T11:50:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-902
+    task: 会员订单列表与详情（STORY-004-03-01-01，前端订单中心）
+    reason: >-
+      mall-web 订单列表（Tab/分页/空态/行摘要）与详情（全字段/状态轨迹/支付取消入口），
+      展示纯函数与单测；覆盖 AC-005~007。
+    commit: 22ad40fbd481da3048b10411b98f90b91bbdc7b5
+    files:
+      - mall-web/src/views/order/OrderListView.vue
+      - mall-web/src/views/order/OrderDetailView.vue
+      - mall-web/src/utils/order.ts
+      - mall-web/src/utils/order.spec.ts
+      - mall-web/src/layouts/MallLayout.vue
+    recorded-at: "2026-09-17T11:50:00+08:00"
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-904
+    command: mvn -pl mall-services/mall-order -am test
+    log: delivery/changes/CHG-0019/evidence/logs/backend-m4-test.log
+    result: passed
+    summary:
+      total: 18
+      passed: 18
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004]
+    recorded-at: "2026-09-17T11:50:00+08:00"
+  - id: EV-004
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-902
+    command: pnpm test && pnpm build（mall-web）
+    log: delivery/changes/CHG-0019/evidence/logs/frontend-mall-web-test.log
+    result: passed
+    summary:
+      total: 90
+      passed: 90
+      failed: 0
+      skipped: 0
+    covers: [AC-005, AC-006, AC-007]
+    recorded-at: "2026-09-17T11:50:00+08:00"

@@ -1,0 +1,53 @@
+version: 0.1
+change-id: CHG-0019
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-906
+    task: 交易异常补偿与幂等加固（STORY-004-04-01-01，后端）
+    reason: >-
+      CompensationTask 落表与唯一键幂等、有界指数退避调度（maxRetries=5→FAILED_DEAD）、
+      InventoryCompensationHandler 幂等库存补偿、admin 补偿查询/手动重试端点；覆盖 AC-001~007。
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+    files:
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/CompensationService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/InventoryCompensationHandler.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/InventoryCompensationPayload.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/port/OrderCompensationPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/compensation/CompensationTask.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/compensation/CompensationStatus.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/compensation/CompensationRepository.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/compensation/MyBatisCompensationRepository.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/AdminCompensationController.java
+      - mall-services/mall-order/src/main/resources/db/migration/V2__compensation_init.sql
+    recorded-at: "2026-09-17T12:10:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-903
+    task: 交易异常补偿与幂等加固（STORY-004-04-01-01，补偿台前端）
+    reason: >-
+      CompensationListView：status 筛选、补偿任务表格、手动重试按钮（PENDING/FAILED_DEAD 可点），
+      复用 order-display 纯函数映射；覆盖 AC-004 管理端可见与人工重试。
+    commit: 22ad40fbd481da3048b10411b98f90b91bbdc7b5
+    files:
+      - mall-admin/src/api/order/order.ts
+      - mall-admin/src/views/order/CompensationListView.vue
+      - mall-admin/src/views/order/order-display.ts
+      - mall-admin/src/router/component-registry.ts
+    recorded-at: "2026-09-17T12:10:00+08:00"
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-906
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory -am test
+    log: delivery/changes/CHG-0019/evidence/logs/backend-m4-test.log
+    result: passed
+    summary:
+      total: 46
+      passed: 46
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007]
+    recorded-at: "2026-09-17T12:10:00+08:00"

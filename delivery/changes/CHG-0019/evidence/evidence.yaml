@@ -1,0 +1,121 @@
+# OpenSpec Evidence Model（Phase 2.1）
+#
+# 版本: v0.1
+# 类型: Change 结构化证据索引
+#
+# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
+# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
+# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
+#
+# 条目结构（按 type 区分必填字段）：
+#
+# ---- type: code-change ----
+# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
+#   type: code-change
+#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
+#   commit: 23fdb62            # 必填，commit 短 sha（小写）
+#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
+#   reason: 实现注册服务        # 必填，为什么改
+#   files:                     # 必填（可为空数组），修改文件清单
+#     - path: src/services/auth/register.js
+#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
+#   recorded-at: ""            # ISO8601
+#
+# ---- type: test-run ----
+# - id: EV-002
+#   type: test-run
+#   command: npm test          # 必填，执行命令
+#   result: passed             # 必填，passed / failed / partial
+#   summary:                   # 必填（对象）
+#     total: 0
+#     passed: 0
+#     failed: 0
+#     skipped: 0
+#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
+#   covers: [AC-001, AC-002]       # 必填（可为空数组），覆盖的 PRD 验收标准
+#   recorded-at: ""
+#
+# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
+# - id: EV-003
+#   type: review-finding
+#   target: requirement-spec.md#AC-003  # 必填，指向被检查对象
+#   severity: major            # 必填，blocker / major / minor
+#   finding: 设计与实现不一致   # 必填
+#   resolution: ""             # 可选，处理结论
+#   recorded-at: ""
+#
+# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
+# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
+# - id: EV-004
+#   type: evidence-ref
+#   repository: backend        # 可选，仓库 id
+#   delivery-unit: DU-BE-001   # 可选，DU 绑定
+#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
+#                              # 必填，repo 侧证据文件（workspace 相对路径）
+#   summary: backend 单测 12 通过  # 可选，一句话摘要
+#   recorded-at: ""
+
+version: 0.1 # schema 版本
+change-id: "CHG-0019" # CHG-XXXX，创建时填充
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: a06ed4c
+    task: CHG-0019 后端全部 6 个 DU
+    reason: >-
+      mall-order 新模块（订单聚合/集中状态机 CAS/submitToken 双层幂等/补偿任务有界退避），
+      mall-inventory reservation LOCKED→DEDUCTED/RELEASED CAS 原子加固，
+      mall-member 内部地址端点，mall-cart 选中项内部端点，网关 mall/admin 路由，
+      identity V8 order:* 权限与菜单。
+    files:
+      - mall-services/mall-order/
+      - mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/application/inventory/InventoryApplicationService.java
+      - mall-services/mall-inventory/infrastructure/persistence/inventory/
+      - mall-services/mall-member/src/main/java/com/ai/mall/member/interfaces/rest/internal/InternalMemberAddressController.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/internal/InternalCartController.java
+      - mall-services/mall-identity/src/main/resources/db/migration/V8__add_order_permissions.sql
+      - mall-gateway/
+    recorded-at: "2026-09-17T12:20:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    commit: 22ad40f
+    task: CHG-0019 前端 3 个 DU
+    reason: mall-web 结算页/订单中心/立即购买入口；mall-admin 订单列表/详情发货/补偿台。
+    files:
+      - mall-web/src/views/checkout/
+      - mall-web/src/views/order/
+      - mall-web/src/stores/checkout.ts
+      - mall-web/src/api/order.ts
+      - mall-web/src/types/order.ts
+      - mall-web/src/utils/order.ts
+      - mall-admin/src/api/order/order.ts
+      - mall-admin/src/views/order/
+    recorded-at: "2026-09-17T12:20:00+08:00"
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory,mall-services/mall-member,mall-services/mall-cart,mall-gateway -am test
+    result: passed
+    summary:
+      total: 125
+      passed: 125
+      failed: 0
+      skipped: 0
+    log: evidence/logs/backend-m4-test.log
+    covers: [M4-Gate-1, M4-Gate-2, M4-Gate-3, M4-Gate-4, M4-Gate-5, M4-Gate-6, M4-Gate-7, M4-Gate-8, M4-Gate-9, M4-Gate-10]
+    recorded-at: "2026-09-17T12:20:00+08:00"
+  - id: EV-004
+    type: test-run
+    repo: repo-2
+    command: pnpm test && pnpm build（mall-web + mall-admin）
+    result: passed
+    summary:
+      total: 125
+      passed: 125
+      failed: 0
+      skipped: 0
+    log: evidence/logs/frontend-mall-web-test.log
+    covers: [M4-Gate-1, M4-Gate-9]
+    recorded-at: "2026-09-17T12:20:00+08:00"

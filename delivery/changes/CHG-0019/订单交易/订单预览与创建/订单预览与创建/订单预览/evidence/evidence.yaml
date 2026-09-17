@@ -1,0 +1,47 @@
+version: 0.1
+change-id: CHG-0019
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-901
+    task: 订单预览（STORY-004-01-01-01）
+    reason: >-
+      mall-order 工程骨架（8105，安全链/MyBatis-Plus/Flyway/Redis）与下单预览：
+      CART/BUY_NOW 双源行装配、product 实时核价、inventory 可用量三档与 issueCodes、
+      member 内部地址归属校验、Redis submitToken（TTL 600s/行指纹）、网关路由；覆盖 AC-001~010。
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+    files:
+      - mall-services/mall-order/pom.xml
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/MallOrderApplication.java
+      - mall-services/mall-order/src/main/resources/application.yml
+      - mall-services/mall-order/src/main/resources/db/migration/V1__order_init.sql
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/CheckoutPreviewService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/port/ProductSkuPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/port/InventoryPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/port/CartSelectionPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/port/MemberAddressPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/port/SubmitTokenStore.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/redis/RedisSubmitTokenStore.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/client/RestProductSkuPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/client/RestInventoryPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/client/RestCartSelectionPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/client/RestMemberAddressPort.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/mall/MemberOrderController.java
+      - mall-services/mall-member/src/main/java/com/ai/mall/member/interfaces/rest/internal/InternalMemberAddressController.java
+      - mall-gateway/src/main/resources/application.yml
+    recorded-at: "2026-09-17T11:30:00+08:00"
+  - id: EV-002
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-901
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory,mall-services/mall-member,mall-services/mall-cart,mall-gateway -am test
+    log: delivery/changes/CHG-0019/evidence/logs/backend-m4-test.log
+    result: passed
+    summary:
+      total: 18
+      passed: 18
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010]
+    recorded-at: "2026-09-17T11:30:00+08:00"

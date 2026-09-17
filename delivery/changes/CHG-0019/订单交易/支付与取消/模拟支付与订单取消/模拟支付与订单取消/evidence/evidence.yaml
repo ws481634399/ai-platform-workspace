@@ -1,0 +1,39 @@
+version: 0.1
+change-id: CHG-0019
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-903
+    task: 模拟支付与订单取消（STORY-004-02-01-01）
+    reason: >-
+      OrderStatus 集中状态机（MUTATED/ALREADY_TARGET/ILLEGAL）、pay/cancel 订单 CAS 仲裁与幂等、
+      mall-inventory 预留 LOCKED→DEDUCTED/RELEASED 单条条件 UPDATE 原子加固（重复请求不重复增减）、
+      pay‖cancel 真并发防护；覆盖 AC-001~009。
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+    files:
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/PaymentService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/OrderCancelService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/OrderStatus.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/OrderOperation.java
+      - mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/application/inventory/InventoryApplicationService.java
+      - mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/domain/inventory/InventoryRepository.java
+      - mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/persistence/inventory/InventoryMapper.java
+      - mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/persistence/inventory/InventoryReservationMapper.java
+      - mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/persistence/inventory/InventoryRepositoryImpl.java
+      - mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/application/inventory/InventoryReleaseConfirmCasTest.java
+    recorded-at: "2026-09-17T11:45:00+08:00"
+  - id: EV-002
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-903
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory -am test
+    log: delivery/changes/CHG-0019/evidence/logs/backend-m4-test.log
+    result: passed
+    summary:
+      total: 46
+      passed: 46
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009]
+    recorded-at: "2026-09-17T11:45:00+08:00"

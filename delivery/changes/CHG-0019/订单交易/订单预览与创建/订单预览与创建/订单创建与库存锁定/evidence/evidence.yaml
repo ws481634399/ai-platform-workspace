@@ -1,0 +1,69 @@
+version: 0.1
+change-id: CHG-0019
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-902
+    task: 订单创建与库存锁定（STORY-004-01-01-02，后端）
+    reason: >-
+      submitToken 单消费与行指纹校验、product 二次核价、逐行锁库与失败同步释放、
+      订单/商品/地址快照落库、雪花 orderNo、CART 成功清购物车；覆盖 AC-001~010。
+    commit: a06ed4ccfd8215777984351f1fdcc81069e8dd59
+    files:
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/OrderCreateService.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/Order.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/OrderItem.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/ReceiverSnapshot.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/Money.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/OrderNoGenerator.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/id/SnowflakeOrderNoGenerator.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/MyBatisOrderRepository.java
+      - mall-services/mall-cart/src/main/java/com/ai/mall/cart/interfaces/rest/internal/InternalCartController.java
+      - mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/mall/MemberOrderController.java
+    recorded-at: "2026-09-17T11:40:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-901
+    task: 订单创建与库存锁定（STORY-004-01-01-02，前端结算页）
+    reason: >-
+      CheckoutView 结算页（issueCodes 阻断/地址选择/submit-token 防重/成功跳详情）、
+      购物车去结算与商品详情立即购买双入口、checkout store；覆盖 AC-009/AC-011。
+    commit: 22ad40fbd481da3048b10411b98f90b91bbdc7b5
+    files:
+      - mall-web/src/views/checkout/CheckoutView.vue
+      - mall-web/src/stores/checkout.ts
+      - mall-web/src/views/cart/CartView.vue
+      - mall-web/src/views/product/ProductDetailView.vue
+      - mall-web/src/api/order.ts
+      - mall-web/src/types/order.ts
+    recorded-at: "2026-09-17T11:40:00+08:00"
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-902
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory,mall-services/mall-member,mall-services/mall-cart,mall-gateway -am test
+    log: delivery/changes/CHG-0019/evidence/logs/backend-m4-test.log
+    result: passed
+    summary:
+      total: 18
+      passed: 18
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010]
+    recorded-at: "2026-09-17T11:40:00+08:00"
+  - id: EV-004
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-901
+    command: pnpm test && pnpm build（mall-web）
+    log: delivery/changes/CHG-0019/evidence/logs/frontend-mall-web-test.log
+    result: passed
+    summary:
+      total: 90
+      passed: 90
+      failed: 0
+      skipped: 0
+    covers: [AC-009, AC-011]
+    recorded-at: "2026-09-17T11:40:00+08:00"
