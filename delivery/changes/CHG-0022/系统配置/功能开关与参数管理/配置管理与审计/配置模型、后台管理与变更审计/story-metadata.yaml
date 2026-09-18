@@ -1,0 +1,109 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0022" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-006-01-01-01" # Story ID（对齐 product/feature-tree.yaml）
+title: "配置模型、后台管理与变更审计" # Story 标题
+summary: "mall-system 统一功能开关/系统参数：配置模型与类型、mall-admin 管理与 RBAC、变更审计、Redis
+  缓存与失效、统一 Config Client、动态生效与前端公开配置" # Story 一句话摘要（可选）
+status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-18T10:39:54.655Z" # ISO8601，创建时填
+updated-at: "2026-09-18T12:56:28.895Z" # ISO8601，每次变更更新
+
+# 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
+change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
+change-design-ref: "" # 例：requirement-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: FEAT-006
+    name: 系统配置
+  level-2:
+    id: FEAT-006-01
+    name: 功能开关与参数管理
+  level-3:
+    id: FEAT-006-01-01
+    name: 配置管理与审计
+  story:
+    id: STORY-006-01-01-01
+    name: 配置模型、后台管理与变更审计
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus: []
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.748Z
+        validator: sdd-prd
+        artifact-hash: sha256:fc7933b42d6bdadec6f1b0144591cee795144b56650d95e42e1576752b9ec527
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:32.906Z
+        reviewer: trae-agent
+        artifact-hash: sha256:fc7933b42d6bdadec6f1b0144591cee795144b56650d95e42e1576752b9ec527
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.785Z
+        validator: sdd-design
+        artifact-hash: sha256:85445b3c00614d2a8c895a9e6e6e81fe05704806fbadab18c86dd183dd194d36
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T12:56:28.792Z
+        reviewer: workflow
+        artifact-hash: sha256:85445b3c00614d2a8c895a9e6e6e81fe05704806fbadab18c86dd183dd194d36
+        reason: "human-gate: skip (design @ story STORY-006-01-01-01)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.885Z
+        validator: sdd-task
+        artifact-hash: sha256:c0bb054928ed61849658006c1b5d1a568e08dd2f06030355df466bfb9357209f
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-507 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-FE-503 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T12:56:45.931Z
+        reviewer: trae-agent
+        artifact-hash: sha256:c0bb054928ed61849658006c1b5d1a568e08dd2f06030355df466bfb9357209f
+        reason: ""
+    status: accepted

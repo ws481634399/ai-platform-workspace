@@ -1,0 +1,91 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0020"
+story-id: "STORY-005-01-02-02"
+title: "搜索筛选与排序"
+summary: "categoryId/brandId/价格区间组合 bool 过滤；default/price_asc/price_desc/newest
+  四排序；参数校验"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T11:59:20.430Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-005
+    name: 商品搜索
+  level-2:
+    id: FEAT-005-01
+    name: 商品搜索查询
+  level-3:
+    id: FEAT-005-01-02
+    name: 关键词搜索与筛选
+  story:
+    id: STORY-005-01-02-02
+    name: 搜索筛选与排序
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.308Z
+        validator: sdd-prd
+        artifact-hash: sha256:8d73870e03730c51ba4f89131f9e1501aeb7f10564338e37c0dee004894102d6
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:31.805Z
+        reviewer: trae-agent
+        artifact-hash: sha256:8d73870e03730c51ba4f89131f9e1501aeb7f10564338e37c0dee004894102d6
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:42.012Z
+        validator: sdd-design
+        artifact-hash: sha256:28a261e2f34e7cd4121066220465bb4eb35bdb7b335ab39c512c3b936991ed7e
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:55.359Z
+        reviewer: trae-agent
+        artifact-hash: sha256:28a261e2f34e7cd4121066220465bb4eb35bdb7b335ab39c512c3b936991ed7e
+        reason: ""
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.420Z
+        validator: sdd-task
+        artifact-hash: sha256:71ffaaf266563fcc1dc80e69af2fbebbeec9dc9aee72ec35e2349ec2424b8945
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-511 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:55.546Z
+        reviewer: trae-agent
+        artifact-hash: sha256:71ffaaf266563fcc1dc80e69af2fbebbeec9dc9aee72ec35e2349ec2424b8945
+        reason: ""
+    status: accepted

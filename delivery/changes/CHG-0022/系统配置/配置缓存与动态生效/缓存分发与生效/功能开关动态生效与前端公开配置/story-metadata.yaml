@@ -1,0 +1,93 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0022"
+story-id: "STORY-006-02-01-02"
+title: "功能开关动态生效与前端公开配置"
+summary: "DYNAMIC/RESTART 语义、B0606 后端拒绝、public-features 公开端点、search/guest-cart
+  真实消费闭环与双端显隐"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T12:56:29.197Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-006
+    name: 系统配置
+  level-2:
+    id: FEAT-006-02
+    name: 配置缓存与动态生效
+  level-3:
+    id: FEAT-006-02-01
+    name: 缓存分发与生效
+  story:
+    id: STORY-006-02-01-02
+    name: 功能开关动态生效与前端公开配置
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:29.074Z
+        validator: sdd-prd
+        artifact-hash: sha256:2338d21c6228bc5e4dc7e4d5fafd725b2c89bb8cd3251e7e142e544e2db9d15f
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:33.267Z
+        reviewer: trae-agent
+        artifact-hash: sha256:2338d21c6228bc5e4dc7e4d5fafd725b2c89bb8cd3251e7e142e544e2db9d15f
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:29.103Z
+        validator: sdd-design
+        artifact-hash: sha256:40b63248407973a10ed104130a42eae24b567c14d14e9d3d53081d6519cac47c
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T12:56:29.110Z
+        reviewer: workflow
+        artifact-hash: sha256:40b63248407973a10ed104130a42eae24b567c14d14e9d3d53081d6519cac47c
+        reason: "human-gate: skip (design @ story STORY-006-02-01-02)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:29.190Z
+        validator: sdd-task
+        artifact-hash: sha256:aeeb10a283cf0e5f2b32daf26ecbd465066da42239ab37dddf735530c1cf3b9c
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-509 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-FE-504 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T12:56:46.288Z
+        reviewer: trae-agent
+        artifact-hash: sha256:aeeb10a283cf0e5f2b32daf26ecbd465066da42239ab37dddf735530c1cf3b9c
+        reason: ""
+    status: accepted

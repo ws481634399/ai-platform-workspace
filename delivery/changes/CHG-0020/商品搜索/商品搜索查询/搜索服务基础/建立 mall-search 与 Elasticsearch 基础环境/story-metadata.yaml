@@ -1,0 +1,93 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0020"
+story-id: "STORY-005-01-01-01"
+title: "建立 mall-search 与 Elasticsearch 基础环境"
+summary: "compose 新增 Elasticsearch 8.x；mall-search 接入官方 ES Client、连接配置、健康检查与
+  Testcontainers 基线"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T11:59:19.967Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-005
+    name: 商品搜索
+  level-2:
+    id: FEAT-005-01
+    name: 商品搜索查询
+  level-3:
+    id: FEAT-005-01-01
+    name: 搜索服务基础
+  story:
+    id: STORY-005-01-01-01
+    name: 建立 mall-search 与 Elasticsearch 基础环境
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:30:52.143Z
+        validator: sdd-prd
+        artifact-hash: sha256:f73e5dbe3bac044387aa62e3484721f8af39f9ded3584d4cc646160bf30f5971
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:31.277Z
+        reviewer: trae-agent
+        artifact-hash: sha256:f73e5dbe3bac044387aa62e3484721f8af39f9ded3584d4cc646160bf30f5971
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:41.443Z
+        validator: sdd-design
+        artifact-hash: sha256:ddbcedeb1fe726c0a2ae9aaa06c4f4f4c04cc5f3342c41c5c756dba344d7b1df
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:54.256Z
+        reviewer: trae-agent
+        artifact-hash: sha256:ddbcedeb1fe726c0a2ae9aaa06c4f4f4c04cc5f3342c41c5c756dba344d7b1df
+        reason: ""
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:19.956Z
+        validator: sdd-task
+        artifact-hash: sha256:e51a3fed309fbf01d366682e690d9ea303b2bbc7a666ed9fa037d037aa31e02f
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-501 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-WS-501 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:54.431Z
+        reviewer: trae-agent
+        artifact-hash: sha256:e51a3fed309fbf01d366682e690d9ea303b2bbc7a666ed9fa037d037aa31e02f
+        reason: ""
+    status: accepted

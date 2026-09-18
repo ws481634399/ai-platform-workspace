@@ -1,0 +1,90 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0022"
+story-id: "STORY-006-02-01-01"
+title: "Redis 配置缓存与统一访问边界"
+summary: "Redis 分级缓存与精确失效、SERVICE 内部配置端点、mall-common-config 统一客户端（FeatureGate/Provider）"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T12:56:29.047Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-006
+    name: 系统配置
+  level-2:
+    id: FEAT-006-02
+    name: 配置缓存与动态生效
+  level-3:
+    id: FEAT-006-02-01
+    name: 缓存分发与生效
+  story:
+    id: STORY-006-02-01-01
+    name: Redis 配置缓存与统一访问边界
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.926Z
+        validator: sdd-prd
+        artifact-hash: sha256:04917a74cd0211a4c4bf33228b81f20f962bb711ad024189d3f0bd53a5c0e9a7
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:33.083Z
+        reviewer: trae-agent
+        artifact-hash: sha256:04917a74cd0211a4c4bf33228b81f20f962bb711ad024189d3f0bd53a5c0e9a7
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.956Z
+        validator: sdd-design
+        artifact-hash: sha256:788233d393c86d577e076a5914f1f457307a0f37a1dd134cb8007805cca86088
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T12:56:28.963Z
+        reviewer: workflow
+        artifact-hash: sha256:788233d393c86d577e076a5914f1f457307a0f37a1dd134cb8007805cca86088
+        reason: "human-gate: skip (design @ story STORY-006-02-01-01)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:29.040Z
+        validator: sdd-task
+        artifact-hash: sha256:d96d0a5fb187d6b7a8554f30dda1c8d2fb7366c2e984e8cbf32682aef52c7159
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-508 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T12:56:46.108Z
+        reviewer: trae-agent
+        artifact-hash: sha256:d96d0a5fb187d6b7a8554f30dda1c8d2fb7366c2e984e8cbf32682aef52c7159
+        reason: ""
+    status: accepted

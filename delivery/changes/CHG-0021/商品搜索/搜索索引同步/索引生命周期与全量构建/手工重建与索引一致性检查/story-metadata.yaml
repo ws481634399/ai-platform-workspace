@@ -1,0 +1,92 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0021"
+story-id: "STORY-005-02-01-02"
+title: "手工重建与索引一致性检查"
+summary: "双索引+别名原子切换重建、任务状态/并发控制、上架数 vs 索引数差集检查、RBAC 与 mall-admin 运维页"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T12:56:27.974Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-005
+    name: 商品搜索
+  level-2:
+    id: FEAT-005-02
+    name: 搜索索引同步
+  level-3:
+    id: FEAT-005-02-01
+    name: 索引生命周期与全量构建
+  story:
+    id: STORY-005-02-01-02
+    name: 手工重建与索引一致性检查
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:27.836Z
+        validator: sdd-prd
+        artifact-hash: sha256:8e76b62ec47a9343c0f3da66059c872d08557055ba470650899a7d3a51a8ce56
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:32.365Z
+        reviewer: trae-agent
+        artifact-hash: sha256:8e76b62ec47a9343c0f3da66059c872d08557055ba470650899a7d3a51a8ce56
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:27.868Z
+        validator: sdd-design
+        artifact-hash: sha256:4e766533dc51c69fd2ef868d0974f2665fc357274beb9ff84486c31f1dc0c8ac
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T12:56:27.876Z
+        reviewer: workflow
+        artifact-hash: sha256:4e766533dc51c69fd2ef868d0974f2665fc357274beb9ff84486c31f1dc0c8ac
+        reason: "human-gate: skip (design @ story STORY-005-02-01-02)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:27.967Z
+        validator: sdd-task
+        artifact-hash: sha256:c23704aff8fbfbe460c0b063757728d93ef38b429d1de2d73630c55ebe6875f7
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-504 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-FE-502 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T12:56:46.645Z
+        reviewer: trae-agent
+        artifact-hash: sha256:c23704aff8fbfbe460c0b063757728d93ef38b429d1de2d73630c55ebe6875f7
+        reason: ""
+    status: accepted

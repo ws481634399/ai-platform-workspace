@@ -1,0 +1,90 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0021"
+story-id: "STORY-005-02-02-02"
+title: "同步幂等乱序防护与失败重试"
+summary: "external_gte 乱序防护、版本冲突消化、failure_record 有界退避重试、FAILED_DEAD 与人工重试"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T12:56:28.251Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-005
+    name: 商品搜索
+  level-2:
+    id: FEAT-005-02
+    name: 搜索索引同步
+  level-3:
+    id: FEAT-005-02-02
+    name: 增量同步与可靠性
+  story:
+    id: STORY-005-02-02-02
+    name: 同步幂等乱序防护与失败重试
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.136Z
+        validator: sdd-prd
+        artifact-hash: sha256:d49527ad7dc606edb91c670035b296135c4a866b5b25da697a0e3563456ed42e
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:32.725Z
+        reviewer: trae-agent
+        artifact-hash: sha256:d49527ad7dc606edb91c670035b296135c4a866b5b25da697a0e3563456ed42e
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.165Z
+        validator: sdd-design
+        artifact-hash: sha256:c537629af00cb0cba683a2a502229ae8472ae978a6badecb1dd04d026afa5cbc
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T12:56:28.171Z
+        reviewer: workflow
+        artifact-hash: sha256:c537629af00cb0cba683a2a502229ae8472ae978a6badecb1dd04d026afa5cbc
+        reason: "human-gate: skip (design @ story STORY-005-02-02-02)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T12:56:28.245Z
+        validator: sdd-task
+        artifact-hash: sha256:5da7ef19e9f868b76fe9e80969c6e7205b2bd86199ec379abac1e689fbdf5824
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-506 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T12:56:47.014Z
+        reviewer: trae-agent
+        artifact-hash: sha256:5da7ef19e9f868b76fe9e80969c6e7205b2bd86199ec379abac1e689fbdf5824
+        reason: ""
+    status: accepted

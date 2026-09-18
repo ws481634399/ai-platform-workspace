@@ -1,0 +1,90 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0020"
+story-id: "STORY-005-01-02-03"
+title: "mall-web 商品搜索体验"
+summary: "mall-web 搜索框、SearchView 结果页（筛选/排序/分页/URL 同步）、空/Loading/Error 三态、跳详情"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T11:59:20.578Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-005
+    name: 商品搜索
+  level-2:
+    id: FEAT-005-01
+    name: 商品搜索查询
+  level-3:
+    id: FEAT-005-01-02
+    name: 关键词搜索与筛选
+  story:
+    id: STORY-005-01-02-03
+    name: mall-web 商品搜索体验
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.455Z
+        validator: sdd-prd
+        artifact-hash: sha256:1a728091964805bd5cdd5137dea93bb88d2b42cebc4367eaf5f815ff5f02893b
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:31.992Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1a728091964805bd5cdd5137dea93bb88d2b42cebc4367eaf5f815ff5f02893b
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:42.202Z
+        validator: sdd-design
+        artifact-hash: sha256:b400c8f2357b2d33d67abead152c415b9b3d9911c3cdbb48d942249fde229170
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:55.738Z
+        reviewer: trae-agent
+        artifact-hash: sha256:b400c8f2357b2d33d67abead152c415b9b3d9911c3cdbb48d942249fde229170
+        reason: ""
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.569Z
+        validator: sdd-task
+        artifact-hash: sha256:07c2a0cf4958cdd2f7bd97aa90e7ab1cd667d859c444f32dbe5396c0688745e5
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-FE-501 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:55.946Z
+        reviewer: trae-agent
+        artifact-hash: sha256:07c2a0cf4958cdd2f7bd97aa90e7ab1cd667d859c444f32dbe5396c0688745e5
+        reason: ""
+    status: accepted

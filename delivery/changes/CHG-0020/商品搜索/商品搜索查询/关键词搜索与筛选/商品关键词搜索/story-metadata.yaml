@@ -1,0 +1,106 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0020" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-005-01-02-01" # Story ID（对齐 product/feature-tree.yaml）
+title: "商品关键词搜索" # Story 标题
+summary: "mall-search 独立商品搜索：ES 基础设施、关键词搜索、筛选排序分页、异常降级与 mall-web 搜索页" # Story 一句话摘要（可选）
+status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-18T10:39:54.178Z" # ISO8601，创建时填
+updated-at: "2026-09-18T11:59:20.285Z" # ISO8601，每次变更更新
+
+# 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
+change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
+change-design-ref: "" # 例：requirement-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: FEAT-005
+    name: 商品搜索
+  level-2:
+    id: FEAT-005-01
+    name: 商品搜索查询
+  level-3:
+    id: FEAT-005-01-02
+    name: 关键词搜索与筛选
+  story:
+    id: STORY-005-01-02-01
+    name: 商品关键词搜索
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus: []
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.158Z
+        validator: sdd-prd
+        artifact-hash: sha256:1035d4d35d71b79faa8b270d272ceccabc345ff8eb9ecc2cc4ee5519b37c7471
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:31.630Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1035d4d35d71b79faa8b270d272ceccabc345ff8eb9ecc2cc4ee5519b37c7471
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:41.823Z
+        validator: sdd-design
+        artifact-hash: sha256:f20a32728475368f9c5a1a4fc85a3af1e9a1f9c7deabe90543206e64bd0dddde
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:54.975Z
+        reviewer: trae-agent
+        artifact-hash: sha256:f20a32728475368f9c5a1a4fc85a3af1e9a1f9c7deabe90543206e64bd0dddde
+        reason: ""
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.279Z
+        validator: sdd-task
+        artifact-hash: sha256:bb9081f36342842e6f3ab9bcd6ac079d805ef372e91a0df15c9a9c83e11cd421
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-502 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:55.158Z
+        reviewer: trae-agent
+        artifact-hash: sha256:bb9081f36342842e6f3ab9bcd6ac079d805ef372e91a0df15c9a9c83e11cd421
+        reason: ""
+    status: accepted

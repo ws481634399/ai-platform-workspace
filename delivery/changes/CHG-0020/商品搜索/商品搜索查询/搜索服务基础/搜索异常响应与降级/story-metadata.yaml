@@ -1,0 +1,90 @@
+# OpenSpec Story Metadata
+schema-version: 1
+
+change-id: "CHG-0020"
+story-id: "STORY-005-01-01-02"
+title: "搜索异常响应与降级"
+summary: "ES 不可用/超时/索引不存在三类异常归一 B05xx，空结果正常态；M5 不做数据库降级"
+status: tasked
+evidence-tier: standard
+created-at: "2026-09-18T11:30:00.000Z"
+updated-at: "2026-09-18T11:59:20.131Z"
+
+change-spec-ref: ""
+change-design-ref: ""
+
+feature-path:
+  level-1:
+    id: FEAT-005
+    name: 商品搜索
+  level-2:
+    id: FEAT-005-01
+    name: 商品搜索查询
+  level-3:
+    id: FEAT-005-01-01
+    name: 搜索服务基础
+  story:
+    id: STORY-005-01-01-02
+    name: 搜索异常响应与降级
+  candidate: false
+
+dus: []
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.002Z
+        validator: sdd-prd
+        artifact-hash: sha256:88f436571517bbd1b9c2df950f800603d783a4e7bad98f1f64fab5ae01028b98
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings:
+          - "story-spec.md: requirement-spec.md 无 [S<n>] 编号范围条目，scope-subset
+            跳过（建议 §3 功能范围采用 [S1]/[S2] 编号条目）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:20:31.456Z
+        reviewer: trae-agent
+        artifact-hash: sha256:88f436571517bbd1b9c2df950f800603d783a4e7bad98f1f64fab5ae01028b98
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:41.635Z
+        validator: sdd-design
+        artifact-hash: sha256:cfb6f6c5493866d309d3628130cb54dcef7f6ab82fd9343a19b47e9e7d1c1ea1
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:54.617Z
+        reviewer: trae-agent
+        artifact-hash: sha256:cfb6f6c5493866d309d3628130cb54dcef7f6ab82fd9343a19b47e9e7d1c1ea1
+        reason: ""
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T11:59:20.121Z
+        validator: sdd-task
+        artifact-hash: sha256:bb0d11afcb39a1d7c3c71366cfb01039e4b1f322da776507849ff096ab5a7ada
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-510 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T11:59:54.797Z
+        reviewer: trae-agent
+        artifact-hash: sha256:bb0d11afcb39a1d7c3c71366cfb01039e4b1f322da776507849ff096ab5a7ada
+        reason: ""
+    status: accepted
