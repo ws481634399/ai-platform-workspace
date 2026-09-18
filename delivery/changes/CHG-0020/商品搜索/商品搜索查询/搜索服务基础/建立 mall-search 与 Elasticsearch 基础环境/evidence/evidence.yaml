@@ -31,3 +31,18 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-004
+    type: review-finding
+    target: Story AC-001/AC-003；test-report.md §4
+    severity: minor
+    finding: compose healthy/卷持久化/down-up 数据保留、停 ES 后 health=DOWN 为设计既定手工/静态项，尚未做容器级实停实起复核
+    resolution: "处置去向：M5 Integration Gate 场景五执行 compose up/down 与实停 ES 容器，复核 healthy、数据保留、mall-search DOWN 且进程存活，并补运行证据"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-005
+    type: review-finding
+    target: DU-WS-501 implementation.md；deploy/docker-compose.infra.yml
+    severity: minor
+    finding: local-infrastructure-standard 要求首次引入镜像记录实际 RepoDigest，本次 ES 8.17.4 仅有 tag 无 digest，镜像内容追溯链不完整
+    resolution: "处置去向：联调首次拉起时以 docker inspect 读取容器 Image ID，再以 docker image inspect 读取该镜像 RepoDigests，将摘要补录至 DU-WS-501 实施记录/evidence"
+    recorded-at: "2026-09-19T03:10:00+08:00"

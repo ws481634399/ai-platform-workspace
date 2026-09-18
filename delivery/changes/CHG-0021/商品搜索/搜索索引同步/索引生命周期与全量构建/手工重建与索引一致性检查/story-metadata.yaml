@@ -5,10 +5,10 @@ change-id: "CHG-0021"
 story-id: "STORY-005-02-01-02"
 title: "手工重建与索引一致性检查"
 summary: "双索引+别名原子切换重建、任务状态/并发控制、上架数 vs 索引数差集检查、RBAC 与 mall-admin 运维页"
-status: testing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T18:16:49.913Z"
+updated-at: "2026-09-18T19:39:10.590Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -127,4 +127,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:64085318e49eedddf06f9ca346f2c60f1703a2358c3d84feab6570b7647ca750
         reason: "human-gate: skip (test @ story STORY-005-02-01-02)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:10.575Z
+        validator: sdd-review
+        artifact-hash: sha256:56b641193cfd851c3665c14c6027690372d36d5a270b3e191b4e886e51241ff5
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:10.589Z
+        reviewer: workflow
+        artifact-hash: sha256:56b641193cfd851c3665c14c6027690372d36d5a270b3e191b4e886e51241ff5
+        reason: "human-gate: skip (review @ story STORY-005-02-01-02)"
     status: accepted

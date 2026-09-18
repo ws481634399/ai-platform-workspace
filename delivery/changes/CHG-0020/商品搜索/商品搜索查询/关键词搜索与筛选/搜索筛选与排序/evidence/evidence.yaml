@@ -22,3 +22,18 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: Story AC-003/AC-006/AC-007；test-report.md §4
+    severity: minor
+    finding: '"keyword+品牌+价格"三合一单跳请求、"筛选+排序+第 2 页"单请求全量比对、非数字参数绑定三个点为同机制/分项/框架分支覆盖，缺单一端到端断言'
+    resolution: "处置去向：M5 Integration Gate 场景一浏览器/curl 链路顺带补三合一与组合翻页单跳验证；非数字绑定分支待统一类型绑定异常映射时补测（与 DU-BE-502 EV-005 同去向）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-004
+    type: review-finding
+    target: domain/search/SortMode.java、application/search/ProductSearchService.java；DU-BE-511 DEV-2
+    severity: minor
+    finding: 排序映射/非法回退/区间校验无独立纯单测，统一经 ProductSearchApiTest 真实 ES 断言，离线快速反馈与定位粒度不足
+    resolution: "处置去向：维持真实 ES 集成覆盖（断言已逐条承载 AC），或后续按 task-design 设想补 QueryNormalizeTest 纯单测；技术债允许开放"
+    recorded-at: "2026-09-19T03:10:00+08:00"

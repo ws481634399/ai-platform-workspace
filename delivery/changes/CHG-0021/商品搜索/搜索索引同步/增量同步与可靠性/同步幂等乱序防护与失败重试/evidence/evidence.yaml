@@ -22,3 +22,49 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: "story-spec.md §2.1/§4（GET /api/internal/search/sync-failures）；requirement-design.md §2.4；InternalSearchSyncController.java"
+    severity: major
+    finding: "声明的 SERVICE 内部只读端点 GET /api/internal/search/sync-failures?status=（供服务侧排查）初版未实现——全仓搜索 sync-failures 仅命中 AdminSearchIndexController 两个端点；DU-BE-506 Deviations（DEV-1~4）未记录该取消。admin 端虽有等价分页（search:index:list），但 Story Scope 与接口契约条目缺失且未留痕"
+    resolution: "已闭环：1de0d9c 补 InternalSearchFailureController（hasRole SERVICE、只读分页，复用 SearchSyncFailureService.page/count，{total,page,size,items} 同构）+ InternalSearchFailureApiTest 2 例（令牌分页+FAILED_DEAD 筛选/无令牌 4xx）；修复与定向回归证据见本文件 EV-006（code-change）/EV-007（test-run，26/26 全绿）；DU-BE-506 DEV-5 已补登"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-004
+    type: review-finding
+    target: "story-spec.md#AC-004、#AC-008；SyncFailureFlowTest"
+    severity: minor
+    finding: "未做真实 ES 容器 kill/网络分区注入；故障链以 SearchIndexPort 抛 RuntimeException 模拟，受理落表/退避/重放全分支已覆盖，缺真实停启后“调度自动拾取+文档恢复可搜”的端到端证据"
+    resolution: "Integration Gate 场景五做真实 ES stop/start，验证 @Scheduled 自动拾取、SUCCESS 与文档恢复可搜"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-005
+    type: review-finding
+    target: "story-spec.md#AC-006；AdminSearchIndexController.java L88-90；SearchSyncFailureService#scanAndRetry"
+    severity: minor
+    finding: "人工重试端点权限码与 B0504/404 序列化未经 MockMvc（服务层已证）；@Scheduled 扫描“到期才拾取/FAILED_DEAD 不拾取”无调度级断言（测试关闭自动调度后直调方法）"
+    resolution: "补 MockMvc 用例（无权限 403/未知 id 404 body/成功 200）或 Gate HTTP 联调；补一轮可控时钟下 scanAndRetry 拾取边界断言"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    commit: 1de0d9cb63a405b3b4e0988755d6b7bec2139bc0
+    task: DU-BE-506
+    reason: "review major 闭环：补内部只读失败查询端点 GET /api/internal/search/sync-failures（ROLE_SERVICE，复用 SearchSyncFailureService.page/count，分页体 {total,page,size,items} 与 admin 端点同构）"
+    files:
+      - path: mall-services/mall-search/src/main/java/com/ai/mall/search/interfaces/rest/internal/InternalSearchFailureController.java
+        symbols: [InternalSearchFailureController]
+      - path: mall-services/mall-search/src/test/java/com/ai/mall/search/api/InternalSearchFailureApiTest.java
+        symbols: [InternalSearchFailureApiTest]
+    recorded-at: "2026-09-19T03:06:00+08:00"
+  - id: EV-007
+    type: test-run
+    command: "mvn -pl mall-services/mall-search -am test -B -ntp -Dtest=ProductSearchApiTest,InternalSearchFailureApiTest,IndexSyncIntegrationTest,SyncFailureFlowTest -Dsurefire.failIfNoSpecifiedTests=false（TESTCONTAINERS_RYUK_DISABLED=true）"
+    result: passed
+    summary:
+      total: 26
+      passed: 26
+      failed: 0
+      skipped: 0
+    log: evidence/logs/review-mall-search-retest.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008]
+    recorded-at: "2026-09-19T03:06:00+08:00"

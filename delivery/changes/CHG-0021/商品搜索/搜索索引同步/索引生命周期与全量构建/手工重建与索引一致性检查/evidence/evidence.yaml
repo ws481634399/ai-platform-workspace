@@ -1,4 +1,4 @@
-﻿version: 0.1
+version: 0.1
 change-id: "CHG-0021"
 items:
   - id: EV-001
@@ -51,3 +51,39 @@ items:
     log: ../CHG-0022/evidence/logs/mall-admin-vitest.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006]
     recorded-at: "2026-09-19T01:36:00+08:00"
+
+  - id: EV-006
+    type: review-finding
+    target: "story-spec.md#AC-002、#AC-004；RebuildService/ConsistencyCheckService"
+    severity: minor
+    finding: "重建失败 FAILED+旧索引保留、构建中并发可查、一致性 missing 方向与 >200 双截断构造无自动化；成功/extra/计数路径已实测，缺口路径代码具备"
+    resolution: "Integration Gate 注入构建失败、人为 DELETE 文档、构造 >200 差集，补全失败与截断断言"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-007
+    type: review-finding
+    target: "DU-FE-502 Deviations（DEV-5）；requirement-design.md §3.2；standards/engineering/frontend/coding-standard.md §15"
+    severity: minor
+    finding: "SearchIndexView 无 vitest（DEV-5 已登记），且设计声明的 stores/searchIndex.ts 未落地——2s 轮询/409 接续/失败重试可用性等可测分支留在 SFC，api/search/index.ts 亦无 §15 要求的 HTTP 契约逻辑切片 spec；枚举漂移正是缺乏该层测试才漏出"
+    resolution: "Gate 补 api 层 node 切片 spec（URL/方法/分页解包/枚举），将轮询状态机抽 store 或 composable 并测试；若不抽取，在 converge 补记结构偏离"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-008
+    type: review-finding
+    target: "story-spec.md#AC-006；DU-FE-502 DEV-2；SearchIndexView.vue#triggerRebuild"
+    severity: minor
+    finding: "“发起重建（确认）”要求的二次确认弹窗未实现，点击直接触发；DEV-2 已登记（后端 B0503 互斥+操作幂等使误触后果无害），但 AC 字面未满足"
+    resolution: "Gate 补 ElMessageBox 二次确认，或以实现为准在 converge 更新 AC/设计口径"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-009
+    type: review-finding
+    target: "RebuildService.java#getTask；IndexErrorCode.java"
+    severity: minor
+    finding: "GET /rebuild/{taskId} 查询不存在的重建任务时复用 B0504“同步失败记录不存在”（HTTP 404 状态正确，但错误码/文案语义错位，会误导前端提示）"
+    resolution: "新增重建任务专用 NOT_FOUND 错误码（如 B0505 REBUILD_TASK_NOT_FOUND）或复用通用 404 码；Gate 前修复"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-010
+    type: review-finding
+    target: "story-spec.md#AC-005；V9__add_search_index_permissions.sql；mall-gateway application.yml"
+    severity: minor
+    finding: "网关层未登录 401、内部路径经网关 404、admin 重试端点 HTTP 鉴权未做 E2E；V9 种子内容（权限行/菜单/超管授予）无专门断言，依赖 SQL 静态评审与 Flyway 链 79/79 可应用"
+    resolution: "Integration Gate 网关联调 401/404/403，并补 V9 种子内容断言（查询权限/菜单/角色关联行）"
+    recorded-at: "2026-09-19T03:10:00+08:00"

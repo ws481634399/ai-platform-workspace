@@ -6,10 +6,10 @@ story-id: "STORY-006-02-01-02"
 title: "功能开关动态生效与前端公开配置"
 summary: "DYNAMIC/RESTART 语义、B0606 后端拒绝、public-features 公开端点、search/guest-cart
   真实消费闭环与双端显隐"
-status: testing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T18:15:52.628Z"
+updated-at: "2026-09-18T19:39:12.261Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -128,4 +128,24 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:938b46772a17e0fcbc45772502af8a440822fed55e12fb3aca04a63016e824e4
         reason: "human-gate: skip (test @ story STORY-006-02-01-02)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:12.247Z
+        validator: sdd-review
+        artifact-hash: "sha256:7804044333bd5d3bba712b1b26f78a72ebfe3161d8bcbc91f5dbc3ee\
+          4d3c451e"
+        rules-hash: "sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b\
+          7ac88"
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:12.259Z
+        reviewer: workflow
+        artifact-hash: sha256:7804044333bd5d3bba712b1b26f78a72ebfe3161d8bcbc91f5dbc3ee4d3c451e
+        reason: "human-gate: skip (review @ story STORY-006-02-01-02)"
     status: accepted

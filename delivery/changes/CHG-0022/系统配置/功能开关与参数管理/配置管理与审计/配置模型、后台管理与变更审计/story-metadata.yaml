@@ -14,10 +14,10 @@ story-id: "STORY-006-01-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "配置模型、后台管理与变更审计" # Story 标题
 summary: "mall-system 统一功能开关/系统参数：配置模型与类型、mall-admin 管理与 RBAC、变更审计、Redis
   缓存与失效、统一 Config Client、动态生效与前端公开配置" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-18T10:39:54.655Z" # ISO8601，创建时填
-updated-at: "2026-09-18T18:15:51.996Z" # ISO8601，每次变更更新
+updated-at: "2026-09-18T19:39:11.607Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -144,4 +144,24 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:773bd4657697e493e3d753e7448bacb807c944284b727f27f6255337c1299a1a
         reason: "human-gate: skip (test @ story STORY-006-01-01-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:11.593Z
+        validator: sdd-review
+        artifact-hash: "sha256:fdc8188db7eb4757c049ea7013125d14c40d756f51cb231c915aee12\
+          a39f7f0c"
+        rules-hash: "sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b\
+          7ac88"
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:11.605Z
+        reviewer: workflow
+        artifact-hash: sha256:fdc8188db7eb4757c049ea7013125d14c40d756f51cb231c915aee12a39f7f0c
+        reason: "human-gate: skip (review @ story STORY-006-01-01-01)"
     status: accepted

@@ -6,10 +6,10 @@ story-id: "STORY-005-02-02-01"
 title: "商品变更增量同步"
 summary: "mall-product AFTER_COMMIT 事件 + SearchSyncClient 推送；mall-search 内部
   upsert/硬删除；主流程不阻断"
-status: testing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T18:16:50.242Z"
+updated-at: "2026-09-18T19:39:10.930Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -126,4 +126,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:7f2f6a7da05f6c4094520e0e49b13a96462fb76bdbcc46b4565c245897b46600
         reason: "human-gate: skip (test @ story STORY-005-02-02-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:10.914Z
+        validator: sdd-review
+        artifact-hash: sha256:b0a07dfad11914e00ef1ac84b3ba27d77a0f14d71a029d87b8012cda97a5d90f
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:10.928Z
+        reviewer: workflow
+        artifact-hash: sha256:b0a07dfad11914e00ef1ac84b3ba27d77a0f14d71a029d87b8012cda97a5d90f
+        reason: "human-gate: skip (review @ story STORY-005-02-02-01)"
     status: accepted

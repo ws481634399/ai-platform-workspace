@@ -6,10 +6,10 @@ story-id: "STORY-005-01-02-02"
 title: "搜索筛选与排序"
 summary: "categoryId/brandId/价格区间组合 bool 过滤；default/price_asc/price_desc/newest
   四排序；参数校验"
-status: testing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T18:15:50.213Z"
+updated-at: "2026-09-18T19:39:09.601Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -126,4 +126,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:dd85b529edc76b8566faa90f8b8798bd4719a9132c87f0bb1829359779e3bb27
         reason: "human-gate: skip (test @ story STORY-005-01-02-02)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:09.589Z
+        validator: sdd-review
+        artifact-hash: sha256:452e0e9c5f119e0f0451e0a0f699120d38bfbc347254adf628ddafd1dc06b832
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:09.599Z
+        reviewer: workflow
+        artifact-hash: sha256:452e0e9c5f119e0f0451e0a0f699120d38bfbc347254adf628ddafd1dc06b832
+        reason: "human-gate: skip (review @ story STORY-005-01-02-02)"
     status: accepted

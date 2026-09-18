@@ -13,10 +13,10 @@ change-id: "CHG-0020" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-005-01-02-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "商品关键词搜索" # Story 标题
 summary: "mall-search 独立商品搜索：ES 基础设施、关键词搜索、筛选排序分页、异常降级与 mall-web 搜索页" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-18T10:39:54.178Z" # ISO8601，创建时填
-updated-at: "2026-09-18T18:15:49.891Z" # ISO8601，每次变更更新
+updated-at: "2026-09-18T19:39:09.263Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -141,4 +141,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:4dd74e6a0e6add827ec096b6b3453b20278e0d80796014e4422dbcafd247b989
         reason: "human-gate: skip (test @ story STORY-005-01-02-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:09.250Z
+        validator: sdd-review
+        artifact-hash: sha256:8cbdd04ed48ad53bb765666c0557d373320c00187a71c02b217b44e0ad33bd68
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:09.262Z
+        reviewer: workflow
+        artifact-hash: sha256:8cbdd04ed48ad53bb765666c0557d373320c00187a71c02b217b44e0ad33bd68
+        reason: "human-gate: skip (review @ story STORY-005-01-02-01)"
     status: accepted

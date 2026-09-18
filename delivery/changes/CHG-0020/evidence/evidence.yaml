@@ -107,3 +107,128 @@ items:
     log: evidence/logs/mall-web-vitest.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017, AC-018]
     recorded-at: "2026-09-19T01:36:00+08:00"
+
+  # ---- sdd-review：review-finding（EV-006~EV-015，2 major + 8 minor）----
+  - id: EV-006
+    type: review-finding
+    target: mall-search domain/search/ProductSearchItem.java#productId（依据 api-design-standard §5.3）；联动 repo-2 src/api/search.ts、SearchView 路由取参
+    severity: major
+    finding: ProductSearchItem.productId 以裸 Long number 直出且前端声明为 number，违反业务 ID 字符串化强制规则，与 mall-product @StringId DTO/catalog.ts string 口径不一致；雪花 ID 超 2^53 末位丢失会导致搜索结果点详情 404（AC-008/AC-017 受影响）
+    resolution: "已闭环：后端 d7dc2b0 为 ProductSearchItem.productId 加 common-web @StringId（入参保持 Long），前端 5ab0979 将 productId 等 ID 改 string 并联动测试；EV-018 后端定向回归 26 例与 EV-019 mall-web 全量 105 例回归全绿"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-007
+    type: review-finding
+    target: repo-2 src/views/search/SearchView.vue 及全站 /search 入口（AC-015 / Story 02-03 AC-002）
+    severity: major
+    finding: /search 结果页无分类/品牌筛选控件（仅关键词/价格/排序/分页），且全站无携带 categoryId/brandId 进入 /search 的入口，两维过滤 UI 不可达，且未记入 DU-FE-501 Deviations
+    resolution: "已闭环：5ab0979 在 SearchView 新增分类树/品牌下拉筛选（经 buildRouterQuery 写 URL 并重置 page=1），新增 SearchView.spec 3 例（筛选渲染/URL 同步/雪花 ID 详情跳转）；EV-019 mall-web 全量 105 例回归全绿"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-008
+    type: review-finding
+    target: repo-2 src/stores/search.ts、src/views/search/SearchView.vue（缺 spec）；AC-014/AC-016/AC-017
+    severity: minor
+    finding: store 三态/requestSeq 竞态/URL 双向同步/重试与浏览器端到端链路原无自动化证据（test-design 既定浏览器验证放 Gate，DU-FE-501 DEV-2 已登记）
+    resolution: "处置去向：视图部分已由 EV-017（5ab0979）新增 SearchView.spec 3 例闭环（筛选渲染/URL 同步/雪花 ID 跳转）；store 竞态/三态纯单测仍缺，待补 stores/search.spec 或由 Integration Gate 场景一浏览器全链路联测闭合"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-009
+    type: review-finding
+    target: mall-gateway application.yml、GatewaySecurityConfiguration；AC-010
+    severity: minor
+    finding: 游客 200 与 /api/internal/** 404 仅配置物/源码核对，无网关运行时自动化证据
+    resolution: "处置去向：Integration Gate 场景一以 curl/E2E 补 8080 无 token 200、internal 404 两证"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-010
+    type: review-finding
+    target: STORY-005-01-01-02 AC-001~003；SearchExceptionAdvice
+    severity: minor
+    finding: 故障归一由 MockMvc cause 链切片 + 真实缺索引双层证明，未做实停 ES 容器的容器级故障注入与 mall-web Error 态联证
+    resolution: "处置去向：Integration Gate 场景五实停 ES 容器，验证 503 B0501/进程存活/X-Trace-Id/前端 Error 态"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-011
+    type: review-finding
+    target: STORY-005-01-01-01 AC-001/AC-003；compose/health
+    severity: minor
+    finding: compose healthy、命名卷 down-up 数据保留、停 ES 后 health=DOWN 四项为设计既定手工/静态验证，无容器级实跑证据
+    resolution: "处置去向：联调阶段容器级启停复核并留证据（与场景五合并执行）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-012
+    type: review-finding
+    target: application/search/ProductSearchService.java、domain/search/SortMode.java、ElasticsearchProductSearchAdapter；AC-012
+    severity: minor
+    finding: 参数归一/SortMode 映射无独立纯单测（9 例真实 ES 集成间接承载）；三合一组合、筛选+排序+第 2 页单请求、非数字类型绑定分支为分项/间接覆盖（非数字绑定未映 B0502 已记 DEV）
+    resolution: "处置去向：维持集成覆盖或后续迭代补 QueryNormalize 纯单测与类型绑定异常映射；联调 curl 补三合一/组合翻页单跳证据"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-013
+    type: review-finding
+    target: repo-2 src/layouts/MallLayout.vue submitSearch；AC-014
+    severity: minor
+    finding: Header 全局搜索框回车跳 /products?keyword=（列表页）而非 /search，与设计描述有差异；DU-FE-501 DEV-1 已记录，功能可达但入口口径待确认
+    resolution: "处置去向：Gate 联调由产品确认口径；需统一时改 submitSearch 跳转目标并回归"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-014
+    type: review-finding
+    target: DU-WS-501 实施记录；deploy/docker-compose.infra.yml
+    severity: minor
+    finding: ES 镜像为首次引入，仅有 tag 无 RepoDigest，local-infrastructure-standard 的镜像内容追溯要求未落实
+    resolution: "处置去向：首次拉起后 docker image inspect 取 RepoDigests 摘要补录 DU/evidence"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-015
+    type: review-finding
+    target: repo-2 src/views/search/SearchView.vue（829 行）
+    severity: minor
+    finding: 单文件超 component-standard §9.1 的 300–500 行评估线（含约 280 行样式），工具条/价格表单/结果卡片可拆
+    resolution: "处置去向：后续迭代拆 SearchToolbar/SearchPriceForm/SearchCard 子组件并随组件归属样式，不阻断本 Change"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+
+  # ---- review major 闭环：修复提交（code-change）----
+  - id: EV-016
+    type: code-change
+    repo: repo-1
+    commit: d7dc2b02b514576dafddcd2f340bfd962dd01cef
+    task: DU-BE-502
+    reason: review major 闭环（EV-006）：ProductSearchItem.productId 加 @StringId 字符串化，雪花 ID 不再经前端 number 丢精度
+    files:
+      - path: mall-services/mall-search/src/main/java/com/ai/mall/search/domain/search/ProductSearchItem.java
+        symbols: [ProductSearchItem, productId]
+      - path: mall-services/mall-search/src/test/java/com/ai/mall/search/api/ProductSearchApiTest.java
+      - path: mall-services/mall-search/src/test/java/com/ai/mall/search/index/IndexSyncIntegrationTest.java
+    recorded-at: "2026-09-19T03:06:00+08:00"
+  - id: EV-017
+    type: code-change
+    repo: repo-2
+    commit: 5ab0979a3df809ef419093a5832788c7df6f71cf
+    task: DU-FE-501
+    reason: review major 闭环（EV-006 前端段/EV-007）：/search 页分类树/品牌筛选控件、productId 等 ID 改 string、新增 SearchView.spec 3 例
+    files:
+      - path: mall-web/src/api/search.ts
+      - path: mall-web/src/api/search.spec.ts
+      - path: mall-web/src/stores/search.ts
+      - path: mall-web/src/views/search/SearchView.vue
+      - path: mall-web/src/views/search/SearchView.spec.ts
+    recorded-at: "2026-09-19T03:06:00+08:00"
+
+  # ---- review major 闭环：定向/全量回归（test-run）----
+  - id: EV-018
+    type: test-run
+    command: mvn test -B -ntp -pl mall-services/mall-search -am -Dtest=ProductSearchApiTest,InternalSearchFailureApiTest,IndexSyncIntegrationTest,SyncFailureFlowTest -Dsurefire.failIfNoSpecifiedTests=false（TESTCONTAINERS_RYUK_DISABLED=true）
+    result: passed
+    summary:
+      total: 26
+      passed: 26
+      failed: 0
+      skipped: 0
+    log: evidence/logs/review-mall-search-retest.log
+    covers: [AC-002, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-011, AC-012, AC-013]
+    recorded-at: "2026-09-19T03:06:00+08:00"
+  - id: EV-019
+    type: test-run
+    command: pnpm run test（mall-web vitest 全量 22 files；另 type-check/lint/build 全绿，见同目录 review-fe-type-check.log/review-fe-lint.log/review-fe-build.log）
+    result: passed
+    summary:
+      total: 105
+      passed: 105
+      failed: 0
+      skipped: 0
+    log: evidence/logs/review-fe-vitest.log
+    covers: [AC-015, AC-016, AC-017, AC-018]
+    recorded-at: "2026-09-19T03:06:00+08:00"

@@ -5,10 +5,10 @@ change-id: "CHG-0020"
 story-id: "STORY-005-01-02-03"
 title: "mall-web 商品搜索体验"
 summary: "mall-web 搜索框、SearchView 结果页（筛选/排序/分页/URL 同步）、空/Loading/Error 三态、跳详情"
-status: testing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T18:15:50.559Z"
+updated-at: "2026-09-18T19:39:21.660Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -125,4 +125,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:f7452e6d78dd2842166a051d60b67a9caad542764294465a92c863c4c7ffb372
         reason: "human-gate: skip (test @ story STORY-005-01-02-03)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:21.646Z
+        validator: sdd-review
+        artifact-hash: sha256:a545a55aa26ee33f824ed36fbc3af308dd0137f7a88e6d01107ea441b1f2d486
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:21.658Z
+        reviewer: workflow
+        artifact-hash: sha256:a545a55aa26ee33f824ed36fbc3af308dd0137f7a88e6d01107ea441b1f2d486
+        reason: "human-gate: skip (review @ story STORY-005-01-02-03)"
     status: accepted

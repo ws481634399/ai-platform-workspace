@@ -22,3 +22,46 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: 'requirement-design.md §2.3、§4；本 Story story-spec.md §4；InternalConfigController'
+    severity: minor
+    finding: '内部端点响应包络文档写 `{features:[...]}` / `{parameters:[...]}` + missingKeys；story-design §2 冻结与实际实现为 `{values:{key:view},missingKeys:[]}`。唯一消费端 SystemConfigClient 在同一提交按 values 适配，20 例端到端测试全绿，无外部消费者受损'
+    resolution: 'sdd-converge 回修 requirement-design/story-spec 包络措辞与实现对齐；同步把 story-design §1"超出分批"措辞改为"keys 上限 100、超出 400"（DEV-3）'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-004
+    type: review-finding
+    target: 'story-design.md §2；InternalConfigController javadoc；framework-standard.md §13.4'
+    severity: minor
+    finding: '设计与控制器 javadoc 标注 keys 空/超 100 返回 B0601 400；实际 IllegalArgumentException → GlobalExceptionHandler 返回 A 段参数校验码 400。HTTP 语义（400）与上限（100）正确，客户端不分支错误码；且 framework-standard §13.4 明确"参数校验异常 → HTTP 400 + A 段码"，实现符合标准'
+    resolution: '以框架标准为准，回修设计/javadoc 的错误码标注，代码无需改动'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-005
+    type: review-finding
+    target: 'evidence/test-report.md §4-2/§4-3/§4-5；SystemParameterAppService；SystemParameterProvider'
+    severity: minor
+    finding: '覆盖深度合集：①参数（parameter 单键）更新失效无独立 IT，仅源码核实发布点共用同一监听器；②Provider 坏值/缺键"每键每分钟一条 WARN"限频无日志捕获断言；③"Redis+system 全失"为 Mockito 抛错 + 不可达端口的桩级注入，未做真实停容器后消费服务 MockMvc 200'
+    resolution: '后续测试增强：参数更新删键 IT、WARN 日志捕获断言；联调环境做真实停依赖演练'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-006
+    type: review-finding
+    target: 'evidence/test-report.md §4-7；story-spec.md §3 [写后失效]'
+    severity: minor
+    finding: '多实例（多个消费副本各持本地缓存）跨节点收敛无容器编排级验证；单机以 Testcontainers Redis + 1s 本地 TTL 注入等价证明收敛逻辑，真实墙钟 60s/600s 按 test-design 标注不等待'
+    resolution: '部署/联调环境多副本验证 Integration Gate 场景七（更新后各副本 ≤60s 读到新值）'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-007
+    type: review-finding
+    target: 'story-spec.md#AC-007；mall-search/mall-cart 源码树'
+    severity: minor
+    finding: '"业务服务不直查 mall_system 库/无自建 Config DAO"目前以 grep/pom 人工静态审计 + contextLoads 佐证，无 ArchUnit 等自动化架构门禁，结论依赖审计时点'
+    resolution: '后续在消费服务引入架构测试（禁止 mall_system 数据源/Mapper 包依赖）固化该约束'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-008
+    type: review-finding
+    target: 'mall-system infrastructure/cache/CacheEvictionListener.java:4'
+    severity: minor
+    finding: '未使用 import org.springframework.scheduling.annotation.Async；类实际为同步 AFTER_COMMIT 监听（无 @Async），不影响行为'
+    resolution: '后续顺手清理该 import'
+    recorded-at: "2026-09-19T03:10:00+08:00"

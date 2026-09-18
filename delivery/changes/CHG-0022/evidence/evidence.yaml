@@ -119,3 +119,46 @@ items:
     log: ../CHG-0020/evidence/logs/mall-web-vitest.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017]
     recorded-at: "2026-09-19T01:36:00+08:00"
+
+  - id: EV-007
+    type: review-finding
+    target: 'requirement-spec.md#AC-017；evidence/test-report.md §5 缺口①'
+    severity: minor
+    finding: 'Integration Gate 场景六（开关动态生效）、场景七（缓存一致性）未执行真实端到端：无单运行"管理端 PUT OFF → 删键 → ≤60s 搜索/游客车 403 → 重开恢复"翻转，无经网关 8080 的 public-features 200/admin 401 自动化，无多消费副本跨节点收敛编排验证。自动化分段证据（缓存 IT、TTL 单测、两态切片、安全链、网关前缀回归）齐备且全绿'
+    resolution: '联调/部署环境按场景六/七执行多服务浏览器 + 多副本验收并回填 Gate 证据；后续可补 testcontainers 级翻转 IT'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-008
+    type: review-finding
+    target: 'requirement-spec.md#AC-003、#AC-005、#AC-006；Story1 建议 EV-008/EV-009、Story2 建议 EV-005'
+    severity: minor
+    finding: '后端测试覆盖深度合集：①INTEGER "abc"、BOOLEAN "yes" 两指名非法值无逐字用例且无"值不变"读回断言；②历史 traceId 字段存在未逐例断言；③删不存在键无专门用例；④identity V10 种子仅 SQL 静态核实无迁移断言；⑤参数键失效无独立 IT、Provider WARN 限频无日志断言、全故障为桩级注入；⑥H2(MODE=MySQL) 替代 testcontainers MySQL'
+    resolution: '测试增强 backlog：参数化非法值 + 读回、traceId、DELETE 缺失键、mall-identity V10 断言、参数删键 IT、WARN 捕获；联调/部署首启确认 MySQL 8 方言'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-009
+    type: review-finding
+    target: 'requirement-spec.md#AC-007、#AC-015、#AC-016；Story1 建议 EV-010、Story3 建议 EV-009'
+    severity: minor
+    finding: '前端组件测试缺口：mall-admin 三管理页（渲染/启停/类型表单矩阵/范围提示/内置禁用/v-permission/B0604 引导）与 mall-web MallLayout 入口显隐、SearchView 关闭空态、SystemParametersView effectType tag 均无组件级 vitest（api/store 层 12+3 例通过、DOM 行为静态核实）'
+    resolution: 'Integration Gate 场景六浏览器验收；后续建立管理页/布局组件 vitest 基线'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-010
+    type: review-finding
+    target: 'requirement-spec.md §0/§3.1、requirement.md 技术约束、requirement-design.md §2.1/§2.3/§4；三 Story story-spec/story-design 相关小节；V1 SQL 注释；InternalConfigController javadoc'
+    severity: minor
+    finding: '文档措辞/契约漂移合集（代码侧自洽、无功能影响）：①权限种子 V9 残留（实际 V10）；②内部端点包络文档写 features/parameters 数组、实现为 values 键值映射（story-design 已冻结 values、唯一消费端同提交适配）；③keys 校验标注 B0601、实现返回 A 段参数码（符合 framework-standard §13.4，建议以标准为准）；④public-features §2.1 写 {configKey,enabled}（实际 {key,enabled}）；⑤生效时延"≤66s"（冻结 60s）；⑥历史查询参数 configKey（实际 key）、列表 keyword 未实现；⑦内置保护"禁改分组"与设计/实现（仅禁删/禁改 key）不一致；⑧requirement.md 残留"可选 Pub/Sub"；⑨V1 注释提不存在的 BuiltInConfigSeeder；⑩游客车 test-design 措辞与 merge-token/merge 切点差异'
+    resolution: 'sdd-converge 统一回修需求/设计/规格/注释措辞（review 只读不代改）；keyword 搜索与内置键分组收紧按运营/安全评估决定是否开后续 Change'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-011
+    type: review-finding
+    target: 'Story1 建议 EV-007（FeatureConfigAppService#validateKeyName、DU-BE-507 DEV-4）；SystemConfigProperties/application.yml'
+    severity: minor
+    finding: '安全硬化两项：①configKey 未落 `[a-z0-9.-]+` 白名单（仅 @NotBlank+≤100），键拼入 Redis 键路径段，非预期字符可致键空间/日志混淆——创建面 ADMIN-only、内网受信，风险可控；②内部共享密钥代码默认 dev-internal-secret，虽经环境变量覆写且为 CHG-0015 起既有基线，生产环境必须显式注入（mall-system MALL_INTERNAL_SHARED_SECRET、消费端 mall.config.internal-token）'
+    resolution: '后续 Change 领域层补键正则（DEV-4 已预留建议）；上线部署清单显式核验各服务密钥环境注入且不沿用默认值'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-012
+    type: review-finding
+    target: 'metadata.yaml repository-result'
+    severity: minor
+    finding: 'repository-result 仍为空（{}）：5 个 DU 均 completed、实际结果提交已在 EV-001~EV-003 登记（82ccf6e/af19b9e/404eb77），但 metadata 结果位未由流程回填'
+    resolution: 'sdd-converge 阶段补回填或确认由 submodule-pointer-aligned 机检统一处理'
+    recorded-at: "2026-09-19T03:10:00+08:00"

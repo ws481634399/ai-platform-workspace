@@ -22,3 +22,25 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: "evidence/test-report.md §1 Mapping 评审证据项（第 2 行）；resources/es/product-index.json"
+    severity: minor
+    finding: "测试报告证据文字称回退映射 productId=keyword，抽查两份 es JSON 实际均为 long；docId 走 ES _id 字符串、long 字段仍可 term，AC-002 满足，但证据描述与资源不符"
+    resolution: "converge 时勘误该证据描述，并将“productId=long、_id 为字符串 docId”固化为映射冻结口径（story-spec §2.1 原文“keyword/long”兼容）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-004
+    type: review-finding
+    target: "story-spec.md#AC-006；FullIndexBuildService"
+    severity: minor
+    finding: "1001 条分三批与“某批失败→FAILED+error_message”无专属自动化；500/批稳定分页由 #paginationOrderAndSize 间接支撑，失败终态路径仅静态评审"
+    resolution: "Integration Gate 造 1001 条数据 + 以 Mock 投影客户端注入批次失败，核对任务终态 FAILED 与错误信息；ES 停机启动不阻断同属该项联调范围"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-005
+    type: review-finding
+    target: "story-spec.md#AC-001 韧性侧；SearchIndexLifecycleManager；mall-gateway 配置"
+    severity: minor
+    finding: "ES 停机时启动不阻断（catch 后 log.error）、health DOWN 无自动化用例，仅代码静态评审；网关对内部路径 404 亦未 E2E"
+    resolution: "Integration Gate 做真实 ES 停启启动验证与网关 404 联调，补 health 指标断言"
+    recorded-at: "2026-09-19T03:10:00+08:00"

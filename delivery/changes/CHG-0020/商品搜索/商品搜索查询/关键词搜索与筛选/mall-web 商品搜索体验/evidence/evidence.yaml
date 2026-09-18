@@ -22,3 +22,73 @@ items:
     log: evidence/logs/mall-web-vitest.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006]
     recorded-at: "2026-09-19T01:36:00+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: src/views/search/SearchView.vue；联动首页/布局入口；Story AC-002、Change AC-015
+    severity: major
+    finding: 结果页只有关键词/价格/排序/分页控件，无分类下拉与品牌 ID 输入；HomeView 分类卡、商品详情面包屑均跳 /products?categoryId=，全站无携带 categoryId/brandId 进入 /search 的入口——用户无法在 UI 上操作分类/品牌筛选（URL 直拼与后端能力本身可用），AC-015 与本 Story AC-002 未完整满足，且 DU-FE-501 Deviations 未记录该偏差
+    resolution: "已闭环：5ab0979 在 SearchView 新增分类树选择与品牌下拉筛选（经 buildRouterQuery 写 URL 并重置 page=1），并新增 SearchView.spec 3 例（筛选渲染/URL 同步/雪花 ID 详情跳转）；本文件 EV-009 登记提交、EV-010 mall-web 全量 105 例回归全绿；浏览器全链路操作仍随 Integration Gate 联测（EV-006）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-004
+    type: review-finding
+    target: src/api/search.ts（ProductSearchItem.productId、ProductSearchQuery 注释）；联动 SearchView onCardClick
+    severity: major
+    finding: productId 声明为 number，违反 api-design-standard §5.3"前端 API 层 ID 必须 string、禁止 Number(id)"，且与 catalog.ts 全量 string 及后端 mall-product 公开 DTO @StringId 口径不一致；后端原 number 直出，真实雪花 ID 会末位丢失并导致详情跳错
+    resolution: "已闭环：随后端 d7dc2b0 @StringId 修复（STORY-005-01-02-01 EV-003），5ab0979 将 productId/categoryId/brandId 改 string，路由插值与 query 传参兼容，search.spec.ts 类型断言同步；本文件 EV-009 登记提交、EV-010 全量 105 例回归全绿（后端回归见 Change EV-016/EV-018）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-005
+    type: review-finding
+    target: src/stores/search.ts、src/views/search/SearchView.vue（缺 spec）；Story AC-006
+    severity: minor
+    finding: stores/search.spec.ts 与 SearchView 专属 spec 原均不存在：成功/空/失败三态、requestSeq 乱序丢弃、URL query 双向同步、三态渲染/重试、元分换算拦截均无自动化断言；test-design 已计划 Vitest 组件/store 测试
+    resolution: "处置去向：视图部分已由 5ab0979 新增 SearchView.spec 3 例闭环（筛选渲染/URL 同步/雪花 ID 详情跳转，见 EV-009/EV-010）；store 三态/requestSeq 竞态纯单测仍缺，待补 stores/search.spec.ts 或以 Integration Gate 浏览器联测闭合，技术债允许开放"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-006
+    type: review-finding
+    target: Story AC-001/AC-003/AC-004；test-design 浏览器策略
+    severity: minor
+    finding: 搜索→筛选→排序→详情→返回的完整浏览器链路本阶段无 E2E 证据（test-design 既定浏览器验证放 Gate）
+    resolution: "处置去向：M5 Integration Gate 场景一执行浏览器全链路并留存证据（EV-003 控件已补齐，联测含分类/品牌筛选与 string ID 详情跳转）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-007
+    type: review-finding
+    target: src/layouts/MallLayout.vue submitSearch；DU-FE-501 DEV-1
+    severity: minor
+    finding: Header 全局搜索框回车跳 /products?keyword=（商品列表页）而非 /search，与 story-design"全局搜索框→/search"描述有差异；/search 仅 nav 链接与页内框可达
+    resolution: "处置去向：Gate 联调时由产品确认入口口径；若需统一进搜索工作台，改 submitSearch 跳转目标即可（已记录偏差，非阻断）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-008
+    type: review-finding
+    target: src/views/search/SearchView.vue（829 行）
+    severity: minor
+    finding: 单文件超过 component-standard §9.1 的 300–500 行评估线（含大段样式），工具条/结果卡片/价格表单内聚可拆
+    resolution: "处置去向：后续迭代拆 SearchToolbar/SearchPriceForm/SearchCard 子组件并将样式按组件归属，当前不阻断功能"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+
+  - id: EV-009
+    type: code-change
+    repo: repo-2
+    commit: 5ab0979a3df809ef419093a5832788c7df6f71cf
+    task: DU-FE-501
+    reason: review major 闭环（EV-003/EV-004）：SearchView 分类树/品牌筛选控件、productId 等 ID 改 string、新增 SearchView.spec 3 例
+    files:
+      - path: mall-web/src/api/search.ts
+      - path: mall-web/src/api/search.spec.ts
+      - path: mall-web/src/stores/search.ts
+      - path: mall-web/src/views/search/SearchView.vue
+      - path: mall-web/src/views/search/SearchView.spec.ts
+    recorded-at: "2026-09-19T03:06:00+08:00"
+
+  - id: EV-010
+    type: test-run
+    command: pnpm run test（mall-web vitest 全量 22 files；另 type-check/lint/build 全绿，见同目录 review-fe-*.log）
+    result: passed
+    summary:
+      total: 105
+      passed: 105
+      failed: 0
+      skipped: 0
+    log: evidence/logs/review-fe-vitest.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006]
+    recorded-at: "2026-09-19T03:06:00+08:00"

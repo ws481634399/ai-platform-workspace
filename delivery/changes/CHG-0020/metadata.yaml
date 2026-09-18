@@ -236,3 +236,26 @@ artifacts:
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
         issues: []
         warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T18:17:30.984Z
+        reviewer: trae-agent
+        artifact-hash: sha256:8d9a2d200d7bd9448c1a2c72ac330a098889cf4e0a3f29af23a327bb0b019b0a
+        reason: ""
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:36:42.367Z
+        validator: sdd-review
+        artifact-hash: sha256:258d7696e4e6f3bc755f4160583abc25536209792d9aa5359eb6ea20dedfbc68
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T19:38:50.745Z
+        reviewer: trae-agent
+        artifact-hash: sha256:258d7696e4e6f3bc755f4160583abc25536209792d9aa5359eb6ea20dedfbc68
+        reason: ""

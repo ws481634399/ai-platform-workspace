@@ -5,10 +5,10 @@ change-id: "CHG-0020"
 story-id: "STORY-005-01-01-02"
 title: "搜索异常响应与降级"
 summary: "ES 不可用/超时/索引不存在三类异常归一 B05xx，空结果正常态；M5 不做数据库降级"
-status: testing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T18:15:49.549Z"
+updated-at: "2026-09-18T19:39:08.916Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -125,4 +125,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:0a8a857b42d2b41f5f2f10766bfd627b454c895d02e82c64bf503f6525eba3d3
         reason: "human-gate: skip (test @ story STORY-005-01-01-02)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:08.902Z
+        validator: sdd-review
+        artifact-hash: sha256:630a22c510702420f1991317b2d0d79ee4c82055b8665c26a9318bd414a2194b
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:08.915Z
+        reviewer: workflow
+        artifact-hash: sha256:630a22c510702420f1991317b2d0d79ee4c82055b8665c26a9318bd414a2194b
+        reason: "human-gate: skip (review @ story STORY-005-01-01-02)"
     status: accepted

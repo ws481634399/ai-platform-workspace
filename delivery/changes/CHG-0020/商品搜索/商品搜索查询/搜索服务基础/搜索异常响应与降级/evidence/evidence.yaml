@@ -22,3 +22,11 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: Story AC-001/AC-002/AC-003；test-report.md §4
+    severity: minor
+    finding: 故障归一由 MockMvc cause 链切片 + 真实 ES 缺索引双层证明，未做"直接停止 ES 容器"的容器级故障注入；真实 HTTP 503 + 缺失别名的单跳端到端未在同一用例闭合
+    resolution: "处置去向：M5 Integration Gate 场景五实停 ES 容器，验证 mall-search 503 B0501、进程存活、X-Trace-Id 可串联、mall-web Error 态；机制本身已有自动化护栏，开放可接受"
+    recorded-at: "2026-09-19T03:10:00+08:00"

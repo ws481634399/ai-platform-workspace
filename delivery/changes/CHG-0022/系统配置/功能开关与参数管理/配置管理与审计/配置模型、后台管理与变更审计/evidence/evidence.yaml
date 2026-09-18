@@ -1,4 +1,4 @@
-﻿version: 0.1
+version: 0.1
 change-id: "CHG-0022"
 items:
   - id: EV-001
@@ -43,3 +43,67 @@ items:
     log: ../CHG-0022/evidence/logs/mall-admin-vitest.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008]
     recorded-at: "2026-09-19T01:36:00+08:00"
+
+  - id: EV-005
+    type: review-finding
+    target: 'requirement-spec.md §0、§3.1；本 Story story-spec.md §2.1'
+    severity: minor
+    finding: '权限种子迁移版本残留 "V9" 字样；实际交付为 mall-identity V10__system_config_permissions.sql（requirement-design 已冻结 V10，代码/权限码/菜单全部一致）'
+    resolution: 'sdd-converge 文档回修为 V10；无功能影响'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-006
+    type: review-finding
+    target: 'story-spec.md §3 [内置保护] vs story-design.md §1；FeatureConfigAppService/SystemParameterAppService'
+    severity: minor
+    finding: '规格写内置键"禁改 key/type/分组"，设计与实现仅禁止删除与改 key（内置键 group/publicFlag/min/max/effectType 可由 ADMIN 修改）；冻结 AC（AC-005）与需求总纲只要求"删除仅限非内置、key 不可改"，实现满足 AC'
+    resolution: '以设计/AC 为准回修 story-spec 措辞；若安全评估要求更严，后续 Change 在领域层冻结内置键分组（当前 ADMIN-only 且全量审计，风险可控）'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-007
+    type: review-finding
+    target: 'DU-BE-507 DEV-4；FeatureConfigAppService#validateKeyName；story-spec.md §3 [唯一性]'
+    severity: minor
+    finding: 'configKey 未落 `[a-z0-9.-]+` 字符白名单，仅 @NotBlank + @Size(max=100)；键会拼入 Redis 键路径段（aimall:{env}:system:feature:{key}），非预期字符可造成键空间/日志混淆。创建面仅 ADMIN、内网受信，无外部输入面，风险可控'
+    resolution: 'Deviation 已登记且自带补正则建议；列为后续安全硬化项（领域层 Pattern 校验），不阻断本 Change'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-008
+    type: review-finding
+    target: 'story-spec.md#AC-003、#AC-006、#AC-007；evidence/test-report.md §4-2/§4-4/§4-5/§4-6'
+    severity: minor
+    finding: '覆盖深度缺口合集：①INTEGER 写 "abc"、BOOLEAN 写 "yes" 两指名非法值无逐字用例，非法值"值不变"无读回断言；②历史 traceId 字段存在但未逐例断言（OperatorContext#currentTraceId 已接 TraceContext）；③identity V10 菜单/权限种子无迁移自动化断言（仅 SQL 静态核实）；④删除不存在键无专门用例（更新不存在键 404 B0603 已断言）'
+    resolution: '后续测试增强 backlog：参数化非法值 + 读回断言、traceId 断言、V10 迁移断言（mall-identity 测试套件）、DELETE 缺失键用例'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-009
+    type: review-finding
+    target: 'DU-BE-507 DEV-2；ConfigAdminApiTest'
+    severity: minor
+    finding: '管理端持久层测试以 H2(MODE=MySQL) 替代 testcontainers MySQL，MySQL 方言级 DDL/DML 无容器验证；V1 经 Flyway 在 H2 真实执行、contextLoads 通过'
+    resolution: '联调/部署环境首次启动确认 MySQL 8 方言迁移与 4 种子播种'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-010
+    type: review-finding
+    target: 'DU-FE-503 DEV-3；story-spec.md#AC-007、#AC-008；mall-admin views/system/*.vue'
+    severity: minor
+    finding: '三管理页无组件级 vitest：渲染、启停切换、类型表单校验矩阵、范围提示、内置键禁用、v-permission 按钮显隐、历史筛选交互均为源码静态核实；现有 12 例全在 api/config.ts 层'
+    resolution: 'Integration Gate 场景六浏览器验收三页交互；后续建立前端组件测试基线'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-011
+    type: review-finding
+    target: 'mall-system V1__system_config_seed.sql 注释；requirement-design.md §2.1'
+    severity: minor
+    finding: 'SQL 注释称"与 BuiltInConfigSeeder 双保险"、设计草图列 BuiltInConfigSeeder ApplicationRunner，实际无该类；内置键唯一播种途径为 Flyway V1 DML（Change implementation.md 关键决策 6 已说明）'
+    resolution: '后续清理注释/设计草图措辞；功能无影响'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-012
+    type: review-finding
+    target: 'DU-BE-507 DEV-3/DEV-5；story-spec.md §3 [分页]、§4'
+    severity: minor
+    finding: '①历史查询参数实现为 `key`，规格文本写 configKey（前端同发 key，全链路自洽）；②规格要求列表支持 group/keyword 过滤，实现未提供 keyword（仅 group/enabled、group/type），前端未消费'
+    resolution: '回修规格：历史参数名改记 `key`；keyword 搜索按运营实际需要列入后续 Change 或从规格移除'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-013
+    type: review-finding
+    target: 'mall-admin src/api/config.ts#systemParameterApi.page'
+    severity: minor
+    finding: '参数分页请求只发 group/enabled，未发后端已支持的 type 筛选参数（契约冗余未用），不影响功能'
+    resolution: '后续页面需要类型筛选时补传参数'
+    recorded-at: "2026-09-19T03:10:00+08:00"

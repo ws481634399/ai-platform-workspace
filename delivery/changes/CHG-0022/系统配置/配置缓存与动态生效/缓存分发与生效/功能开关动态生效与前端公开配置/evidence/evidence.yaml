@@ -43,3 +43,53 @@ items:
     log: evidence/logs/mall-web-vitest.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007]
     recorded-at: "2026-09-19T01:36:00+08:00"
+
+  - id: EV-005
+    type: review-finding
+    target: 'story-spec.md §2.1'
+    severity: minor
+    finding: 'public-features 返回字段写 `{configKey,enabled}`，与冻结契约及实现 `{key,enabled}` 不一致（同篇 §4 已正确写 key）'
+    resolution: 'sdd-converge 回修 §2.1 字段名'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-006
+    type: review-finding
+    target: 'story-design.md §4'
+    severity: minor
+    finding: '生效时延写"实时生效 ≤66s（本地 60+传播）"，冻结决策与代码常量为 60s 上限（提交后删键使跨服务新读立即取 Redis 新值，本地缓存最迟 60s 收敛）'
+    resolution: '回修为"≤60s 有界时延，删键后新读立即生效"'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-007
+    type: review-finding
+    target: 'requirement.md 技术约束行'
+    severity: minor
+    finding: '早期需求输入残留"缓存失效 + TTL +（可选）Redis Pub/Sub 轻量通知"措辞；requirement-design 备选方案表已明确 M5 不引 Pub/Sub，story-spec §2.2 明示不做，全仓无 MessageListener/convertAndSend，动态生效真实机制为 AFTER_COMMIT 删键 + 本地 60s TTL'
+    resolution: 'converge 阶段回修 requirement.md 措辞，避免 M7 前误读为已承诺项'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-008
+    type: review-finding
+    target: 'story-spec.md#AC-002；DU-BE-509 DEV-2；evidence/test-report.md §4-1'
+    severity: minor
+    finding: '无真实"管理端 PUT OFF → 缓存失效 → ≤60s 搜索 403 → 重开 200"单运行端到端 IT；现状为搜索两态切片（@MockitoBean FeatureGate）+ 缓存段 IT + 本地 TTL 单测的分段组合，各段均真但未串联'
+    resolution: 'Integration Gate 场景六多服务联调执行完整翻转并回填证据；后续可补 testcontainers 级翻转 IT'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-009
+    type: review-finding
+    target: 'story-spec.md#AC-003、#AC-005、#AC-007；DU-FE-504 DEV-2、DU-FE-503 DEV-3；MallLayout.vue、SearchView.vue、SystemParametersView.vue'
+    severity: minor
+    finding: 'MallLayout 搜索入口 v-if、SearchView 关闭空态、SystemParametersView 生效方式 tag 均无组件级 vitest（store 3 例、api 透传 2 例通过；DOM 行为源码静态核实）'
+    resolution: 'Integration Gate 场景六/七浏览器验收显隐/空态/tag；后续补 MallLayout/SearchView 组件测试'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-010
+    type: review-finding
+    target: 'test-design 游客车用例措辞；DU-BE-509 DEV-1；CartController'
+    severity: minor
+    finding: 'test-design 表述"游客加购/改量拒绝"，实现切点为 POST /merge-token、POST /merge（M4 游客车服务端唯一入口）；匿名无独立加购端点，关闭态由前端禁用+引导+二次兜底承接。实现合理但规格/设计读者易误解切点'
+    resolution: '回修 test-design/story 相关措辞明确切点为 merge-token/merge；联调时按真实链路走查游客加购→登录合并'
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-011
+    type: review-finding
+    target: 'story-spec.md#AC-001；mall-gateway application.yml、GatewaySecurityConfiguration'
+    severity: minor
+    finding: '网关层 public-features 匿名 200 与 /api/admin/** 未登录 401 未做经 8080 真实端口的自动化请求：路由+白名单为配置静态核实，401 仅有直连 mall-system 同链断言（feature-configs 路径）'
+    resolution: '联调环境经网关 8080 端到端断言：公开端点匿名 200、admin 端点未登录 401、/api/internal/** 404'
+    recorded-at: "2026-09-19T03:10:00+08:00"

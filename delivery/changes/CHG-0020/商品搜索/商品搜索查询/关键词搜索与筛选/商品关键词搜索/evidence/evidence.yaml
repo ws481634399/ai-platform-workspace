@@ -22,3 +22,51 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: mall-search domain/search/ProductSearchItem.java（productId）；联动 repo-2 src/api/search.ts
+    severity: major
+    finding: productId 以裸 Long number 直出，违反 api-design-standard §5.3 业务 ID 字符串化强制要求，且与 mall-product 全部公开 DTO 使用 @StringId、mall-web catalog.ts 全部 id:string 的既有口径不一致；真实雪花 ID（超 2^53）在前端解析末位丢失，点搜索结果卡片可能进入错误详情页
+    resolution: "已闭环：d7dc2b0 为 ProductSearchItem.productId 加 common-web @StringId（入参仍保持 Long），前端 5ab0979 联动将 productId 等 ID 改 string；本文件 EV-006 登记修复提交、EV-007 定向回归 26 例全绿（Change 级 EV-016~EV-019，含 mall-web 105 例）"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-004
+    type: review-finding
+    target: Story AC-006/AC-007；mall-gateway application.yml、GatewaySecurityConfiguration
+    severity: minor
+    finding: 匿名 200 与 /api/internal/** 404 仅配置物+源码核对，无网关运行时自动化证据（test-design §3 既定以 Gate E2E/curl 替代）
+    resolution: "处置去向：M5 Integration Gate 以 curl/E2E 闭合 8080 无 token 200 与 internal 404，含场景一 mall-web→8080→mall-search 全链路"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-005
+    type: review-finding
+    target: application/search/ProductSearchService.java 归一/mapper；DU-BE-502 DEV-1
+    severity: minor
+    finding: 参数归一（trim/默认 20/上限 100/超长拒绝）与 hits→Item 映射无独立纯单测，经 ProductSearchApiTest 真实 ES 9 例间接覆盖，故障定位粒度粗于纯单测；非数字绑定异常未映 B0502（已在 DEV-1 记录）
+    resolution: "处置去向：维持集成覆盖（已有等价断言强度），或在后续 Change 补 QueryNormalize 纯单测与 MethodArgumentTypeMismatchException→B0502 映射；联调补非数字参数 curl 证据"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    commit: d7dc2b02b514576dafddcd2f340bfd962dd01cef
+    task: DU-BE-502
+    reason: review major 闭环（EV-003）：ProductSearchItem.productId 加 @StringId 字符串化，白名单/索引断言同步期望字符串
+    files:
+      - path: mall-services/mall-search/src/main/java/com/ai/mall/search/domain/search/ProductSearchItem.java
+        symbols: [ProductSearchItem, productId]
+      - path: mall-services/mall-search/src/test/java/com/ai/mall/search/api/ProductSearchApiTest.java
+      - path: mall-services/mall-search/src/test/java/com/ai/mall/search/index/IndexSyncIntegrationTest.java
+    recorded-at: "2026-09-19T03:06:00+08:00"
+
+  - id: EV-007
+    type: test-run
+    command: mvn test -B -ntp -pl mall-services/mall-search -am -Dtest=ProductSearchApiTest,InternalSearchFailureApiTest,IndexSyncIntegrationTest,SyncFailureFlowTest -Dsurefire.failIfNoSpecifiedTests=false（TESTCONTAINERS_RYUK_DISABLED=true）
+    result: passed
+    summary:
+      total: 26
+      passed: 26
+      failed: 0
+      skipped: 0
+    log: evidence/logs/review-mall-search-retest.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-008]
+    recorded-at: "2026-09-19T03:06:00+08:00"

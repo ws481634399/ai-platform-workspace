@@ -22,3 +22,18 @@ items:
     log: evidence/logs/backend-full-test.log
     covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007]
     recorded-at: "2026-09-19T01:42:13+08:00"
+
+  - id: EV-003
+    type: review-finding
+    target: "story-spec.md#AC-002、#AC-004、#AC-006；ProductApplicationService 8 个发布点；ProductSearchSyncListener"
+    severity: minor
+    finding: "8 个写方法仅实证 create(草稿)→DELETE、publish→UPSERT、unpublish→DELETE 三类，update 改名、addSku/updateSku/changeSkuStatus 改价与启停的事件发布无显式用例，依赖重查装配与投影口径间接保证；事务回滚零同步调用亦无显式用例，仅靠 @TransactionalEventListener(AFTER_COMMIT) 框架语义与提交侧时序测试保证（已登记 G1/G2）"
+    resolution: "Integration Gate 联调改名/改价/启停端到端，或补逐方法事件发布断言用例；补一例校验失败回滚后 verify(call, never()) 的专项用例"
+    recorded-at: "2026-09-19T03:10:00+08:00"
+  - id: EV-004
+    type: review-finding
+    target: "story-spec.md §3、#AC-005；ProductSearchSyncListener.java L51"
+    severity: minor
+    finding: "AC/业务规则措辞为异常仅 WARN，实现日志级别为 ERROR（实施文档已披露“有告警且不回滚”语义达成）；1s/3s 超时同样仅静态配置评审无运行时断言"
+    resolution: "converge 统一口径：以实现为准将 spec 措辞改为“告警日志（ERROR/WARN）”，或将监听器日志降为 WARN；Gate 补短超时联调"
+    recorded-at: "2026-09-19T03:10:00+08:00"

@@ -5,10 +5,10 @@ change-id: "CHG-0022"
 story-id: "STORY-006-02-01-01"
 title: "Redis 配置缓存与统一访问边界"
 summary: "Redis 分级缓存与精确失效、SERVICE 内部配置端点、mall-common-config 统一客户端（FeatureGate/Provider）"
-status: testing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T18:15:52.319Z"
+updated-at: "2026-09-18T19:39:11.940Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -125,4 +125,24 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:63e731984f9d3123c4b954fdb8902cc1af73561dd141ea7eda442c76a7ff7f00
         reason: "human-gate: skip (test @ story STORY-006-02-01-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T19:39:11.924Z
+        validator: sdd-review
+        artifact-hash: "sha256:b53271520d5dbdecd84cd8296ce66c9046ecf46b1bfb2ea0d193bd5e\
+          e2723cf3"
+        rules-hash: "sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b\
+          7ac88"
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T19:39:11.938Z
+        reviewer: workflow
+        artifact-hash: sha256:b53271520d5dbdecd84cd8296ce66c9046ecf46b1bfb2ea0d193bd5ee2723cf3
+        reason: "human-gate: skip (review @ story STORY-006-02-01-01)"
     status: accepted
