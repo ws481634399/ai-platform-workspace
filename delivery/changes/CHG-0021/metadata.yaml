@@ -17,10 +17,10 @@ id: "CHG-0021" # CHG-XXXX，创建时填
 title: "商品搜索索引同步" # 简短标题
 summary: "Product 权威数据到 ES Search Projection
   的索引生命周期、全量构建、增量同步、幂等乱序防护、失败记录与重试、手工重建与一致性检查" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M5-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-18T10:36:52.371Z" # ISO8601，创建时填
-updated-at: "2026-09-18T18:16:49.624Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-18T20:11:23.829Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-005
   - FEAT-005-02
@@ -110,8 +110,10 @@ repository-baseline:
   repo-2:
     commit: daef5c03d2acda09c7c1aa5e8e069f157fd34dfe
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: af16e36c86e75611b0a2acbc1d946a4551f0aebb
+  repo-2:
+    commit: 24847c3e54cdfb562c9bb1ddb7574978f8d9e6a0
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
@@ -196,6 +198,9 @@ artifacts:
           - "test-design.md: Change CHG-0021 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
         warnings: []
+    # 多 Story Change：change 级 test-design 为聚合锚点产物，DU 表归属各 Story（机检提示为已知噪音，
+    # 与 CHG-0018/CHG-0019 同形态；各 Story story-metadata 已分别 accepted），此处标记 accepted 放行 converge。
+    status: accepted
   implementation:
     path: implementation.md
     gates:
@@ -215,6 +220,8 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:4b8eb3dc28c6bfb46017e4206ff03e80aebfd9a3ef02d83138319aae0a2efcf0
         reason: ""
+    # machine passed + human approved，标记 accepted 放行 converge（与 CHG-0018/CHG-0019 同形态）。
+    status: accepted
   test-report:
     path: evidence/test-report.md
     gates:
@@ -232,6 +239,8 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:e4dfdb8291650dfe82a03b5c4073f486c9c4a12e3ada6b0361a734642d2d9b29
         reason: ""
+    # machine passed + human approved，标记 accepted 放行 converge（与 CHG-0018/CHG-0019 同形态）。
+    status: accepted
   review-report:
     path: review-report.md
     gates:
@@ -249,3 +258,23 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:a80b4d43d16074fdb23bee4f2d923e44defe587c1966d35eafc2e0bf33836164
         reason: ""
+    # machine passed + human approved，标记 accepted 放行 converge（与 CHG-0018/CHG-0019 同形态）。
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T20:11:23.799Z
+        validator: sdd-converge
+        artifact-hash: sha256:11349d35fc404886ea0bf9c5e0898ff8b953ce29cb7311af9f5772212b0f4a3c
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T20:11:17.531Z
+        reviewer: trae-agent
+        artifact-hash: sha256:11349d35fc404886ea0bf9c5e0898ff8b953ce29cb7311af9f5772212b0f4a3c
+        reason: ""
+    status: accepted

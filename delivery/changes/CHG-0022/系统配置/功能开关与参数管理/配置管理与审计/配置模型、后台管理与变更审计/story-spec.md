@@ -28,7 +28,7 @@ scope-refs: [S1]
 - [S1] domain.config：FeatureConfig/SystemParameter/ConfigHistory 模型；ConfigType 枚举；ParameterValueValidator（类型与 [min,max]）；version 乐观锁异常。
 - [S1] application：FeatureConfigAppService/SystemParameterAppService/ConfigHistoryAppService（分页/分组/启停/更新/建键/删非内置；更新成功发 ConfigChangedApplicationEvent 供后续 Story 缓存监听）。
 - [S1] interfaces.rest.admin：FeatureConfigAdminController/SystemParameterAdminController/ConfigHistoryAdminController（/api/admin/feature-configs、/api/admin/system-parameters、/api/admin/config-history）。
-- [S1] 安全：SystemSecurityConfiguration ADMIN + 五权限码；mall-identity V9 权限种子 SQL + 菜单（系统配置：功能开关/系统参数/变更历史）。
+- [S1] 安全：SystemSecurityConfiguration ADMIN + 五权限码；mall-identity V10 权限种子 SQL + 菜单（系统配置：功能开关/系统参数/变更历史；V9 为 CHG-0021 搜索权限版本）。
 - [S1] 网关：/api/admin/feature-configs/**、/api/admin/system-parameters/**、/api/admin/config-history/** → 8108 ADMIN 路由。
 - [S1] mall-admin：api/system.ts + stores/system.ts + views/system/FeatureConfigsView.vue、SystemParametersView.vue、ConfigHistoryView.vue；接入动态路由/菜单与按钮权限。
 
@@ -40,16 +40,16 @@ scope-refs: [S1]
 ## 3. 业务规则
 
 - [唯一性] configKey 两表各自唯一（uk）；键只允许小写字母/数字/点/短横（design 定正则）；创建后不可改 key。
-- [内置保护] builtIn=true：禁删除、禁改 key/type/分组；enabled/value 可修改；非内置可整键删除（删除也留一条历史标记 DELETED，design 可简化为仅禁止删除全部——按 design：M5 允许删非内置，历史记录旧值→null）。
+- [内置保护] builtIn=true：禁删、禁改 key（key 为路径参数、更新体无 key 字段，结构性不可改）；enabled/value 等其余字段可由 ADMIN 修改；非内置可整键删除（删除留一条 DELETED 历史，旧值→null）。
 - [校验] BOOLEAN 仅 true/false；JSON 需可解析；INTEGER/LONG 整数；DECIMAL 合法小数；数值超 [minValue,maxValue] 拒绝；空值拒绝（参数必有值或默认值）。
 - [审计] 启停/改值均写历史；changedBy 取当前管理员用户名；traceId 取链路上下文。
-- [分页] 管理列表支持 group/keyword 过滤与分页，沿用既有 admin 分页响应形状。
+- [分页] 管理列表支持 group 过滤与分页（开关另支持 enabled、参数另支持 type），沿用既有 admin 分页响应形状；keyword 关键词列表搜索本期未实现，待后续评估。
 
 ## 4. 接口与字段规格
 
-- GET /api/admin/feature-configs?group=&keyword=&page=&size；POST（新建非内置）；PUT /{key}（enabled/version，可选 changeReason）；DELETE /{key}（非内置）。
-- GET /api/admin/system-parameters（同上过滤）；POST；PUT /{key}（configValue/version/changeReason）；DELETE /{key}。
-- GET /api/admin/config-history?configType=&configKey=&page=&size → 分页历史。
+- GET /api/admin/feature-configs?group=&enabled=&page=&size（keyword 参数本期未实现，待后续评估）；POST（新建非内置）；PUT /{key}（enabled/version，可选 changeReason）；DELETE /{key}（非内置）。
+- GET /api/admin/system-parameters（同 group/type 过滤；keyword 同样本期未实现）；POST；PUT /{key}（configValue/version/changeReason）；DELETE /{key}。
+- GET /api/admin/config-history?configType=&key=&page=&size → 分页历史（查询参数名冻结为 key；响应视图内字段仍名 configKey）。
 - 错误：400 类型/范围非法；409 CONFIG_VERSION_CONFLICT；403 权限；404 键不存在。
 
 ## 5. Story 验收标准

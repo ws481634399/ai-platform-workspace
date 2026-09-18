@@ -19,7 +19,7 @@
 | TC-001 | API：匿名 GET /api/mall/public-features → 200，仅 publicFlag=1 的 [{key,enabled}]；非公开键（参数/私有开关）不出现 | AC-001 | DU-BE-509 | [S1] |
 | TC-002 | 集成：search.enabled=true 搜索 200；置 false（短 TTL/手动清缓存后 ≤60s）GET /api/mall/search/products → 403 B0606 FEATURE_DISABLED 统一结构；重开恢复 200 | AC-002 | DU-BE-509 | Integration Gate 场景六 |
 | TC-003 | 前端组件：features store 加载后搜索入口 v-if 显隐；false 态访问 /search 显示功能未开放空态；重开恢复 | AC-003 | DU-FE-504 | [S1] |
-| TC-004 | 集成：mall.guest-cart.enabled=false → 游客加购/改量 403 B0606；会员加购 200、读购物车 200；重开游客恢复 | AC-004 | DU-BE-509 | [S1] |
+| TC-004 | 集成：mall.guest-cart.enabled=false → 游客 merge-token/merge 两端点（M4 游客数据进入服务端的唯一写入口）403 B0606；会员 /cart/items 加购 200、读购物车 200 不经开关；匿名直接加购无独立服务端点，关闭态由前端禁用按钮+登录引导拦截；重开游客恢复 | AC-004 | DU-BE-509 | [S1] |
 | TC-005 | API/前端：effectType 字段在管理页明示标识（无 RESTART 种子时机制可造一条验证展示）；开关切换到后端拒绝时延 ≤60s（测试用可注入 TTL） | AC-005 | DU-BE-509, DU-FE-504 | [S1] |
 | TC-006 | 韧性：mock public-features 503/断网 → mall-web 不白屏、入口默认可见（fail-open）；服务端 Redis+system 全失时 FeatureGate 按代码默认（启用）决策 | AC-006 | DU-BE-509, DU-FE-504 | [S1] |
 | TC-007 | 构建门禁：mall-search/mall-cart mvn test 绿；mall-web vitest（入口显隐/403 提示）+ type-check/lint/build 绿 | AC-007 | DU-BE-509, DU-FE-504 | [S1] |

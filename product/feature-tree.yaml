@@ -831,5 +831,364 @@ features:
                   ]
               }
           ]
+      },
+    {
+        id: FEAT-004,
+        name: 订单交易,
+        description: 订单预览与创建、模拟支付与取消、订单查询与履约、交易异常补偿基础（REQ-M4-001~004），mall-order +
+          mall-member/mall-inventory/mall-product/mall-gateway +
+          mall-web/mall-admin,
+        children:
+          [
+            {
+                id: FEAT-004-01,
+                name: 订单预览与创建,
+                description: Checkout Preview
+                  服务端重算、订单创建服务端定价、库存锁定、订单快照、orderNo、创建幂等与购物车清理（REQ-M4-001）,
+                children:
+                  [
+                    {
+                        id: FEAT-004-01-01,
+                        name: 订单预览与创建,
+                        description: 结算预览与订单创建核心交易链路（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-004-01-01-01,
+                                name: 订单预览,
+                                description: Checkout
+                                  Preview：会员确认页聚合地址快照+购物车选中项/立即购买项，服务端重查商品可售/价格/库存可用，金额整数分服务端重算，不锁库存不建单，缺货/下架/调价明确标识,
+                                status: planned
+                              },
+                            {
+                                id: STORY-004-01-01-02,
+                                name: 订单创建与库存锁定,
+                                description: POST /api/mall/orders 服务端重算金额、地址归属校验、逐行库存锁定（稳定
+                                  reservationId）、订单/商品快照、orderNo、submit-token
+                                  创建幂等、锁后建单失败补偿释放、成功后清理购物车选中项,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-004-02,
+                name: 支付与取消,
+                description: Mock Payment 模拟支付、支付/取消幂等、确认扣减与释放、支付与取消并发竞争、订单状态历史（REQ-M4-002）,
+                children:
+                  [
+                    {
+                        id: FEAT-004-02-01,
+                        name: 模拟支付与订单取消,
+                        description: 待支付订单支付与取消的状态机语义、库存协同与并发安全（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-004-02-01-01,
+                                name: 模拟支付与订单取消,
+                                description: 模拟支付成功：CAS 条件更新 PENDING_PAYMENT→PAID 防支付/取消竞争，调用库存 confirm
+                                  幂等确认扣减；取消：仅待支付可取消并 release
+                                  幂等释放；重复支付/重复取消返回同一结果；写订单状态历史,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-004-03,
+                name: 订单查询与履约,
+                description: 会员订单列表/详情/归属校验、admin 查询/发货、确认收货、集中状态机（REQ-M4-003）,
+                children:
+                  [
+                    {
+                        id: FEAT-004-03-01,
+                        name: 会员订单查询与确认收货,
+                        description: 会员侧订单查询与履约动作（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-004-03-01-01,
+                                name: 会员订单列表与详情,
+                                description: 会员订单分页/状态筛选/时间范围查询、订单详情含商品快照/地址快照/金额/状态历史，强制资源归属校验越权返回 404,
+                                status: planned
+                              },
+                            {
+                                id: STORY-004-03-01-02,
+                                name: 确认收货,
+                                description: 会员对已发货订单确认收货 SHIPPED→COMPLETED，集中状态机校验，本人订单校验，幂等语义,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-004-03-02,
+                        name: 后台订单履约,
+                        description: 运营后台订单查询与发货（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-004-03-02-01,
+                                name: 后台订单查询与发货,
+                                description: admin 订单分页/多条件搜索/详情查看；发货仅 PAID→SHIPPED，记录物流公司/运单号/操作人/时间，非法状态拒绝,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-004-04,
+                name: 交易异常与补偿,
+                description: 锁成功单失败补偿、CompensationTask 失败记录、有界重试、库存操作幂等加固、审计与可观测（REQ-M4-004）,
+                children:
+                  [
+                    {
+                        id: FEAT-004-04-01,
+                        name: 交易补偿基础,
+                        description: 交易链路异常补偿任务、有界重试与可观测（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-004-04-01-01,
+                                name: 交易异常补偿与幂等加固,
+                                description: CompensationTask
+                                  落表（businessType/businessId/operation/status/retryCount/lastError/nextRetryAt），有界指数退避重试与人工重试端点，锁成功但建单失败自动
+                                  release 补偿，库存 confirm/release
+                                  原子条件更新加固，补偿审计日志与指标,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              }
+          ]
+      },
+    {
+        id: FEAT-005,
+        name: 商品搜索,
+        description: 基于 Elasticsearch 的商品搜索能力域（Search Context）：关键词检索、筛选排序分页、索引生命周期与
+          Product→ES 同步（REQ-M5-001/002），mall-search + mall-product + mall-web,
+        children:
+          [
+            {
+                id: FEAT-005-01,
+                name: 商品搜索查询,
+                description: mall-search 面向商城的 ES 检索能力：服务基础、关键词搜索、筛选排序分页、异常处理与 mall-web
+                  搜索体验（REQ-M5-001）,
+                children:
+                  [
+                    {
+                        id: FEAT-005-01-01,
+                        name: 搜索服务基础,
+                        description: mall-search 服务骨架接入 Elasticsearch、基础设施环境与搜索异常响应/降级基础（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-005-01-01-01,
+                                name: 建立 mall-search 与 Elasticsearch 基础环境,
+                                description: REQ-M5-001：docker-compose 新增 Elasticsearch
+                                  服务（含健康检查/卷/网络）；mall-search 空骨架接入 ES Client
+                                  与连接配置、ES
+                                  连通性/健康检查、测试基线（Testcontainers），mall_search 库已预建,
+                                status: delivered
+                              },
+                            {
+                                id: STORY-005-01-01-02,
+                                name: 搜索异常响应与降级,
+                                description: REQ-M5-001：ES 不可用/查询超时/索引不存在/结果为空四类异常的明确错误响应与错误码，错误可定位；是否采用数据库降级搜索由
+                                  Design 决定，降级数据不得与正式商品状态冲突,
+                                status: delivered
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-005-01-02,
+                        name: 关键词搜索与筛选,
+                        description: 商品关键词检索、分类/品牌/价格筛选、排序分页的搜索查询能力与 mall-web 搜索体验（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-005-01-02-01,
+                                name: 商品关键词搜索,
+                                description: REQ-M5-001：对商品名称/关键词/品牌/分类字段多字段匹配检索，仅返回上架可展示商品；返回精简 Search
+                                  DTO（productId/name/image/price/brand/category）而非
+                                  Product 聚合；标准分页与统一 API 响应；网关
+                                  /api/mall/search/** 路由（游客可访问）,
+                                status: delivered
+                              },
+                            {
+                                id: STORY-005-01-02-02,
+                                name: 搜索筛选与排序,
+                                description: REQ-M5-001：categoryId/brandId/priceRange
+                                  组合筛选；默认/价格升序/价格降序/新品排序；避免一次查询大量商品，排序筛选与分页可组合,
+                                status: delivered
+                              },
+                            {
+                                id: STORY-005-01-02-03,
+                                name: mall-web 商品搜索体验,
+                                description: REQ-M5-001：mall-web
+                                  搜索框、搜索结果页、关键词回显、分类/品牌/价格筛选、排序、分页、无结果/Loading/Error
+                                  状态；点击商品进入既有商品详情页（详情仍由 mall-product 提供）,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ]
+              },
+            {
+                id: FEAT-005-02,
+                name: 搜索索引同步,
+                description: Product 权威数据到 ES Search Projection
+                  的同步：索引生命周期、全量构建、增量同步、幂等乱序防护、失败重试、重建与一致性检查（REQ-M5-002）,
+                children:
+                  [
+                    {
+                        id: FEAT-005-02-01,
+                        name: 索引生命周期与全量构建,
+                        description: 代码化 Mapping/Settings 管理、首次全量 Bulk 索引、手工重建与索引一致性检查（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-005-02-01-01,
+                                name: 索引 Mapping 管理与首次全量构建,
+                                description: REQ-M5-002：Mapping/Settings 代码化管理（不靠手工 Console），支持
+                                  Create/Rebuild/Delete-Replace；mall-product
+                                  新增内部分页投影端点供搜索读取合法上架商品；Search Document 构建（含
+                                  minPrice/maxPrice 摘要）与 Bulk Index 首次全量构建,
+                                status: delivered
+                              },
+                            {
+                                id: STORY-005-02-01-02,
+                                name: 手工重建与索引一致性检查,
+                                description: REQ-M5-002：后台/运维触发 Rebuild Product Search
+                                  Index，可重复执行、有执行状态、能发现失败、不依赖手工逐条；重建方案（别名切换/原地重建）由
+                                  Design 定；基础一致性检查：上架数量 vs 索引数量、按 productId 排查缺失,
+                                status: delivered
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-005-02-02,
+                        name: 增量同步与可靠性,
+                        description: 商品新增/修改/上下架/价格变更增量同步、幂等与乱序防护、失败记录与有界重试（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-005-02-02-01,
+                                name: 商品变更增量同步,
+                                description: REQ-M5-002：商品新增/修改/上架/下架/SKU 价格变化（Product
+                                  Created/Updated/Published/Unpublished/Price
+                                  Changed）经同步调用或应用事件（M5 不引入 MQ）触达
+                                  mall-search；单商品与批量同步；上架建/更新文档，下架删除文档或标记不可搜索；价格摘要
+                                  minPrice/maxPrice 刷新（搜索价非成交价，订单仍取 Product 实时价）,
+                                status: delivered
+                              },
+                            {
+                                id: STORY-005-02-02-02,
+                                name: 同步幂等乱序防护与失败重试,
+                                description: REQ-M5-002：重复同步幂等（同一事件多次只得一份最新文档）；按 version/updatedAt/eventVersion
+                                  防止旧数据覆盖新数据；ES 不可用时 sync_failure_record 落库 +
+                                  有界重试与人工重试入口，不允许 log error 后永久丢失,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+    {
+        id: FEAT-006,
+        name: 系统配置,
+        description: 平台统一功能开关与系统参数能力域：配置模型、后台管理与审计、Redis 缓存、动态生效（REQ-M5-003），mall-system
+          + mall-admin,
+        children:
+          [
+            {
+                id: FEAT-006-01,
+                name: 功能开关与参数管理,
+                description: Feature Config / System Parameter 配置模型、mall-admin 后台维护、RBAC
+                  与变更审计（REQ-M5-003 管理侧）,
+                children:
+                  [
+                    {
+                        id: FEAT-006-01-01,
+                        name: 配置管理与审计,
+                        description: 功能开关/系统参数领域模型、类型化取值、后台 CRUD、RBAC 与配置变更审计（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-006-01-01-01,
+                                name: 配置模型、后台管理与变更审计,
+                                description: REQ-M5-003：Feature Config + System Parameter 两类配置模型（configKey
+                                  稳定唯一、configType 类型化
+                                  STRING/INTEGER/DECIMAL/BOOLEAN/JSON、category、enabled、version
+                                  乐观锁、updatedAt、安全默认值、Secret 禁入）；mall-admin
+                                  功能开关列表与启停、参数列表/修改/分类/说明；RBAC
+                                  system:feature:list/update、system:parameter:list/update、system:config-history:list；配置变更审计（谁/从何值/改为何值/何时，含
+                                  traceId）与历史查询,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ]
+              },
+            {
+                id: FEAT-006-02,
+                name: 配置缓存与动态生效,
+                description: Redis 配置缓存与失效、跨服务统一 Config Client/FeatureGate 访问边界、动态生效与前端公开配置
+                  API（REQ-M5-003 分发侧）,
+                children:
+                  [
+                    {
+                        id: FEAT-006-02-01,
+                        name: 缓存分发与生效,
+                        description: Redis 配置缓存与失效、统一配置访问边界、动态生效语义与前端公开配置（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-006-02-01-01,
+                                name: Redis 配置缓存与统一访问边界,
+                                description: "REQ-M5-003：Redis Key
+                                  分级缓存（aimall:{env}:system:feature|parameter:{k\
+                                  ey}，TTL）与更新后精确失效，杜绝 DB 已改缓存仍旧；对内配置查询端点（SERVICE
+                                  身份/X-Internal-Token）；mall-common 统一 Config
+                                  Client（FeatureGate/SystemParameterProvider
+                                  类型安全读取），业务服务禁止直查 system_config 表或各自实现 Config
+                                  DAO；version 语义防旧缓存覆盖",
+                                status: delivered
+                              },
+                            {
+                                id: STORY-006-02-01-02,
+                                name: 功能开关动态生效与前端公开配置,
+                                description: REQ-M5-003：区分 Dynamic Config 与 Restart
+                                  Required；开关关闭后后端真实拒绝（FeatureGate ensureEnabled
+                                  返回 FEATURE_DISABLED，前端隐藏不等于安全控制）；GET
+                                  /api/mall/public-features 仅返回 publicFlag 配置供
+                                  mall-web/mall-admin 显隐；高风险写能力默认关闭的安全默认值策略,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
       }
   ]

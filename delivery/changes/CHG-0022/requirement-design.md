@@ -86,8 +86,8 @@ com.ai.mall.system
 - ConfigCacheService：getFeature/getParameter（Redis 未命中→读库→回填；键不存在不缓存负向? 决策：缓存空标记 TTL 60s，防穿透，M5 键集小可接受）；getPublicFeatures（聚合键未命中→查全部 public_flag=1 启用/禁用均返回→回填）。
 - CacheEvictionListener：AFTER_COMMIT 删对应单键 + 恒删 public-features 聚合键（任何键变更都可能影响公开列表——简化且正确）。
 - InternalConfigController（SERVICE，X-Internal-Token）：
-  - `GET /api/internal/config/features?keys=a,b` → {features:[...], missingKeys:[...]}
-  - `GET /api/internal/config/parameters?keys=` → {parameters:[...], missingKeys:[...]}
+  - `GET /api/internal/config/features?keys=a,b` → {values:{key:{key,enabled,publicFlag}}, missingKeys:[...]}
+  - `GET /api/internal/config/parameters?keys=` → {values:{key:{key,configValue,parameterType,minValue,maxValue}}, missingKeys:[...]}
   - 内部端点读缓存（不要求强一致，受 TTL 保护），批量 keys ≤100。
 
 ### 2.4 mall-common-config 新模块
@@ -147,7 +147,7 @@ com.ai.mall.system
 ## 4. 跨仓协作
 
 - API Contract：
-  - 业务服务→mall-system：GET /api/internal/config/features|parameters?keys=（SERVICE）→ {features|parameters,missingKeys}；UnifyResult；503 归一由客户端默认值消化。
+  - 业务服务→mall-system：GET /api/internal/config/features|parameters?keys=（SERVICE，keys 必填/去重/≤100）→ {values:{key:view},missingKeys}（实现冻结的 values 键值映射包络）；UnifyResult；503 归一由客户端默认值消化。
   - 公网：GET /api/mall/public-features（PUBLIC）。
   - 管理：/api/admin/feature-configs、/api/admin/system-parameters、/api/admin/config-history（ADMIN+五权限码）；409 版本冲突。
 - Data Contract：Redis 缓存 JSON 形状为跨进程契约（key 规范冻结 §2.3）；mall_system 库仅 mall-system 可访问。

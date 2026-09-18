@@ -43,7 +43,7 @@
 | S3-TC-001 | 匿名 GET /api/mall/public-features 200 仅 publicFlag=1 的 [{key,enabled}] | AC-014 |
 | S3-TC-002 | search.enabled true→false ≤60s 搜索 403 B0606；重开恢复 200 | AC-012 |
 | S3-TC-003 | features store：搜索入口 v-if 显隐；false 态 /search 未开放空态；重开恢复 | AC-015 |
-| S3-TC-004 | guest-cart.enabled=false 游客写车 403 B0606；会员 200；重开恢复 | AC-013 |
+| S3-TC-004 | guest-cart.enabled=false：游客 merge-token/merge（M4 游客车服务端唯一入口）403 B0606，匿名加购由前端禁用+登录引导拦截；会员 /cart/items 200；重开恢复 | AC-013 |
 | S3-TC-005 | effectType 管理页明示；切换到后端拒绝时延 ≤60s（可注入 TTL） | AC-016 |
 | S3-TC-006 | public-features 503/断网：mall-web fail-open 默认可见；服务端全失按代码默认 | AC-010 |
 | S3-TC-007 | mall-search/mall-cart mvn test 绿；mall-web vitest+type-check/lint/build 绿 | AC-017 |

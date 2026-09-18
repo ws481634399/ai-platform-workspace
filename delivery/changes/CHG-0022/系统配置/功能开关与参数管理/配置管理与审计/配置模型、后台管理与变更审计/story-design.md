@@ -33,7 +33,7 @@ change-design-ref: "requirement-design.md#5-story-设计分派story-design-assig
   - CAS 更新：update ... where id=? and version=?；影响行 0 → B0604 VERSION_CONFLICT(409)，成功 version+1 并写 history；
   - built_in=true：禁止删除、禁止改 config_key（其他可改）；删除非内置 → B0603? 冻结：B0602 CONFIG_KEY_DUPLICATE(409 UK 冲突)、B0603 CONFIG_NOT_FOUND(404)、B0604 VERSION_CONFLICT；
   - 参数保存按 parameter_type 校验类型与 min/max（INTEGER/LONG/DECIMAL/BOOLEAN/JSON）；非法 → B0601 PARAMETER_VALUE_INVALID(400)。
-- Admin 接口（/api/admin/feature-configs、/api/admin/system-parameters CRUD + /api/admin/config-history 分页查询，支持 configType/configKey 过滤）。
+- Admin 接口（/api/admin/feature-configs、/api/admin/system-parameters CRUD + /api/admin/config-history 分页查询，支持 configType/key 过滤——历史查询参数名冻结为 key；列表无 keyword 搜索，本期未实现，待后续评估）。
 - mall-gateway：三组 Path → lb://mall-system，走 ADMIN 鉴权。
 - mall-identity V10__system_config_permissions.sql：权限码 system:feature:list/update、system:parameter:list/update、system:config-history:list + 3 菜单项，授予超管角色。
 

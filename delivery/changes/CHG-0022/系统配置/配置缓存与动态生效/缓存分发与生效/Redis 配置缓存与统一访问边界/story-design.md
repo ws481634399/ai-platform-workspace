@@ -28,7 +28,7 @@ change-design-ref: "requirement-design.md#5-story-设计分派story-design-assig
 - 客户端组件（对消费方暴露的稳定 API）：
   - FeatureGate：boolean isEnabled(key)、void ensureEnabled(key)（禁用→抛 B0606 FEATURE_DISABLED，HTTP 403）；isEnabled(key,defaultWhenMissing) 重载；
   - SystemParameterProvider：getString/getInt/getLong/getDecimal/getBoolean(key)，缺键回退代码默认值（调用方必传 default 参数，回退时 WARN 日志一次/键/分钟）；
-  - ConfigClient（内部 Feign 引擎）：GET {mall-system}/api/internal/config/features?keys=、/parameters?keys=，keys≤100（超出分批），返回值含 missingKeys。
+  - ConfigClient（内部 RestClient 引擎）：GET {mall-system}/api/internal/config/features?keys=、/parameters?keys=，keys 必填、去重、≤100（超出直接 400，不分批），返回值含 missingKeys。
 - 读路径三级：本地缓存（ConcurrentHashMap<CacheEntry>，volatile value + expireAt，TTL 60s）→ Redis（StringRedisTemplate/JSON，TTL 600s，空值负缓存 60s）→ HTTP 内部端点；逐级回填。
 - Redis key 冻结：`aimall:{spring.profiles.active:dev}:system:feature:{key}`、`...:parameter:{key}`、聚合 `...:public-features`；值 JSON。
 - 不引 Caffeine（显式约束）。
@@ -36,7 +36,7 @@ change-design-ref: "requirement-design.md#5-story-设计分派story-design-assig
 ### repo-1 mall-system（DU-BE-508）
 
 - interfaces.rest.internal.InternalConfigController（SERVICE 鉴权）：
-  - GET /api/internal/config/features?keys=a,b（≤100，空则返回全部启用项? 冻结：必须传 keys，空 keys → B0601 400）：{values:{key:{enabled,...}},missingKeys:[]}；
+  - GET /api/internal/config/features?keys=a,b（冻结：keys 必填、去重、≤100；空 keys 或 >100 → HTTP 400 + A 段参数校验码 A0001，依 framework-standard §13.4「参数校验异常 → HTTP 400 + A 段码」，非 B06 业务码）：{values:{key:{enabled,...}},missingKeys:[]}；
   - GET /api/internal/config/parameters?keys=...：{values:{key:{configValue,parameterType,...}},missingKeys:[]}。
 - 缓存维护（mall-system 侧写后）：FeatureConfig/SystemParameter 任一 create/update/delete/commit 后 @TransactionalEventListener(AFTER_COMMIT)：删除对应单键；恒删除聚合键 public-features；负缓存随单键 TTL 自然过期（空标记同样存该键位）。
 - 仅维护 Redis 这一份共享缓存；各消费服务本地层 60s 自过期（动态生效上限冻结为 60s 本地+Redis 实时）。
@@ -48,7 +48,7 @@ change-design-ref: "requirement-design.md#5-story-设计分派story-design-assig
 | GET | /api/internal/config/features?keys=k1,k2 | 各微服务 SERVICE | {values:{k1:{key,enabled,publicFlag}},missingKeys:[...]} |
 | GET | /api/internal/config/parameters?keys=k1 | 各微服务 SERVICE | {values:{k1:{key,configValue,parameterType,minValue,maxValue}},missingKeys:[...]} |
 
-keys 数量 >100 → B0601 400；缺失键进 missingKeys 而非报错。
+keys 为空或数量 >100 → HTTP 400 + A 段参数校验码（A0001，framework-standard §13.4；实现经 IllegalArgumentException → GlobalExceptionHandler 映射）；缺失键进 missingKeys 而非报错。
 
 ## 3. 数据变更
 

@@ -49,7 +49,7 @@ change-design-ref: "requirement-design.md#5-story-设计分派story-design-assig
 ## 4. 错误处理
 
 - 配置服务/Redis 全不可用：消费方按代码默认（search.enabled=true、mall.guest-cart.enabled=true）放行（fail-open，WARN 日志）；
-- effect_type=RESTART_REQUIRED 的参数本 Story 不接入消费（仅后台展示标记），DYNAMIC 实时生效≤66s（本地60+传播）；
+- effect_type=RESTART_REQUIRED 的参数本 Story 不接入消费（仅后台展示标记）；DYNAMIC 有界生效 ≤60s——AFTER_COMMIT 删键后跨服务新读立即取 Redis 新值，消费端最迟经本地缓存 60s TTL 到期收敛，无额外传播时延；
 - 前端拉取失败 fail-open。
 
 ## 5. DU 划分（Delivery Units）

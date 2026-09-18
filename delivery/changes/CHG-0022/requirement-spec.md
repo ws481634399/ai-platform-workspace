@@ -10,7 +10,7 @@
 - Change ID: CHG-0022
 - Requirement: REQ-M5-003 系统功能与参数配置
 - 状态流转: exploring → specified
-- 主要服务: mall-system（从空骨架交付，8108，库 mall_system，repo-1）、mall-common（统一配置客户端，repo-1）、mall-gateway（路由，repo-1）、mall-identity（V9 权限/菜单种子，repo-1）、消费接入：mall-search（search.enabled）、mall-cart（mall.guest-cart.enabled 最小后端校验）
+- 主要服务: mall-system（从空骨架交付，8108，库 mall_system，repo-1）、mall-common（统一配置客户端，repo-1）、mall-gateway（路由，repo-1）、mall-identity（V10 权限/菜单种子，repo-1；V9 为 CHG-0021 搜索权限+SearchIndex 菜单）、消费接入：mall-search（search.enabled）、mall-cart（mall.guest-cart.enabled 最小后端校验）
 - 前端: mall-admin（功能开关/系统参数/变更历史页，repo-2）、mall-web（公开开关显隐搜索入口，repo-2）
 - target-user: ADMIN（配置维护，五权限码 RBAC）、业务服务（类型安全读取）、GUEST/MEMBER（公开开关影响入口显隐）
 - pain-points: 功能启停/运行参数若硬编码，后续 AI、游客购物车、搜索等能力无法在线治理；各服务直查 config 表会造成耦合与口径分裂；配置改了缓存不失效、前端隐藏但后端不拒绝、Secret 进数据库都是高风险
@@ -39,7 +39,7 @@ JTBD：
 
 ### 3.1 包含
 
-- [S1 配置模型/后台管理/审计] Flyway V1：feature_config（configKey 唯一/featureName/configGroup/enabled 布尔/publicFlag/builtIn/version/时间）、system_parameter（configKey 唯一/parameterName/parameterType(STRING/INTEGER/LONG/DECIMAL/BOOLEAN/JSON)/configValue/defaultValue/minValue/maxValue/configGroup/publicFlag/builtIn/effectType/version/时间）、system_config_history（configType/configKey/oldValue/newValue/changedBy/changeReason/traceId/changedAt）；种子写入内置配置；领域服务（类型校验、范围校验、version 乐观锁、builtIn 禁删/禁改 key）；admin CRUD/历史端点；五权限码 + identity V9 种子 + 菜单；mall-admin 三页面。
+- [S1 配置模型/后台管理/审计] Flyway V1：feature_config（configKey 唯一/featureName/configGroup/enabled 布尔/publicFlag/builtIn/version/时间）、system_parameter（configKey 唯一/parameterName/parameterType(STRING/INTEGER/LONG/DECIMAL/BOOLEAN/JSON)/configValue/defaultValue/minValue/maxValue/configGroup/publicFlag/builtIn/effectType/version/时间）、system_config_history（configType/configKey/oldValue/newValue/changedBy/changeReason/traceId/changedAt）；种子写入内置配置；领域服务（类型校验、范围校验、version 乐观锁、builtIn 禁删/禁改 key）；admin CRUD/历史端点；五权限码 + identity V10 种子 + 菜单；mall-admin 三页面。
 - [S2 Redis 缓存与统一访问边界] mall-system 配置缓存：Redis key 规范 aimall:{env}:system:feature:{key}、...:parameter:{key}、...:public-features；TTL 10 分钟；更新事务提交后精确删除相关键；内部批量查询端点 GET /api/internal/config/features|parameters?keys=（SERVICE，未命中回源 DB 并回填）；mall-common 新增 mall-common-config：FeatureGate（isEnabled/ensureEnabled 抛 FEATURE_DISABLED）与 SystemParameterProvider（类型安全 + 默认值），读路径 Redis→内部端点→安全默认值；本地短 TTL 缓存（60s）自然收敛。
 - [S3 动态生效与公开配置] effectType=DYNAMIC/RESTART_REQUIRED 元数据与页面标识（M5 种子全部 DYNAMIC）；GET /api/mall/public-features 游客端点仅返回 publicFlag=true 开关；search.enabled 接入 mall-search（关闭时搜索接口 FEATURE_DISABLED，B05xx/B06xx 由 design 定错误码归属）；mall.guest-cart.enabled 接入 mall-cart 游客加购后端校验；mall-web 启动加载公开开关隐藏搜索入口；mall-admin 配置页按权限显隐。
 

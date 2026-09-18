@@ -25,7 +25,7 @@ scope-refs: [S3]
 ### 2.1 包含
 
 - [S3] effectType 元数据：feature/parameter 管理视图展示生效方式；M5 种子均 DYNAMIC。
-- [S3] PublicFeaturesController：GET /api/mall/public-features（permitAll，网关 mall-system 公开路由），仅返回 publicFlag=true 开关 {configKey,enabled}（含缓存：复用聚合键）。
+- [S3] PublicFeaturesController：GET /api/mall/public-features（permitAll，网关 mall-system 公开路由），仅返回 publicFlag=true 开关 {key,enabled}（含缓存：复用聚合键）。
 - [S3] mall-search：搜索接口入口 featureGate.ensureEnabled("search.enabled")（默认 true）；关闭抛 FeatureDisabledException → 统一错误 FEATURE_DISABLED（HTTP 403/409 与错误码 design 定稿）；mall-gateway 新增 /api/mall/public-features → 8108 公开路由。
 - [S3] mall-cart：游客写操作（游客加购/游客购物车修改/合并前游客能力）入口校验 mall.guest-cart.enabled，关闭返回 FEATURE_DISABLED；会员正常购物车不受影响。
 - [S3] mall-web：stores/features.ts 启动加载 public-features；顶部搜索框/搜索入口 v-if 受控；失败默认策略（公开端点不可达时默认展示，design 明示 fail-open 仅用于 UI 显隐）。

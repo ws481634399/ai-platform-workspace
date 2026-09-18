@@ -46,8 +46,8 @@ scope-refs: [S2]
 
 ## 4. 接口与字段规格
 
-- GET /api/internal/config/features?keys=search.enabled,mall.guest-cart.enabled（SERVICE）→ {features:[{key,enabled}], missingKeys:[]}
-- GET /api/internal/config/parameters?keys=...（SERVICE）→ {parameters:[{key,value,type}], missingKeys:[]}
+- GET /api/internal/config/features?keys=search.enabled,mall.guest-cart.enabled（SERVICE，keys 必填/去重/≤100）→ {values:{key:{key,enabled,publicFlag}}, missingKeys:[]}
+- GET /api/internal/config/parameters?keys=...（SERVICE，同约束）→ {values:{key:{key,configValue,parameterType,minValue,maxValue}}, missingKeys:[]}
 - Redis 值：JSON 视图（含类型/版本），TTL 600s。
 
 ## 5. Story 验收标准

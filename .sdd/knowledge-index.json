@@ -1,6 +1,6 @@
 {
   "$schema": "sdd-knowledge-index/v0.1",
-  "updated-at": "2026-09-13T00:50:00+08:00",
+  "updated-at": "2026-09-19T05:00:00+08:00",
   "standards": [
     {
       "title": "规则知识说明",
@@ -120,6 +120,20 @@
       "tags": ["backend", "service", "ddd", "business-logic"],
       "summary": "后端服务层设计规范，覆盖领域服务、应用服务、事务边界与异常处理",
       "related-changes": []
+    },
+    {
+      "title": "搜索引擎接入规范（Elasticsearch 投影/检索）",
+      "path": "standards/engineering/backend/search-engine-standard.md",
+      "tags": ["backend", "elasticsearch", "search", "index-sync", "projection"],
+      "summary": "ES 只读投影：双映射 IK 回退、别名原子重建、PIT+_shard_doc 深分页、故障归一 503、AFTER_COMMIT 事件投影与有界退避死信、内部端点双层安全",
+      "related-changes": ["CHG-0020", "CHG-0021"]
+    },
+    {
+      "title": "动态配置与功能开关规范",
+      "path": "standards/engineering/backend/dynamic-config-standard.md",
+      "tags": ["backend", "config", "feature-gate", "redis-cache", "fail-open", "flyway"],
+      "summary": "唯一写者配置中心、Redis 键/TTL 分层、AFTER_COMMIT 删键+本地 TTL 收敛（不做 Pub/Sub）、FeatureGate fail-open、Flyway DML 唯一播种+乐观锁",
+      "related-changes": ["CHG-0022"]
     },
     {
       "title": "前端工程规范入口",
