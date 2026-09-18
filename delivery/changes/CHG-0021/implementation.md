@@ -24,8 +24,9 @@
 | --- | --- | --- |
 | 82ccf6e | repo-1 | feat(search,system): M5 商品搜索+索引同步+系统配置（CHG-0020/0021/0022 后端）——M5 三 Change 合并提交，CHG-0021 四个后端 DU 全部内容在其中（mall-search 索引生命周期/重建/一致性/增量受理/失败重试，mall-product 投影端点与事件链路，mall-identity V9，mall-gateway admin 路由） |
 | a196082 | repo-2 | feat(search): 管理端搜索索引运维页（CHG-0021 FE-502）——仅 `src/api/search/index.ts`（117 行）与 `src/views/search/SearchIndexView.vue`（707 行）两文件，824 行新增 |
+| 5a5056f | repo-2 | fix(search): FE-502 前后端枚举契约对齐——RebuildStatus/SyncFailureStatus 按 Java enum 改齐（SUCCESS/FAILED_DEAD，去除 RETRYING/SUCCEEDED/DEAD 误用） |
 
-> 跨 Change 依赖：前端动态组件注册 `component-registry.ts` 的 `SearchIndex` 键随 404eb77（CHG-0022 FE-503）合入，主干 HEAD 已包含；mall-search 对 mall-inventory 无本 Change 代码联动。
+> 跨 Change 依赖：前端动态组件注册 `component-registry.ts` 的 `SearchIndex` 键随 CHG-0022 FE-503 一并合入，主干 HEAD 已包含；mall-search 对 mall-inventory 无本 Change 代码联动。
 
 ## 3. 各 Story 实施引用
 

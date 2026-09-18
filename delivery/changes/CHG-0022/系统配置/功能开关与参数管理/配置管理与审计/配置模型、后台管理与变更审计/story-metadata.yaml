@@ -14,10 +14,10 @@ story-id: "STORY-006-01-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "配置模型、后台管理与变更审计" # Story 标题
 summary: "mall-system 统一功能开关/系统参数：配置模型与类型、mall-admin 管理与 RBAC、变更审计、Redis
   缓存与失效、统一 Config Client、动态生效与前端公开配置" # Story 一句话摘要（可选）
-status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-18T10:39:54.655Z" # ISO8601，创建时填
-updated-at: "2026-09-18T12:56:28.895Z" # ISO8601，每次变更更新
+updated-at: "2026-09-18T17:31:58.477Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -106,4 +106,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:c0bb054928ed61849658006c1b5d1a568e08dd2f06030355df466bfb9357209f
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:31:58.462Z
+        validator: sdd-dev
+        artifact-hash: sha256:4ede9cba22e16ba077d547872566bdba4b38bfbc3cba9c6891047c375e40fa00
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:31:58.475Z
+        reviewer: workflow
+        artifact-hash: sha256:4ede9cba22e16ba077d547872566bdba4b38bfbc3cba9c6891047c375e40fa00
+        reason: "human-gate: skip (dev @ story STORY-006-01-01-01)"
     status: accepted

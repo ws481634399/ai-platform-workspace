@@ -21,8 +21,9 @@
 | --- | --- | --- | --- |
 | 82ccf6e | DU-BE-504 | repo-1 | feat(search,system): M5 商品搜索+索引同步+系统配置（CHG-0020/0021/0022 后端，M5 三 Change 合并提交） |
 | a196082 | DU-FE-502 | repo-2 | feat(search): 管理端搜索索引运维页（CHG-0021 FE-502），仅 api/search/index.ts 与 SearchIndexView.vue 两文件（824 行） |
+| 5a5056f | DU-FE-502 | repo-2 | fix(search): FE-502 枚举契约对齐（SUCCESS/FAILED_DEAD，去除前端误用的 SUCCEEDED/DEAD/RETRYING），原"枚举跨端不一致遗留"已闭环 |
 
-> 前端动态组件注册 `SearchIndex → SearchIndexView`（`component-registry.ts`）随 404eb77（CHG-0022 FE-503）合入，主干 HEAD 已包含，非本 Story 提交内容。
+> 前端动态组件注册 `SearchIndex → SearchIndexView`（`component-registry.ts`）随 CHG-0022 FE-503 一并合入，主干 HEAD 已包含，非本 Story 提交内容。
 
 ## 3. 各仓实施引用
 

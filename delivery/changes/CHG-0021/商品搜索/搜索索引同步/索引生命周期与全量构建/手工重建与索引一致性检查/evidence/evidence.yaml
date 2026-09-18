@@ -1,0 +1,28 @@
+﻿version: 0.1
+change-id: "CHG-0021"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-504
+    reason: 手工重建（RUNNING 互斥/原子换别名）与一致性检查五端点、identity V9
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    commit: a196082
+    task: DU-FE-502
+    reason: mall-admin 搜索索引运维页（重建轮询/一致性/失败记录）
+    files: []
+    recorded-at: "2026-09-19T00:38:08+08:00"
+  - id: EV-003
+    type: code-change
+    repo: repo-2
+    commit: 5a5056f
+    task: DU-FE-502
+    reason: FE-502 枚举契约对齐后端 Java enum（SUCCESS/FAILED_DEAD）
+    files: []
+    recorded-at: "2026-09-19T01:15:05+08:00"
+

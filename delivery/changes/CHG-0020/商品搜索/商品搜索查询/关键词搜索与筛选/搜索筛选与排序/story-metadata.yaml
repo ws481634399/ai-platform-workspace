@@ -6,10 +6,10 @@ story-id: "STORY-005-01-02-02"
 title: "搜索筛选与排序"
 summary: "categoryId/brandId/价格区间组合 bool 过滤；default/price_asc/price_desc/newest
   四排序；参数校验"
-status: tasked
+status: developing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T11:59:20.430Z"
+updated-at: "2026-09-18T17:33:55.555Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -88,4 +88,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:71ffaaf266563fcc1dc80e69af2fbebbeec9dc9aee72ec35e2349ec2424b8945
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:33:55.542Z
+        validator: sdd-dev
+        artifact-hash: sha256:e8552e98ca0a33982207d58d2df4c3547f38c37e6b076e955c9bf9b4fa4ce9e7
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:33:55.553Z
+        reviewer: workflow
+        artifact-hash: sha256:e8552e98ca0a33982207d58d2df4c3547f38c37e6b076e955c9bf9b4fa4ce9e7
+        reason: "human-gate: skip (dev @ story STORY-005-01-02-02)"
     status: accepted

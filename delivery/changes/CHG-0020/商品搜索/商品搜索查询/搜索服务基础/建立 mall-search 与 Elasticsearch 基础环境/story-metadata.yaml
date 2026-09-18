@@ -6,10 +6,10 @@ story-id: "STORY-005-01-01-01"
 title: "建立 mall-search 与 Elasticsearch 基础环境"
 summary: "compose 新增 Elasticsearch 8.x；mall-search 接入官方 ES Client、连接配置、健康检查与
   Testcontainers 基线"
-status: tasked
+status: developing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T11:59:19.967Z"
+updated-at: "2026-09-18T17:31:56.048Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -90,4 +90,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:e51a3fed309fbf01d366682e690d9ea303b2bbc7a666ed9fa037d037aa31e02f
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:31:56.035Z
+        validator: sdd-dev
+        artifact-hash: sha256:9a6fba0ed78789fed863b891a9cc3b8a5bdd5db4da50509a4b311dbc953e8398
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:31:56.047Z
+        reviewer: workflow
+        artifact-hash: sha256:9a6fba0ed78789fed863b891a9cc3b8a5bdd5db4da50509a4b311dbc953e8398
+        reason: "human-gate: skip (dev @ story STORY-005-01-01-01)"
     status: accepted

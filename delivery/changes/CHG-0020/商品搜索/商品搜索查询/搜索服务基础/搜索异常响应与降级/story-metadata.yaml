@@ -5,10 +5,10 @@ change-id: "CHG-0020"
 story-id: "STORY-005-01-01-02"
 title: "搜索异常响应与降级"
 summary: "ES 不可用/超时/索引不存在三类异常归一 B05xx，空结果正常态；M5 不做数据库降级"
-status: tasked
+status: developing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T11:59:20.131Z"
+updated-at: "2026-09-18T17:33:54.891Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -87,4 +87,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:bb0d11afcb39a1d7c3c71366cfb01039e4b1f322da776507849ff096ab5a7ada
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:33:54.875Z
+        validator: sdd-dev
+        artifact-hash: sha256:9b270a4ad2d932a4135bf4f02dfe4bbea9c7bdfa0aa1647b7352e3a8746a55a6
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:33:54.890Z
+        reviewer: workflow
+        artifact-hash: sha256:9b270a4ad2d932a4135bf4f02dfe4bbea9c7bdfa0aa1647b7352e3a8746a55a6
+        reason: "human-gate: skip (dev @ story STORY-005-01-01-02)"
     status: accepted

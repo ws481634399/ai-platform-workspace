@@ -17,10 +17,10 @@ id: "CHG-0022" # CHG-XXXX，创建时填
 title: "系统功能与参数配置" # 简短标题
 summary: "mall-system 统一功能开关/系统参数：配置模型与类型、mall-admin 管理与 RBAC、变更审计、Redis
   缓存与失效、统一 Config Client、动态生效与前端公开配置" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M5-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-18T10:37:01.573Z" # ISO8601，创建时填
-updated-at: "2026-09-18T12:56:29.223Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-18T17:31:58.512Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-006
   - FEAT-006-01
@@ -97,8 +97,10 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: 2342a260c124c431c92143b13c1a6e98af6b9e24
+  repo-2:
+    commit: daef5c03d2acda09c7c1aa5e8e069f157fd34dfe
 repository-result:
   {}
   # backend: { commit: abc999 }
@@ -188,11 +190,20 @@ artifacts:
     path: implementation.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-18T16:27:01.521Z
+        status: passed
+        checked-at: 2026-09-18T17:29:06.360Z
         validator: sdd-dev
-        artifact-hash: ""
-        rules-hash: ""
-        issues:
-          - "Artifact not found: implementation.md"
-        warnings: []
+        artifact-hash: "sha256:5d906be34ec2bebd8f59cfc4f5dce4ee1a62e138293435cfd9798538\
+          4a062758"
+        rules-hash: "sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6\
+          abb8d"
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T17:29:15.699Z
+        reviewer: trae-agent
+        artifact-hash: sha256:5d906be34ec2bebd8f59cfc4f5dce4ee1a62e138293435cfd97985384a062758
+        reason: ""

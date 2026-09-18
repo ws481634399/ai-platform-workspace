@@ -5,10 +5,10 @@ change-id: "CHG-0022"
 story-id: "STORY-006-02-01-01"
 title: "Redis 配置缓存与统一访问边界"
 summary: "Redis 分级缓存与精确失效、SERVICE 内部配置端点、mall-common-config 统一客户端（FeatureGate/Provider）"
-status: tasked
+status: developing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T12:56:29.047Z"
+updated-at: "2026-09-18T17:33:57.135Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -87,4 +87,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:d96d0a5fb187d6b7a8554f30dda1c8d2fb7366c2e984e8cbf32682aef52c7159
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:33:57.119Z
+        validator: sdd-dev
+        artifact-hash: sha256:6a380023f4a34e555f30845c7a176809155cc576af56e7f43f7b0d58f1f54ecd
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:33:57.133Z
+        reviewer: workflow
+        artifact-hash: sha256:6a380023f4a34e555f30845c7a176809155cc576af56e7f43f7b0d58f1f54ecd
+        reason: "human-gate: skip (dev @ story STORY-006-02-01-01)"
     status: accepted

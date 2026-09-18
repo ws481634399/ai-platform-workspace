@@ -57,4 +57,28 @@
 
 version: 0.1 # schema 版本
 change-id: "CHG-0022" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-507、DU-BE-508、DU-BE-509
+    reason: 系统配置后端——配置模型与后台管理审计、Redis 配置缓存与统一访问边界、功能开关动态生效与公开配置端点，含 identity V10 权限/菜单
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    commit: af19b9e
+    task: DU-FE-504
+    reason: mall-web 功能开关消费——features store fail-open、启动加载、搜索入口与游客加购开关守卫
+    files: []
+    recorded-at: "2026-09-19T00:37:42+08:00"
+  - id: EV-003
+    type: code-change
+    repo: repo-2
+    commit: 404eb77
+    task: DU-FE-503
+    reason: mall-admin 系统配置三页——功能开关/系统参数/配置历史与路由注册
+    files: []
+    recorded-at: "2026-09-19T00:38:23+08:00"

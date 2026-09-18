@@ -57,4 +57,28 @@
 
 version: 0.1 # schema 版本
 change-id: "CHG-0020" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-4
+    commit: 7f05e11
+    task: DU-WS-501
+    reason: 建立 mall-search 依赖的 Elasticsearch 8.17.4 基础环境（docker-compose 与配置）
+    files: []
+    recorded-at: "2026-09-19T00:36:13+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-501、DU-BE-502、DU-BE-510、DU-BE-511
+    reason: 商品搜索后端——mall-search 模块与 ES 基础环境对接、关键词搜索 API、筛选排序、异常响应与降级
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"
+  - id: EV-003
+    type: code-change
+    repo: repo-2
+    commit: ec0921b
+    task: DU-FE-501
+    reason: mall-web 商品搜索体验——搜索 API 封装、search store、SearchView 与 /search 路由
+    files: []
+    recorded-at: "2026-09-19T00:37:55+08:00"

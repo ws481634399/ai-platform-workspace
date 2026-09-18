@@ -1,0 +1,20 @@
+﻿version: 0.1
+change-id: "CHG-0020"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-4
+    commit: 7f05e11
+    task: DU-WS-501
+    reason: Elasticsearch 8.17.4 docker-compose 基础环境
+    files: []
+    recorded-at: "2026-09-19T00:36:13+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-501
+    reason: mall-search 模块与 ES 客户端基础接入
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"
+

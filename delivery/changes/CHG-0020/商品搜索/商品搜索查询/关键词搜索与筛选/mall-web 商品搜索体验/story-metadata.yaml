@@ -5,10 +5,10 @@ change-id: "CHG-0020"
 story-id: "STORY-005-01-02-03"
 title: "mall-web 商品搜索体验"
 summary: "mall-web 搜索框、SearchView 结果页（筛选/排序/分页/URL 同步）、空/Loading/Error 三态、跳详情"
-status: tasked
+status: developing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T11:59:20.578Z"
+updated-at: "2026-09-18T17:33:55.879Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -87,4 +87,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:07c2a0cf4958cdd2f7bd97aa90e7ab1cd667d859c444f32dbe5396c0688745e5
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:33:55.865Z
+        validator: sdd-dev
+        artifact-hash: sha256:ae9e2bde9f603fc2aa94437799fa093ddc0a240ffd3d67b2f278d3645c51eaa3
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:33:55.877Z
+        reviewer: workflow
+        artifact-hash: sha256:ae9e2bde9f603fc2aa94437799fa093ddc0a240ffd3d67b2f278d3645c51eaa3
+        reason: "human-gate: skip (dev @ story STORY-005-01-02-03)"
     status: accepted

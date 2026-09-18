@@ -1,0 +1,11 @@
+version: 0.1
+change-id: "CHG-0020"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-2
+    commit: ec0921b
+    task: DU-FE-501
+    reason: mall-web 搜索 API/store/SearchView 与 /search 路由
+    files: []
+    recorded-at: "2026-09-19T00:37:55+08:00"

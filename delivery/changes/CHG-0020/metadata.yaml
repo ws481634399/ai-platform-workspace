@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0020" # CHG-XXXX，创建时填
 title: "Elasticsearch商品搜索" # 简短标题
 summary: "mall-search 独立商品搜索：ES 基础设施、关键词搜索、筛选排序分页、异常降级与 mall-web 搜索页" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M5-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-18T10:36:41.088Z" # ISO8601，创建时填
-updated-at: "2026-09-18T11:59:20.602Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-18T17:31:56.092Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-005
   - FEAT-005-01
@@ -206,3 +206,22 @@ artifacts:
           - "test-design.md: Change CHG-0020 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
         warnings: []
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:29:05.849Z
+        validator: sdd-dev
+        artifact-hash: sha256:6625960d88064ac0be266a020dfd647187deb58c44db9809bb6714e5d0accb37
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T17:29:15.282Z
+        reviewer: trae-agent
+        artifact-hash: sha256:6625960d88064ac0be266a020dfd647187deb58c44db9809bb6714e5d0accb37
+        reason: ""

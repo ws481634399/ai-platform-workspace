@@ -17,10 +17,10 @@ id: "CHG-0021" # CHG-XXXX，创建时填
 title: "商品搜索索引同步" # 简短标题
 summary: "Product 权威数据到 ES Search Projection
   的索引生命周期、全量构建、增量同步、幂等乱序防护、失败记录与重试、手工重建与一致性检查" # 一句话摘要（可选）
-status: tasked # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M5-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-18T10:36:52.371Z" # ISO8601，创建时填
-updated-at: "2026-09-18T12:56:28.276Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-18T17:31:57.722Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-005
   - FEAT-005-02
@@ -105,8 +105,10 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: 2342a260c124c431c92143b13c1a6e98af6b9e24
+  repo-2:
+    commit: daef5c03d2acda09c7c1aa5e8e069f157fd34dfe
 repository-result:
   {}
   # backend: { commit: abc999 }
@@ -194,3 +196,22 @@ artifacts:
           - "test-design.md: Change CHG-0021 的 DU 表属于 Story：请指定 storyId，或使用
             listDesignDuRows 聚合全部 Story"
         warnings: []
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:29:06.092Z
+        validator: sdd-dev
+        artifact-hash: sha256:4b8eb3dc28c6bfb46017e4206ff03e80aebfd9a3ef02d83138319aae0a2efcf0
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-18T17:29:15.506Z
+        reviewer: trae-agent
+        artifact-hash: sha256:4b8eb3dc28c6bfb46017e4206ff03e80aebfd9a3ef02d83138319aae0a2efcf0
+        reason: ""

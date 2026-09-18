@@ -1,0 +1,20 @@
+﻿version: 0.1
+change-id: "CHG-0022"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-507
+    reason: 配置模型/后台 CRUD/版本冲突与变更审计、identity V10
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    commit: 404eb77
+    task: DU-FE-503
+    reason: mall-admin 功能开关/系统参数/配置历史三页与路由注册
+    files: []
+    recorded-at: "2026-09-19T00:38:23+08:00"
+

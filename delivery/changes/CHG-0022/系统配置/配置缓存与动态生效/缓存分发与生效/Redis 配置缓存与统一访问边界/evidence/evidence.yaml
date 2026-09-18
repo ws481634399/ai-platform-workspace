@@ -1,0 +1,11 @@
+version: 0.1
+change-id: "CHG-0022"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-508
+    reason: Redis 配置缓存（TTL/负缓存）与统一访问边界、内部/公开端点
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"

@@ -1,0 +1,11 @@
+version: 0.1
+change-id: "CHG-0020"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-511
+    reason: 品牌/分类/价格区间筛选与 DEFAULT/price/newest 排序
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"

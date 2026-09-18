@@ -6,10 +6,10 @@ story-id: "STORY-005-02-02-01"
 title: "商品变更增量同步"
 summary: "mall-product AFTER_COMMIT 事件 + SearchSyncClient 推送；mall-search 内部
   upsert/硬删除；主流程不阻断"
-status: tasked
+status: developing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T12:56:28.111Z"
+updated-at: "2026-09-18T17:33:56.522Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -88,4 +88,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:fb9d1c7bfca61f7e95c309113fd4989e429ad91ab4fb0ba2772b03ee53d9a457
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:33:56.506Z
+        validator: sdd-dev
+        artifact-hash: sha256:d7651815a734a5841fbbc9465a4f13475c22f5c2716096c2047b5f44baa45c39
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:33:56.520Z
+        reviewer: workflow
+        artifact-hash: sha256:d7651815a734a5841fbbc9465a4f13475c22f5c2716096c2047b5f44baa45c39
+        reason: "human-gate: skip (dev @ story STORY-005-02-02-01)"
     status: accepted

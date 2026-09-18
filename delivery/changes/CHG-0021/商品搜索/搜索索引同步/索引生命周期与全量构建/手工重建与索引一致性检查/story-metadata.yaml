@@ -5,10 +5,10 @@ change-id: "CHG-0021"
 story-id: "STORY-005-02-01-02"
 title: "手工重建与索引一致性检查"
 summary: "双索引+别名原子切换重建、任务状态/并发控制、上架数 vs 索引数差集检查、RBAC 与 mall-admin 运维页"
-status: tasked
+status: developing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T12:56:27.974Z"
+updated-at: "2026-09-18T17:31:57.684Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -89,4 +89,24 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:c23704aff8fbfbe460c0b063757728d93ef38b429d1de2d73630c55ebe6875f7
         reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T17:31:57.671Z
+        validator: sdd-dev
+        artifact-hash: sha256:76310e8fff0ef318999be3c538d94a2a154448ef5d0b4b7ef28be0affa934950
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T17:31:57.683Z
+        reviewer: workflow
+        artifact-hash: sha256:76310e8fff0ef318999be3c538d94a2a154448ef5d0b4b7ef28be0affa934950
+        reason: "human-gate: skip (dev @ story STORY-005-02-01-02)"
     status: accepted

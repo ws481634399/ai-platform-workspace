@@ -1,0 +1,11 @@
+version: 0.1
+change-id: "CHG-0021"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-506
+    reason: 同步幂等/乱序防护与失败死信表及重试
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"

@@ -1,0 +1,11 @@
+version: 0.1
+change-id: "CHG-0020"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: 82ccf6e
+    task: DU-BE-502
+    reason: 商品关键词搜索 API（八参数/SearchPage/ProductSearchItem）
+    files: []
+    recorded-at: "2026-09-19T00:37:00+08:00"
