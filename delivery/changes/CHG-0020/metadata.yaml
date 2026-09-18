@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0020" # CHG-XXXX，创建时填
 title: "Elasticsearch商品搜索" # 简短标题
 summary: "mall-search 独立商品搜索：ES 基础设施、关键词搜索、筛选排序分页、异常降级与 mall-web 搜索页" # 一句话摘要（可选）
-status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M5-001" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-18T10:36:41.088Z" # ISO8601，创建时填
-updated-at: "2026-09-18T17:31:56.092Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-18T18:15:49.591Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-005
   - FEAT-005-01
@@ -225,3 +225,14 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:6625960d88064ac0be266a020dfd647187deb58c44db9809bb6714e5d0accb37
         reason: ""
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T18:15:33.869Z
+        validator: sdd-test
+        artifact-hash: sha256:8d9a2d200d7bd9448c1a2c72ac330a098889cf4e0a3f29af23a327bb0b019b0a
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []

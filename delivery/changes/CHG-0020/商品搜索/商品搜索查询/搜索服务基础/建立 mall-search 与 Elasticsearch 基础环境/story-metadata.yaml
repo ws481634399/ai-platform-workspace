@@ -6,10 +6,10 @@ story-id: "STORY-005-01-01-01"
 title: "建立 mall-search 与 Elasticsearch 基础环境"
 summary: "compose 新增 Elasticsearch 8.x；mall-search 接入官方 ES Client、连接配置、健康检查与
   Testcontainers 基线"
-status: developing
+status: testing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T17:31:56.048Z"
+updated-at: "2026-09-18T18:16:49.251Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -110,4 +110,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:9a6fba0ed78789fed863b891a9cc3b8a5bdd5db4da50509a4b311dbc953e8398
         reason: "human-gate: skip (dev @ story STORY-005-01-01-01)"
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T18:16:49.236Z
+        validator: sdd-test
+        artifact-hash: sha256:c64461ee31f59b61c49d6fc73794c992fa94d6347706a7e2281b47b21b6d0246
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T18:16:49.249Z
+        reviewer: workflow
+        artifact-hash: sha256:c64461ee31f59b61c49d6fc73794c992fa94d6347706a7e2281b47b21b6d0246
+        reason: "human-gate: skip (test @ story STORY-005-01-01-01)"
     status: accepted

@@ -17,10 +17,10 @@ id: "CHG-0022" # CHG-XXXX，创建时填
 title: "系统功能与参数配置" # 简短标题
 summary: "mall-system 统一功能开关/系统参数：配置模型与类型、mall-admin 管理与 RBAC、变更审计、Redis
   缓存与失效、统一 Config Client、动态生效与前端公开配置" # 一句话摘要（可选）
-status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M5-003" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-18T10:37:01.573Z" # ISO8601，创建时填
-updated-at: "2026-09-18T17:31:58.512Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-18T18:15:52.033Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-006
   - FEAT-006-01
@@ -207,3 +207,14 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:5d906be34ec2bebd8f59cfc4f5dce4ee1a62e138293435cfd97985384a062758
         reason: ""
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T18:15:34.374Z
+        validator: sdd-test
+        artifact-hash: sha256:0892e7c8706af533441595c959d9fd4dc1180f7352c5cc396bffb55e30cfbb59
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []

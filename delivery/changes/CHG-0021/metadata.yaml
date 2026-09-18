@@ -17,10 +17,10 @@ id: "CHG-0021" # CHG-XXXX，创建时填
 title: "商品搜索索引同步" # 简短标题
 summary: "Product 权威数据到 ES Search Projection
   的索引生命周期、全量构建、增量同步、幂等乱序防护、失败记录与重试、手工重建与一致性检查" # 一句话摘要（可选）
-status: developing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M5-002" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-18T10:36:52.371Z" # ISO8601，创建时填
-updated-at: "2026-09-18T17:31:57.722Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-18T18:16:49.624Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-005
   - FEAT-005-02
@@ -215,3 +215,14 @@ artifacts:
         reviewer: trae-agent
         artifact-hash: sha256:4b8eb3dc28c6bfb46017e4206ff03e80aebfd9a3ef02d83138319aae0a2efcf0
         reason: ""
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T18:15:34.121Z
+        validator: sdd-test
+        artifact-hash: sha256:e4dfdb8291650dfe82a03b5c4073f486c9c4a12e3ada6b0361a734642d2d9b29
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []

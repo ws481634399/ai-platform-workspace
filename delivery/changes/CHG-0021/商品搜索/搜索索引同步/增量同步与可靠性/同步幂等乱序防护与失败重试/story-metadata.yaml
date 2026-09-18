@@ -5,10 +5,10 @@ change-id: "CHG-0021"
 story-id: "STORY-005-02-02-02"
 title: "同步幂等乱序防护与失败重试"
 summary: "external_gte 乱序防护、版本冲突消化、failure_record 有界退避重试、FAILED_DEAD 与人工重试"
-status: developing
+status: testing
 evidence-tier: standard
 created-at: "2026-09-18T11:30:00.000Z"
-updated-at: "2026-09-18T17:33:56.828Z"
+updated-at: "2026-09-18T18:16:50.571Z"
 
 change-spec-ref: ""
 change-design-ref: ""
@@ -107,4 +107,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:de455d70fdbd805600352e2c4f94e7e1bd80e99265060ed48e52760cdf486aaf
         reason: "human-gate: skip (dev @ story STORY-005-02-02-02)"
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T18:16:50.555Z
+        validator: sdd-test
+        artifact-hash: sha256:6374a5c5ade44cb81eba401424d6e9592e45ae70f19eb1ea32638ed680dd3a30
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T18:16:50.569Z
+        reviewer: workflow
+        artifact-hash: sha256:6374a5c5ade44cb81eba401424d6e9592e45ae70f19eb1ea32638ed680dd3a30
+        reason: "human-gate: skip (test @ story STORY-005-02-02-02)"
     status: accepted

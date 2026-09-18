@@ -1,0 +1,4 @@
+﻿
+> mall-web@0.0.0 type-check D:\Desktop\ai-platform\implementation\ai-platform-frontend\mall-web
+> vue-tsc --noEmit -p tsconfig.json && vue-tsc --noEmit -p tsconfig.node.json
+

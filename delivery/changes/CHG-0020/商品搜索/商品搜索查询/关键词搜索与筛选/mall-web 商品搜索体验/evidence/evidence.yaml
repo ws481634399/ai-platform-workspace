@@ -9,3 +9,16 @@ items:
     reason: mall-web 搜索 API/store/SearchView 与 /search 路由
     files: []
     recorded-at: "2026-09-19T00:37:55+08:00"
+
+  - id: EV-002
+    type: test-run
+    command: pnpm -C mall-web exec vitest run
+    result: passed
+    summary:
+      total: 102
+      passed: 102
+      failed: 0
+      skipped: 0
+    log: evidence/logs/mall-web-vitest.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006]
+    recorded-at: "2026-09-19T01:36:00+08:00"

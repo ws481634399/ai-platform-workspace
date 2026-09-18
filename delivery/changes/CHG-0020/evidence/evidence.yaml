@@ -82,3 +82,28 @@ items:
     reason: mall-web 商品搜索体验——搜索 API 封装、search store、SearchView 与 /search 路由
     files: []
     recorded-at: "2026-09-19T00:37:55+08:00"
+
+  - id: EV-004
+    type: test-run
+    command: mvn test -B -ntp（TESTCONTAINERS_RYUK_DISABLED=true，全 reactor 14 模块）
+    result: passed
+    summary:
+      total: 482
+      passed: 482
+      failed: 0
+      skipped: 0
+    log: evidence/logs/backend-full-test.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017, AC-018]
+    recorded-at: "2026-09-19T01:42:13+08:00"
+  - id: EV-005
+    type: test-run
+    command: pnpm -C mall-web exec vitest run（另 type-check/lint/build 全绿，见同目录日志）
+    result: passed
+    summary:
+      total: 102
+      passed: 102
+      failed: 0
+      skipped: 0
+    log: evidence/logs/mall-web-vitest.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017, AC-018]
+    recorded-at: "2026-09-19T01:36:00+08:00"

@@ -9,3 +9,16 @@ items:
     reason: 搜索异常统一响应与 ES 故障降级（SearchExceptionAdvice/B05xx）
     files: []
     recorded-at: "2026-09-19T00:37:00+08:00"
+
+  - id: EV-002
+    type: test-run
+    command: mvn test -B -ntp（TESTCONTAINERS_RYUK_DISABLED=true，全 reactor 14 模块）
+    result: passed
+    summary:
+      total: 482
+      passed: 482
+      failed: 0
+      skipped: 0
+    log: evidence/logs/backend-full-test.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005]
+    recorded-at: "2026-09-19T01:42:13+08:00"

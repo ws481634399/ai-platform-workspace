@@ -1,0 +1,68 @@
+﻿
+> mall-web@0.0.0 build D:\Desktop\ai-platform\implementation\ai-platform-frontend\mall-web
+> vite build
+
+[36mvite v8.2.2 [32mbuilding client environment for production...[36m[39m
+transforming...
+✓ 167 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                      0.49 kB │ gzip:  0.32 kB
+dist/assets/PriceText-Dn4YWcrK.css                   0.10 kB │ gzip:  0.11 kB
+dist/assets/StockBadge-CrS3Az7k.css                  0.97 kB │ gzip:  0.37 kB
+dist/assets/NotFoundView-VpR4DkQ_.css                1.04 kB │ gzip:  0.38 kB
+dist/assets/StateView-Dnmzu4CS.css                   1.76 kB │ gzip:  0.59 kB
+dist/assets/ProductCard-CmE84h5N.css                 2.08 kB │ gzip:  0.68 kB
+dist/assets/LoginView-ChWDLz8Y.css                   2.80 kB │ gzip:  0.70 kB
+dist/assets/RegisterView-DTS__DrC.css                2.80 kB │ gzip:  0.71 kB
+dist/assets/index-CjHUAeBf.css                       3.06 kB │ gzip:  1.23 kB
+dist/assets/HomeView-KlhgFvH_.css                    3.21 kB │ gzip:  0.90 kB
+dist/assets/ProfileView-BF0n-2BB.css                 4.07 kB │ gzip:  0.90 kB
+dist/assets/ProductListView-DgaYSbrJ.css             5.22 kB │ gzip:  1.11 kB
+dist/assets/MallLayout-BaOUlWz6.css                  5.26 kB │ gzip:  1.18 kB
+dist/assets/CheckoutView-D-d-ctuN.css                5.27 kB │ gzip:  1.17 kB
+dist/assets/OrderDetailView-DPEfT6K5.css             5.59 kB │ gzip:  1.24 kB
+dist/assets/OrderListView-CpjvA1sW.css               5.68 kB │ gzip:  1.15 kB
+dist/assets/CartView-PJpdQeWa.css                    6.46 kB │ gzip:  1.38 kB
+dist/assets/AddressListView-BAQx3qWF.css             6.93 kB │ gzip:  1.29 kB
+dist/assets/ProductDetailView-CyXrN3jT.css           6.94 kB │ gzip:  1.45 kB
+dist/assets/SearchView-CVraqhCj.css                  8.61 kB │ gzip:  1.56 kB
+dist/assets/_plugin-vue_export-helper-BDNMzG2s.js    0.08 kB │ gzip:  0.09 kB
+dist/assets/http-error-222beVXJ.js                   0.15 kB │ gzip:  0.14 kB
+dist/assets/clear-session-C_Az2HMH.js                0.22 kB │ gzip:  0.19 kB
+dist/assets/checkout-DGmkgsnc.js                     0.38 kB │ gzip:  0.27 kB
+dist/assets/member-form-BMkERJgz.js                  0.44 kB │ gzip:  0.33 kB
+dist/assets/PriceText-i3sDTzQX.js                    0.47 kB │ gzip:  0.37 kB
+dist/assets/NotFoundView-DXxpf45H.js                 0.67 kB │ gzip:  0.48 kB
+dist/assets/StockBadge-DbgeVlng.js                   0.79 kB │ gzip:  0.55 kB
+dist/assets/catalog-BQjN-4UO.js                      0.85 kB │ gzip:  0.40 kB
+dist/assets/ProductCard-BA9nBu8T.js                  1.38 kB │ gzip:  0.72 kB
+dist/assets/StateView-DVv9NK7M.js                    1.50 kB │ gzip:  0.65 kB
+dist/assets/address-BpoEMD-h.js                      1.65 kB │ gzip:  0.68 kB
+dist/assets/order-B_I8rVk4.js                        1.73 kB │ gzip:  0.84 kB
+dist/assets/LoginView-CnzNCIdd.js                    2.33 kB │ gzip:  1.19 kB
+dist/assets/RegisterView-CfLvdpJS.js                 2.38 kB │ gzip:  1.22 kB
+dist/assets/HomeView-TTLwbXLd.js                     3.31 kB │ gzip:  1.54 kB
+dist/assets/MallLayout-FW0o-PPn.js                   3.53 kB │ gzip:  1.53 kB
+dist/assets/OrderListView-CPeaZb3Y.js                4.51 kB │ gzip:  1.96 kB
+dist/assets/ProductListView-CacOLZ8d.js              5.33 kB │ gzip:  2.30 kB
+dist/assets/CheckoutView-KOyiyO9f.js                 5.86 kB │ gzip:  2.64 kB
+dist/assets/ProfileView-DGIRvdb4.js                  6.33 kB │ gzip:  2.48 kB
+dist/assets/OrderDetailView-BHqS-l04.js              6.48 kB │ gzip:  2.58 kB
+dist/assets/CartView-B9LnADyy.js                     6.51 kB │ gzip:  2.77 kB
+dist/assets/AddressListView-Bf1tHhjZ.js              9.33 kB │ gzip:  2.94 kB
+dist/assets/SearchView-DmjIp17b.js                   9.86 kB │ gzip:  3.74 kB
+dist/assets/ProductDetailView-K_IosNuf.js           34.50 kB │ gzip: 13.93 kB
+dist/assets/runtime-core.esm-bundler-hPhuXYcJ.js    60.22 kB │ gzip: 23.64 kB
+dist/assets/index-DDdDk3yi.js                      106.97 kB │ gzip: 40.33 kB
+
+node.exe : [33m[33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/router/index.ts is dynamically imported by src/utils/refresh-
+coordinator.ts but also statically imported by src/main.ts, dynamic import will not move module into another chunk.
+At D:\nodejs\node_global\pnpm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([33m[33m[INEF... another chunk.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[39m
+[32m✓ built in 519ms[39m

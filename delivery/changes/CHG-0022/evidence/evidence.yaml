@@ -82,3 +82,40 @@ items:
     reason: mall-admin 系统配置三页——功能开关/系统参数/配置历史与路由注册
     files: []
     recorded-at: "2026-09-19T00:38:23+08:00"
+
+  - id: EV-004
+    type: test-run
+    command: mvn test -B -ntp（TESTCONTAINERS_RYUK_DISABLED=true，全 reactor 14 模块；本 Change 直接相关 35 例）
+    result: passed
+    summary:
+      total: 482
+      passed: 482
+      failed: 0
+      skipped: 0
+    log: ../CHG-0020/evidence/logs/backend-full-test.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017]
+    recorded-at: "2026-09-19T01:42:13+08:00"
+  - id: EV-005
+    type: test-run
+    command: pnpm -C mall-admin exec vitest run（另 type-check/lint/build 全绿）
+    result: passed
+    summary:
+      total: 47
+      passed: 47
+      failed: 0
+      skipped: 0
+    log: evidence/logs/mall-admin-vitest.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017]
+    recorded-at: "2026-09-19T01:36:00+08:00"
+  - id: EV-006
+    type: test-run
+    command: pnpm -C mall-web exec vitest run（另 type-check/lint/build 全绿）
+    result: passed
+    summary:
+      total: 102
+      passed: 102
+      failed: 0
+      skipped: 0
+    log: ../CHG-0020/evidence/logs/mall-web-vitest.log
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017]
+    recorded-at: "2026-09-19T01:36:00+08:00"

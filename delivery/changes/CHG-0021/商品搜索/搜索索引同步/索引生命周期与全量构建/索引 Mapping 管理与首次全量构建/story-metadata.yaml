@@ -14,10 +14,10 @@ story-id: "STORY-005-02-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "索引 Mapping 管理与首次全量构建" # Story 标题
 summary: "Product 权威数据到 ES Search Projection
   的索引生命周期、全量构建、增量同步、幂等乱序防护、失败记录与重试、手工重建与一致性检查" # Story 一句话摘要（可选）
-status: developing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-18T10:39:54.418Z" # ISO8601，创建时填
-updated-at: "2026-09-18T17:33:56.206Z" # ISO8601，每次变更更新
+updated-at: "2026-09-18T18:16:49.585Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "" # 例：requirement-spec.md#32-story-1-功能范围
@@ -124,4 +124,22 @@ artifacts:
         reviewer: workflow
         artifact-hash: sha256:ca53fa982ec0de5aadcde595a61da0a57303893175ac0dae6c67d022ffdfc0dd
         reason: "human-gate: skip (dev @ story STORY-005-02-01-01)"
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-18T18:16:49.571Z
+        validator: sdd-test
+        artifact-hash: sha256:88700930d812901a735b7496de7a3326f40914461ed4c0e8e3a834358b942d88
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-18T18:16:49.582Z
+        reviewer: workflow
+        artifact-hash: sha256:88700930d812901a735b7496de7a3326f40914461ed4c0e8e3a834358b942d88
+        reason: "human-gate: skip (test @ story STORY-005-02-01-01)"
     status: accepted
