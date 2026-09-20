@@ -1,6 +1,6 @@
 {
   "$schema": "sdd-knowledge-index/v0.1",
-  "updated-at": "2026-09-19T05:00:00+08:00",
+  "updated-at": "2026-09-20T23:10:00+08:00",
   "standards": [
     {
       "title": "规则知识说明",
@@ -220,6 +220,20 @@
       "related-changes": []
     },
     {
+      "title": "Python 质量工具配置规范",
+      "path": "standards/engineering/ai/python-quality-standard.md",
+      "tags": ["ai", "python", "ruff", "pyright", "pytest"],
+      "summary": "CHG-0005 晋升：Python 项目 Ruff + Pyright + Pytest 配置规范；含 10 规则集、strict 模式、Unknown* 关闭策略、asyncio_mode=auto",
+      "related-changes": ["CHG-0005"]
+    },
+    {
+      "title": "AI 应用运行安全与可靠性标准",
+      "path": "standards/engineering/ai/ai-application-standard.md",
+      "tags": ["ai", "agent", "security", "llm", "rag"],
+      "summary": "CHG-0024 晋升：AI 能力 fail-closed 开关、Grounding 防幻觉四件套、Prompt Injection 三层防护、写操作人机确认状态机、混合栈成功直出/错误信封契约、Java 依赖隔离测试范式",
+      "related-changes": ["CHG-0024"]
+    },
+    {
       "title": "SDD Standards 入口",
       "path": "standards/sdd/README.md",
       "tags": ["sdd", "workflow", "index"],
@@ -367,6 +381,13 @@
       "tags": ["plan", "milestone", "schedule", "delivery"],
       "summary": "开发阶段、里程碑、优先级、周计划、验收标准、风险、Git 规范与最终交付清单",
       "related-changes": []
+    },
+    {
+      "title": "统一语言词汇表（AI 领域首批）",
+      "path": "product/glossary/terms.md",
+      "tags": ["glossary", "ai", "rag", "agent"],
+      "summary": "CHG-0024 首批 AI 领域术语：RAG、Grounding、Prompt Injection、Chunk、Embedding、kNN、sources、pendingAction、fail-closed",
+      "related-changes": ["CHG-0024"]
     }
   ]
 }

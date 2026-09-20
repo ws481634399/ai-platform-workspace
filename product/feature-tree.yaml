@@ -1190,5 +1190,208 @@ features:
                   ]
               }
           ]
+      },
+    {
+        id: FEAT-007,
+        name: 平台验收补强,
+        description: M0-M5 交付后审计发现的需求偏差与关键断言缺口补强（非新业务能力），首个 Change 为 CHG-0023,
+        children:
+          [
+            {
+                id: FEAT-007-01,
+                name: M5 验收缺口补强,
+                description: RBAC 管理台、文件上传、Trace 贯通、参数消费与关键测试补齐（A1-A4/B1-B6），依据 M5-闭环审计与补强清单,
+                children:
+                  [
+                    {
+                        id: FEAT-007-01-01,
+                        name: 管理台与素材,
+                        description: RBAC 管理台与图片上传,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-007-01-01-01,
+                                name: RBAC 管理台（管理员/角色/菜单权限）,
+                                description: A1：mall-admin 新增管理员管理、角色管理、菜单权限树查看页，对接既有
+                                  RbacAdminController/AdminUserController
+                                  API，动态路由与 v-permission 联动，配套 vitest,
+                                status: planned
+                              },
+                            {
+                                id: STORY-007-01-01-02,
+                                name: 品牌与商品图片文件上传,
+                                description: A2：mall-product 复用会员头像 MinIO 通道提供 admin 图片上传端点（类型/大小/伪装校验），品牌
+                                  Logo/商品图片上传回填 URL 并保留外链；前端上传组件 + 测试,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-007-01-02,
+                        name: 可观测与配置,
+                        description: Trace 贯通与系统参数消费,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-007-01-02-01,
+                                name: 跨服务 Trace 贯通与补偿 traceId 落库,
+                                description: A3：common-web RestClient X-Trace-Id 拦截器接入全部 internal 客户端；网关全局 trace
+                                  过滤器；compensation_task 加 trace_id 列（Flyway）并在
+                                  admin 出参携带；配套测试,
+                                status: planned
+                              },
+                            {
+                                id: STORY-007-01-02-02,
+                                name: 系统参数真实消费接入,
+                                description: A4：search.default-page-size 接入 mall-search（夹
+                                  1..100）、cart.max-item-quantity 接入 mall-cart
+                                  加购校验（夹 1..999），撤掉硬编码，配套测试,
+                                status: planned
+                              }
+                          ]
+                      },
+                    {
+                        id: FEAT-007-01-03,
+                        name: 断言补齐,
+                        description: B1-B6 关键测试缺口,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-007-01-03-01,
+                                name: 关键断言缺口补齐,
+                                description: B1-B6：订单快照不可变、游客车/合并前端 spec 与 CHG-0018 报告勘误、库存 init/adjust HTTP
+                                  测试、索引同步 5
+                                  发布点+回滚零推送+确认收货幂等、补偿退避/FAILED_DEAD/调度/CONFIRM
+                                  补偿、全量构建跨批与批失败,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+    {
+        id: FEAT-008,
+        name: AI 智能应用,
+        description: AI 真正接入 M2~M5 业务能力的应用层：智能导购/商品对比/RAG 客服与知识库/订单助手，AI 不直接访问业务数据库，通过
+          Java API/Tool/RAG 完成受控业务任务,
+        children:
+          [
+            {
+                id: FEAT-008-01,
+                name: AI 智能导购,
+                description: REQ-M6-001：自然语言理解+商品搜索/详情 Tool Calling+真实商品结构化推荐+多轮上下文+澄清，AI
+                  不直接访问业务数据库，通过 mall-search/mall-product 完成导购,
+                children:
+                  [
+                    {
+                        id: FEAT-008-01-01,
+                        name: 智能导购能力,
+                        description: 自然语言需求理解→约束提取→澄清→search_products/get_product_detail
+                          Tool→真实候选分析→结构化推荐+解释+多轮上下文,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-008-01-01,
+                                name: AI 智能导购,
+                                description: REQ-M6-001：自然语言理解→约束提取→澄清→商品搜索/详情
+                                  Tool→真实商品结构化推荐+推荐解释，Agent/Workflow
+                                  编排，多轮上下文，ai-shopping.enabled 开关，mall-web 导购入口,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-008-02,
+                name: AI 商品对比,
+                description: REQ-M6-002：基于真实商品数据的 AI 对比能力，复用商品详情
+                  Tool，属性归一化+维度选择+结构化对比+场景化推荐结论，缺失属性不虚构,
+                children:
+                  [
+                    {
+                        id: FEAT-008-02-01,
+                        name: 商品对比能力,
+                        description: 批量商品 Tool→属性归一化→维度选择→结构化对比表+总结→场景化结论带依据,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-008-02-01,
+                                name: AI 商品对比,
+                                description: REQ-M6-002：商品来源真实 Product，复用 get_product_detail+批量
+                                  Tool，属性归一化+维度选择+结构化对比+场景化推荐结论+缺失属性不虚构+价格库存来自真实服务,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-008-03,
+                name: RAG 智能客服与知识库,
+                description: REQ-M6-003：平台知识库与 RAG 客服能力，文档管理(MinIO)+Parser+Chunking+Embedding
+                  Client+Vector Store+检索+引用来源+知识更新+Prompt Injection 防护基础,
+                children:
+                  [
+                    {
+                        id: FEAT-008-03-01,
+                        name: 知识库与 RAG 客服能力,
+                        description: 知识文档管理(MinIO)→Parser→Chunking→Embedding→ES kNN
+                          检索→引用回答→知识更新同步→Prompt Injection 防护,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-008-03-01,
+                                name: RAG 智能客服与知识库,
+                                description: REQ-M6-003：知识库内容范围+mall-admin 文档管理(MinIO)+文档处理 Pipeline+Chunk
+                                  策略+Embedding Client+Vector
+                                  Store+检索+引用来源+知识更新同步+Prompt Injection
+                                  防护+mall-web 客服入口,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-008-04,
+                name: AI 订单助手,
+                description: REQ-M6-004：基于 Tool Calling 的 AI 订单助手，MEMBER 身份传播+订单查询/详情
+                  Tool+真实订单约束+订单状态解释+二次确认+后端领域最终校验+操作审计+Prompt Injection 防护,
+                children:
+                  [
+                    {
+                        id: FEAT-008-04-01,
+                        name: 订单助手能力,
+                        description: MEMBER 身份传播→订单查询/详情 Tool（仅本人）→多步
+                          Workflow→状态解释→二次确认→cancel_order→审计与幂等,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-008-04-01,
+                                name: AI 订单助手,
+                                description: REQ-M6-004：MEMBER 身份安全传播+订单查询/详情 Tool+真实订单约束+订单状态解释+多步
+                                  Workflow+二次确认+后端领域最终校验+Tool 读写权限隔离+操作审计+Prompt
+                                  Injection 三层防护,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              }
+          ]
       }
   ]

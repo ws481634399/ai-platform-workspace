@@ -1,7 +1,7 @@
 # Standards 知识索引
 
-> 最后更新: 2026-09-19T05:00:00+08:00
-> 关联 Change: CHG-0001, CHG-0003, CHG-0004, CHG-0005, CHG-0007, CHG-0008, CHG-0009, CHG-0020, CHG-0021, CHG-0022
+> 最后更新: 2026-09-20T23:10:00+08:00
+> 关联 Change: CHG-0001, CHG-0003, CHG-0004, CHG-0005, CHG-0007, CHG-0008, CHG-0009, CHG-0020, CHG-0021, CHG-0022, CHG-0024
 
 ## 导航
 - [规则知识说明](README.md) — Workspace 规则世界的目的、结构和使用指南
@@ -57,6 +57,7 @@
 - [AI 知识管理规范](engineering/ai/knowledge-standard.md) — AI 应用中的知识管理规范
 - [AI 评估规范](engineering/ai/evaluation-standard.md) — AI 应用能力的评估、测试和持续优化规范
 - [Python 质量工具配置规范](engineering/ai/python-quality-standard.md) — **（CHG-0005 已晋升）** Python 项目 Ruff + Pyright + Pytest 配置规范；含 10 规则集、strict 模式、Unknown* 关闭策略、asyncio_mode=auto
+- [AI 应用运行安全与可靠性标准](engineering/ai/ai-application-standard.md) — **（CHG-0024 已晋升）** AI 能力 fail-closed 开关、Grounding 防幻觉四件套、Prompt Injection 三层防护、写操作人机确认状态机、混合栈成功直出/错误信封契约、Java 依赖隔离测试范式
 
 ## SDD 流程规范（sdd/）
 - [Change Lifecycle](sdd/change-lifecycle.md) — Change 从需求到归档的生命周期管理规则

@@ -1,0 +1,289 @@
+# OpenSpec Evidence Model（Phase 2.1）
+#
+# 版本: v0.1
+# 类型: Change 结构化证据索引
+#
+# 由 ChangeModel.runChangeCreate 初始化（填充 change-id），
+# 由 sdd-dev（code-change）/ sdd-test（test-run）/ sdd-review（review-finding，Phase 2.2 启用）
+# 通过追加 items 写入。机器由 gate.yaml 的 evidence-coverage 检查消费。
+#
+# 条目结构（按 type 区分必填字段）：
+#
+# ---- type: code-change ----
+# - id: EV-001                 # 唯一 id，EV-NNN 递增（appendEvidence 自动分配）
+#   type: code-change
+#   repo: main                 # 必填，对应 .sdd/repositories.yaml 的 id
+#   commit: 23fdb62            # 必填，commit 短 sha（小写）
+#   task: TASK-001             # 必填，关联 tasks.md 的 Task id
+#   reason: 实现注册服务        # 必填，为什么改
+#   files:                     # 必填（可为空数组），修改文件清单
+#     - path: src/services/auth/register.js
+#       symbols: [registerUser, hashPassword]   # 可选，函数/类/接口名
+#   recorded-at: ""            # ISO8601
+#
+# ---- type: test-run ----
+# - id: EV-002
+#   type: test-run
+#   command: npm test          # 必填，执行命令
+#   result: passed             # 必填，passed / failed / partial
+#   summary:                   # 必填（对象）
+#     total: 0
+#     passed: 0
+#     failed: 0
+#     skipped: 0
+#   log: evidence/test-output.log   # 必填，相对 CHG 目录路径
+#   covers: [AC-001, AC-002]       # 必填（可为空数组），覆盖的 PRD 验收标准
+#   recorded-at: ""
+#
+# ---- type: review-finding（Phase 2.2 sdd-review 启用） ----
+# - id: EV-003
+#   type: review-finding
+#   target: requirement-spec.md#AC-003  # 必填，指向被检查对象
+#   severity: major            # 必填，blocker / major / minor
+#   finding: 设计与实现不一致   # 必填
+#   resolution: ""             # 可选，处理结论
+#   recorded-at: ""
+#
+# ---- type: evidence-ref（Phase 2.4 多仓聚合引用） ----
+# Workspace evidence.yaml 不复制 repo 侧证据正文，仅登记引用：
+# - id: EV-004
+#   type: evidence-ref
+#   repository: backend        # 可选，仓库 id
+#   delivery-unit: DU-BE-001   # 可选，DU 绑定
+#   path: implementation/backend/delivery/CHG-0001/.../DU-BE-001/evidence/test-output.log
+#                              # 必填，repo 侧证据文件（workspace 相对路径）
+#   summary: backend 单测 12 通过  # 可选，一句话摘要
+#   recorded-at: ""
+
+version: 0.1 # schema 版本
+change-id: "CHG-0024" # CHG-XXXX，创建时填充
+items:
+  # ---- sdd-dev（STORY-008-01-01 AI 智能导购）----
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    commit: eab992d
+    task: T1
+    reason: DU-BE-001 网关 AI 路由与安全矩阵——/api/ai/** 路由（8120）、AI 三端点 permitAll 与 members/admin 角色约束、V12 知识库权限迁移、7 个切片/契约测试用例
+    files:
+      - path: mall-gateway/src/main/resources/application.yml
+      - path: mall-gateway/src/main/java/com/ai/mall/gateway/security/GatewaySecurityConfiguration.java
+        symbols: [securityWebFilterChain]
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V12__ai_knowledge_permissions.sql
+      - path: mall-gateway/src/test/java/com/ai/mall/gateway/security/CHG0024GatewayAiSecurityChainTest.java
+      - path: mall-gateway/src/test/java/com/ai/mall/gateway/CHG0024GatewayAiRouteContractTest.java
+    recorded-at: "2026-09-20T11:25:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-3
+    commit: bc984bc
+    task: T7
+    reason: DU-AI-001 AI 智能导购全链路——导购 Workflow 五节点链与 enforce_grounding、Tool 注册表与商品搜索、JWT 解析、Redis 会话、FeatureGate fail-closed、openai 兼容 provider、推荐端点与异常映射、pytest 28 用例
+    files:
+      - path: app/api/v1/shopping.py
+      - path: app/agents/shopping_agent.py
+        symbols: [ShoppingAgent]
+      - path: app/agents/workflow.py
+        symbols: [enforce_grounding, synthesize]
+      - path: app/agents/tools/registry.py
+      - path: app/agents/tools/product_tools.py
+      - path: app/core/security.py
+        symbols: [parse_bearer]
+      - path: app/services/conversation.py
+      - path: app/services/feature_gate.py
+      - path: app/infrastructure/llm/providers/openai.py
+      - path: app/infrastructure/java/client.py
+      - path: app/main.py
+      - path: pyproject.toml
+      - path: tests/helpers.py
+      - path: tests/test_shopping_api.py
+      - path: tests/test_shopping_workflow.py
+      - path: tests/test_product_tools.py
+      - path: tests/test_conversation.py
+      - path: tests/test_feature_gate.py
+      - path: tests/test_security.py
+    recorded-at: "2026-09-20T11:25:00+08:00"
+  - id: EV-003
+    type: code-change
+    repo: repo-2
+    commit: 5dd4508
+    task: T2
+    reason: DU-FE-001 mall-web AI 导购入口——aiApi 封装、AssistantView 对话/澄清/推荐卡片/Loading/Error 可重试/403 空态、路由注册、导航入口开关联动、vitest 6 用例
+    files:
+      - path: mall-web/src/api/ai.ts
+        symbols: [aiApi]
+      - path: mall-web/src/views/ai/AssistantView.vue
+      - path: mall-web/src/views/ai/AssistantView.spec.ts
+      - path: mall-web/src/router/index.ts
+      - path: mall-web/src/layouts/MallLayout.vue
+    recorded-at: "2026-09-20T11:25:00+08:00"
+  # ---- sdd-dev（STORY-008-03-01 RAG 智能客服与知识库）----
+  - id: EV-004
+    type: code-change
+    repo: repo-4
+    commit: cf5c18c
+    task: T1
+    reason: DU-INFRA-001 基础设施面——compose 增 ai-service 应用容器（--profile app、四中间件 health 依赖、全套环境注入）、.env.example AI 键段、MySQL init 新增 ai_service 库授权与 ai_action_audit DDL、README 启动说明
+    files:
+      - path: deploy/docker-compose.infra.yml
+      - path: deploy/.env.example
+      - path: deploy/.gitattributes
+      - path: deploy/README.md
+      - path: deploy/mysql/init/001-init-databases.sh
+      - path: deploy/mysql/init/002-init-ai-service.sql
+    recorded-at: "2026-09-20T17:40:00+08:00"
+  # ---- sdd-dev（STORY-008-02-01 AI 商品对比）----
+  - id: EV-005
+    type: code-change
+    repo: repo-3
+    commit: 06b0610
+    task: T3
+    reason: DU-AI-002 AI 商品对比全链路——get_products_detail 批量 Tool（并发+单点降级+查无 400）、对比五节点链（归一/维度选择/建表占位/grounding 总结）、POST /api/ai/compare 直出契约与 400/403/502 映射、pytest 15 例（全量 43 绿）
+    files:
+      - path: app/agents/tools/product_tools.py
+        symbols: [ProductTools::get_products_detail]
+      - path: app/agents/compare_agent.py
+        symbols: [CompareAgent]
+      - path: app/api/v1/compare.py
+        symbols: [compare]
+      - path: app/main.py
+      - path: tests/helpers.py
+      - path: tests/test_compare_agent.py
+      - path: tests/test_compare_api.py
+    recorded-at: "2026-09-20T18:10:00+08:00"
+  # ---- sdd-dev（STORY-008-03-01 RAG 智能客服与知识库，续）----
+  - id: EV-006
+    type: code-change
+    repo: repo-3
+    commit: e2734f9
+    task: T4
+    reason: DU-AI-003 RAG 全链路——Embedding factory（mock/openai）、MinIO/ES kNN/MySQL client、知识管道（upload 校验→PENDING→process→COMPLETED/FAILED、rebuild/delete/启动对账）、SupportAgent（兜底/引用回答/注入三层防护/Secret 双向脱敏）、support chat 与知识管理五端点、pytest 22 例（全量 65 绿）
+    files:
+      - path: app/core/config.py
+      - path: app/core/exceptions.py
+      - path: app/infrastructure/embedding/client.py
+      - path: app/infrastructure/embedding/factory.py
+      - path: app/infrastructure/embedding/providers/mock.py
+      - path: app/infrastructure/embedding/providers/openai.py
+      - path: app/infrastructure/minio/minio_client.py
+      - path: app/infrastructure/es/es_client.py
+      - path: app/infrastructure/es/knowledge_store.py
+        symbols: [KnowledgeStore::knn_search]
+      - path: app/infrastructure/storage/mysql_client.py
+      - path: app/services/knowledge.py
+        symbols: [KnowledgeService::process]
+      - path: app/services/audit.py
+      - path: app/agents/support_agent.py
+        symbols: [SupportAgent::run]
+      - path: app/api/v1/support.py
+      - path: app/api/v1/admin_knowledge.py
+        symbols: [upload_document]
+      - path: app/main.py
+      - path: pyproject.toml
+      - path: tests/stubs.py
+      - path: tests/test_knowledge_pipeline.py
+      - path: tests/test_support_agent.py
+      - path: tests/test_support_api.py
+      - path: tests/test_admin_knowledge_api.py
+    recorded-at: "2026-09-20T19:20:00+08:00"
+  # ---- sdd-dev（STORY-008-04-01 AI 订单助手）----
+  - id: EV-007
+    type: code-change
+    repo: repo-3
+    commit: 736f828
+    task: T5
+    reason: DU-AI-004 AI 订单助手全链路——order_tools 三 Tool（MEMBER Bearer 原样透传/统一 404 口径/业务拒绝 409）、orders_agent 多步 Workflow（意图分类/状态筛选/按商品识别/PAID 诱导硬条款）、cancel_order 确认流（actionId Redis GETDEL 一次性消费+memberId 绑定）、ai_action_audit 审计（成功/失败各一条）、assistant+confirm 双端点（强制 MEMBER 401/fail-closed 403）、pytest 16 例（全量 81 绿）
+    files:
+      - path: app/core/config.py
+      - path: app/core/exceptions.py
+      - path: app/infrastructure/java/client.py
+      - path: app/agents/tools/order_tools.py
+        symbols: [OrderTools::cancel_order]
+      - path: app/agents/orders_agent.py
+        symbols: [OrdersAgent::run]
+      - path: app/services/pending_action.py
+        symbols: [PendingActionService::consume]
+      - path: app/api/v1/orders_assistant.py
+        symbols: [confirm]
+      - path: app/main.py
+      - path: tests/helpers.py
+      - path: tests/test_order_tools.py
+      - path: tests/test_orders_agent.py
+      - path: tests/test_orders_assistant_api.py
+    recorded-at: "2026-09-20T20:50:00+08:00"
+  # ---- sdd-dev（STORY-008-02/03/04 前端三 DU 联合提交）----
+  - id: EV-008
+    type: code-change
+    repo: repo-2
+    commit: f2fd7ca
+    task: T6
+    reason: DU-FE-002/003/004 前端全链路（共享 api/ai.ts、router、MallLayout 接线，联合一个 feat commit）——mall-web：CompareView（商品选择 2~6/维度表格缺失"暂无该项数据"/AI 总结/价格以结算页为准）、SupportView（问答气泡/引用展开/兜底文案/订单引导/新会话重置）、OrderAssistantView（订单卡片/原生模态二次确认/401 引导/409 透出）；mall-admin：knowledge 五端点直出封装、KnowledgeListView（四状态徽标/上传 .md/.txt≤5MB/启停/删除二次确认/重建/3s 轮询）、AiKnowledge component_key 对齐 V12、ai:knowledge:* 权限码；vitest mall-web 129+mall-admin 114 全绿，vue-tsc/eslint 0 error/vite build 通过
+    files:
+      - path: mall-web/src/api/ai.ts
+        symbols: [aiApi.compare, aiApi.supportChat, aiApi.ordersAssistant, aiApi.ordersConfirm]
+      - path: mall-web/src/views/ai/CompareView.vue
+      - path: mall-web/src/views/ai/CompareView.spec.ts
+      - path: mall-web/src/views/ai/SupportView.vue
+      - path: mall-web/src/views/ai/SupportView.spec.ts
+      - path: mall-web/src/views/ai/OrderAssistantView.vue
+      - path: mall-web/src/views/ai/OrderAssistantView.spec.ts
+      - path: mall-web/src/router/index.ts
+      - path: mall-web/src/layouts/MallLayout.vue
+      - path: mall-admin/src/api/knowledge.ts
+        symbols: [knowledgeApi]
+      - path: mall-admin/src/views/knowledge/knowledge-validate.ts
+        symbols: [validateKnowledgeFile]
+      - path: mall-admin/src/views/knowledge/KnowledgeListView.vue
+      - path: mall-admin/src/views/knowledge/knowledge-validate.spec.ts
+      - path: mall-admin/src/views/knowledge/KnowledgeListView.contract.spec.ts
+      - path: mall-admin/src/router/component-registry.ts
+    recorded-at: "2026-09-20T22:15:00+08:00"
+  # ---- sdd-test（Change 级聚合 test-run）----
+  - id: EV-009
+    type: test-run
+    command: uv run pytest tests/ -q（repo-3 全量；导购 28/对比 15/RAG 22/订单 16）
+    result: passed
+    summary:
+      total: 81
+      passed: 81
+      failed: 0
+      skipped: 0
+    log: ../../../implementation/ai-platform-ai-service/delivery/CHG-0024/AI 智能应用/AI 订单助手/订单助手能力/AI 订单助手/DU-AI-004/evidence/logs/pytest.txt
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-009, AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017, AC-018, AC-019, AC-021, AC-023, AC-024, AC-025, AC-026, AC-027, AC-029, AC-030, AC-031, AC-032, AC-033, AC-034, AC-035, AC-036, AC-037]
+    recorded-at: "2026-09-20T20:50:00+08:00"
+  - id: EV-010
+    type: test-run
+    command: pnpm vitest run（mall-web，26 文件；Assistant 6/Compare 5/Support 6/OrderAssistant 7）
+    result: passed
+    summary:
+      total: 129
+      passed: 129
+      failed: 0
+      skipped: 0
+    log: ../../../implementation/ai-platform-frontend/delivery/CHG-0024/AI 智能应用/RAG 智能客服与知识库/知识库与 RAG 客服能力/RAG 智能客服与知识库/DU-FE-003/evidence/logs/mall-web-vitest.txt
+    covers: [AC-008, AC-012, AC-020, AC-022, AC-028, AC-030, AC-035]
+    recorded-at: "2026-09-20T22:10:00+08:00"
+  - id: EV-011
+    type: test-run
+    command: pnpm vitest run（mall-admin，28 文件；knowledge 9）
+    result: passed
+    summary:
+      total: 114
+      passed: 114
+      failed: 0
+      skipped: 0
+    log: ../../../implementation/ai-platform-frontend/delivery/CHG-0024/AI 智能应用/RAG 智能客服与知识库/知识库与 RAG 客服能力/RAG 智能客服与知识库/DU-FE-003/evidence/logs/mall-admin-vitest.txt
+    covers: [AC-022]
+    recorded-at: "2026-09-20T22:10:00+08:00"
+  - id: EV-012
+    type: test-run
+    command: mvn -pl mall-gateway test（CHG0024 路由契约 + 安全链 7 例）
+    result: passed
+    summary:
+      total: 7
+      passed: 7
+      failed: 0
+      skipped: 0
+    log: ../../../implementation/ai-platform-backend/mall-gateway/target/surefire-reports/com.ai.mall.gateway.security.CHG0024GatewayAiSecurityChainTest.txt
+    covers: [AC-012]
+    recorded-at: "2026-09-20T11:25:00+08:00"

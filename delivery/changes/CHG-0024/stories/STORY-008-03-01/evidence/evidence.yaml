@@ -1,0 +1,47 @@
+# OpenSpec Evidence Model — Story STORY-008-03-01
+version: 0.1
+change-id: "CHG-0024"
+story-id: "STORY-008-03-01"
+items:
+  - id: EV-301
+    type: test-run
+    repo: repo-3
+    delivery-unit: DU-AI-003
+    command: uv run pytest tests/ -q
+    log: implementation/ai-platform-ai-service/delivery/CHG-0024/AI 智能应用/RAG 智能客服与知识库/知识库与 RAG 客服能力/RAG 智能客服与知识库/DU-AI-003/evidence/logs/pytest.txt
+    result: passed
+    summary:
+      total: 65
+      passed: 65
+      failed: 0
+      skipped: 0
+    covers: [AC-023, AC-024, AC-025, AC-026, AC-027, AC-029]
+    recorded-at: "2026-09-20T19:20:00+08:00"
+  - id: EV-302
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-003
+    command: pnpm vitest run（mall-admin）
+    log: implementation/ai-platform-frontend/delivery/CHG-0024/AI 智能应用/RAG 智能客服与知识库/知识库与 RAG 客服能力/RAG 智能客服与知识库/DU-FE-003/evidence/logs/mall-admin-vitest.txt
+    result: passed
+    summary:
+      total: 114
+      passed: 114
+      failed: 0
+      skipped: 0
+    covers: [AC-022]
+    recorded-at: "2026-09-20T22:10:00+08:00"
+  - id: EV-303
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-003
+    command: pnpm vitest run（mall-web）
+    log: implementation/ai-platform-frontend/delivery/CHG-0024/AI 智能应用/RAG 智能客服与知识库/知识库与 RAG 客服能力/RAG 智能客服与知识库/DU-FE-003/evidence/logs/mall-web-vitest.txt
+    result: passed
+    summary:
+      total: 129
+      passed: 129
+      failed: 0
+      skipped: 0
+    covers: [AC-028]
+    recorded-at: "2026-09-20T22:10:00+08:00"

@@ -1,0 +1,33 @@
+# OpenSpec Evidence Model — Story STORY-008-01-01
+version: 0.1
+change-id: "CHG-0024"
+story-id: "STORY-008-01-01"
+items:
+  - id: EV-101
+    type: test-run
+    repo: repo-3
+    delivery-unit: DU-AI-001
+    command: uv run pytest tests/ -q（全量回归）
+    log: implementation/ai-platform-ai-service/delivery/CHG-0024/AI 智能应用/AI 智能导购/智能导购能力/AI 智能导购/DU-AI-001/evidence/logs/pytest.txt
+    result: passed
+    summary:
+      total: 81
+      passed: 81
+      failed: 0
+      skipped: 0
+    covers: [AC-001, AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-009, AC-010, AC-011, AC-013]
+    recorded-at: "2026-09-20T22:27:00+08:00"
+  - id: EV-102
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-001
+    command: pnpm vitest run（全量回归）
+    log: implementation/ai-platform-frontend/delivery/CHG-0024/AI 智能应用/AI 智能导购/智能导购能力/AI 智能导购/DU-FE-001/evidence/logs/mall-web-vitest.txt
+    result: passed
+    summary:
+      total: 129
+      passed: 129
+      failed: 0
+      skipped: 0
+    covers: [AC-008, AC-012]
+    recorded-at: "2026-09-20T22:27:00+08:00"

@@ -1,0 +1,151 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+
+schema-version: 1
+
+change-id: "CHG-0024"
+story-id: "STORY-008-04-01"
+title: "AI 订单助手"
+summary: "MEMBER 身份安全传播，订单查询/详情 Tool 仅本人订单（Java 端到端归属校验），cancel_order 写 Tool
+  强制二次确认+审计+幂等，Prompt Injection 三层防护。"
+status: completed
+evidence-tier: standard
+created-at: "2026-09-20T11:20:00.000Z"
+updated-at: "2026-09-20T14:42:26.038Z"
+
+change-spec-ref: "requirement-spec.md#5-全局验收标准"
+change-design-ref: "requirement-design.md#6-story-拆分与-du-划分"
+
+feature-path:
+  level-1:
+    id: FEAT-008
+    name: AI 智能应用
+  level-2:
+    id: FEAT-008-04
+    name: AI 订单助手
+  level-3:
+    id: FEAT-008-04-01
+    name: 订单助手能力
+  story:
+    id: STORY-008-04-01
+    name: AI 订单助手
+  candidate: false
+
+dus: []
+
+artifacts:
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-20T11:31:30.897Z
+        validator: sdd-prd
+        artifact-hash: sha256:891f5f0a684ece09cab66cb4bffdb4494c6e0d262515828c08855adef3f5df20
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-20T11:19:07.180Z
+        reviewer: trae-agent
+        artifact-hash: sha256:891f5f0a684ece09cab66cb4bffdb4494c6e0d262515828c08855adef3f5df20
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-20T11:31:30.926Z
+        validator: sdd-design
+        artifact-hash: sha256:3650cb483104567ffea01dcd23bd0af7efd803842955c480413b3641ba93e7bd
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-20T11:31:30.932Z
+        reviewer: workflow
+        artifact-hash: sha256:3650cb483104567ffea01dcd23bd0af7efd803842955c480413b3641ba93e7bd
+        reason: "human-gate: skip (design @ story STORY-008-04-01)"
+    status: accepted
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-20T11:31:31.033Z
+        validator: sdd-task
+        artifact-hash: sha256:56a6cdbdbc822a8c191c4b1dfd2f384f7ade744db28dc649475d1ba5abdc0372
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-FE-004 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-AI-004 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-20T11:31:31.039Z
+        reviewer: workflow
+        artifact-hash: sha256:56a6cdbdbc822a8c191c4b1dfd2f384f7ade744db28dc649475d1ba5abdc0372
+        reason: "human-gate: skip (task @ story STORY-008-04-01)"
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-20T14:18:59.137Z
+        validator: sdd-dev
+        artifact-hash: sha256:867767d5413b0deb45ea49939cd6c632f78bedcf7648c762c43326c129046b36
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-20T14:19:46.141Z
+        reviewer: trae-agent
+        artifact-hash: sha256:867767d5413b0deb45ea49939cd6c632f78bedcf7648c762c43326c129046b36
+        reason: ""
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-20T14:25:52.757Z
+        validator: sdd-test
+        artifact-hash: sha256:6ac2a3e443003f0b44190ee64617051c32c2f4986197abbf375204bcf447b8b3
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-20T14:26:01.263Z
+        reviewer: trae-agent
+        artifact-hash: sha256:6ac2a3e443003f0b44190ee64617051c32c2f4986197abbf375204bcf447b8b3
+        reason: ""
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-20T14:42:26.022Z
+        validator: sdd-review
+        artifact-hash: sha256:1d6180b908db50e783d4eaaa29649b429e9a245842dd69cf3fdbdd9b25f5fd8b
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-20T14:42:34.534Z
+        reviewer: trae-agent
+        artifact-hash: sha256:1d6180b908db50e783d4eaaa29649b429e9a245842dd69cf3fdbdd9b25f5fd8b
+        reason: ""
+    status: accepted

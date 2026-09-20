@@ -1,0 +1,33 @@
+# OpenSpec Evidence Model — Story STORY-008-02-01
+version: 0.1
+change-id: "CHG-0024"
+story-id: "STORY-008-02-01"
+items:
+  - id: EV-201
+    type: test-run
+    repo: repo-3
+    delivery-unit: DU-AI-002
+    command: uv run pytest tests/ -q
+    log: implementation/ai-platform-ai-service/delivery/CHG-0024/AI 智能应用/AI 商品对比/商品对比能力/AI 商品对比/DU-AI-002/evidence/logs/pytest.txt
+    result: passed
+    summary:
+      total: 43
+      passed: 43
+      failed: 0
+      skipped: 0
+    covers: [AC-014, AC-015, AC-016, AC-017, AC-018, AC-019, AC-021]
+    recorded-at: "2026-09-20T18:10:00+08:00"
+  - id: EV-202
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-002
+    command: pnpm vitest run
+    log: implementation/ai-platform-frontend/delivery/CHG-0024/AI 智能应用/AI 商品对比/商品对比能力/AI 商品对比/DU-FE-002/evidence/logs/mall-web-vitest.txt
+    result: passed
+    summary:
+      total: 129
+      passed: 129
+      failed: 0
+      skipped: 0
+    covers: [AC-020]
+    recorded-at: "2026-09-20T22:10:00+08:00"
