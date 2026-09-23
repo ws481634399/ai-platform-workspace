@@ -1,0 +1,106 @@
+# OpenSpec Story Metadata
+#
+# 版本: v1（Phase 4.2 Three-Tier Spec Delivery）
+# 类型: Story 级生命周期 + Gate 载体
+#
+# 由 story-model.js.createStory() 或 change split-story 命令生成。
+# Story 必绑定单个 Feature 链（feature-path 不可空）；status/DU 状态由 Workflow Engine
+# 通过 StoryPatch 函数改写（Document API 保留注释）。
+
+schema-version: 1 # Story 元信息 schema 版本
+
+change-id: "CHG-0025" # 所属 Change ID（CHG-XXXX）
+story-id: "STORY-009-01-01" # Story ID（对齐 product/feature-tree.yaml）
+title: "RocketMQ 事件基础设施" # Story 标题
+summary: "" # Story 一句话摘要（可选）
+status: tasked # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
+created-at: "2026-09-22T13:24:12.279Z" # ISO8601，创建时填
+updated-at: "2026-09-22T14:45:20.255Z" # ISO8601，每次变更更新
+
+# 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
+change-spec-ref: "requirement-spec.md#3-功能范围" # 例：requirement-spec.md#32-story-1-功能范围
+change-design-ref: "requirement-design.md#5-story-设计分派story-design-assignments" # 例：requirement-design.md#41-story-1-模块改造
+
+# Feature 四级链（Story 级权威绑定；与 Change 级 feature-path 不同——Story 必非空）
+feature-path:
+  level-1:
+    id: FEAT-009
+    name: 分布式增强
+  level-2:
+    id: FEAT-009-01
+    name: RocketMQ 事件基础设施
+  level-3:
+    id: FEAT-009-01-01
+    name: 事件基础能力
+  story:
+    id: STORY-009-01-01
+    name: RocketMQ 事件基础设施
+  candidate: false
+
+# 交付单元列表（Story 1:N DU；task 阶段由 sdd-task 写入，status 由 delivery-unit 纯函数同步）
+dus: []
+
+# Story 级 Gate Result（与 Change 级 artifacts 独立；GateRepository 分发写入）
+# 每个 artifact 节点结构同 Change metadata.artifacts.*：
+#   story-spec / story-design / tasks / implementation / test-report / review-report
+# Machine Gate 记录含 rules-hash（gate.yaml 规则指纹，规则变化触发 rules-mismatch stale）
+artifacts:
+  test-design:
+    path: test-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-22T14:45:20.246Z
+        validator: sdd-task
+        artifact-hash: sha256:ed745e86b8dc251fe40d30cb633307d43eacbd6b136a9b01121ec9825071ee8a
+        rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
+        issues: []
+        warnings:
+          - "test-design.md: DU DU-BE-001 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+          - "test-design.md: DU DU-INFRA-001 scope 条目无 [S<n>] 引用（建议引用 Story
+            范围编号以便机检追溯）"
+      human:
+        status: skipped
+        reviewed-at: 2026-09-22T14:45:20.254Z
+        reviewer: workflow
+        artifact-hash: sha256:ed745e86b8dc251fe40d30cb633307d43eacbd6b136a9b01121ec9825071ee8a
+        reason: "human-gate: skip (task @ story STORY-009-01-01)"
+    status: accepted
+  story-spec:
+    path: story-spec.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-22T14:45:20.098Z
+        validator: sdd-prd
+        artifact-hash: sha256:82888b438594c77214d0422bfb49ab10fd265bd54a59788a1fbf1d81bf480a62
+        rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-22T14:45:20.075Z
+        reviewer: trae-agent
+        artifact-hash: sha256:82888b438594c77214d0422bfb49ab10fd265bd54a59788a1fbf1d81bf480a62
+        reason: ""
+    status: accepted
+  story-design:
+    path: story-design.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-22T14:45:20.136Z
+        validator: sdd-design
+        artifact-hash: sha256:ef6273658754f9020e21ce7e8426652bd0bc6d6384528fd7e990d82fa23d3b56
+        rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-22T14:45:20.145Z
+        reviewer: workflow
+        artifact-hash: sha256:ef6273658754f9020e21ce7e8426652bd0bc6d6384528fd7e990d82fa23d3b56
+        reason: "human-gate: skip (design @ story STORY-009-01-01)"
+    status: accepted
