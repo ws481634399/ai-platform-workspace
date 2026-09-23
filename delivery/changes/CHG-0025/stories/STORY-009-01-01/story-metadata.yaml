@@ -13,10 +13,10 @@ change-id: "CHG-0025" # 所属 Change ID（CHG-XXXX）
 story-id: "STORY-009-01-01" # Story ID（对齐 product/feature-tree.yaml）
 title: "RocketMQ 事件基础设施" # Story 标题
 summary: "" # Story 一句话摘要（可选）
-status: testing # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
+status: completed # Story 生命周期：pending/specified/designed/tasked/developing/testing/completed
 evidence-tier: standard # 继承 Change 级或覆盖：light/standard/strict（light 免仪式检查但 structural 检查仍执行）
 created-at: "2026-09-22T13:24:12.279Z" # ISO8601，创建时填
-updated-at: "2026-09-23T14:54:42.786Z" # ISO8601，每次变更更新
+updated-at: "2026-09-23T15:17:04.253Z" # ISO8601，每次变更更新
 
 # 交叉引用（字段名为兼容旧 schema 保留，值必须指向 Requirement 级产物的具体章节）
 change-spec-ref: "requirement-spec.md#3-功能范围" # 例：requirement-spec.md#32-story-1-功能范围
@@ -145,15 +145,16 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-23T15:09:56.198Z
+        checked-at: 2026-09-23T15:17:04.237Z
         validator: sdd-review
         artifact-hash: sha256:efdcb4dade65848b4ce12654433187d270c9f0588607e002fff459f9ffb8322b
         rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
         issues: []
         warnings: []
       human:
-        status: approved
-        reviewed-at: 2026-09-23T15:10:04.583Z
-        reviewer: trae-agent
+        status: skipped
+        reviewed-at: 2026-09-23T15:17:04.251Z
+        reviewer: workflow
         artifact-hash: sha256:efdcb4dade65848b4ce12654433187d270c9f0588607e002fff459f9ffb8322b
-        reason: ""
+        reason: "human-gate: skip (review @ story STORY-009-01-01)"
+    status: accepted

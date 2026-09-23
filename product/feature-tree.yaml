@@ -1393,5 +1393,179 @@ features:
                 stories: []
               }
           ]
+      },
+    {
+        id: FEAT-009,
+        name: 分布式增强,
+        description: M7 RocketMQ 事件驱动与分布式一致性能力域：事件基础设施、Outbox
+          可靠投递、订单集成事件与库存异步消费者、延迟订单自动取消、消费幂等与补偿机制（REQ-M7-001~005），mall-common +
+          mall-order + mall-inventory + mall-admin + mall-contracts,
+        children:
+          [
+            {
+                id: FEAT-009-01,
+                name: RocketMQ 事件基础设施,
+                description: REQ-M7-001：mall-common mq
+                  子模块统一事件封装（Envelope/Topic/Tag/消费者组/生产者同步异步延迟/消费者抽象注解式入口+幂等+异常重试+TraceId
+                  透传+消费日志/事件版本兼容拒绝/重试与 DLQ/配置开关），docker-compose 新增
+                  RocketMQ（NameServer+Broker+Dashboard 可选）,
+                children:
+                  [
+                    {
+                        id: FEAT-009-01-01,
+                        name: 事件基础能力,
+                        description: Envelope/生产者/消费者封装与 RocketMQ 环境接入（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-009-01-01,
+                                name: RocketMQ 事件基础设施,
+                                description: REQ-M7-001：docker-compose 新增 RocketMQ（NameServer+Broker+Dashboard
+                                  可选）；mall-common mq 子模块实现 Envelope（与 §19 一致）+
+                                  Topic/Tag 命名 + 消费者组 + 生产者（同步/异步/延迟）+
+                                  消费者抽象（注解式入口+幂等+异常重试+TraceId 透传+消费日志）+ 事件版本兼容拒绝
+                                  + 重试与 DLQ + rocketmq.enabled 开关；mall-contracts
+                                  集中声明事件契约与消费者组名,
+                                status: delivered
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-009-02,
+                name: Outbox 可靠投递,
+                description: REQ-M7-002：mall-order 新增 outbox_event 表，业务事务与 Outbox
+                  记录原子写入，独立投递任务扫描 PENDING 推送 RocketMQ，MQ 停止保留
+                  PENDING/恢复续投，有界指数退避重试，同聚合按 created_at 顺序投递，eventId
+                  作幂等键，mall-admin Outbox 查询+手动重投,
+                children:
+                  [
+                    {
+                        id: FEAT-009-02-01,
+                        name: Outbox 投递能力,
+                        description: outbox_event 表/原子写入/投递任务/退避/顺序/管理查询（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-009-02-01,
+                                name: Outbox 可靠投递,
+                                description: REQ-M7-002：mall-order 数据库新增 outbox_event 表（Flyway）；订单状态迁移事务内原子写
+                                  Outbox；独立投递任务（@Scheduled）扫描 PENDING 推送到
+                                  RocketMQ；MQ 停止保留 PENDING，恢复续投；有界指数退避重试，超限标
+                                  FAILED；同聚合按 created_at 顺序投递；eventId 作消息
+                                  keys；mall-admin Outbox 查询+手动重投,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-009-03,
+                name: 订单集成事件与库存异步消费者,
+                description: REQ-M7-003：mall-order 在订单状态迁移时发布 4 个
+                  Tag（ORDER_CREATED/PAYMENT_SUCCEEDED/ORDER_CANCELLED/ORDER_COMPLETED，与
+                  product/10-API与事件契约.md §41 一致），mall-inventory 消费
+                  PAYMENT_SUCCEEDED/ORDER_CANCELLED 做幂等确认扣减与释放，乱序按订单当前状态判断，DLQ 由
+                  CompensationService 兜底，RocketMQ 不可用降级同步调用,
+                children:
+                  [
+                    {
+                        id: FEAT-009-03-01,
+                        name: 订单事件与库存消费能力,
+                        description: 订单 4 状态迁移发布点与库存幂等消费者（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-009-03-01,
+                                name: 订单集成事件与库存异步消费者,
+                                description: REQ-M7-003：mall-order 在 4 个订单状态迁移点写 Outbox
+                                  事件（ORDER_CREATED/PAYMENT_SUCCEEDED/ORDER_CANCELLED/ORDER_COMPLETED，Payload
+                                  与 §41 一致）；mall-inventory 消费 PAYMENT_SUCCEEDED
+                                  调库存聚合幂等确认扣减 + 消费 ORDER_CANCELLED
+                                  调库存聚合幂等释放；乱序按订单当前状态判断；消费失败进 DLQ 由
+                                  CompensationService 兜底；RocketMQ 不可用降级同步调用
+                                  mall-inventory 内部 API,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-009-04,
+                name: 延迟订单自动取消,
+                description: REQ-M7-004：订单创建事务提交后投递延迟消息至 order-delay Topic（延迟级别对应
+                  order.payment.timeout-minutes 配置默认 30 分钟），到期回查订单状态，未支付调
+                  OrderCancelService（cancelReason=PAYMENT_TIMEOUT）复用 M4
+                  既有取消流程，重复延迟消息基于订单状态幂等，保留 CompensationService 定时扫描兜底，mall-admin
+                  延迟取消任务查询,
+                children:
+                  [
+                    {
+                        id: FEAT-009-04-01,
+                        name: 延迟取消能力,
+                        description: 延迟消息投递/到期回查/自动取消/兜底协同（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-009-04-01,
+                                name: 延迟订单自动取消,
+                                description: REQ-M7-004：订单创建事务提交后投递延迟消息至 order-delay Topic（延迟级别对应
+                                  order.payment.timeout-minutes 配置默认 30
+                                  分钟）；到期回查订单状态，未支付调
+                                  OrderCancelService（cancelReason=PAYMENT_TIMEOUT）复用
+                                  M4 既有取消流程；重复延迟消息基于订单状态幂等；保留
+                                  CompensationService 定时扫描兜底；mall-admin 延迟取消任务查询,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              },
+            {
+                id: FEAT-009-05,
+                name: 消费幂等与补偿机制,
+                description: REQ-M7-005：mall-inventory 新增 consumed_event 表（event_id 唯一键），幂等键统一
+                  eventId，复用 mall-order CompensationTask 聚合扩展
+                  INVENTORY_CONFIRM_DEDUCT/INVENTORY_RELEASE/ORDER_AUTO_CANCEL
+                  三种补偿类型，CompensationService 每 30s 扫描（与 M4 一致），mall-admin
+                  补偿任务查询+手动重试+标记完成，TraceId 在事件→Outbox→投递→消费→补偿链路贯通,
+                children:
+                  [
+                    {
+                        id: FEAT-009-05-01,
+                        name: 幂等与补偿能力,
+                        description: consumed_event 幂等表/补偿任务扩展/人工介入/TraceId 贯通（L3）,
+                        children: [],
+                        stories:
+                          [
+                            {
+                                id: STORY-009-05-01,
+                                name: 消费幂等与补偿机制,
+                                description: REQ-M7-005：mall-inventory 数据库新增 consumed_event 表（event_id
+                                  唯一键，Flyway）；幂等键统一 eventId；复用 mall-order
+                                  CompensationTask 聚合扩展
+                                  INVENTORY_CONFIRM_DEDUCT/INVENTORY_RELEASE/ORDER_AUTO_CANCEL
+                                  三种补偿类型；CompensationService 每 30s 扫描（与 M4
+                                  一致）；mall-admin 补偿任务查询+手动重试+标记完成；TraceId
+                                  在事件→Outbox→投递→消费→补偿链路贯通,
+                                status: planned
+                              }
+                          ]
+                      }
+                  ],
+                stories: []
+              }
+          ]
       }
   ]

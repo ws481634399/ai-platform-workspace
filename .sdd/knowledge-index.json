@@ -1,6 +1,6 @@
 {
   "$schema": "sdd-knowledge-index/v0.1",
-  "updated-at": "2026-09-20T23:10:00+08:00",
+  "updated-at": "2026-09-23T23:40:00+08:00",
   "standards": [
     {
       "title": "规则知识说明",
@@ -97,7 +97,7 @@
       "title": "后端框架使用规范",
       "path": "standards/engineering/backend/framework-standard.md",
       "tags": ["backend", "framework", "spring-boot", "spring-cloud", "maven", "version-governance"],
-      "summary": "后端技术框架、基础设施组件和工程配置使用规范；CHG-0001 晋升：Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线、四层 POM 体系、mall-bom 无 parent、enforcer 守门、BOM 版本权威与依赖单向边界",
+      "summary": "后端技术框架、基础设施组件和工程配置使用规范；CHG-0001 晋升：Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线、四层 POM 体系、mall-bom 无 parent、enforcer 守门、BOM 版本权威与依赖单向边界；CHG-0025 晋升：消息消费者生命周期容器托管（SmartLifecycle，禁 JVM hook）",
       "related-changes": ["CHG-0001"]
     },
     {
@@ -111,7 +111,7 @@
       "title": "后端数据库访问规范",
       "path": "standards/engineering/backend/database-access-standard.md",
       "tags": ["backend", "database", "dal", "mybatis"],
-      "summary": "后端系统数据库访问层的设计和实现规范，含事务、缓存、分页与审计",
+      "summary": "后端系统数据库访问层的设计和实现规范，含事务、缓存、分页与审计；CHG-0025 增补：SQL 标识符只能来自受信配置且须白名单校验",
       "related-changes": []
     },
     {

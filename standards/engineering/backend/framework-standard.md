@@ -319,6 +319,20 @@ application-prod.yml
 > 时以确定性 UUID v3 作 initializedEventId）。
 
 
+## 5.5 消息消费者生命周期须由容器托管（CHG-0025 晋升）
+
+自研消费者容器（如基于原生客户端手动创建的 Push Consumer）必须以 Spring 管理的
+`SmartLifecycle`（或等价容器生命周期 Bean）承载：start 阶段创建并启动消费者、
+stop 阶段统一 shutdown。
+
+- 禁止用 `Runtime.getRuntime().addShutdownHook(...)` 承载消费者关闭：JVM 不退出而上下文关闭
+  （上下文重建、集成测试、devtools 重启）时消费线程不释放，hook 随上下文累积泄漏。
+- 消费者实例不应在无法被容器回收的局部闭包中创建；其生命周期须与 ApplicationContext 对齐。
+
+> 来源：CHG-0025 sdd-review：消费者初版在 SmartInitializingSingleton 中手动 start
+> 并以 JVM hook 兜底，评审拦截后改为 SmartLifecycle。
+
+
 ---
 
 # 6. 日志框架规范
