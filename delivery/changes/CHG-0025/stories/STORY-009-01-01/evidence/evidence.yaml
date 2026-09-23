@@ -1,0 +1,140 @@
+# OpenSpec Evidence Model（Story 级聚合）
+#
+# Story: STORY-009-01-01 RocketMQ 事件基础设施（CHG-0025）
+# 本文件为 Workspace 侧 Story 级证据索引：登记 code-change 条目与 implementation.md §2 各 commit 对齐；
+# 测试/冒烟正文不复制，引用各仓 DU evidence（见 items files 与 implementation.md §3）。
+
+version: 0.1
+change-id: "CHG-0025"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-4
+    delivery-unit: DU-INFRA-001
+    commit: e2256b4
+    task: 任务 1~3（compose 三服务 / broker.conf / .env 版本变量）
+    reason: 为 M7 事件能力提供 RocketMQ 本地基础设施（NameServer+Broker+可选 Dashboard），并完成首发冒烟
+    files:
+      - path: deploy/docker-compose.infra.yml
+        symbols: [rocketmq-namesrv, rocketmq-broker, rocketmq-dashboard]
+      - path: deploy/rocketmq/broker.conf
+      - path: deploy/.env.example
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/task-design.md
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/task-spec.md
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/implementation.md
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/metadata.yaml
+    recorded-at: 2026-09-22T23:14:23+08:00
+
+  - id: EV-002
+    type: code-change
+    repo: repo-4
+    delivery-unit: DU-INFRA-001
+    commit: 14290de
+    task: 任务 4（红绿灯冒烟记录与实施文档回填）
+    reason: 回填 DU 实施正文/metadata 指针并沉淀 TC-001 冒烟新鲜证据（healthy/clusterList/SEND_OK/消费 body）
+    files:
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/implementation.md
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/metadata.yaml
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/evidence/evidence.yaml
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/evidence/logs/smoke.log
+    recorded-at: 2026-09-23T13:40:00+08:00
+
+  - id: EV-003
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: 1c53407
+    task: 任务 1（mall-bom starter 版本权威）
+    reason: 声明 rocketmq-spring-boot-starter 2.3.6 统一版本，业务服务只引坐标不带版本
+    files:
+      - path: mall-bom/pom.xml
+    recorded-at: 2026-09-22T20:45:00+08:00
+
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: e7c8598
+    task: 任务 2（集成事件契约 event 包）
+    reason: 落位 Envelope 七字段信封、Topic/Tag/ConsumerGroup/Version 常量与 5 个 Payload DTO，业务服务与 ai-service 可零 Spring 依赖引用
+    files:
+      - path: mall-contracts/mall-event-contracts/pom.xml
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/Envelope.java
+        symbols: [Envelope]
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/EventTopics.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/EventTags.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/ConsumerGroups.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/EventVersions.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/payload/OrderCreatedEventPayload.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/payload/OrderCompletedEventPayload.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/payload/OrderCancelledEventPayload.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/payload/PaymentSucceededEventPayload.java
+      - path: mall-contracts/mall-event-contracts/src/main/java/com/ai/mall/event/payload/OrderDelayPayload.java
+      - path: mall-contracts/mall-event-contracts/src/test/java/com/ai/mall/event/EventContractsSnapshotTest.java
+    recorded-at: 2026-09-22T21:05:00+08:00
+
+  - id: EV-005
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: 963a28c
+    task: 任务 3（生产端三路发送）
+    reason: IntegrationEventProducer 接口与 RocketMQ 实现（sendSync/sendAsync/sendDelay；Tag=eventType、keys=eventId、traceId MDC 注入）
+    files:
+      - path: mall-common/mall-common-mq/pom.xml
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/producer/IntegrationEventProducer.java
+        symbols: [IntegrationEventProducer]
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/producer/RocketMQEnvelopeProducer.java
+        symbols: [sendSync, sendAsync, sendDelay]
+    recorded-at: 2026-09-22T21:30:00+08:00
+
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: 68fcdc8
+    task: 任务 4~5（六步消费链 / 幂等与开关装配）
+    reason: 注解式 handler、版本裁决/幂等占位/结果回写六步链、JDBC consumed_event、rocketmq.enabled 单开关 fail-closed 自动装配与注册器
+    files:
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/IntegrationEventListener.java
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/AbstractIntegrationHandler.java
+        symbols: [processBatch, handle]
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/IdempotentConsumer.java
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/ConsumedEventRepository.java
+        symbols: [tryConsume, markResult, deletePlaceholder]
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/config/RocketMQProperties.java
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/config/RocketMQAutoConfiguration.java
+        symbols: [integrationEventProducer, idempotentConsumer, integrationListenerRegistrar]
+      - path: mall-common/mall-common-mq/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+    recorded-at: 2026-09-22T22:10:00+08:00
+
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: ebdbbd9
+    task: 任务 6（TC-002~009 测试基线）
+    reason: 单测/H2 幂等/开关切片/Testcontainers 真实 broker IT 共 26 用例，红绿过程真实拦截 2 个缺陷
+    files:
+      - path: mall-common/mall-common-mq/src/test/java/com/ai/mall/common/mq/producer/RocketMQEnvelopeProducerTest.java
+      - path: mall-common/mall-common-mq/src/test/java/com/ai/mall/common/mq/consumer/AbstractIntegrationHandlerTest.java
+      - path: mall-common/mall-common-mq/src/test/java/com/ai/mall/common/mq/consumer/ConsumedEventRepositoryTest.java
+      - path: mall-common/mall-common-mq/src/test/java/com/ai/mall/common/mq/consumer/RocketMQBrokerIntegrationTest.java
+      - path: mall-common/mall-common-mq/src/test/java/com/ai/mall/common/mq/consumer/TestFixtures.java
+      - path: mall-common/mall-common-mq/src/test/java/com/ai/mall/common/mq/config/RocketMQAutoConfigurationTest.java
+    recorded-at: 2026-09-22T23:50:00+08:00
+
+  - id: EV-008
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: f178ccc
+    task: 任务 7（回归收口与实施文档回填）
+    reason: 回填 DU 实施正文/metadata 指针，26/26 全绿与依赖树 0 冲突证据索引化
+    files:
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/implementation.md
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/metadata.yaml
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/evidence/evidence.yaml
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/task-design.md
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/task-spec.md
+    recorded-at: 2026-09-23T13:20:00+08:00

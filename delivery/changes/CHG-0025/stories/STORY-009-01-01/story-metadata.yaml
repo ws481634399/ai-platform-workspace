@@ -104,3 +104,14 @@ artifacts:
         artifact-hash: sha256:ef6273658754f9020e21ce7e8426652bd0bc6d6384528fd7e990d82fa23d3b56
         reason: "human-gate: skip (design @ story STORY-009-01-01)"
     status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-23T14:46:51.599Z
+        validator: sdd-dev
+        artifact-hash: sha256:40d5d172576610239782f3e4f461e5df3cfc9c0a2a89c4fd8331e58642c0491f
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings: []
