@@ -166,3 +166,89 @@ items:
     log: implementation/ai-platform-infrastructure/delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/evidence/logs/smoke.log
     covers: [AC-001]
     recorded-at: 2026-09-23T13:35:00+08:00
+
+  # ---- sdd-review 阶段：review-finding（4 项；2 major 已闭环，2 minor 同步修复）----
+  - id: EV-011
+    type: review-finding
+    target: RocketMQAutoConfiguration.java:integrationListenerRegistrar
+    severity: major
+    finding: 消费者在 SmartInitializingSingleton lambda 内手动 start，并用 Runtime.addShutdownHook 兜底——脱离 Spring 生命周期；上下文关闭但 JVM 不退出（上下文重建/测试/devtools）时消费线程不释放，hook 随上下文累积泄漏。违反 framework-standard §2.2「避免破坏框架生命周期」。
+    resolution: 已改为 Spring 管理的 SmartLifecycle Bean（start 扫描建消费者、stop 统一 shutdown），移除 JVM hook，见 EV-015；回归 32/32 见 EV-018。
+    recorded-at: 2026-09-23T23:10:00+08:00
+
+  - id: EV-012
+    type: review-finding
+    target: implementation.md#Deviations
+    severity: major
+    finding: requirement-design §2.1 模块树声明 mall-common/mall-mq，实际落位 mall-common/mall-common-mq；对齐兄弟模块命名但未在 Deviations 记录（未记录偏离 = major）。
+    resolution: 已补记 DU implementation.md DEV-6（命名归一化三要素+影响评估），见 EV-017。
+    recorded-at: 2026-09-23T23:10:00+08:00
+
+  - id: EV-013
+    type: review-finding
+    target: ConsumedEventRepository.java:<init>
+    severity: minor
+    finding: tableName 直接拼接进 SQL（配置来源、非用户输入，风险低）；database-access-standard §9.1 禁止拼接 SQL。
+    resolution: 构造时按 SQL 标识符白名单 ^[a-zA-Z_][a-zA-Z0-9_]{0,63}$ 校验，非法表名拒绝装配，见 EV-015（含 ConsumedEventRepositoryTest 新增用例）。
+    recorded-at: 2026-09-23T23:10:00+08:00
+
+  - id: EV-014
+    type: review-finding
+    target: AbstractIntegrationHandler.java:processMessage
+    severity: minor
+    finding: 注释「不删占位？不——」为自问式草稿表达，不符合 coding-standards 注释规则（简洁陈述 WHY）。
+    resolution: 已改为陈述式注释（解析失败未建占位直接重试），见 EV-015。
+    recorded-at: 2026-09-23T23:10:00+08:00
+
+  # ---- review 修复证据 ----
+  - id: EV-015
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: 80eb162
+    task: review 闭环 F1/F2/F3
+    reason: SmartLifecycle 承载消费者生命周期；幂等表名标识符白名单 fail-fast；注释规范化
+    files:
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/config/RocketMQAutoConfiguration.java
+        symbols: [integrationListenerRegistrar]
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/ConsumedEventRepository.java
+        symbols: [IDENTIFIER]
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/AbstractIntegrationHandler.java
+      - path: mall-common/mall-common-mq/src/test/java/com/ai/mall/common/mq/consumer/ConsumedEventRepositoryTest.java
+        symbols: [invalidTableName_rejected]
+    recorded-at: 2026-09-23T23:00:00+08:00
+
+  - id: EV-016
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: 24206b1
+    task: review 修复后回归日志落证
+    reason: 保存 32/32 全量回归完整输出（mq 27 含新增表名校验用例 + contracts 5）
+    files:
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/evidence/logs/test-output.log
+    recorded-at: 2026-09-23T23:02:00+08:00
+
+  - id: EV-017
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-001
+    commit: 9c695bb
+    task: review F4 闭环（补记 DEV-6）
+    reason: 记录模块命名归一化偏离（mall-mq → mall-common-mq，对齐兄弟模块）
+    files:
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/implementation.md
+    recorded-at: 2026-09-23T23:05:00+08:00
+
+  - id: EV-018
+    type: test-run
+    command: mvn -B -pl mall-common/mall-common-mq -am test
+    result: passed
+    summary:
+      total: 32 # mall-event-contracts 5 + mall-common-mq 27（新增 invalidTableName_rejected）
+      passed: 32
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-backend/delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/evidence/logs/test-output.log
+    covers: [AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-041]
+    recorded-at: 2026-09-23T23:01:51+08:00

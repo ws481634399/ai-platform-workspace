@@ -13,8 +13,8 @@
 
 | DU | 仓库 | 状态 | Baseline | Result |
 |---|---|---|---|---|
-| DU-INFRA-001 | repo-4 | testing | — | e2256b4 |
-| DU-BE-001 | repo-1 | testing | — | ebdbbd9 |
+| DU-INFRA-001 | repo-4 | completed | — | 866aad1 |
+| DU-BE-001 | repo-1 | completed | — | 76d9da5 |
 
 > Baseline 以「—」表示：完整 baseline/result 哈希与指针记录于各仓 DU metadata.yaml
 > （repo-4 基线为 CHG-0025 工作开始前提交，repo-1 基线为 CHG-0024 收口提交），
@@ -55,8 +55,8 @@
 ## 5. Fan-in 状态
 
 - [x] du-materialized：DU-INFRA-001、DU-BE-001 均物化到对应仓（materialized: yes）
-- [x] du-fan-in-testing：两 DU 均 status=testing，baseline/result 经 `openspec du sync-status CHG-0025` 与各仓 HEAD 对齐
-- [ ] du-fan-in-complete：待 test 阶段 Integration Gate 通过后，两 DU 推进 completed（sdd-converge 闭环）
+- [x] du-fan-in-testing：两 DU 均曾 status=testing，baseline/result 经 `openspec du sync-status CHG-0025` 与各仓 HEAD 对齐
+- [x] du-fan-in-complete：test 双 Gate 通过后两 DU 推进 completed（完成态提交 866aad1/76d9da5，CHG repository-result 已回填）
 
 ## 6. 实施要点与验证摘要
 

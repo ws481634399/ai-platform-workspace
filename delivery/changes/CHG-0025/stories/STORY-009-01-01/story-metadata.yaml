@@ -140,3 +140,20 @@ artifacts:
         artifact-hash: sha256:bae63b6436a3b58c406b6c1ceedf1ccd6a87c7f3c2dac26c8c75197ebee7df42
         reason: "human-gate: skip (test @ story STORY-009-01-01)"
     status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-23T15:09:56.198Z
+        validator: sdd-review
+        artifact-hash: sha256:efdcb4dade65848b4ce12654433187d270c9f0588607e002fff459f9ffb8322b
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-23T15:10:04.583Z
+        reviewer: trae-agent
+        artifact-hash: sha256:efdcb4dade65848b4ce12654433187d270c9f0588607e002fff459f9ffb8322b
+        reason: ""

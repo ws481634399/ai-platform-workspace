@@ -83,8 +83,10 @@ repository-baseline:
   {}
   # backend: { commit: abc111 }
 repository-result:
-  {}
-  # backend: { commit: abc999 }
+  repo-1:
+    commit: 76d9da5
+  repo-4:
+    commit: 866aad1
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。
