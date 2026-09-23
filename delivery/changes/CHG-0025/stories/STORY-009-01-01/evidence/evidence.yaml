@@ -138,3 +138,31 @@ items:
       - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/task-design.md
       - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/task-spec.md
     recorded-at: 2026-09-23T13:20:00+08:00
+
+  # ---- sdd-test 阶段：test-run 条目（独立测试执行者照 TC 逐条运行的新鲜结果）----
+  - id: EV-009
+    type: test-run
+    command: mvn -B -pl mall-common/mall-common-mq -am test
+    result: passed
+    summary:
+      total: 31 # mall-event-contracts 模块 5 + mall-common-mq 模块 26
+      passed: 31
+      failed: 0
+      skipped: 0
+    # 完整输出（workspace 相对路径；正文留各仓 DU evidence，不复制）
+    log: implementation/ai-platform-backend/delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/evidence/logs/test-output.log
+    covers: [AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-041]
+    recorded-at: 2026-09-23T22:50:49+08:00
+
+  - id: EV-010
+    type: test-run
+    command: docker compose ps + mqadmin clusterList/sendMessage/consumeMessage
+    result: passed
+    summary:
+      total: 1 # TC-001 环境冒烟场景（healthy + broker-a + SEND_OK + 消费 body/keys）
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: implementation/ai-platform-infrastructure/delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/evidence/logs/smoke.log
+    covers: [AC-001]
+    recorded-at: 2026-09-23T13:35:00+08:00
