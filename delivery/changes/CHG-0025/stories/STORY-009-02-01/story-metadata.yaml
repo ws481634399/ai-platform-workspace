@@ -118,31 +118,11 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-24T10:42:51.008Z
+        checked-at: 2026-09-24T10:45:31.722Z
         validator: sdd-test
         artifact-hash: sha256:bef497b0a6e01f875bcd00845fe76f859ac47de29cf8810866c401844198ca86
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
         issues:
-          - "evidence/test-report.md: evidence.yaml items[2]: test-run 缺少必填字段:
-            command"
-          - "evidence/test-report.md: evidence.yaml items[2]: test-run 缺少必填字段:
-            log"
-          - "evidence/test-report.md: evidence.yaml items[2]: invalid result:
-            undefined (允许: passed, failed, partial)"
-          - "evidence/test-report.md: evidence.yaml items[2]: test-run 缺少
-            summary 对象"
-          - "evidence/test-report.md: evidence.yaml items[2]: test-run 的 covers
-            必须是数组"
-          - "evidence/test-report.md: evidence.yaml items[3]: test-run 缺少必填字段:
-            command"
-          - "evidence/test-report.md: evidence.yaml items[3]: test-run 缺少必填字段:
-            log"
-          - "evidence/test-report.md: evidence.yaml items[3]: invalid result:
-            undefined (允许: passed, failed, partial)"
-          - "evidence/test-report.md: evidence.yaml items[3]: test-run 缺少
-            summary 对象"
-          - "evidence/test-report.md: evidence.yaml items[3]: test-run 的 covers
-            必须是数组"
           - "evidence/test-report.md: DU DU-BE-002 status=pending，未达到
             testing（Fan-in 阻断）"
           - "evidence/test-report.md: DU DU-FE-001 status=pending，未达到
