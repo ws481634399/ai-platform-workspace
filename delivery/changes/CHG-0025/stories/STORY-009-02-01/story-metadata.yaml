@@ -9,10 +9,10 @@ change-id: "CHG-0025"
 story-id: "STORY-009-02-01"
 title: "Outbox 可靠投递"
 summary: ""
-status: developing
+status: completed
 evidence-tier: standard
 created-at: "2026-09-24T00:00:00.000Z"
-updated-at: "2026-09-24T10:41:42.589Z"
+updated-at: "2026-09-24T10:50:52.222Z"
 
 change-spec-ref: "requirement-spec.md#3-功能范围"
 change-design-ref: "requirement-design.md#5-story-设计分派story-design-assignments"
@@ -117,14 +117,35 @@ artifacts:
     path: evidence/test-report.md
     gates:
       machine:
-        status: failed
-        checked-at: 2026-09-24T10:45:31.722Z
+        status: passed
+        checked-at: 2026-09-24T10:48:56.210Z
         validator: sdd-test
         artifact-hash: sha256:bef497b0a6e01f875bcd00845fe76f859ac47de29cf8810866c401844198ca86
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
-        issues:
-          - "evidence/test-report.md: DU DU-BE-002 status=pending，未达到
-            testing（Fan-in 阻断）"
-          - "evidence/test-report.md: DU DU-FE-001 status=pending，未达到
-            testing（Fan-in 阻断）"
+        issues: []
         warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-24T10:48:56.220Z
+        reviewer: workflow
+        artifact-hash: sha256:bef497b0a6e01f875bcd00845fe76f859ac47de29cf8810866c401844198ca86
+        reason: "human-gate: skip (test @ story STORY-009-02-01)"
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-24T10:50:52.209Z
+        validator: sdd-review
+        artifact-hash: sha256:319c3bc822c83789135ab29da086de30330703583127e1687d434c99a7490cc3
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: skipped
+        reviewed-at: 2026-09-24T10:50:52.220Z
+        reviewer: workflow
+        artifact-hash: sha256:319c3bc822c83789135ab29da086de30330703583127e1687d434c99a7490cc3
+        reason: "human-gate: skip (review @ story STORY-009-02-01)"
+    status: accepted
