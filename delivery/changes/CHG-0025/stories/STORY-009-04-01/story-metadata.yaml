@@ -1,0 +1,19 @@
+schema-version: 1
+change-id: "CHG-0025"
+story-id: "STORY-009-04-01"
+title: "延迟订单自动取消"
+summary: ""
+status: pending
+evidence-tier: standard
+created-at: "2026-09-24T00:00:00.000Z"
+updated-at: "2026-09-24T00:00:00.000Z"
+change-spec-ref: "requirement-spec.md#3-功能范围"
+change-design-ref: "requirement-design.md#5-story-设计分派story-design-assignments"
+feature-path:
+  level-1: { id: FEAT-009, name: 分布式增强 }
+  level-2: { id: FEAT-009-04, name: 延迟订单自动取消 }
+  level-3: { id: FEAT-009-04-01, name: 延迟取消能力 }
+  story: { id: STORY-009-04-01, name: 延迟订单自动取消 }
+  candidate: false
+dus: []
+artifacts: {}

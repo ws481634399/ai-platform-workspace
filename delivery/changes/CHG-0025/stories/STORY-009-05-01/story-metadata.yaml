@@ -1,0 +1,19 @@
+schema-version: 1
+change-id: "CHG-0025"
+story-id: "STORY-009-05-01"
+title: "消费幂等与补偿机制"
+summary: ""
+status: pending
+evidence-tier: standard
+created-at: "2026-09-24T00:00:00.000Z"
+updated-at: "2026-09-24T00:00:00.000Z"
+change-spec-ref: "requirement-spec.md#3-功能范围"
+change-design-ref: "requirement-design.md#5-story-设计分派story-design-assignments"
+feature-path:
+  level-1: { id: FEAT-009, name: 分布式增强 }
+  level-2: { id: FEAT-009-05, name: 消费幂等与补偿机制 }
+  level-3: { id: FEAT-009-05-01, name: 幂等与补偿能力 }
+  story: { id: STORY-009-05-01, name: 消费幂等与补偿机制 }
+  candidate: false
+dus: []
+artifacts: {}

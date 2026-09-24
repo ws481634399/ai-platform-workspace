@@ -68,11 +68,43 @@ feature-path:
 stories:
   - id: STORY-009-01-01
     title: RocketMQ 事件基础设施
-    status: pending
+    status: completed
     path: stories/STORY-009-01-01/
     domain:
       id: "FEAT-009-01-01"
       name: "事件基础能力"
+    evidence-tier: standard
+  - id: STORY-009-02-01
+    title: Outbox 可靠投递
+    status: pending
+    path: stories/STORY-009-02-01/
+    domain:
+      id: "FEAT-009-02-01"
+      name: "Outbox 投递能力"
+    evidence-tier: standard
+  - id: STORY-009-03-01
+    title: 订单集成事件与库存异步消费者
+    status: pending
+    path: stories/STORY-009-03-01/
+    domain:
+      id: "FEAT-009-03-01"
+      name: "订单事件与库存消费能力"
+    evidence-tier: standard
+  - id: STORY-009-04-01
+    title: 延迟订单自动取消
+    status: pending
+    path: stories/STORY-009-04-01/
+    domain:
+      id: "FEAT-009-04-01"
+      name: "延迟取消能力"
+    evidence-tier: standard
+  - id: STORY-009-05-01
+    title: 消费幂等与补偿机制
+    status: pending
+    path: stories/STORY-009-05-01/
+    domain:
+      id: "FEAT-009-05-01"
+      name: "幂等与补偿能力"
     evidence-tier: standard
 
 # Phase 2.4 保留：仓库 Baseline / Result（DU 物化与完成时由 delivery-unit.js 写入）
@@ -80,13 +112,15 @@ stories:
 # repository-result：DU completed 时记录各仓结果 commit
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
-  {}
-  # backend: { commit: abc111 }
+  repo-1:
+    commit: cdcb08e204dcc31c11ed60063acbc69397d1a48f
+  repo-2:
+    commit: c9c0e16514365f9aa315ac5afb1de82d0fea472f
 repository-result:
   repo-1:
-    commit: 76d9da5
+    commit: cdcb08e204dcc31c11ed60063acbc69397d1a48f
   repo-4:
-    commit: 866aad1
+    commit: 866aad19b8664503af9bf9c0003fe81ff8c315fc
 
 # Phase 1.5 保留：artifacts 段（Gate Result 持久化）
 # 仅存储 Requirement 级产物 Gate（exploration / requirement-spec / requirement-design / convergence）。

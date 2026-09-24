@@ -1,0 +1,92 @@
+# OpenSpec Evidence Model（Story 级聚合）
+#
+# Story: STORY-009-02-01 Outbox 可靠投递（CHG-0025）
+# 本文件为 Workspace 侧 Story 级证据索引：登记 code-change 条目与 implementation.md §2 各 commit 对齐。
+
+version: 0.1
+change-id: "CHG-0025"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-002
+    commit: e375c40
+    task: 任务 1~9（Outbox 全链路 + mall-common-mq 自动装配修复）
+    reason: 落位 outbox_event 表/Writer/投递任务/admin API/权限码，并修复 mall-common-mq AutoConfiguration.imports 格式
+    files:
+      - path: mall-services/mall-order/src/main/resources/db/migration/V4__add_outbox_event.sql
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/outbox/OutboxStatus.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/outbox/OutboxEvent.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/outbox/OutboxEventRepository.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/outbox/OutboxEventPo.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/outbox/OutboxEventMapper.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/outbox/MyBatisOutboxEventRepository.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/OutboxRecordWriter.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/OutboxBackoffPolicy.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/EventRouter.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/SendTarget.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/OutboxDeliveryTask.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/OutboxAdminController.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/dto/OutboxAdminDtos.java
+      - path: mall-services/mall-order/pom.xml
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V13__outbox_permissions.sql
+      - path: mall-common/mall-common-mq/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+    recorded-at: 2026-09-24T18:32:00+08:00
+
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-001
+    commit: c7e38ec
+    task: 任务 1~3（Outbox 管理页）
+    reason: 落位 Outbox 列表筛选/payload 抽屉/FAILED 重投页面与 API 封装
+    files:
+      - path: mall-admin/src/api/distributed.ts
+      - path: mall-admin/src/views/distributed/OutboxListView.vue
+      - path: mall-admin/src/router/component-registry.ts
+    recorded-at: 2026-09-24T18:33:00+08:00
+
+  - id: EV-003
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-002
+    commit: e375c40
+    task: TC-001~008
+    reason: mall-order 全量测试 46/46 全绿（Outbox 24：16 单测 + 8 仓储集成；既有 M4/M5 22）
+    command: mvn -B -pl mall-services/mall-order test
+    result: passed
+    summary:
+      total: 46
+      passed: 46
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-02-01/evidence/logs/test-output.log
+    covers: [AC-010, AC-011, AC-012, AC-013, AC-014, AC-015, AC-016, AC-017]
+    files:
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/outbox/OutboxBackoffPolicyTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/outbox/EventRouterTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/outbox/OutboxRecordWriterTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/outbox/OutboxDeliveryTaskTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/infrastructure/persistence/outbox/OutboxEventRepositoryIntegrationTest.java
+    recorded-at: 2026-09-24T18:32:00+08:00
+
+  - id: EV-004
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-001
+    commit: c7e38ec
+    task: 前端类型检查
+    reason: mall-admin vue-tsc --noEmit 通过（distributed.ts + OutboxListView.vue + component-registry）
+    command: npx vue-tsc --noEmit -p mall-admin/tsconfig.json
+    result: passed
+    summary:
+      total: 1
+      passed: 1
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-02-01/evidence/logs/type-check.log
+    covers: [AC-016]
+    files:
+      - path: mall-admin/src/api/distributed.ts
+      - path: mall-admin/src/views/distributed/OutboxListView.vue
+    recorded-at: 2026-09-24T18:34:00+08:00

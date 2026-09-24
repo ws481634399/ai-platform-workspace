@@ -1,0 +1,19 @@
+schema-version: 1
+change-id: "CHG-0025"
+story-id: "STORY-009-03-01"
+title: "订单集成事件与库存异步消费者"
+summary: ""
+status: pending
+evidence-tier: standard
+created-at: "2026-09-24T00:00:00.000Z"
+updated-at: "2026-09-24T00:00:00.000Z"
+change-spec-ref: "requirement-spec.md#3-功能范围"
+change-design-ref: "requirement-design.md#5-story-设计分派story-design-assignments"
+feature-path:
+  level-1: { id: FEAT-009, name: 分布式增强 }
+  level-2: { id: FEAT-009-03, name: 订单集成事件与库存异步消费者 }
+  level-3: { id: FEAT-009-03-01, name: 订单事件与库存消费能力 }
+  story: { id: STORY-009-03-01, name: 订单集成事件与库存异步消费者 }
+  candidate: false
+dus: []
+artifacts: {}
