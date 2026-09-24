@@ -1,0 +1,224 @@
+# OpenSpec Evidence Model（Story 级聚合）
+#
+# Story: STORY-009-04-01 延迟订单自动取消（CHG-0025）
+# 本文件为 Workspace 侧 Story 级证据索引：code-change 条目与 implementation.md §2 各 commit 对齐。
+
+version: 0.1
+change-id: "CHG-0025"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "ebdfb1a"
+    task: 任务 1（delay_level 存储）
+    reason: outbox_event 加 delay_level 列，事件/Po/仓储/Writer/管理视图全链承载
+    files:
+      - path: mall-services/mall-order/src/main/resources/db/migration/V5__outbox_delay_level.sql
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/outbox/OutboxEvent.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/outbox/OutboxEventPo.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/outbox/MyBatisOutboxEventRepository.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/OutboxRecordWriter.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/dto/OutboxAdminDtos.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/OutboxAdminController.java
+    recorded-at: 2026-05-25T19:00:00+08:00
+
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "d5fa92c"
+    task: 任务 2（超时策略）
+    reason: PaymentTimeoutPolicy 经系统参数动态读取支付超时分钟数
+    files:
+      - path: mall-services/mall-order/pom.xml
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/timeout/PaymentTimeoutPolicy.java
+    recorded-at: 2026-05-25T19:05:00+08:00
+
+  - id: EV-003
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "9022c8f"
+    task: 任务 3（级别映射）
+    reason: DelayLevelMapper 按 RocketMQ 18 级向上对齐，支持强制级别
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/timeout/DelayLevelMapper.java
+    recorded-at: 2026-05-25T19:10:00+08:00
+
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "369ebc9"
+    task: 任务 4（建单延迟事件）
+    reason: Order.create 收集 PAYMENT_TIMEOUT_CHECK 事件
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/event/OrderIntegrationEventType.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/Order.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/domain/order/OrderIntegrationEventsTest.java
+    recorded-at: 2026-05-25T19:15:00+08:00
+
+  - id: EV-005
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "52e7b1c"
+    task: 任务 5（组装/落库）
+    reason: assembler 携带超时组装延迟 payload，flusher 一次 flush 单超时并按级别 append
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/event/OrderEnvelopeAssembler.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/event/OutboxOrderEventFlusher.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/event/OrderEnvelopeAssemblerTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/event/OutboxOrderEventFlusherTest.java
+    recorded-at: 2026-05-25T19:25:00+08:00
+
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "6d90dad"
+    task: 任务 6（路由/投递）
+    reason: 延迟事件默认路由 order-delay，投递按行内 delay_level 走 sendDelay
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/EventRouter.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/outbox/OutboxDeliveryTask.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/outbox/EventRouterTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/outbox/OutboxDeliveryTaskTest.java
+    recorded-at: 2026-05-25T19:35:00+08:00
+
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "740b4ab"
+    task: 任务 7（取消服务重构）
+    reason: 抽出 doCancel 共用主流程，新增 systemCancel 系统取消入口与 findById
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/OrderRepository.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/MyBatisOrderRepository.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/OrderCancelService.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/OrderCancelServiceTest.java
+    recorded-at: 2026-05-25T19:45:00+08:00
+
+  - id: EV-008
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "97b8665"
+    task: 任务 8（到期消费者）
+    reason: 延迟到期回查订单状态，PENDING 才系统取消，冲突归并 SKIPPED
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/consumer/PaymentTimeoutCheckHandler.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/consumer/PaymentTimeoutCheckHandlerTest.java
+    recorded-at: 2026-05-25T19:55:00+08:00
+
+  - id: EV-009
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "3b7ff3d"
+    task: 任务 9（兜底扫描）
+    reason: findExpiredPending 查询与 OrderTimeoutFallbackScanner 定时系统取消
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/OrderMapper.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/ExpiredOrderRow.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/timeout/OrderTimeoutFallbackScanner.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/timeout/OrderTimeoutFallbackScannerTest.java
+    recorded-at: 2026-05-25T20:05:00+08:00
+
+  - id: EV-010
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "be4a55e"
+    task: 任务 10（管理端）
+    reason: union 三源延迟任务视图、管理端分页/人工取消与 order-delay-audit 审计
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/DelayTaskRow.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/DelayTaskAdminMapper.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/admin/DelayTaskAdminService.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/DelayTaskAdminController.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/dto/DelayTaskAdminDtos.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/admin/DelayTaskAdminServiceTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/interfaces/rest/admin/DelayTaskAdminControllerTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/infrastructure/persistence/order/DelayTaskAdminMapperIntegrationTest.java
+    recorded-at: 2026-05-25T20:20:00+08:00
+
+  - id: EV-011
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "61aba4d"
+    task: 任务 11（权限菜单种子）
+    reason: mall-identity V14 增加 order-delay 两权限、DelayTaskList 菜单与超管授权
+    files:
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V14__order_delay_permissions.sql
+    recorded-at: 2026-05-25T20:30:00+08:00
+
+  - id: EV-012
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "04a905e"
+    task: 任务 12（配置）
+    reason: 延迟强制级别与兜底扫描开关/周期环境变量注入
+    files:
+      - path: mall-services/mall-order/src/main/resources/application.yml
+    recorded-at: 2026-05-25T20:35:00+08:00
+
+  - id: EV-013
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-002
+    commit: "61e2154"
+    task: FE 任务 1~4（管理页）
+    reason: 延迟任务 API/状态映射/DelayTaskListView/组件注册
+    files:
+      - path: mall-admin/src/api/distributed.ts
+      - path: mall-admin/src/views/distributed/DelayTaskListView.vue
+      - path: mall-admin/src/views/distributed/delay-display.ts
+      - path: mall-admin/src/router/component-registry.ts
+    recorded-at: 2026-05-25T21:00:00+08:00
+
+  - id: EV-014
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-004
+    commit: "04a905e"
+    task: TC 全量（后端）
+    reason: mall-order 全量回归 105/105 全绿（既有 M4/M5/S1~S3 零回退）
+    command: mvn -pl mall-services/mall-order -am test
+    result: passed
+    summary:
+      total: 105
+      passed: 105
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-04-01/evidence/test-report.md
+    covers: [AC-026, AC-028, AC-029, AC-030, AC-031]
+    files:
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/consumer/PaymentTimeoutCheckHandlerTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/infrastructure/persistence/order/DelayTaskAdminMapperIntegrationTest.java
+    recorded-at: 2026-05-25T20:40:00+08:00
+
+  - id: EV-015
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-002
+    commit: "61e2154"
+    task: TC（前端）
+    reason: mall-admin 31 个测试文件全部通过，本 Story FE 新增 10 用例
+    command: pnpm vitest run
+    result: passed
+    summary:
+      total: 31
+      passed: 31
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-04-01/evidence/test-report.md
+    covers: [AC-032]
+    files:
+      - path: mall-admin/src/api/distributed.spec.ts
+      - path: mall-admin/src/views/distributed/DelayTaskListView.contract.spec.ts
+    recorded-at: 2026-05-25T21:05:00+08:00
