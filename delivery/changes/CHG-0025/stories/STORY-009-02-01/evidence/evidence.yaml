@@ -90,3 +90,20 @@ items:
       - path: mall-admin/src/api/distributed.ts
       - path: mall-admin/src/views/distributed/OutboxListView.vue
     recorded-at: 2026-09-24T18:34:00+08:00
+
+  - id: EV-005
+    type: review-finding
+    target: mall-common-mq/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+    severity: major
+    finding: AutoConfiguration.imports 误用 spring.factories 键值格式（EnableAutoConfiguration=\），Spring Boot 3 下自动装配不生效，导致依赖 mall-common-mq 的应用上下文加载失败。
+    resolution: 改为纯类名列表 com.ai.mall.common.mq.config.RocketMQAutoConfiguration；随 e375c40 提交，mall-order 全量测试 46/46 验证。
+    recorded-at: 2026-09-24T18:48:00+08:00
+
+  - id: EV-006
+    type: review-finding
+    target: OutboxAdminController.java::retry
+    severity: minor
+    finding: 重投审计首期用结构化 outbox-audit logger，未引入独立审计表。
+    resolution: 接受偏离（DEV-2），结构化日志含 operator/time/beforeStatus/afterStatus 满足 AC-016 可追溯性；后续引入通用审计框架时平滑替换。
+    recorded-at: 2026-09-24T18:49:00+08:00
+
