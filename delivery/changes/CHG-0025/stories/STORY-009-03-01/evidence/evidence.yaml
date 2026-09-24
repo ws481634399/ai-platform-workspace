@@ -1,0 +1,175 @@
+# OpenSpec Evidence Model（Story 级聚合）
+#
+# Story: STORY-009-03-01 订单集成事件与库存异步消费者（CHG-0025）
+# 本文件为 Workspace 侧 Story 级证据索引：code-change 条目与 implementation.md §2 各 commit 对齐。
+
+version: 0.1
+change-id: "CHG-0025"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "31f3b6c"
+    task: 任务 1（领域事件收集）
+    reason: 聚合四状态迁移收集集成事件并支持 pull 清空
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/event/OrderIntegrationEventType.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/event/OrderIntegrationEvent.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/Order.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/domain/order/OrderIntegrationEventsTest.java
+    recorded-at: 2026-09-24T19:10:00+08:00
+
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "6d59155"
+    task: 任务 2（信封组装器）
+    reason: 四类订单事件按 §41 组装 Envelope
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/event/OrderEnvelopeAssembler.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/event/OrderEnvelopeAssemblerTest.java
+    recorded-at: 2026-09-24T19:12:00+08:00
+
+  - id: EV-003
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "2dca669"
+    task: 任务 3（Flusher + 模式判定）
+    reason: 异步事务内 append Outbox，同步丢弃事件
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/event/IntegrationMode.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/event/OrderEventOutbox.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/event/OutboxOrderEventFlusher.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/event/OutboxOrderEventFlusherTest.java
+    recorded-at: 2026-09-24T19:15:00+08:00
+
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "1482141"
+    task: 任务 4（仓储挂点）
+    reason: insert/transition 事务内 flush，findStatusById 轻量回查
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/order/MyBatisOrderRepository.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/OrderRepository.java
+    recorded-at: 2026-09-24T19:18:00+08:00
+
+  - id: EV-005
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "967e359"
+    task: 任务 5（服务分支降级）
+    reason: async 不调同步 confirm/release，sync 保留降级
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/PaymentService.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/OrderCancelService.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/PaymentServiceTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/OrderCancelServiceTest.java
+    recorded-at: 2026-09-24T19:22:00+08:00
+
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "317eb15"
+    task: 任务 6（internal 端点）
+    reason: 状态回查与补偿登记内部端点
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/internal/OrderStatusInternalController.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/internal/CompensationInternalController.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/interfaces/rest/internal/OrderStatusInternalControllerTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/interfaces/rest/internal/CompensationInternalControllerTest.java
+    recorded-at: 2026-09-24T19:26:00+08:00
+
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "94960dc"
+    task: 任务 7（库存基础设施）
+    reason: pom 依赖、按订单号枚举预留、OrderServiceClient
+    files:
+      - path: mall-services/mall-inventory/pom.xml
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/domain/inventory/InventoryRepository.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/persistence/inventory/InventoryRepositoryImpl.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/persistence/inventory/InventoryReservationMapper.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/infrastructure/client/OrderServiceClient.java
+    recorded-at: 2026-09-24T19:30:00+08:00
+
+  - id: EV-008
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "ae7cd00"
+    task: 任务 8（两个库存消费者）
+    reason: 乱序裁决/幂等 confirm-release/失败登记补偿
+    files:
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/consumer/PaymentSucceededInventoryHandler.java
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/consumer/OrderCancelledInventoryHandler.java
+      - path: mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/consumer/PaymentSucceededInventoryHandlerTest.java
+      - path: mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/consumer/OrderCancelledInventoryHandlerTest.java
+    recorded-at: 2026-09-24T19:34:00+08:00
+
+  - id: EV-009
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "16c506d"
+    task: 任务 9（两侧配置）
+    reason: rocketmq 段与 order-uri/timeout-minutes
+    files:
+      - path: mall-services/mall-order/src/main/resources/application.yml
+      - path: mall-services/mall-inventory/src/main/resources/application.yml
+    recorded-at: 2026-09-24T19:38:00+08:00
+
+  - id: EV-010
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "16c506d"
+    task: TC-001~TC-005、TC-008（mall-order 侧）
+    reason: mall-order 全量测试 70/70 全绿（新增 24：聚合事件/assembler/flusher/服务分支/internal 端点；既有 46 零回退）
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory -am test
+    result: passed
+    summary:
+      total: 70
+      passed: 70
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-03-01/evidence/logs/test-output.log
+    covers: [AC-018, AC-023, AC-024, AC-025]
+    files:
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/domain/order/OrderIntegrationEventsTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/event/OrderEnvelopeAssemblerTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/event/OutboxOrderEventFlusherTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/PaymentServiceTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/OrderCancelServiceTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/interfaces/rest/internal/OrderStatusInternalControllerTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/interfaces/rest/internal/CompensationInternalControllerTest.java
+    recorded-at: 2026-09-24T19:45:00+08:00
+
+  - id: EV-011
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-003
+    commit: "16c506d"
+    task: TC-006~TC-008（mall-inventory 侧）
+    reason: mall-inventory 全量测试 37/37 全绿（新增 9：两库存消费者；既有 28 零回退）
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory -am test
+    result: passed
+    summary:
+      total: 37
+      passed: 37
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-03-01/evidence/logs/test-output.log
+    covers: [AC-019, AC-020, AC-021, AC-022, AC-023, AC-025]
+    files:
+      - path: mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/consumer/PaymentSucceededInventoryHandlerTest.java
+      - path: mall-services/mall-inventory/src/test/java/com/ai/mall/inventory/consumer/OrderCancelledInventoryHandlerTest.java
+    recorded-at: 2026-09-24T19:45:00+08:00
