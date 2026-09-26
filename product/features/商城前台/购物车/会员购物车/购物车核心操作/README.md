@@ -11,4 +11,10 @@ status: planned
 
 Redis 会员购物车：加入/同 SKU 合并/改量/删除/单选全选，memberId 取自 SecurityContext，不锁库存
 
-_（尚未绑定任何 Change）_
+## Change 历史
+
+| ID | 状态 | Scope | 更新时间 | 审计包（相对链接） |
+|---|---|---|---|---|
+| CHG-0018 | completed | changes | 2026-09-16 14:32:00 | [打开](../../../../../delivery/changes/CHG-0018/) |
+
+> 当前绑定 Change：`CHG-0018`（completed）

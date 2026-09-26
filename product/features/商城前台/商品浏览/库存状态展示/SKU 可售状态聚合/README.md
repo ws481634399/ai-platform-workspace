@@ -2,7 +2,7 @@
 id: STORY-003-02-03-01
 name: SKU 可售状态聚合
 level: story
-status: planned
+status: delivered
 ---
 
 # SKU 可售状态聚合

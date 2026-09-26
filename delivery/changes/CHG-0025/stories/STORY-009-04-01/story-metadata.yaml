@@ -6,7 +6,7 @@ summary: ""
 status: completed
 evidence-tier: standard
 created-at: "2026-09-24T00:00:00.000Z"
-updated-at: "2026-09-24T16:33:07.656Z"
+updated-at: "2026-09-26T05:45:38.618Z"
 change-spec-ref: "requirement-spec.md#3-功能范围"
 change-design-ref: "requirement-design.md#5-story-设计分派story-design-assignments"
 feature-path:
@@ -30,7 +30,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-24T15:45:52.030Z
+        checked-at: 2026-09-26T05:45:37.077Z
         validator: sdd-prd
         artifact-hash: sha256:e986ba0b2f0a5c7c90e5d7c7656c573bb94f9420aaf1678cf83ca285d16fd5c1
         rules-hash: sha256:f2f16113565f781d95040d45bd9821bb67a7072bf7b211446e9e21a6b0d5d905
@@ -38,7 +38,7 @@ artifacts:
         warnings: []
       human:
         status: approved
-        reviewed-at: 2026-09-24T15:37:18.982Z
+        reviewed-at: 2026-09-26T05:45:27.104Z
         reviewer: trae-agent
         artifact-hash: sha256:e986ba0b2f0a5c7c90e5d7c7656c573bb94f9420aaf1678cf83ca285d16fd5c1
         reason: ""
@@ -48,7 +48,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-24T15:46:01.103Z
+        checked-at: 2026-09-26T05:45:37.350Z
         validator: sdd-design
         artifact-hash: sha256:1cda7818225bf4ddd67afae5dd79b70573cf127f5e68f4e7319b48cc02e0e860
         rules-hash: sha256:97a158a9441ad49d196ca74952aab439b023e9268ac8547a647f48a82b44178d
@@ -56,7 +56,7 @@ artifacts:
         warnings: []
       human:
         status: skipped
-        reviewed-at: 2026-09-24T15:46:01.115Z
+        reviewed-at: 2026-09-26T05:45:37.361Z
         reviewer: workflow
         artifact-hash: sha256:1cda7818225bf4ddd67afae5dd79b70573cf127f5e68f4e7319b48cc02e0e860
         reason: "human-gate: skip (design @ story STORY-009-04-01)"
@@ -66,7 +66,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-24T15:50:15.421Z
+        checked-at: 2026-09-26T05:45:37.730Z
         validator: sdd-task
         artifact-hash: sha256:9cea9dc14bce6aae2406232318aab50196bc37dc9edffab6541c5428abe3ee2a
         rules-hash: sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42515d3
@@ -78,7 +78,7 @@ artifacts:
             范围编号以便机检追溯）"
       human:
         status: skipped
-        reviewed-at: 2026-09-24T15:50:15.433Z
+        reviewed-at: 2026-09-26T05:45:37.739Z
         reviewer: workflow
         artifact-hash: sha256:9cea9dc14bce6aae2406232318aab50196bc37dc9edffab6541c5428abe3ee2a
         reason: "human-gate: skip (task @ story STORY-009-04-01)"
@@ -88,9 +88,9 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-24T16:25:49.036Z
+        checked-at: 2026-09-26T05:45:38.012Z
         validator: sdd-dev
-        artifact-hash: sha256:cbd8df46fe12cdd859b1610b0c55104d4e5174c235869d619906a3783d338824
+        artifact-hash: sha256:55fa0d492326a4772538e3e9aeda9eee4ba35ccb3416cbb62c3108943f3f6569
         rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
         issues: []
         warnings:
@@ -98,9 +98,9 @@ artifacts:
             至少一条红→绿记录，advisory）"
       human:
         status: skipped
-        reviewed-at: 2026-09-24T16:25:49.048Z
+        reviewed-at: 2026-09-26T05:45:38.024Z
         reviewer: workflow
-        artifact-hash: sha256:cbd8df46fe12cdd859b1610b0c55104d4e5174c235869d619906a3783d338824
+        artifact-hash: sha256:55fa0d492326a4772538e3e9aeda9eee4ba35ccb3416cbb62c3108943f3f6569
         reason: "human-gate: skip (dev @ story STORY-009-04-01)"
     status: accepted
   test-report:
@@ -108,7 +108,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-24T16:32:04.348Z
+        checked-at: 2026-09-26T05:45:38.316Z
         validator: sdd-test
         artifact-hash: sha256:0ed3c09b82dcf72d4fcd27deda7047f4e80eb25bfcc571c316b99138e20d427e
         rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
@@ -116,7 +116,7 @@ artifacts:
         warnings: []
       human:
         status: skipped
-        reviewed-at: 2026-09-24T16:32:04.361Z
+        reviewed-at: 2026-09-26T05:45:38.327Z
         reviewer: workflow
         artifact-hash: sha256:0ed3c09b82dcf72d4fcd27deda7047f4e80eb25bfcc571c316b99138e20d427e
         reason: "human-gate: skip (test @ story STORY-009-04-01)"
@@ -126,7 +126,7 @@ artifacts:
     gates:
       machine:
         status: passed
-        checked-at: 2026-09-24T16:33:07.641Z
+        checked-at: 2026-09-26T05:45:38.603Z
         validator: sdd-review
         artifact-hash: sha256:e3fc971f05cca231495eaecc6bedd5f3b1ff2596bcfe92168213b5147d5b3a3c
         rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
@@ -134,7 +134,7 @@ artifacts:
         warnings: []
       human:
         status: skipped
-        reviewed-at: 2026-09-24T16:33:07.655Z
+        reviewed-at: 2026-09-26T05:45:38.616Z
         reviewer: workflow
         artifact-hash: sha256:e3fc971f05cca231495eaecc6bedd5f3b1ff2596bcfe92168213b5147d5b3a3c
         reason: "human-gate: skip (review @ story STORY-009-04-01)"

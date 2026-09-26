@@ -2,7 +2,7 @@
 id: STORY-003-01-03-01
 name: 收货地址管理
 level: story
-status: planned
+status: delivered
 ---
 
 # 收货地址管理

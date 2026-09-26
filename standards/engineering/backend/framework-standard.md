@@ -333,6 +333,50 @@ stop 阶段统一 shutdown。
 > 并以 JVM hook 兜底，评审拦截后改为 SmartLifecycle。
 
 
+## 5.6 自动装配登记文件须为纯类名列表（CHG-0025 晋升）
+
+Spring Boot 3 的自动装配登记文件
+`META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
+每行一个自动配置类的**全限定类名**，禁止沿用 `spring.factories` 的
+`EnableAutoConfiguration=类名` 键值语法。
+
+- 键值格式不会被识别为自动配置（且不报错），依赖该模块的全部 `SpringBootTest`
+  上下文静默缺 Bean，排查成本高。
+- 登记的类须为真正的自动配置类（`@AutoConfiguration`），业务组件走组件扫描不进此文件。
+
+> 来源：CHG-0025 sdd-review：mall-common-mq 初版误用键值格式，致全部依赖模块
+> 上下文加载失败，修复后以纯类名列表收口。
+
+
+## 5.7 RocketMQ 事件驱动集成规范（CHG-0025 晋升）
+
+跨服务写操作以「Envelope + Outbox + 幂等消费 + 补偿兜底」四件套实现最终一致，
+业务一致性优先于吞吐量：
+
+- **Envelope 七字段缺一不可**：eventId/eventType/eventVersion/occurredAt/producer/
+  traceId/payload；eventId 全局唯一，同时作为消息 keys 与全链路幂等键，
+  禁止以业务字段（orderNo/reservationNo）作幂等键。
+- **版本拒绝**：消费者收到高于自身支持 eventVersion 的事件必须明确拒绝并告警，
+  禁止静默按旧字段解析。
+- **Outbox 原子写入**：事件行与业务数据同事务持久化（写失败回滚业务事务），
+  禁止「先发消息后写库」；投递任务以 CAS（UPDATE ... WHERE status='PENDING'）
+  抢占领取，成功标 SENT，失败有界退避，同聚合按 created_at 顺序投递；
+  MQ 停机期间保留 PENDING 不删不标失败，恢复后续投。
+- **消费先占位后处理**：以 INSERT IGNORE 写 consumed_event (event_id, consumer_group)
+  唯一键占位，插入成功才处理业务，处理失败回滚占位；重复消息返回 DUPLICATE 直接 ACK。
+- **补偿复用不重建**：消费/自动取消失败登记为既有补偿聚合的新操作类型，
+  沿用 30s 扫描与有界退避，禁止新建独立补偿体系；多入口（延迟消息/兜底扫描/
+  补偿执行器）收敛到同一应用服务方法，CAS 状态机保证并发安全。
+- **开关单权威**：`rocketmq.enabled=false` 时生产/消费整体关闭，跨服务写操作
+  降级为 M4 同步路径（降级日志照记），禁止半开半闭；开关关闭时 Outbox 仍写入，
+  保留审计与恢复能力。
+- **打破构造器循环用 ObjectProvider**：执行器列表与被兜底服务相互依赖时，
+  以 `ObjectProvider` 延迟解析（首执行时取 Bean），禁止字段注入或散点 `@Lazy`。
+
+> 来源：CHG-0025 五个 Story 的设计/评审实践（六步消费链、CAS 投递、双幂等、
+> ORDER_AUTO_CANCEL 补偿复用、ObjectProvider 收口）。
+
+
 ---
 
 # 6. 日志框架规范

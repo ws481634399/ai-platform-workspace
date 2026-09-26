@@ -1458,7 +1458,7 @@ features:
                                   RocketMQ；MQ 停止保留 PENDING，恢复续投；有界指数退避重试，超限标
                                   FAILED；同聚合按 created_at 顺序投递；eventId 作消息
                                   keys；mall-admin Outbox 查询+手动重投,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }
@@ -1492,7 +1492,7 @@ features:
                                   调库存聚合幂等释放；乱序按订单当前状态判断；消费失败进 DLQ 由
                                   CompensationService 兜底；RocketMQ 不可用降级同步调用
                                   mall-inventory 内部 API,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }
@@ -1525,7 +1525,7 @@ features:
                                   OrderCancelService（cancelReason=PAYMENT_TIMEOUT）复用
                                   M4 既有取消流程；重复延迟消息基于订单状态幂等；保留
                                   CompensationService 定时扫描兜底；mall-admin 延迟取消任务查询,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }
@@ -1559,7 +1559,7 @@ features:
                                   三种补偿类型；CompensationService 每 30s 扫描（与 M4
                                   一致）；mall-admin 补偿任务查询+手动重试+标记完成；TraceId
                                   在事件→Outbox→投递→消费→补偿链路贯通,
-                                status: planned
+                                status: delivered
                               }
                           ]
                       }

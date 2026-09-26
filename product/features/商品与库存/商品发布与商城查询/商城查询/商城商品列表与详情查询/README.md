@@ -11,4 +11,10 @@ status: delivered
 
 商品列表/分类品牌筛选/分页排序/详情含 SKU 与价格
 
-_（尚未绑定任何 Change）_
+## Change 历史
+
+| ID | 状态 | Scope | 更新时间 | 审计包（相对链接） |
+|---|---|---|---|---|
+| CHG-0015 | completed | changes | 2026-09-15 01:02:22 | [打开](../../../../../delivery/changes/CHG-0015/) |
+
+> 当前绑定 Change：`CHG-0015`（completed）

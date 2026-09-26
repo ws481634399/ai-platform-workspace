@@ -2,7 +2,7 @@
 id: STORY-003-02-02-02
 name: 商品详情与 SKU 选择
 level: story
-status: planned
+status: delivered
 ---
 
 # 商品详情与 SKU 选择

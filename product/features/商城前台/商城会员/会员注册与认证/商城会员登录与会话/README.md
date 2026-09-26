@@ -2,7 +2,7 @@
 id: STORY-003-01-01-02
 name: 商城会员登录与会话
 level: story
-status: planned
+status: delivered
 ---
 
 # 商城会员登录与会话

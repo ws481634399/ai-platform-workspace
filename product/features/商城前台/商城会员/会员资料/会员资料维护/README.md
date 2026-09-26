@@ -2,7 +2,7 @@
 id: STORY-003-01-02-01
 name: 会员资料维护
 level: story
-status: planned
+status: delivered
 ---
 
 # 会员资料维护

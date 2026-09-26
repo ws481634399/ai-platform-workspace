@@ -438,6 +438,16 @@ PASS
 无异常
 ```
 
+### 8.1 Evidence YAML 中 commit sha 一律加引号（CHG-0025 晋升）
+
+evidence.yaml 等证据文件中，所有 commit sha（尤其短 sha）必须以双引号包裹：
+
+- YAML 1.1 将含 `e` 的形如 `967e359` 的 token 按科学计数法解析（→ Infinity），
+  Gate 读取到的 commit 值与真实提交完全不符。
+- 即便是不含 `e` 的 sha 也统一加引号，保持口径一致，避免后续截断换短 sha 时踩坑。
+
+> 来源：CHG-0025 sdd-review：未加引号的 sha 被解析为 Infinity 致 Gate 失败。
+
 
 ---
 

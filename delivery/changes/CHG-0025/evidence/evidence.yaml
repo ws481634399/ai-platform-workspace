@@ -57,4 +57,458 @@
 
 version: 0.1 # schema 版本
 change-id: "CHG-0025" # CHG-XXXX，创建时填充
-items: [] # Evidence 条目数组，按 recorded-at 升序
+items:
+  # ---- sdd-dev（STORY-009-05-01 前端补偿页，change 聚合补登记）----
+  - id: EV-001
+    type: code-change
+    repo: repo-2
+    commit: "344fefd"
+    task: T2
+    reason: DU-FE-003 补偿管理页筛选增强——操作类型下拉（三类操作白名单）、聚合 ID 输入框（回车/clear 触发查询）
+    files:
+      - path: mall-admin/src/views/order/CompensationListView.vue
+    recorded-at: "2026-09-26T09:30:00+08:00"
+  - id: EV-002
+    type: code-change
+    repo: repo-2
+    commit: "93a7ff2"
+    task: T3
+    reason: DU-FE-003 补偿载荷查看与人工操作——payload 弹窗 JSON 美化（非法回退原文）、重试按钮权限 system:compensation:retry、标记完成 popconfirm + system:compensation:complete + 成功提示
+    files:
+      - path: mall-admin/src/views/order/CompensationListView.vue
+    recorded-at: "2026-09-26T09:45:00+08:00"
+  - id: EV-003
+    type: code-change
+    repo: repo-2
+    commit: "5ce2ad0"
+    task: T4
+    reason: DU-FE-003 RocketMQ Dashboard 外链——VITE_ROCKETMQ_DASHBOARD_URL 非空才渲染入口
+    files:
+      - path: mall-admin/src/views/order/CompensationListView.vue
+    recorded-at: "2026-09-26T10:00:00+08:00"
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    commit: "f9f2b81"
+    task: T7
+    reason: DU-BE-005 PaymentTimeoutCheckHandler 失败登记补偿——systemCancel 非冲突异常时 enqueueOrderAutoCancel 后原样重抛
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/mq/PaymentTimeoutCheckHandler.java
+    recorded-at: "2026-09-26T10:20:00+08:00"
+  - id: EV-008
+    type: code-change
+    repo: repo-1
+    commit: "aba4dca"
+    task: T9
+    reason: DU-BE-005 管理台筛选/complete/审计/payload——operation/aggregateId/status 三筛选、白名单与 LIKE 转义、manualComplete、compensation-audit
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/admin/AdminCompensationController.java
+    recorded-at: "2026-09-26T10:20:00+08:00"
+  - id: EV-009
+    type: code-change
+    repo: repo-1
+    commit: "9c2849c"
+    task: T10
+    reason: DU-BE-005 mall-identity V15 权限——system:compensation:list/retry/complete 三权限与菜单 permission_code 更新
+    files:
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V15__compensation_permissions.sql
+    recorded-at: "2026-09-26T10:25:00+08:00"
+  - id: EV-010
+    type: code-change
+    repo: repo-1
+    commit: "d30f9a7"
+    task: T11
+    reason: DU-BE-005 ObjectProvider 打破构造器循环 + 全量回归收口
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/CompensationService.java
+    recorded-at: "2026-09-26T10:30:00+08:00"
+  - id: EV-011
+    type: code-change
+    repo: repo-2
+    commit: "5425717"
+    task: T1
+    reason: DU-FE-003 补偿 API 增强——page 支持 operation/aggregateId，新增 complete 端点，CompensationView 补 payload/traceId
+    files:
+      - path: mall-admin/src/api/order/order.ts
+    recorded-at: "2026-09-26T09:15:00+08:00"
+  - id: EV-012
+    type: code-change
+    repo: repo-2
+    commit: "61e2154"
+    task: T-FE-S4
+    reason: DU-FE-002 延迟任务管理页——delayTaskApi、状态 Tag、DelayTaskListView 筛选分页与手动取消二次确认
+    files:
+      - path: mall-admin/src/api/distributed.ts
+      - path: mall-admin/src/views/distributed/DelayTaskListView.vue
+    recorded-at: "2026-09-25T18:30:00+08:00"
+  - id: EV-013
+    type: code-change
+    repo: repo-1
+    commit: "25f83ee"
+    task: T1
+    reason: DU-BE-005 mall-inventory V3 consumed_event 迁移——七字段、uk_event_group、idx_aggregate
+    files:
+      - path: mall-services/mall-inventory/src/main/resources/db/migration/V3__consumed_event.sql
+    recorded-at: "2026-09-26T08:30:00+08:00"
+  - id: EV-014
+    type: code-change
+    repo: repo-1
+    commit: "ce8d0e9"
+    task: T2
+    reason: DU-BE-005 mall-order V6 consumed_event 迁移——idx_consumed_aggregate（H2 索引名规避）
+    files:
+      - path: mall-services/mall-order/src/main/resources/db/migration/V6__consumed_event.sql
+    recorded-at: "2026-09-26T08:40:00+08:00"
+  - id: EV-015
+    type: code-change
+    repo: repo-1
+    commit: "aa5be7f"
+    task: T3
+    reason: DU-BE-005 CompensationTask 扩展——OP_AUTO_CANCEL_ORDER、TYPE_ORDER、manualComplete
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/compensation/CompensationTask.java
+    recorded-at: "2026-09-26T08:50:00+08:00"
+  - id: EV-016
+    type: code-change
+    repo: repo-1
+    commit: "0050c01"
+    task: T8
+    reason: DU-BE-005 CompensationRepository.page 六参扩展（operation/aggregateId/status）
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/compensation/CompensationRepository.java
+    recorded-at: "2026-09-26T09:00:00+08:00"
+  - id: EV-017
+    type: code-change
+    repo: repo-1
+    commit: "2bb9123"
+    task: T4
+    reason: DU-BE-005 CompensationActionHandler 接口化 + OrderAutoCancelCompensationHandler
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/CompensationActionHandler.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/OrderAutoCancelCompensationHandler.java
+    recorded-at: "2026-09-26T09:05:00+08:00"
+  - id: EV-018
+    type: code-change
+    repo: repo-1
+    commit: "e3bb8d2"
+    task: T6
+    reason: DU-BE-005 CompensationService 列表化执行器选择、MDC 贯通、enqueueOrderAutoCancel
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/CompensationService.java
+    recorded-at: "2026-09-26T09:10:00+08:00"
+  - id: EV-019
+    type: code-change
+    repo: repo-1
+    commit: "369ebc9"
+    task: S4-T4
+    reason: DU-BE-004 建单收集 PAYMENT_TIMEOUT_CHECK 延迟事件
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/Order.java
+    recorded-at: "2026-09-25T15:00:00+08:00"
+  - id: EV-020
+    type: code-change
+    repo: repo-1
+    commit: "52e7b1c"
+    task: S4-T5
+    reason: DU-BE-004 assembler/flusher 支持延迟事件、同 flush 只读取一次超时
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/event/OrderEnvelopeAssembler.java
+    recorded-at: "2026-09-25T15:20:00+08:00"
+  - id: EV-021
+    type: code-change
+    repo: repo-1
+    commit: "6d90dad"
+    task: S4-T6
+    reason: DU-BE-004 延迟路由注册、投递按行内 delay_level 走 sendDelay
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/outbox/OutboxDeliveryTask.java
+    recorded-at: "2026-09-25T15:40:00+08:00"
+  - id: EV-022
+    type: code-change
+    repo: repo-1
+    commit: "740b4ab"
+    task: S4-T7
+    reason: DU-BE-004 抽出 doCancel、新增 systemCancel 系统取消入口
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/OrderCancelService.java
+    recorded-at: "2026-09-25T16:00:00+08:00"
+  - id: EV-023
+    type: code-change
+    repo: repo-1
+    commit: "97b8665"
+    task: S4-T8
+    reason: DU-BE-004 PAYMENT_TIMEOUT_CHECK 到期回查消费者
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/mq/PaymentTimeoutCheckHandler.java
+    recorded-at: "2026-09-25T16:20:00+08:00"
+  - id: EV-024
+    type: code-change
+    repo: repo-1
+    commit: "3b7ff3d"
+    task: S4-T9
+    reason: DU-BE-004 findExpiredPending 与超时兜底扫描器
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/OrderTimeoutFallbackScanner.java
+    recorded-at: "2026-09-25T16:40:00+08:00"
+  - id: EV-025
+    type: code-change
+    repo: repo-1
+    commit: "be4a55e"
+    task: S4-T10
+    reason: DU-BE-004 union 三源延迟任务视图、管理端查询/人工取消/审计
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/admin/DelayTaskAdminController.java
+    recorded-at: "2026-09-25T17:00:00+08:00"
+  - id: EV-026
+    type: code-change
+    repo: repo-1
+    commit: "61aba4d"
+    task: S4-T11
+    reason: DU-BE-004 V14 延迟取消权限与菜单种子
+    files:
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V14__order_delay_permissions.sql
+    recorded-at: "2026-09-25T17:20:00+08:00"
+  - id: EV-027
+    type: code-change
+    repo: repo-1
+    commit: "04a905e"
+    task: S4-T12
+    reason: DU-BE-004 延迟强制级别与兜底扫描配置 env 注入
+    files:
+      - path: mall-services/mall-order/src/main/resources/application.yml
+    recorded-at: "2026-09-25T17:40:00+08:00"
+  - id: EV-028
+    type: code-change
+    repo: repo-4
+    commit: "e2256b4"
+    task: S1-T1
+    reason: DU-INFRA-001 RocketMQ namesrv/broker/dashboard 三服务、broker.conf、版本变量
+    files:
+      - path: deploy/docker-compose.rocketmq.yml
+    recorded-at: "2026-09-22T20:30:00+08:00"
+  - id: EV-029
+    type: code-change
+    repo: repo-4
+    commit: "14290de"
+    task: S1-T4
+    reason: DU-INFRA-001 冒烟证据与实施文档回填
+    files:
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-INFRA-001/implementation.md
+    recorded-at: "2026-09-22T21:00:00+08:00"
+  - id: EV-030
+    type: code-change
+    repo: repo-1
+    commit: "1c53407"
+    task: S1-T1
+    reason: DU-BE-001 mall-bom rocketmq-spring-boot-starter 版本权威
+    files:
+      - path: mall-bom/pom.xml
+    recorded-at: "2026-09-22T21:20:00+08:00"
+  - id: EV-031
+    type: code-change
+    repo: repo-1
+    commit: "e7c8598"
+    task: S1-T2
+    reason: DU-BE-001 mall-event-contracts 契约包
+    files:
+      - path: mall-event-contracts/src/main/java/com/ai/mall/event/Envelope.java
+    recorded-at: "2026-09-22T21:40:00+08:00"
+  - id: EV-032
+    type: code-change
+    repo: repo-1
+    commit: "963a28c"
+    task: S1-T3
+    reason: DU-BE-001 EnvelopeProducer 三路发送
+    files:
+      - path: mall-common-mq/src/main/java/com/ai/mall/mq/RocketMQEnvelopeProducer.java
+    recorded-at: "2026-09-22T22:00:00+08:00"
+  - id: EV-033
+    type: code-change
+    repo: repo-1
+    commit: "68fcdc8"
+    task: S1-T4
+    reason: DU-BE-001 六步消费链与 fail-closed 开关装配
+    files:
+      - path: mall-common-mq/src/main/java/com/ai/mall/mq/AbstractIntegrationHandler.java
+    recorded-at: "2026-09-22T22:20:00+08:00"
+  - id: EV-034
+    type: code-change
+    repo: repo-1
+    commit: "ebdbbd9"
+    task: S1-T6
+    reason: DU-BE-001 TC-002~009 测试基线 26/26
+    files:
+      - path: mall-common-mq/src/test/java/com/ai/mall/mq/AbstractIntegrationHandlerTest.java
+    recorded-at: "2026-09-22T22:40:00+08:00"
+  - id: EV-035
+    type: code-change
+    repo: repo-1
+    commit: "f178ccc"
+    task: S1-T7
+    reason: DU-BE-001 实施记录与证据回填
+    files:
+      - path: delivery/CHG-0025/分布式增强/RocketMQ 事件基础设施/事件基础能力/RocketMQ 事件基础设施/DU-BE-001/implementation.md
+    recorded-at: "2026-09-22T23:00:00+08:00"
+  - id: EV-036
+    type: code-change
+    repo: repo-1
+    commit: "e375c40"
+    task: S2-T1
+    reason: DU-BE-002 Outbox 表 V4 + Writer + DeliveryTask + Admin + V13 + imports 修复
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/outbox/OutboxDeliveryTask.java
+    recorded-at: "2026-09-24T18:00:00+08:00"
+  - id: EV-037
+    type: code-change
+    repo: repo-2
+    commit: "c7e38ec"
+    task: S2-T2
+    reason: DU-FE-001 OutboxListView 管理页
+    files:
+      - path: mall-admin/src/views/distributed/OutboxListView.vue
+    recorded-at: "2026-09-24T18:30:00+08:00"
+  - id: EV-038
+    type: code-change
+    repo: repo-1
+    commit: "31f3b6c"
+    task: S3-T1
+    reason: DU-BE-003 订单聚合集成事件收集与 pull
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/order/Order.java
+    recorded-at: "2026-09-24T19:00:00+08:00"
+  - id: EV-039
+    type: code-change
+    repo: repo-1
+    commit: "6d59155"
+    task: S3-T2
+    reason: DU-BE-003 OrderEnvelopeAssembler 四事件组装
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/event/OrderEnvelopeAssembler.java
+    recorded-at: "2026-09-24T19:20:00+08:00"
+  - id: EV-040
+    type: code-change
+    repo: repo-1
+    commit: "2dca669"
+    task: S3-T3
+    reason: DU-BE-003 OutboxOrderEventFlusher 事务内 flush + IntegrationMode
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/event/OutboxOrderEventFlusher.java
+    recorded-at: "2026-09-24T19:40:00+08:00"
+  - id: EV-041
+    type: code-change
+    repo: repo-1
+    commit: "1482141"
+    task: S3-T4
+    reason: DU-BE-003 仓储 insert/transition 事务内 flush + findStatusById
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/order/MyBatisOrderRepository.java
+    recorded-at: "2026-09-24T20:00:00+08:00"
+  - id: EV-042
+    type: code-change
+    repo: repo-1
+    commit: "967e359"
+    task: S3-T5
+    reason: DU-BE-003 支付/取消异步分支与 MQ 关闭同步降级
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/payment/PaymentService.java
+    recorded-at: "2026-09-24T20:20:00+08:00"
+  - id: EV-043
+    type: code-change
+    repo: repo-1
+    commit: "317eb15"
+    task: S3-T6
+    reason: DU-BE-003 订单状态回查与补偿登记 internal 端点
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/internal/OrderStatusInternalController.java
+    recorded-at: "2026-09-24T20:40:00+08:00"
+  - id: EV-044
+    type: code-change
+    repo: repo-1
+    commit: "94960dc"
+    task: S3-T7
+    reason: DU-BE-003 库存 pom + 按订单号枚举预留 + OrderServiceClient
+    files:
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/integration/OrderServiceClient.java
+    recorded-at: "2026-09-24T21:00:00+08:00"
+  - id: EV-045
+    type: code-change
+    repo: repo-1
+    commit: "ae7cd00"
+    task: S3-T8
+    reason: DU-BE-003 PAYMENT_SUCCEEDED/ORDER_CANCELLED 库存消费者
+    files:
+      - path: mall-services/mall-inventory/src/main/java/com/ai/mall/inventory/interfaces/mq/PaymentSucceededInventoryHandler.java
+    recorded-at: "2026-09-24T21:20:00+08:00"
+  - id: EV-046
+    type: code-change
+    repo: repo-1
+    commit: "16c506d"
+    task: S3-T9
+    reason: DU-BE-003 两侧 rocketmq 段与 order-uri/timeout-minutes 配置
+    files:
+      - path: mall-services/mall-inventory/src/main/resources/application.yml
+    recorded-at: "2026-09-24T21:40:00+08:00"
+  - id: EV-047
+    type: code-change
+    repo: repo-1
+    commit: "ebdfb1a"
+    task: S4-T1
+    reason: DU-BE-004 outbox_event 加 delay_level 列并全链承载
+    files:
+      - path: mall-services/mall-order/src/main/resources/db/migration/V5__outbox_delay_level.sql
+    recorded-at: "2026-09-25T14:00:00+08:00"
+  - id: EV-048
+    type: code-change
+    repo: repo-1
+    commit: "d5fa92c"
+    task: S4-T2
+    reason: DU-BE-004 PaymentTimeoutPolicy 动态读取超时参数
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/PaymentTimeoutPolicy.java
+    recorded-at: "2026-09-25T14:20:00+08:00"
+  - id: EV-049
+    type: code-change
+    repo: repo-1
+    commit: "9022c8f"
+    task: S4-T3
+    reason: DU-BE-004 DelayLevelMapper 18 级向上对齐映射
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/DelayLevelMapper.java
+    recorded-at: "2026-09-25T14:40:00+08:00"
+  # ---- sdd-test（Change 级聚合 test-run）----
+  - id: EV-004
+    type: test-run
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory clean test（mall-order 118 / mall-inventory 37）
+    result: passed
+    summary:
+      total: 155
+      passed: 155
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-05-01/evidence/test-report.md
+    covers: [AC-010, AC-011, AC-014, AC-015, AC-016, AC-017, AC-018, AC-023, AC-024, AC-025, AC-026, AC-027, AC-028, AC-029, AC-030, AC-031, AC-032, AC-033, AC-035, AC-036, AC-037, AC-040, AC-043]
+    recorded-at: "2026-09-26T10:10:00+08:00"
+  - id: EV-005
+    type: test-run
+    command: mvn -pl mall-common-mq,mall-event-contracts test（32，含真实 broker IT）
+    result: passed
+    summary:
+      total: 32
+      passed: 32
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-01-01/evidence/test-report.md
+    covers: [AC-002, AC-003, AC-004, AC-005, AC-006, AC-007, AC-008, AC-009, AC-041]
+    recorded-at: "2026-09-26T10:10:00+08:00"
+  - id: EV-006
+    type: test-run
+    command: pnpm vitest run（mall-admin，33 测试文件 134 用例）
+    result: passed
+    summary:
+      total: 134
+      passed: 134
+      failed: 0
+      skipped: 0
+    log: evidence/test-report.md
+    covers: [AC-016, AC-032, AC-038]
+    recorded-at: "2026-09-26T10:15:00+08:00"

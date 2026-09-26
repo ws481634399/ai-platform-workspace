@@ -2,7 +2,7 @@
 id: STORY-003-02-01-02
 name: 公开分类与品牌查询
 level: story
-status: planned
+status: delivered
 ---
 
 # 公开分类与品牌查询

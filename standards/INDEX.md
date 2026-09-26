@@ -1,6 +1,6 @@
 # Standards 知识索引
 
-> 最后更新: 2026-09-23T23:40:00+08:00
+> 最后更新: 2026-09-26T10:40:00+08:00
 > 关联 Change: CHG-0001, CHG-0003, CHG-0004, CHG-0005, CHG-0007, CHG-0008, CHG-0009, CHG-0020, CHG-0021, CHG-0022, CHG-0024, CHG-0025
 
 ## 导航
@@ -17,7 +17,7 @@
 
 ## 测试规范
 - [测试规范](testing-conventions.md) — 测试金字塔、AAA 模式、边界值分析、覆盖率要求
-- [工程测试规范](engineering/testing-standard.md) — 测试要求、验证流程和测试证据管理规范
+- [工程测试规范](engineering/testing-standard.md) — 测试要求、验证流程和测试证据管理规范；**（CHG-0025 已晋升 §8.1）** evidence.yaml commit sha 一律双引号（防 YAML 1.1 科学计数法解析）
 
 ## 版本控制
 - [Git 规范](git-conventions.md) — 分支命名、Commit 消息格式、PR 流程、.gitignore 基线
@@ -34,9 +34,9 @@
 ## 后端工程规范（engineering/backend/）
 - [后端工程规范入口](engineering/backend/README.md) — 后端系统开发过程中的通用工程规范
 - [后端架构规范](engineering/backend/architecture-standard.md) — 后端系统架构设计规范
-- [后端框架使用规范](engineering/backend/framework-standard.md) — **（CHG-0001 已晋升 §7.3/§7.4）** 后端技术框架、基础设施组件和工程配置使用规范；含 Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线版本组合、四层 POM 体系 / mall-bom 无 parent / enforcer 守门 / BOM 版本权威 / 依赖边界单向规则；**（CHG-0025 已晋升 §5.5）** 消息消费者生命周期容器托管（SmartLifecycle，禁 JVM hook）
+- [后端框架使用规范](engineering/backend/framework-standard.md) — **（CHG-0001 已晋升 §7.3/§7.4）** 后端技术框架、基础设施组件和工程配置使用规范；含 Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线版本组合、四层 POM 体系 / mall-bom 无 parent / enforcer 守门 / BOM 版本权威 / 依赖边界单向规则；**（CHG-0025 已晋升 §5.5/§5.6/§5.7）** 消费者生命周期容器托管（SmartLifecycle）、AutoConfiguration.imports 纯类名列表、RocketMQ 事件驱动集成（Envelope 七字段/Outbox 原子+CAS/先占位后处理/补偿复用/开关单权威/ObjectProvider 破循环）
 - [后端接口设计规范](engineering/backend/api-design-standard.md) — 后端 API 接口实现规范；**（CHG-0015 已晋升 §5.3）** 雪花业务 ID 出参 @StringId 字符串化、入参保持 Long、金额数量分页保持 number
-- [后端数据库访问规范](engineering/backend/database-access-standard.md) — 后端 DAL 设计和实现规范；**（CHG-0025 增补 §9.1）** SQL 标识符只能来自受信配置且须白名单校验
+- [后端数据库访问规范](engineering/backend/database-access-standard.md) — 后端 DAL 设计和实现规范；**（CHG-0025 增补 §9.1）** SQL 标识符只能来自受信配置且须白名单校验；LIKE 参数 %/_ 通配符转义、空白归 null、枚举走白名单
 - [后端服务设计规范](engineering/backend/service-standard.md) — 后端服务层设计规范
 - [搜索引擎接入规范](engineering/backend/search-engine-standard.md) — **（CHG-0020/0021 已晋升）** Elasticsearch 只读投影：双映射 IK 回退、别名原子重建、PIT+_shard_doc 深分页、故障归一 503、AFTER_COMMIT 事件投影与有界退避死信、内部端点双层安全
 - [动态配置与功能开关规范](engineering/backend/dynamic-config-standard.md) — **（CHG-0022 已晋升）** 唯一写者配置中心边界、Redis 键/TTL 分层、AFTER_COMMIT 删键与本地 TTL 收敛（不做 Pub/Sub）、FeatureGate fail-open、Flyway DML 唯一播种+乐观锁、内部批量查询与密钥注入

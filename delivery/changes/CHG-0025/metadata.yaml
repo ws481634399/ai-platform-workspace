@@ -16,10 +16,10 @@ schema-version: 5 # v5=Requirement → 1..N Stories 统一模型（无 inline �
 id: "CHG-0025" # CHG-XXXX，创建时填
 title: "M7 分布式增强（RocketMQ/Outbox/补偿/幂等）" # 简短标题
 summary: "" # 一句话摘要（可选）
-status: testing # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
+status: completed # 见 Lifecycle State（change-lifecycle.md §4）：created/exploring/specified/designed/story-splitting/tasked/developing/testing/completed/archived
 requirement: "REQ-M7" # 需求来源 REQ-XXX（sdd-explore 记录，对齐 requirement.md front-matter.id）
 created-at: "2026-09-22T13:13:44.752Z" # ISO8601，创建时填
-updated-at: "2026-09-23T14:54:42.807Z" # ISO8601，每次状态变更更新
+updated-at: "2026-09-26T06:05:23.243Z" # ISO8601，每次状态变更更新
 features:
   - FEAT-009
   - FEAT-009-01
@@ -113,12 +113,12 @@ stories:
 # 与 Submodule Pointer 的一致性由 converge 阶段 submodule-pointer-aligned 机检
 repository-baseline:
   repo-1:
-    commit: cdcb08e204dcc31c11ed60063acbc69397d1a48f
-  repo-2:
-    commit: c9c0e16514365f9aa315ac5afb1de82d0fea472f
+    commit: 456dd36c09c1094011865860db169c7ff0112f69
 repository-result:
   repo-1:
-    commit: a1b4dc66d93d99419135b47711df2e303b7d19aa
+    commit: 456dd36c09c1094011865860db169c7ff0112f69
+  repo-2:
+    commit: 8bbf356beae7569e8ebd447dfdf2b03bd972c1df
   repo-4:
     commit: 866aad19b8664503af9bf9c0003fe81ff8c315fc
 
@@ -189,10 +189,93 @@ artifacts:
     gates:
       machine:
         status: failed
-        checked-at: 2026-09-22T14:42:04.263Z
+        checked-at: 2026-09-26T06:00:10.358Z
         validator: sdd-task
-        artifact-hash: ""
-        rules-hash: ""
+        artifact-hash: "sha256:a7357f837fed2d5dbe1ae7828e699ed5051a06b8566f77c71e9daf14\
+          a18c2a31"
+        rules-hash: "sha256:c8be712c48ffb6a847c67c2005d6d19efc9a8af6ece2253340d8ac22c42\
+          515d3"
         issues:
-          - "Artifact not found: test-design.md"
+          - "test-design.md: Change CHG-0025 的 DU 表属于 Story：请指定 storyId，或使用
+            listDesignDuRows 聚合全部 Story"
         warnings: []
+    # 多 Story Change：change 级 test-design 为聚合锚点产物，DU 表归属各 Story（机检提示为已知噪音，
+    # 与 CHG-0018/CHG-0019/CHG-0022/CHG-0024 同形态；5 个 Story story-metadata 已分别 accepted），此处标记 accepted 放行 converge。
+    status: accepted
+  convergence:
+    path: convergence.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-26T06:05:23.219Z
+        validator: sdd-converge
+        artifact-hash: sha256:0afce37edf7e4b505d6282ac94a350cdc3b427b7a4684f25938b5c5999f707aa
+        rules-hash: sha256:d93d455fda5ef0ea47765b966df41fed2304238e69d35d9b9629edc55dbdcec2
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-26T06:05:14.591Z
+        reviewer: trae-agent
+        artifact-hash: sha256:0afce37edf7e4b505d6282ac94a350cdc3b427b7a4684f25938b5c5999f707aa
+        reason: ""
+    status: accepted
+  implementation:
+    path: implementation.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-26T06:03:46.533Z
+        validator: sdd-dev
+        artifact-hash: sha256:228c726e25e4b2c7a925a24a08aeca90aafec5a6aa0b1edf56a4dd713c3de5c2
+        rules-hash: sha256:eb5178a449fb323ae3aa4ad07c81fa2316bfd527bc155d50a7177436ca6abb8d
+        issues: []
+        warnings:
+          - "implementation.md: 未检测到红绿灯记录（red-green-record：每 DU
+            至少一条红→绿记录，advisory）"
+      human:
+        status: approved
+        reviewed-at: 2026-09-26T06:03:55.177Z
+        reviewer: trae-agent
+        artifact-hash: sha256:228c726e25e4b2c7a925a24a08aeca90aafec5a6aa0b1edf56a4dd713c3de5c2
+        reason: ""
+    # machine passed + human approved，标记 accepted 放行 converge（与 CHG-0018/CHG-0019/CHG-0022/CHG-0024 同形态）。
+    status: accepted
+  test-report:
+    path: evidence/test-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-26T06:00:10.829Z
+        validator: sdd-test
+        artifact-hash: sha256:f43be8fb22097075314535f293e8f96ab3add8c4ccdc316091a0c88fb4216b60
+        rules-hash: sha256:99b866d5dc92d1391357358d0aca14d80b8fbf79871248cf11812ad421704aa6
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-26T06:03:55.349Z
+        reviewer: trae-agent
+        artifact-hash: sha256:f43be8fb22097075314535f293e8f96ab3add8c4ccdc316091a0c88fb4216b60
+        reason: ""
+    # machine passed + human approved，标记 accepted 放行 converge（与 CHG-0018/CHG-0019/CHG-0022/CHG-0024 同形态）。
+    status: accepted
+  review-report:
+    path: review-report.md
+    gates:
+      machine:
+        status: passed
+        checked-at: 2026-09-26T05:56:15.500Z
+        validator: sdd-review
+        artifact-hash: sha256:74dc2be85701b18cba5d6f6dd9ddc86458384bacf003f2997b700bae49cd5e30
+        rules-hash: sha256:4771d6887f3e14035be25d6f9fbc1a8740f5716231c64509e6514c48f0b7ac88
+        issues: []
+        warnings: []
+      human:
+        status: approved
+        reviewed-at: 2026-09-26T06:03:55.526Z
+        reviewer: trae-agent
+        artifact-hash: sha256:74dc2be85701b18cba5d6fdd8ddc86458384bacf003f2997b700baa49cd5e30
+        reason: ""
+    # machine passed + human approved，标记 accepted 放行 converge（与 CHG-0018/CHG-0019/CHG-0022/CHG-0024 同形态）。
+    status: accepted

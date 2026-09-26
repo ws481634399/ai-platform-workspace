@@ -1,6 +1,6 @@
 {
   "$schema": "sdd-knowledge-index/v0.1",
-  "updated-at": "2026-09-23T23:40:00+08:00",
+  "updated-at": "2026-09-26T10:40:00+08:00",
   "standards": [
     {
       "title": "规则知识说明",
@@ -75,9 +75,9 @@
     {
       "title": "测试规范（工程）",
       "path": "standards/engineering/testing-standard.md",
-      "tags": ["testing", "engineering", "qa"],
-      "summary": "软件开发过程中的测试要求、验证流程和测试证据管理规范",
-      "related-changes": []
+      "tags": ["testing", "engineering", "qa", "evidence", "yaml"],
+      "summary": "软件开发过程中的测试要求、验证流程和测试证据管理规范；CHG-0025 晋升 §8.1：evidence.yaml commit sha 一律双引号，防 YAML 1.1 科学计数法解析",
+      "related-changes": ["CHG-0025"]
     },
     {
       "title": "后端工程规范入口",
@@ -96,9 +96,9 @@
     {
       "title": "后端框架使用规范",
       "path": "standards/engineering/backend/framework-standard.md",
-      "tags": ["backend", "framework", "spring-boot", "spring-cloud", "maven", "version-governance"],
-      "summary": "后端技术框架、基础设施组件和工程配置使用规范；CHG-0001 晋升：Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线、四层 POM 体系、mall-bom 无 parent、enforcer 守门、BOM 版本权威与依赖单向边界；CHG-0025 晋升：消息消费者生命周期容器托管（SmartLifecycle，禁 JVM hook）",
-      "related-changes": ["CHG-0001"]
+      "tags": ["backend", "framework", "spring-boot", "spring-cloud", "maven", "version-governance", "rocketmq"],
+      "summary": "后端技术框架、基础设施组件和工程配置使用规范；CHG-0001 晋升：Java 21 + Spring Boot 3.5.15 + Spring Cloud 2025.0.3 + SCA 2025.0.0.0 唯一基线、四层 POM 体系、mall-bom 无 parent、enforcer 守门、BOM 版本权威与依赖单向边界；CHG-0025 晋升 §5.5/§5.6/§5.7：消费者 SmartLifecycle 托管、AutoConfiguration.imports 纯类名列表、RocketMQ 事件驱动集成（Envelope/Outbox CAS/先占位后处理/补偿复用/开关单权威/ObjectProvider 破循环）",
+      "related-changes": ["CHG-0001", "CHG-0025"]
     },
     {
       "title": "后端接口设计规范",
@@ -111,8 +111,8 @@
       "title": "后端数据库访问规范",
       "path": "standards/engineering/backend/database-access-standard.md",
       "tags": ["backend", "database", "dal", "mybatis"],
-      "summary": "后端系统数据库访问层的设计和实现规范，含事务、缓存、分页与审计；CHG-0025 增补：SQL 标识符只能来自受信配置且须白名单校验",
-      "related-changes": []
+      "summary": "后端系统数据库访问层的设计和实现规范，含事务、缓存、分页与审计；CHG-0025 增补：SQL 标识符只能来自受信配置且须白名单校验；LIKE 参数 %/_ 转义、空白归 null、枚举走白名单",
+      "related-changes": ["CHG-0025"]
     },
     {
       "title": "后端服务设计规范",
@@ -383,11 +383,11 @@
       "related-changes": []
     },
     {
-      "title": "统一语言词汇表（AI 领域首批）",
+      "title": "统一语言词汇表",
       "path": "product/glossary/terms.md",
-      "tags": ["glossary", "ai", "rag", "agent"],
-      "summary": "CHG-0024 首批 AI 领域术语：RAG、Grounding、Prompt Injection、Chunk、Embedding、kNN、sources、pendingAction、fail-closed",
-      "related-changes": ["CHG-0024"]
+      "tags": ["glossary", "ai", "rag", "agent", "distributed"],
+      "summary": "CHG-0024 AI 领域术语：RAG、Grounding、Prompt Injection、Chunk、Embedding、kNN、sources、pendingAction、fail-closed；CHG-0025 追加分布式消息术语：Envelope、Outbox、consumed_event、DLQ、延迟消息、有界退避、人工标记完成",
+      "related-changes": ["CHG-0024", "CHG-0025"]
     }
   ]
 }
