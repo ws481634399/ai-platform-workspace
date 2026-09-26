@@ -1,0 +1,210 @@
+# OpenSpec Evidence Model（Story 级聚合）
+#
+# Story: STORY-009-05-01 消费幂等与补偿机制（CHG-0025）
+# 本文件为 Workspace 侧 Story 级证据索引：code-change 条目与 implementation.md §2 各 commit 对齐。
+
+version: 0.1
+change-id: "CHG-0025"
+items:
+  - id: EV-001
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "25f83ee"
+    task: T1（mall-inventory consumed_event）
+    reason: 库存消费方落 consumed_event 幂等表，event_id+consumer_group 唯一键，对齐 ConsumedEventRepository
+    files:
+      - path: mall-services/mall-inventory/src/main/resources/db/migration/V3__create_consumed_event.sql
+    recorded-at: 2026-05-26T10:00:00+08:00
+
+  - id: EV-002
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "ce8d0e9"
+    task: T2（mall-order consumed_event，DEV-1）
+    reason: 订单消费方同构幂等表；索引名 idx_consumed_aggregate 规避 H2 schema 级同名冲突
+    files:
+      - path: mall-services/mall-order/src/main/resources/db/migration/V6__create_consumed_event.sql
+    recorded-at: 2026-05-26T10:05:00+08:00
+
+  - id: EV-003
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "aa5be7f"
+    task: T3（聚合扩展）
+    reason: CompensationTask 增加 OP_AUTO_CANCEL_ORDER；manualComplete 保留原错误追加 MANUAL_COMPLETE
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/compensation/CompensationTask.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/domain/compensation/CompensationTaskTest.java
+    recorded-at: 2026-05-26T10:15:00+08:00
+
+  - id: EV-004
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "0050c01"
+    task: T8（仓储过滤扩展，提前实施）
+    reason: page 扩 6 参 businessType/operation/businessId/status；type/operation 精确、businessId like、空串忽略
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/domain/compensation/CompensationRepository.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/infrastructure/persistence/compensation/MyBatisCompensationRepository.java
+    recorded-at: 2026-05-26T10:20:00+08:00
+
+  - id: EV-005
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "2bb9123"
+    task: T4-T5（执行器接口化）
+    reason: CompensationActionHandler 接口 + InventoryCompensationHandler 适配 + OrderAutoCancelCompensationHandler 调 systemCancel(COMPENSATION)
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/CompensationActionHandler.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/InventoryCompensationHandler.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/OrderAutoCancelCompensationHandler.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/OrderAutoCancelCompensationPayload.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/compensation/OrderAutoCancelCompensationHandlerTest.java
+    recorded-at: 2026-05-26T10:30:00+08:00
+
+  - id: EV-006
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "e3bb8d2"
+    task: T6（服务列表化调度）
+    reason: 执行器列表化、执行期 MDC 沿用任务 traceId、enqueueOrderAutoCancel 幂等登记
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/CompensationService.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/compensation/CompensationServiceDispatchTest.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/compensation/CompensationServiceEnqueueTraceTest.java
+    recorded-at: 2026-05-26T10:40:00+08:00
+
+  - id: EV-007
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "f9f2b81"
+    task: T7（失败即登记补偿）
+    reason: PaymentTimeoutCheckHandler 非 CONFLICT 异常登记 ORDER_AUTO_CANCEL 补偿后重抛；CONFLICT 归并 SKIPPED
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/order/consumer/PaymentTimeoutCheckHandler.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/application/order/consumer/PaymentTimeoutCheckHandlerTest.java
+    recorded-at: 2026-05-26T10:50:00+08:00
+
+  - id: EV-008
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "aba4dca"
+    task: T9（管理台增强）
+    reason: operation 白名单/aggregateId 通配符转义/payload 透传/POST complete/compensation-audit/新权限码
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/AdminCompensationController.java
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/interfaces/rest/admin/dto/AdminOrderDtos.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/interfaces/rest/admin/AdminCompensationControllerTest.java
+    recorded-at: 2026-05-26T11:00:00+08:00
+
+  - id: EV-009
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "9c2849c"
+    task: T10（权限菜单种子）
+    reason: V15 三权限、既有补偿菜单 permission_code 切换、SUPER_ADMIN 授权（旧 order:compensation 保留）
+    files:
+      - path: mall-services/mall-identity/src/main/resources/db/migration/V15__compensation_manage_permissions.sql
+    recorded-at: 2026-05-26T11:10:00+08:00
+
+  - id: EV-010
+    type: code-change
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "d30f9a7"
+    task: T11（循环修复 + 全量回归，DEV-3）
+    reason: ObjectProvider 延迟解析执行器打破构造器循环；OrderApiTest 权限码切换对齐
+    files:
+      - path: mall-services/mall-order/src/main/java/com/ai/mall/order/application/compensation/CompensationService.java
+      - path: mall-services/mall-order/src/test/java/com/ai/mall/order/interfaces/rest/OrderApiTest.java
+    recorded-at: 2026-05-26T11:20:00+08:00
+
+  - id: EV-011
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-003
+    commit: "5425717"
+    task: FE T1（补偿 API）
+    reason: page 增加 operation/aggregateId；新增 complete；CompensationView 加 payload/traceId
+    files:
+      - path: mall-admin/src/api/order/order.ts
+      - path: mall-admin/src/api/order/order.spec.ts
+    recorded-at: 2026-05-26T14:00:00+08:00
+
+  - id: EV-012
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-003
+    commit: "344fefd"
+    task: FE T2（筛选区）
+    reason: 操作类型下拉三选项 + 聚合 ID 输入
+    files:
+      - path: mall-admin/src/views/order/CompensationListView.vue
+    recorded-at: 2026-05-26T14:15:00+08:00
+
+  - id: EV-013
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-003
+    commit: "93a7ff2"
+    task: FE T3（payload/完成）
+    reason: payload 弹窗美化查看；重试权限码更新；标记完成 popconfirm/权限/提示/刷新
+    files:
+      - path: mall-admin/src/views/order/CompensationListView.vue
+    recorded-at: 2026-05-26T14:30:00+08:00
+
+  - id: EV-014
+    type: code-change
+    repo: repo-2
+    delivery-unit: DU-FE-003
+    commit: "5ce2ad0"
+    task: FE T4（Dashboard 外链）
+    reason: VITE_ROCKETMQ_DASHBOARD_URL 配置化外链，未配置不渲染
+    files:
+      - path: mall-admin/src/views/order/CompensationListView.vue
+    recorded-at: 2026-05-26T14:45:00+08:00
+
+  - id: EV-015
+    type: test-run
+    repo: repo-1
+    delivery-unit: DU-BE-005
+    commit: "d30f9a7"
+    task: TC-001~009、TC-011（后端）
+    reason: mall-order 118/118、mall-inventory 37/37 全绿；M4/M5/S1~S4 零回退
+    command: mvn -pl mall-services/mall-order,mall-services/mall-inventory clean test
+    result: passed
+    summary:
+      total: 155
+      passed: 155
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-05-01/evidence/test-report.md
+    covers: [AC-033, AC-034, AC-035, AC-036, AC-037, AC-039, AC-040]
+    recorded-at: 2026-05-26T15:00:00+08:00
+
+  - id: EV-016
+    type: test-run
+    repo: repo-2
+    delivery-unit: DU-FE-003
+    commit: "5ce2ad0"
+    task: TC-010、TC-011（前端）
+    reason: mall-admin 33 个测试文件 / 134 用例全部通过
+    command: npx vitest run
+    result: passed
+    summary:
+      total: 134
+      passed: 134
+      failed: 0
+      skipped: 0
+    log: stories/STORY-009-05-01/evidence/test-report.md
+    covers: [AC-038, AC-040]
+    recorded-at: 2026-05-26T15:05:00+08:00
