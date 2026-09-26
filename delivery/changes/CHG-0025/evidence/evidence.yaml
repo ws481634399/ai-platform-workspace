@@ -512,3 +512,28 @@ items:
     log: evidence/test-report.md
     covers: [AC-016, AC-032, AC-038]
     recorded-at: "2026-09-26T10:15:00+08:00"
+  # ---- sdd-test（M7 Integration Gate 七场景真实运行态）----
+  - id: EV-050
+    type: code-change
+    repo: repo-1
+    commit: "db28b6a"
+    task: IG
+    reason: Integration Gate 真实 broker 暴露的三个装配缺陷——自动配置排序（after JdbcTemplateAutoConfiguration）、同组订阅归并（合并订阅+tag 分发）、SKIPPED 收尾 CAS 不覆盖
+    files:
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/config/RocketMQAutoConfiguration.java
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/ListenerGroupFactory.java
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/IdempotentConsumer.java
+      - path: mall-common/mall-common-mq/src/main/java/com/ai/mall/common/mq/consumer/ConsumedEventRepository.java
+    recorded-at: "2026-09-26T19:57:00+08:00"
+  - id: EV-051
+    type: test-run
+    command: 七微服务真实联调（MySQL/Nacos/RocketMQ 5.3.4），jshell 探针投递真实 broker
+    result: passed
+    summary:
+      total: 7
+      passed: 7
+      failed: 0
+      skipped: 0
+    log: evidence/test-report.md#5
+    covers: [AC-019, AC-020, AC-034, AC-022, AC-012, AC-013, AC-024, AC-007, AC-035, AC-036, AC-027, AC-029, AC-030]
+    recorded-at: "2026-09-26T20:12:00+08:00"
